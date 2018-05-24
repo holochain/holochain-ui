@@ -1,0 +1,13 @@
+{
+	"title": "social_dna",
+	"type": "object",
+	"properties": {
+		"content": {
+			"type": "string"
+		},
+		"timestamp": {
+			"type": "integer"
+		}
+	},
+    "required": ["content", "timestamp"]
+}

@@ -1,0 +1,45 @@
+{
+  "Version": 1,
+  "UUID": "758af350-30b0-11e8-abc9-80e650006988",
+  "Name": "holo-keys",
+  "Properties": {
+    "description": "provides an application template",
+    "language": "en"
+  },
+  "PropertiesSchemaFile": "properties_schema.json",
+  "RequiresVersion": 23,
+  "DHTConfig": {
+    "HashType": "sha2-256",
+    "NeighborhoodSize": 0
+  },
+  "Progenitor": {
+    "Identity": "",
+    "PubKey": null
+  },
+  "Zomes": [
+    {
+      "Name": "verify",
+      "Description": "provide a sample zome",
+      "CodeFile": "verify.js",
+      "RibosomeType": "js",
+      "BridgeFuncs": [
+        "getSignature",
+        "getGenesisPublicKey"
+      ],
+      "Config": null,
+      "Entries": [],
+      "Functions": [
+        {
+          "Name": "getSignature",
+          "CallingType": "string",
+          "Exposure": "public"
+        },
+        {
+          "Name": "getGenesisPublicKey",
+          "CallingType": "string",
+          "Exposure": "public"
+        }
+      ]
+    }
+  ]
+}

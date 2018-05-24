@@ -1,0 +1,10 @@
+{
+	"title": "social_dna",
+	"type": "object",
+	"properties": {
+		"message": {
+			"type": "string"
+		}
+	},
+    "required": ["message"]
+}

@@ -1,0 +1,67 @@
+{
+  "Version": 1,
+  "UUID": "b56afc71-5bf5-41ff-99ec-07696634dc50",
+  "Name": "holo-chain",
+  "Properties": {
+    "description": "Nervous System",
+    "language": "en"
+  },
+  "PropertiesSchemaFile": "properties_schema.json",
+  "RequiresVersion": 0,
+  "DHTConfig": {
+    "HashType": "sha2-256",
+    "NeighborhoodSize": 0
+  },
+  "Progenitor": {
+    "Identity": "",
+    "PubKey": null
+  },
+  "Zomes": [
+    {
+      "Name": "holochain",
+      "Description": "Does CRUD on Features",
+      "CodeFile": "features.js",
+      "RibosomeType": "js",
+      "BridgeFuncs": null,
+      "Config": {
+        "ErrorHandling": "throwErrors"
+      },
+      "Entries": [
+        {
+          "Name": "feature",
+          "DataFormat": "json",
+          "Schema": "",
+          "SchemaFile": "feature.json",
+          "Sharing": "public"
+        }
+      ],
+      "Functions": [
+        {
+          "Name": "featuresList",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "featureCreate",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "featureRead",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "featureUpdate",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "featureDelete",
+          "CallingType": "json",
+          "Exposure": "public"
+        }
+      ]
+    }
+  ]
+}

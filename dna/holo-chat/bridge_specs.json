@@ -1,0 +1,22 @@
+[
+  {
+    "Path": "../holo-keys",
+    "Side": 1,
+    "BridgeZome": "genesis"
+  },
+  {
+    "Path": "./cells/Holo_Community",
+    "Side": 1,
+    "BridgeZome": "messages"
+  },
+  {
+    "Path": "../holo-vault",
+    "Side": 1,
+    "BridgeZome": "genesis"
+  },
+  {
+    "Path": "./cells/Aussie_DJs",
+    "Side": 1,
+    "BridgeZome": "messages"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "Path": "./dna/holo-keys",
+    "Side": 1,
+    "BridgeZome": "verify"
+  },
+  {
+    "Path": "./dna/holo-chat/cells/Holo_Community",
+    "Side": 1,
+    "BridgeZome": "messages"
+  },
+  {
+    "Path": "./dna/holo-vault",
+    "Side": 1,
+    "BridgeZome": "profiles"
+  },
+  {
+    "Path": "./dna/holo-chat/cells/Aussie_DJs",
+    "Side": 1,
+    "BridgeZome": "messages"
+  }
+]

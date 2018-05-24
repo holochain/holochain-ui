@@ -1,0 +1,39 @@
+{
+    "Tests": [
+        {
+            "Convey": "During gensis of a related app the Public Key is returned",
+            "Zome": "verify",
+            "Input": "getGenesisPublicKey() === get(App.Key.Hash);",
+            "Output": true,
+            "Err": null,
+            "ErrMsg": "",
+            "Regexp": "",
+            "Time": 0,
+            "Wait": 0,
+            "Exposure": "public",
+            "Raw": true,
+            "Repeat": 0,
+            "Benchmark": false
+        },
+        {
+            "Convey": "During gensis of a related app a private key signed message is returned",
+            "Zome": "verify",
+            "Input": "getSignature() === sign('Revocation Method')",
+            "Output": true,
+            "Err": null,
+            "ErrMsg": "",
+            "Regexp": "",
+            "Time": 0,
+            "Wait": 0,
+            "Exposure": "public",
+            "Raw": true,
+            "Repeat": 0,
+            "Benchmark": false
+        }
+    ],
+    "Identity": "",
+    "Fixtures": {
+        "Agents": null
+    },
+    "Benchmark": false
+}

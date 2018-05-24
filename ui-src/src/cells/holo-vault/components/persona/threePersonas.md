@@ -1,0 +1,5 @@
+**Existing Personas**
+When you are filling out a Profile for an app you can select information you have previously entered into *Holo Vault*. The previously entered infromation is stored as a **Persona**. Start typing the information into the field and the autocomplete will let you select the information from Persona you want to use. You can also enter new information that will be stored in a Persona with the name of the requesting app.
+
+**Try it out**
+Type **P** into the *First Name* field and you will see all of the Personas that have a field that starts with *P*.  Select one of them. Now either select the other fields or add new data and click the Create Profile button. Click the Action Logger tab and open up the the 2 objects that are created and you can see what gets sent to Holochain. The top one is the new *Persona* object with your details and the second is the *Profile Mapping* object the requesting app gets access to. The requesting app then uses this mapping in future to request access to your personal data.
