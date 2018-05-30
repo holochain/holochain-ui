@@ -32,7 +32,7 @@
       "CodeFile": "messages.js",
       "RibosomeType": "js",
       "Config": {
-              "ErrorHandling": "returnErrorValue"
+              "ErrorHandling": "throwErrors"
             },
       "BridgeFuncs": [
         "getMessages",

@@ -5,8 +5,7 @@ function genesis() {
 }
 
 function bridgeGenesis(side, dna, appData) {
-  debug(getBridges())
-  debug('HoloKeys ' + App.Name + ' Bridged to: DNA: ' + dna + ' appData: ' + appData)
+  debug(App.Name + ' Bridged to: DNA: ' + dna)
   return true;
 }
 

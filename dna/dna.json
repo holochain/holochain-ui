@@ -18,46 +18,27 @@
   },
   "Zomes": [
     {
-      "Name": "holochain",
-      "Description": "Does CRUD on Features",
-      "CodeFile": "features.js",
+      "Name": "genesis",
+      "Description": "Verifies your rights to manage the keys",
+      "CodeFile": "genesis.js",
       "RibosomeType": "js",
-      "BridgeFuncs": null,
+      "Config": null,
+      "Entries": [],
+      "Functions": []
+    },
+    {
+      "Name": "holochain",
+      "Description": "Checks your ability to bridge to DHTs and has the Bridging Function",
+      "CodeFile": "holochain.js",
+      "RibosomeType": "js",
+      "BridgeFuncs": [],
       "Config": {
         "ErrorHandling": "throwErrors"
       },
-      "Entries": [
-        {
-          "Name": "feature",
-          "DataFormat": "json",
-          "Schema": "",
-          "SchemaFile": "feature.json",
-          "Sharing": "public"
-        }
-      ],
+      "Entries": [],
       "Functions": [
         {
-          "Name": "featuresList",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "featureCreate",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "featureRead",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "featureUpdate",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "featureDelete",
+          "Name": "callBridgedFunction",
           "CallingType": "json",
           "Exposure": "public"
         }

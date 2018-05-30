@@ -2,12 +2,12 @@
   {
     "Path": "../welcome",
     "Side": 1,
-    "BridgeZome": "messages"
+    "BridgeZome": "genesis"
   },
   {
     "Path": "../technical",
     "Side": 1,
-    "BridgeZome": "messages"
+    "BridgeZome": "genesis"
   },
   {
     "Path": "../holo-keys",

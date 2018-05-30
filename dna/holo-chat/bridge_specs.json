@@ -7,7 +7,7 @@
   {
     "Path": "./cells/Holo_Community",
     "Side": 1,
-    "BridgeZome": "messages"
+    "BridgeZome": "genesis"
   },
   {
     "Path": "../holo-vault",

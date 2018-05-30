@@ -1,0 +1,30 @@
+{
+  "Tests": [
+    {
+      "Convey": "All HC functions are accessed through the one function that bridges to the appropriate DHT.",
+      "Details": "This method lets you easily access any bridged app",
+      "Zome": "holochain",
+      "Input": "callBridgedFunction({'channel': 'Aussie_DJs','zome': 'messages','function': 'createMessage','data': {'message': 'Posting to the group'}}).indexOf('Qm') === 0",
+      "Output": true,
+      "Err": "",
+      "Raw": true
+    },
+    {
+      "Convey": "Check we can bridge to the Vault",
+      "Details": "Create a Persona",
+      "Zome": "holochain",
+      "Input": "callBridgedFunction({'channel':'holo-vault','zome':'personas','function':'personaCreate','data':{'name':'AwesomeApp','personaFields':[{'userName':'@philt3r'},{'dogsname':'Thor'}]}}).indexOf('Qm') === 0",
+      "Output": true,
+      "Err": "",
+      "Raw": true
+    },
+    {
+      "Convey": "Check we can list peronas in the Vault via the bridge",
+      "Zome": "holochain",
+      "Input": "callBridgedFunction({'channel':'holo-vault','zome':'personas','function':'personasList','data':''}).length === 1",
+      "Output": true,
+      "Err": "",
+      "Raw": true
+    }
+  ]
+}

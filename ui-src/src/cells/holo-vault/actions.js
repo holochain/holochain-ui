@@ -27,6 +27,7 @@ export function profileMappingCreate(profileMapping) {
 }
 
 export function personaCreate(persona) {
+  persona.channel = 'holo-vault'
   return {
     type: PERSONACREATE,
     meta: {
@@ -53,7 +54,8 @@ export function personasList() {
     type: PERSONASLIST,
     meta: {
       isHc: true,
-      namespace: 'personas'
+      namespace: 'personas',
+      data: {'channel': 'holo-vault'}
     }
   }
 }

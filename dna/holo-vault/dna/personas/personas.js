@@ -62,7 +62,10 @@ function personaDelete (personaHash) {
 // -----------------------------------------------------------------
 //  The Genesis Function https://developer.holochain.org/genesis
 // -----------------------------------------------------------------
-
+function bridgeGenesis(side, dna, appData) {
+  debug(App.Name + ' Bridged to: DNA: ' + dna)
+  return true;
+}
 /**
  * Called only when your source chain is generated
  * @return {boolean} success
