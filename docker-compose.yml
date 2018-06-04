@@ -8,7 +8,7 @@ services:
       - "3142:3142"
     command: bs
 
-  holo-vault1:
+  holochain-ui1:
     image: holochain/holochain-proto:develop
     ports:
       - "3141:3141"
@@ -18,7 +18,7 @@ services:
       - "${TARGETDIR}:/holochain-ui"
     command: bash -c "cd /holochain-ui; hcdev -agentID=lucy -bootstrapServer=bootstrap:3142 web 3141"
 
-  holo-vault2:
+  holochain-ui2:
     image: holochain/holochain-proto:develop
     ports:
       - "4141:4141"
@@ -28,7 +28,7 @@ services:
       - "${TARGETDIR}:/holochain-ui"
     command: bash -c "cd /holochain-ui; hcdev -agentID=phil -bootstrapServer=bootstrap:3142 web 4141"
 
-  holo-vault3:
+  holochain-ui3:
     image: holochain/holochain-proto:develop
     ports:
       - "5141:5141"

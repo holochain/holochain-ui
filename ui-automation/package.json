@@ -7,7 +7,7 @@
   "author": "Philip Beadle",
   "license": "MIT",
   "scripts": {
-    "test": "CYPRESS_baseUrl=http://localhost:4141 cypress run",
+    "test": "CYPRESS_baseUrl=http://localhost:3000 cypress run",
     "cypress:open": "CYPRESS_baseUrl=http://localhost:3000 cypress open",
     "cypress:docker": "CYPRESS_baseUrl=http://localhost:4141 cypress open"
   },
