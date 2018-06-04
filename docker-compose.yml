@@ -15,8 +15,8 @@ services:
     depends_on:
       - bootstrap
     volumes:
-      - "${TARGETDIR}:/holo-vault"
-    command: bash -c "cd /holo-vault; hcdev -agentID=lucy -bootstrapServer=bootstrap:3142 web 3141"
+      - "${TARGETDIR}:/holochain-ui"
+    command: bash -c "cd /holochain-ui; hcdev -agentID=lucy -bootstrapServer=bootstrap:3142 web 3141"
 
   holo-vault2:
     image: holochain/holochain-proto:develop
@@ -25,8 +25,8 @@ services:
     depends_on:
       - bootstrap
     volumes:
-      - "${TARGETDIR}:/holo-vault"
-    command: bash -c "cd /holo-vault; hcdev -agentID=phil -bootstrapServer=bootstrap:3142 web 4141"
+      - "${TARGETDIR}:/holochain-ui"
+    command: bash -c "cd /holochain-ui; hcdev -agentID=phil -bootstrapServer=bootstrap:3142 web 4141"
 
   holo-vault3:
     image: holochain/holochain-proto:develop
@@ -35,5 +35,5 @@ services:
     depends_on:
       - bootstrap
     volumes:
-      - "${TARGETDIR}:/holo-vault"
-    command: bash -c "cd /holo-vault; hcdev -agentID=clarence -bootstrapServer=bootstrap:3142 web 5141"
+      - "${TARGETDIR}:/holochain-ui"
+    command: bash -c "cd /holochain-ui; hcdev -agentID=clarence -bootstrapServer=bootstrap:3142 web 5141"

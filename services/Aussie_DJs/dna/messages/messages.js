@@ -29,11 +29,11 @@ function listMessages(){
 //   return { 'hash' : createMessage, 'channel': value.channel }
 // }
 
-function createMessage(value){
-  debug('createMessage' + App.Name + value.message)
-  var createMessage = commit('message', {'message': value.message})
+function createMessage(data){
+  debug('createMessage' + App.Name + data.message)
+  var createMessage = commit('message', {'message': data.message})
   debug('createMessage ' + createMessage)
-  debug('link' + commit('message_link', { Links:[{Base: App.DNA.Hash, Link: createMessage, Tag: 'message'}]}))
+  commit('message_link', { Links:[{Base: App.DNA.Hash, Link: createMessage, Tag: 'message'}]})
   return createMessage
 }
 
