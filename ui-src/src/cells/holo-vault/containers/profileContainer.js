@@ -18,7 +18,25 @@ const mapStateToProps = (state, ownProps) => {
     selectedProfile.profileSpec.profile.forEach(function(profile){
       if(selectedProfile.mapping.profile[profile.appLabel] !== undefined){
         profile.personaField = selectedProfile.mapping.profile[profile.appLabel].replace('.', ' (') + ')'
-        profile.value = selectedProfile.mapping.profile[profile.appLabel]
+        //Get the value from the Persona
+        let mapId = selectedProfile.mapping.profile[profile.appLabel]
+        let personaId = mapId.split('.')[0]
+        let personaValueid = mapId.split('.')[1]
+        console.log(mapId)
+        console.log(personaId)
+        console.log(personaValueid)
+        console.log(state.holoVault.profile.personas)
+        let selectedPersona = state.holoVault.profile.personas.filter(function (persona){
+          console.log(persona)
+          return persona.persona.name === personaId
+        })[0]
+        let profileValue = selectedPersona.persona.personaFields.filter(function (field){
+          return Object.keys(field)[0] === personaValueid
+        })[0]
+        console.log(selectedPersona.persona.personaFields)
+        console.log(profileValue[personaValueid])
+
+        profile.value = profileValue[personaValueid]
       }
     })
   } else {

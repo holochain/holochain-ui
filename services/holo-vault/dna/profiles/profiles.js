@@ -35,14 +35,14 @@ function profileSpecCreate (profileSpecEntry) {
   return profileSpecHash;
 }
 
-function prolfilesList () {
+function profilesList () {
   var personas = query({
     Return: {
       Hashes: true,
       Entries: true
     },
     Constrain: {
-      EntryTypes: ["persona"]
+      EntryTypes: ["profile"]
     }
   })
 
@@ -69,6 +69,10 @@ function genesis () {
   return true;
 }
 
+function bridgeGenesis(side, dna, appData) {
+  debug(App.Name + ' Profiles Bridged to: DNA: ' + dna)
+  return true;
+}
 // -----------------------------------------------------------------
 //  Validation functions for every change to the local chain or DHT
 // -----------------------------------------------------------------

@@ -7,7 +7,7 @@ import Typography from 'material-ui/Typography';
 import List from 'material-ui/List'
 import { ListItem, ListItemAvatar, ListItemText } from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
-import listfeatures from './listFeatures.md'
+// import listfeatures from './listFeatures.md'
 // import Markdown from 'react-markdown'
 const styles = theme => ({
   root: {

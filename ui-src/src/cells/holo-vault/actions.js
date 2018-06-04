@@ -16,6 +16,7 @@ export function cellsList() {
 }
 
 export function profileMappingCreate(profileMapping) {
+  profileMapping.channel = 'holo-vault'
   return {
     type: PROFILEMAPPINGCREATE,
     meta: {
@@ -39,6 +40,7 @@ export function personaCreate(persona) {
 }
 
 export function personaUpdate(persona) {
+  persona.channel = 'holo-vault'
   return {
     type: PERSONAUPDATE,
     meta: {
@@ -65,7 +67,8 @@ export function profilesList() {
     type: PROFILESLIST,
     meta: {
       isHc: true,
-      namespace: 'profiles'
+      namespace: 'profiles',
+      data: {'channel': 'holo-vault'}
     }
   }
 }

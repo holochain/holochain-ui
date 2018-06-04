@@ -27,7 +27,8 @@
         "personaCreate",
         "personaRead",
         "personaUpdate",
-        "personaDelete"],
+        "personaDelete"
+      ],
       "Config": {
         "ErrorHandling": "throwErrors"
       },
@@ -73,8 +74,10 @@
       "Description": "Each app that wants to use your personal information will use HoloVault and the apps name will be displayed in the second line of the description.",
       "CodeFile": "profiles.js",
       "RibosomeType": "js",
-      "BridgeFuncs": null,
-      "Config": null,
+      "BridgeFuncs": ["profileMappingCreate"],
+      "Config": {
+        "ErrorHandling": "throwErrors"
+      },
       "Entries": [
         {
           "Name": "profileMapping",

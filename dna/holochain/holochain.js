@@ -15,7 +15,7 @@ function callBridgedFunction(bridgeCall){
 }
 
 function getDNA(channel){
-  // debug('getDNA ' + channel)
+  debug('getDNA ' + channel)
   var dnaList = getBridges()
   // debug(dnaList)
   var dnaEntry = dnaList.filter(function(dna){
