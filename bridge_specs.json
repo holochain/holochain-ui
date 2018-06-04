@@ -1,21 +1,21 @@
 [
   {
-    "Path": "./dna/holo-keys",
+    "Path": "./services/holo-keys",
     "Side": 1,
     "BridgeZome": "genesis"
   },
   {
-    "Path": "./dna/holo-chat/cells/Holo_Community",
+    "Path": "./services/Holo_Community",
     "Side": 1,
     "BridgeZome": "genesis"
   },
   {
-    "Path": "./dna/holo-vault",
+    "Path": "./services/holo-vault",
     "Side": 1,
     "BridgeZome": "genesis"
   },
   {
-    "Path": "./dna/holo-chat/cells/Aussie_DJs",
+    "Path": "./services/Aussie_DJs",
     "Side": 1,
     "BridgeZome": "genesis"
   }
