@@ -51,9 +51,15 @@ storiesOf('HoloVault/Profile', module)
     specs(() => describe('HoloVault/New Profile Existing Personas', function () {
       it('Creating a Profile by adding new entries sends a full Persona and a PersonaMapping', () => {
         const wrapper = mount(getProfile(constants.profile1.profileSpec, constants.personas, constants.profile1.mapping))
-        wrapper.find('input[name="firstName"]').simulate('change', {target: {value: 'Phil'}})
-        wrapper.find('input[name="lastName"]').simulate('change', {target: {value: 'Beadle'}})
-        wrapper.find('input[name="handle"]').simulate('change', {target: {value: '@philt3r'}})
+        const inputField = wrapper.find('input[name="handle"]')
+        inputField.simulate('change', { target: {value: "@"}});
+        inputField.simulate('focus');
+        const selection = wrapper.find('react-autowhatever-1--item-0')
+        inputField.simulate('click');
+//react-autowhatever-1--item-0
+        //wrapper.find('input[name="firstName"]').simulate('change', {target: {value: 'Phil'}})
+        // wrapper.find('input[name="lastName"]').simulate('change', {target: {value: 'Beadle'}})
+        // wrapper.find('input[name="handle"]').simulate('change', {target: {value: '@philt3r'}})
         wrapper.find('button[name="createProfile"]').simulate('click')
       })
     }))
