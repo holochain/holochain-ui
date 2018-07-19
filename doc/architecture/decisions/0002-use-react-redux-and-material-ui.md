@@ -4,7 +4,7 @@ Date: 2018-07-09
 
 ## Status
 
-Accepted
+Superceded by [9. Use QML](0009-use-qml.md)
 
 ## Context
 

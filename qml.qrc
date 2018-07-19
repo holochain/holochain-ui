@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Page1Form.ui.qml</file>
+        <file>Page2Form.ui.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>PresenceArcs.qml</file>
+        <file>resources/images/24-hour-clock-face.jpg</file>
+        <file>resources/images/celestial.png</file>
+        <file>resources/images/jean.png</file>
+        <file>resources/images/micah.png</file>
+        <file>resources/images/philip.png</file>
+        <file>main.cpp</file>
+    </qresource>
+</RCC>
