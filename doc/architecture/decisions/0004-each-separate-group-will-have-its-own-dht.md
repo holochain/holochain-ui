@@ -13,5 +13,6 @@ Holochain enables many distinct data stores via the DHT. As there is no way to s
 ## Decision
 
 Enable the UI to access any DHTs the agent is part of.
+DHTs that can only have one instance such as "holo-vault" and "holo-keys" keep that name. DHTs that can have multiple instances such as a chat or presence are called unique names and that name is the "Name" field in the dna.json file.
 
 ## Consequences
