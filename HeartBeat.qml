@@ -61,11 +61,11 @@ Page {
         Label {
             width: parent.width
             wrapMode: Label.Wrap
-            Layout.alignment: parent.horizontalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
             text: "Meeting details"
         }
         ComboBox {
-            Layout.alignment: parent.horizontalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
             currentIndex: 0
 
             model: ListModel {
@@ -78,8 +78,10 @@ Page {
             width: 200
             onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text)
         }
-        TextField {
+        TextArea {
             placeholderText: qsTr("Enter notes: ")
+            anchors.horizontalCenter: parent.horizontalCenter
+
         }
     }
 
