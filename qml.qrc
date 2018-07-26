@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>images/celestial.png</file>
+        <file>images/jean.png</file>
+        <file>images/micah.png</file>
+        <file>images/philip.png</file>
+        <file>Contacts.qml</file>
+        <file>Chat.qml</file>
+        <file>PresenceArcs.qml</file>
+        <file>images/24-hour-clock-face.jpg</file>
+        <file>main.cpp</file>
+        <file>Clock.qml</file>
+        <file>images/arrow.png</file>
+        <file>images/background.png</file>
+        <file>images/center.png</file>
+        <file>images/clock-night.png</file>
+        <file>images/clock.png</file>
+        <file>images/hour.png</file>
+        <file>images/minute.png</file>
+        <file>images/quit.png</file>
+        <file>images/second.png</file>
+    </qresource>
+</RCC>

@@ -1,28 +1,73 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+# This file is used to ignore files which are generated
+# ----------------------------------------------------------------------------
+
+*~
+*.autosave
+*.a
+*.core
+*.moc
+*.o
+*.obj
+*.orig
+*.rej
+*.so
+*.so.*
+*_pch.h.cpp
+*_resource.rc
+*.qm
+.#*
+*.*#
+core
+!core/
+tags
 .DS_Store
-# dependencies
-ui-src/node_modules
-ui-automation/cypress/screenshots
-ui-automation/cypress/videos
-ui-automation/node_modules
-ui
+.directory
+*.debug
+Makefile*
+*.prl
+*.app
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+Thumbs.db
+*.res
+*.rc
+/.qmake.cache
+/.qmake.stash
 
-# testing
-/coverage
+# qtcreator generated files
+*.pro.user*
 
-# production
-/build
+# xemacs temporary files
+*.flc
 
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Vim temporary files
+.*.swp
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Visual Studio generated files
+*.ib_pdb_index
+*.idb
+*.ilk
+*.pdb
+*.sln
+*.suo
+*.vcproj
+*vcproj.*.*.user
+*.ncb
+*.sdf
+*.opensdf
+*.vcxproj
+*vcxproj.*
 
-yarn.lock
-package-lock.json*
+# MinGW generated files
+*.Debug
+*.Release
+
+# Python byte code
+*.pyc
+
+# Binaries
+# --------
+*.dll
+*.exe
+
