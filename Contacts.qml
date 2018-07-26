@@ -4,13 +4,8 @@ import QtQuick.Controls 2.2
 
 Page {
     id: contacts
-    header: ToolBar {
-        Label {
-            text: qsTr("Contacts")
-            font.pixelSize: 20
-            anchors.centerIn: parent
-        }
-    }
+    title: "Contacts"
+    anchors.fill: parent
     ListView {
         id: listView
         anchors.fill: parent

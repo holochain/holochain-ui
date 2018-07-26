@@ -17,10 +17,6 @@ Item {
             return size / (arcs.count + 2) * (index + 1);
         }
 
-        TestCase {
-
-        }
-
         Repeater {
             model: presenceArcs
             Shape {
