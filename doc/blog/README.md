@@ -1,2 +1,0 @@
-# HoloGlobe
-*Abundance of Presence*
