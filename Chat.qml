@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.3
 Page {
     id: root
     property string inConversationWith
+    property string inviteDetails
     title: "Abundance of Presence - " + inConversationWith
     ColumnLayout {
         anchors.fill: parent
@@ -139,7 +140,11 @@ Page {
                 TextArea {
                     id: messageField
                     Layout.fillWidth: true
-                    placeholderText: qsTr("Compose message")
+                    placeholderText: qsTr("Compose Message: ")
+                    states: State { name: "invited"; when: inviteDetails != ""
+                        PropertyChanges {target: messageField; placeholderText: "" }
+                    }
+                    text: inviteDetails
                     wrapMode: TextArea.Wrap
                 }
 

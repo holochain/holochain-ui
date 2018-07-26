@@ -6,6 +6,8 @@ Page {
 
     id: schedule
     property string findTimewith
+    property string inviteNotes
+
     title: "Schedule a Heartbeat with " + findTimewith
 
     ColumnLayout {
@@ -69,19 +71,31 @@ Page {
             currentIndex: 0
 
             model: ListModel {
-                id: cbItems
+                id: cbTime
                 ListElement { text: "30min"}
                 ListElement { text: "1 hour"}
                 ListElement { text: "1 hour 30 min"}
                 ListElement { text: "2 hours"}
             }
             width: 200
-            onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text)
+            onCurrentIndexChanged: console.debug(cbTime.get(currentIndex).text)
         }
         TextArea {
-            placeholderText: qsTr("Enter notes: ")
+            id: notes
+            placeholderText: ("Enter notes: ")
+            onTextChanged: {
+                inviteNotes = text // + " for " + seletcted time
+            }
+
             anchors.horizontalCenter: parent.horizontalCenter
 
+        }
+        Button {
+            id: submitInvite
+            text: qsTr("Invite")
+            enabled: true
+            anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: schedule.StackView.view.push("qrc:/Chat.qml", {inviteDetails: inviteNotes})
         }
     }
 
