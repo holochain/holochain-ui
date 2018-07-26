@@ -30,5 +30,7 @@
         <file>images/micah_notify.png</file>
         <file>images/micah_jean.png</file>
         <file>Chat2.qml</file>
+        <file>HeartBeat.qml</file>
+        <file>RoundedAvatar.qml</file>
     </qresource>
 </RCC>

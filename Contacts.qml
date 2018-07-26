@@ -21,7 +21,7 @@ Page {
             height: avatar.implicitHeight
             leftPadding: avatar.implicitWidth + 32
             onClicked: contacts.StackView.view.push("qrc:/" + modelData.chat, { inConversationWith: modelData.name })
-            Image {
+            RoundedAvatar {
                 id: avatar
                 source: "qrc:/images/" + modelData.avatar
                 width: 100
