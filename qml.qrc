@@ -20,5 +20,7 @@
         <file>images/minute.png</file>
         <file>images/quit.png</file>
         <file>images/second.png</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>HomeForm.ui.qml</file>
     </qresource>
 </RCC>
