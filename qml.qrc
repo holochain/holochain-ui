@@ -21,6 +21,14 @@
         <file>images/quit.png</file>
         <file>images/second.png</file>
         <file>qtquickcontrols2.conf</file>
-        <file>HomeForm.ui.qml</file>
+        <file>Profiles.qml</file>
+        <file>images/HoloChat_Logo.png</file>
+        <file>images/Chess.png</file>
+        <file>images/Holochain_logo.png</file>
+        <file>images/holochain-circle-lrg.png</file>
+        <file>Home.qml</file>
+        <file>images/micah_notify.png</file>
+        <file>images/micah_jean.png</file>
+        <file>Chat2.qml</file>
     </qresource>
 </RCC>
