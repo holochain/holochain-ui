@@ -4,8 +4,8 @@ import QtQuick.Controls 2.4
 ApplicationWindow {
     id: window
     visible: true
-    width: 750
-    height: 1355
+    width: 600
+    height: 900
     title: qsTr("Stack")
 
     Component.onCompleted: {
@@ -52,10 +52,10 @@ ApplicationWindow {
                 }
             }
             ItemDelegate {
-                text: qsTr("Presence")
+                text: qsTr("Profiles")
                 width: parent.width
                 onClicked: {
-                    stackView.push("Chat.qml")
+                    stackView.push("Profiles.qml")
                     drawer.close()
                 }
             }
@@ -64,7 +64,7 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        initialItem: "HomeForm.ui.qml"
+        initialItem: "Home.qml"
         anchors.fill: parent
     }
 }

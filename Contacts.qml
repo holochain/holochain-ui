@@ -14,13 +14,13 @@ Page {
         bottomMargin: 48
         rightMargin: 48
         spacing: 20
-        model: [{"name":"Celestial", "avatar":"celestial.png"}, {"name":"Micah", "avatar":"micah.png"}, {"name":"Philip", "avatar":"philip.png"}, {"name":"Jean", "avatar":"jean.png"}]
+        model: [{"name":"Celestial", "avatar":"celestial.png", "chat":"Chat.qml"}, {"name":"Micah", "avatar":"micah_notify.png", "chat":"Chat.qml"}, {"name":"Philip", "avatar":"philip.png", "chat":"Chat.qml"}, {"name":"Jean", "avatar":"jean.png", "chat":"Chat.qml"}, {"name":"Jean & Micah", "avatar":"micah_jean.png", "chat":"Chat2.qml"}]
         delegate: ItemDelegate {
             text: modelData.name
             width: listView.width - listView.leftMargin - listView.rightMargin
             height: avatar.implicitHeight
             leftPadding: avatar.implicitWidth + 32
-            onClicked: contacts.StackView.view.push("qrc:/Chat.qml", { inConversationWith: modelData.name })
+            onClicked: contacts.StackView.view.push("qrc:/" + modelData.chat, { inConversationWith: modelData.name })
             Image {
                 id: avatar
                 source: "qrc:/images/" + modelData.avatar

@@ -39,6 +39,30 @@ Page {
                     }
                 ]
             }
+            ListElement {
+                name: "Jean"
+                avatar: "images/jean.png"
+                availBegin: 300
+                availEnd: 180
+                booked: [
+                    ListElement {
+                        bookedBegin: 30
+                        bookedDuration: 5
+                    },
+                    ListElement {
+                        bookedBegin: 300
+                        bookedDuration: 15
+                    },
+                    ListElement {
+                        bookedBegin: 60
+                        bookedDuration: 15
+                    },
+                    ListElement {
+                        bookedBegin: 85
+                        bookedDuration: 5
+                    }
+                ]
+            }
         }
         Pane {
             id: presence
@@ -69,10 +93,10 @@ Page {
                 {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil message", "timestamp":"2018.07.18:00:11:22"},
                 {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Micah More chats", "timestamp":"2018.07.18:00:11:22"},
                 {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil Another tweet", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Micah Blah blah Micah Blah blah Micah Blah blah Blah blah", "timestamp":"2018.07.18:00:11:22"},
+                {"author": {"name":"Jean", "avatar":"jean.png"}, "sentByMe":"false", "message":"Jean awesome message", "timestamp":"2018.07.18:00:11:22"},
                 {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil message", "timestamp":"2018.07.18:00:11:22"},
                 {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil Testing chat", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Micah More chats", "timestamp":"2018.07.18:00:11:22"},
+                {"author": {"name":"Jean", "avatar":"jean.png"}, "sentByMe":"false", "message":"Jean More chats", "timestamp":"2018.07.18:00:11:22"},
                 {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil Another tweet", "timestamp":"2018.07.18:00:11:22"},
                 {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah", "timestamp":"2018.07.18:00:11:22"},
                 {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil message", "timestamp":"2018.07.18:00:11:22"}
