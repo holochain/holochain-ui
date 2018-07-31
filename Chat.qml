@@ -36,6 +36,10 @@ Page {
                     ListElement {
                         bookedBegin: 30
                         bookedDuration: 5
+                    },
+                    ListElement {
+                        bookedBegin: 100
+                        bookedDuration: 15
                     }
                 ]
             }
@@ -65,15 +69,15 @@ Page {
             verticalLayoutDirection: ListView.BottomToTop
             spacing: 12
             model: [
-                {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil chat 1", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil message", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Micah More chats", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil Another tweet", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Micah Blah blah Micah Blah blah Micah Blah blah Blah blah", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil message", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil Testing chat", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Micah More chats", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil Another tweet", "timestamp":"2018.07.18:00:11:22"},
+                 {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Perfect book me in", "timestamp":"2018.07.18:00:11:22"},
+                 {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Say an hour, long enough for a decent walkies :)", "timestamp":"2018.07.18:00:11:22"},
+                 {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Cool, how about a bit later", "timestamp":"2018.07.18:00:11:22"},
+                {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Actaully I have to go walk teh dog", "timestamp":"2018.07.18:00:11:22"},
+                {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"I see your free after standup", "timestamp":"2018.07.18:00:11:22"},
+                {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Yeah sure Phil", "timestamp":"2018.07.18:00:11:22"},
+               {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"I'm having issues with layout", "timestamp":"2018.07.18:00:11:22"},
+                {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Hi Micah can we catch up for a quick run down on QML?", "timestamp":"2018.07.18:00:11:22"},
+              {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil Another tweet", "timestamp":"2018.07.18:00:11:22"},
                 {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah", "timestamp":"2018.07.18:00:11:22"},
                 {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil message", "timestamp":"2018.07.18:00:11:22"}
             ]
