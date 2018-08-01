@@ -36,6 +36,10 @@ Page {
                     ListElement {
                         bookedBegin: 30
                         bookedDuration: 5
+                    },
+                    ListElement {
+                        bookedBegin: 100
+                        bookedDuration: 15
                     }
                 ]
             }
@@ -129,11 +133,6 @@ Page {
                             anchors.margins: 12
                             wrapMode: Label.Wrap
                         }
-                    }
-                    RoundedAvatar {
-                        source: sentByMe ? "qrc:/images/" + modelData.author.avatar : ""
-                        width: 50
-                        height: 50
                     }
                 }
                 Label {
