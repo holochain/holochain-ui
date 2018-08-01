@@ -36,6 +36,10 @@ Page {
                     ListElement {
                         bookedBegin: 30
                         bookedDuration: 5
+                    },
+                    ListElement {
+                        bookedBegin: 100
+                        bookedDuration: 15
                     }
                 ]
             }
@@ -109,7 +113,7 @@ Page {
                 Row {
                     id: messageRow
 
-                    Image {
+                    RoundedAvatar {
                         id: avatar
                         source: !sentByMe ? "qrc:/images/" + modelData.author.avatar : ""
                         width: 50
