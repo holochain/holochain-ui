@@ -32,5 +32,6 @@
         <file>Chat2.qml</file>
         <file>RoundedAvatar.qml</file>
         <file>HeartBeat.qml</file>
+        <file>Splash.qml</file>
     </qresource>
 </RCC>
