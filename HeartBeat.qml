@@ -7,6 +7,7 @@ Page {
     id: schedule
     property string findTimewith
     property string inviteNotes
+    property string selectedTime
 
     title: "Schedule a Heartbeat with " + findTimewith
 
@@ -78,13 +79,21 @@ Page {
                 ListElement { text: "2 hours"}
             }
             width: 200
-            onCurrentIndexChanged: console.debug(cbTime.get(currentIndex).text)
+            onCurrentIndexChanged: {
+
+                console.debug(cbTime.get(currentIndex).text)
+                selectedTime = cbTime.get(currentIndex).text
+            }
+
         }
         TextArea {
             id: notes
             placeholderText: ("Enter notes: ")
             onTextChanged: {
-                inviteNotes = text // + " for " + seletcted time
+                if (selectedTime=="")
+                        inviteNotes = text + ". This Heartbeat is scheduled for 30min"
+                else
+                    inviteNotes = text + ". This Heartbeat is scheduled for " + selectedTime
             }
 
             anchors.horizontalCenter: parent.horizontalCenter

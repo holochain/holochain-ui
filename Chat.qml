@@ -59,7 +59,7 @@ Page {
                 }
                 Button {
                     id: heartbeatButtton
-                    text: qsTr("Heart Beat")
+                    text: qsTr("Find Time")
                     enabled: true
                     onClicked: root.StackView.view.push("qrc:/HeartBeat.qml",{ findTimewith: inConversationWith })
                 }                
