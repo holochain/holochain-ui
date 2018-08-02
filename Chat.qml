@@ -6,8 +6,8 @@ Page {
     id: root
     property string inConversationWith
     property string channelName
-
     property string inviteDetails
+
     title: "Abundance of Presence - " + inConversationWith
     ColumnLayout {
         anchors.fill: parent
@@ -31,10 +31,10 @@ Page {
                     height: 300
                 }
                 Button {
-                    id: heartbeatButtton
+                    id: findTimeButtton
                     text: qsTr("Find Time")
                     enabled: true
-                    onClicked: root.StackView.view.push("qrc:/HeartBeat.qml",{ findTimewith: inConversationWith })
+                    onClicked: root.StackView.view.push("qrc:/FindTime.qml",{findTimeWith: inConversationWith , rememberChannel: channelName})
                 }                
             }
         }
