@@ -4,9 +4,10 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.2
 
 Item {
-    property var presenceArcs: arcs
+    property var presenceArcs
     width: parent.width
     height: parent.height
+
     Image {
         id: presence
         anchors.fill: parent
@@ -14,7 +15,7 @@ Item {
         anchors.horizontalCenter : parent.horizontalCenter
 
         function calculateRadius(size, index) {
-            return size / (arcs.count + 2) * (index + 1);
+            return size / (presenceArcs.count + 2) * (index + 1);
         }
 
         Repeater {

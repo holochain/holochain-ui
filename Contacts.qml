@@ -6,27 +6,47 @@ Page {
     id: contacts
     title: "Contacts"
     anchors.fill: parent
+
+    JsonModel {
+        id: contactsModel
+        dataUrl: "data/contacts.json"
+        onIsLoaded: {
+            console.log("model" + model.get(0).name)
+        }
+    }
+
     ListView {
-        id: listView
+        id: contactsListView
         anchors.fill: parent
         topMargin: 48
         leftMargin: 48
         bottomMargin: 48
         rightMargin: 48
         spacing: 20
-        model: [{"name":"Celestial", "avatar":"celestial.png", "chat":"Chat.qml"}, {"name":"Micah", "avatar":"micah_notify.png", "chat":"Chat.qml"}, {"name":"Philip", "avatar":"philip.png", "chat":"Chat.qml"}, {"name":"Jean", "avatar":"jean.png", "chat":"Chat.qml"}, {"name":"Jean & Micah", "avatar":"micah_jean.png", "chat":"Chat2.qml"}]
-        delegate: ItemDelegate {
-            text: modelData.name
-            width: listView.width - listView.leftMargin - listView.rightMargin
-            height: avatar.implicitHeight
-            leftPadding: avatar.implicitWidth + 32
-            onClicked: contacts.StackView.view.push("qrc:/" + modelData.chat, { inConversationWith: modelData.name })
-            RoundedAvatar {
-                id: avatar
-                source: "qrc:/images/" + modelData.avatar
-                width: 100
-                height: 100
+        model: contactsModel.model
+        delegate: Rectangle {
+            id: delegateItem
+            width: parent.width; height: 100
+            color: "transparent"
+            MouseArea {
+                anchors.fill: parent
+                onClicked: contacts.StackView.view.push("qrc:/Chat.qml", { inConversationWith: name, channelName: channel })
             }
-        }
+
+            RoundedAvatar {
+              id: imageItem
+              width: 100; height: 100
+              source: "qrc:/images/" + avatar
+            }
+
+            Text {
+              id: itexItem
+              anchors.left: imageItem.right
+              anchors.leftMargin: 20
+              anchors.verticalCenter: parent.verticalCenter
+              font.pixelSize: 20
+              text: name
+            }
+          }
     }
 }

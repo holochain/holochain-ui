@@ -5,7 +5,6 @@ import QtGraphicalEffects 1.0
 
 Image {
     id: avatar
-    source: "qrc:/images/" + modelData.avatar
     property bool rounded: true
     property bool adapt: true
     
