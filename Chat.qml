@@ -5,10 +5,19 @@ import QtQuick.Layouts 1.3
 Page {
     id: root
     property string inConversationWith
+    property string channelName
+
     property string inviteDetails
     title: "Abundance of Presence - " + inConversationWith
     ColumnLayout {
         anchors.fill: parent
+//        JsonModel {
+//            id: arcs
+//            dataUrl: "data/" + channelName + ".json"
+//            onIsLoaded: {
+//                console.log("model" + model.get(0).name)
+//            }
+//        }
         ListModel {
             id: arcs
 
@@ -66,6 +75,14 @@ Page {
             }
         }
 
+        JsonModel {
+            id: chatMessagesModel
+            dataUrl: "data/messages_" + channelName + ".json"
+            onIsLoaded: {
+                console.log("data/messages_" + channelName + ".json" + model.get(0).name)
+            }
+        }
+
         ListView {
             id: chatList
             Layout.fillWidth: true
@@ -75,43 +92,31 @@ Page {
             displayMarginEnd: 40
             verticalLayoutDirection: ListView.BottomToTop
             spacing: 12
-            model: [
-                 {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Perfect book me in", "timestamp":"2018.07.18:00:11:22"},
-                 {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Say an hour, long enough for a decent walkies :)", "timestamp":"2018.07.18:00:11:22"},
-                 {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Cool, how about a bit later", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Actaully I have to go walk teh dog", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"I see your free after standup", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Yeah sure Phil", "timestamp":"2018.07.18:00:11:22"},
-               {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"I'm having issues with layout", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Hi Micah can we catch up for a quick run down on QML?", "timestamp":"2018.07.18:00:11:22"},
-              {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil Another tweet", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Micah", "avatar":"micah.png"}, "sentByMe":"false", "message":"Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah", "timestamp":"2018.07.18:00:11:22"},
-                {"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Phil message", "timestamp":"2018.07.18:00:11:22"}
-            ]
+            model: chatMessagesModel.model
             delegate: Column {
-                readonly property bool sentByMe: (modelData.sentByMe === 'true')
+                readonly property bool wasSentByMe: (sentByMe === 'true')
 
-                anchors.right: sentByMe ? parent.right : undefined
+                anchors.right: wasSentByMe ? parent.right : undefined
                 spacing: 6
                 Row {
                     id: messageRow
 
                     RoundedAvatar {
                         id: avatar
-                        source: !sentByMe ? "qrc:/images/" + modelData.author.avatar : ""
+                        source: !wasSentByMe ? "qrc:/images/" + author.avatar : ""
                         width: 50
                         height: 50
 
                     }
                     Rectangle {
-                        width: Math.min(messageText.implicitWidth + 24, chatList.width - (!sentByMe ? avatar.width + messageRow.spacing : 0))
+                        width: Math.min(messageText.implicitWidth + 24, chatList.width - (!wasSentByMe ? avatar.width + messageRow.spacing : 0))
                         height: messageText.implicitHeight + 24
-                        color: sentByMe ? "lightgrey" : "steelblue"
+                        color: wasSentByMe ? "lightgrey" : "steelblue"
                         radius: 15
                         Label {
                             id: messageText
-                            text: modelData.message
-                            color: sentByMe ? "black" : "white"
+                            text: message
+                            color: wasSentByMe ? "black" : "white"
                             anchors.fill: parent
                             anchors.margins: 12
                             wrapMode: Label.Wrap
@@ -120,9 +125,9 @@ Page {
                 }
                 Label {
                     id: timestampText
-                    text: Qt.formatDateTime(modelData.timestamp, "d MMM hh:mm")
+                    text: Qt.formatDateTime(timestamp, "d MMM hh:mm")
                     color: "lightgrey"
-                    anchors.right: sentByMe ? parent.right : undefined
+                    anchors.right: wasSentByMe ? parent.right : undefined
                 }
             }
 
