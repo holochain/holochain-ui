@@ -30,7 +30,7 @@
         <file>images/micah_notify.png</file>
         <file>images/micah_jean.png</file>
         <file>RoundedAvatar.qml</file>
-        <file>HeartBeat.qml</file>
+        <file>FindTime.qml</file>
         <file>Splash.qml</file>
         <file>data/contacts.json</file>
         <file>ContactDelegate.qml</file>
