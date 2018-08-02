@@ -7,6 +7,7 @@ Item {
     property var presenceArcs
     width: parent.width
     height: parent.height
+
     Image {
         id: presence
         anchors.fill: parent
@@ -14,83 +15,76 @@ Item {
         anchors.horizontalCenter : parent.horizontalCenter
 
         function calculateRadius(size, index) {
-            return size / (arcs.count + 2) * (index + 1);
+            return size / (presenceArcs.count + 2) * (index + 1);
         }
 
         Repeater {
             model: presenceArcs
-            ListView {
-                id: eeee
-                model: arcs.model
-                delegate: Label{
-                    text: name
-                }
-            }
-//            Shape {
-//               anchors.fill: parent
-//               scale: 0.5
+            Shape {
+               anchors.fill: parent
+               scale: 0.5
 
-//               ShapePath {
-//                   fillColor: "transparent"
-//                   strokeColor: "green"
-//                   strokeWidth: 20
-//                   capStyle: ShapePath.RoundCap
+               ShapePath {
+                   fillColor: "transparent"
+                   strokeColor: "green"
+                   strokeWidth: 20
+                   capStyle: ShapePath.RoundCap
 
-//                   PathAngleArc {
-//                       id: presenceArc
-//                       centerX: parent.width / 2; centerY: parent.height / 2
-//                       radiusX: presence.calculateRadius(parent.width, index); radiusY: presence.calculateRadius(parent.height, index)
-//                       startAngle: availBegin
-//                       SequentialAnimation on sweepAngle {
-//                           loops: 1
-//                           NumberAnimation { to: availEnd; duration: 500 }
-//                       }
-//                   }
-//               }
-////               Repeater {
-////                   model: booked
-////                   Shape {
-////                      anchors.fill: parent
+                   PathAngleArc {
+                       id: presenceArc
+                       centerX: parent.width / 2; centerY: parent.height / 2
+                       radiusX: presence.calculateRadius(parent.width, index); radiusY: presence.calculateRadius(parent.height, index)
+                       startAngle: availBegin
+                       SequentialAnimation on sweepAngle {
+                           loops: 1
+                           NumberAnimation { to: availEnd; duration: 500 }
+                       }
+                   }
+               }
+               Repeater {
+                   model: booked
+                   Shape {
+                      anchors.fill: parent
 
-////                      ShapePath {
-////                          fillColor: "transparent"
-////                          strokeColor: "red"
-////                          strokeWidth: 20
+                      ShapePath {
+                          fillColor: "transparent"
+                          strokeColor: "red"
+                          strokeWidth: 20
 
-////                          PathAngleArc {
-////                              centerX: parent.width / 2; centerY: parent.height / 2
-////                              radiusX: presenceArc.radiusX; radiusY: presenceArc.radiusY
-////                              startAngle: bookedBegin
-////                              sweepAngle: bookedDuration
-////                          }
-////                      }
-////                  }
-////               }
-//               Image {
-//                   id: avatarImage
-//                   x: parent.width / 2
-//                   y: parent.height / (arcs.count + 2) * (index + 1) + (parent.height / 2) -25
-//                   width: 50
-//                   height: 50
-//                   source: avatar
-//                   property bool rounded: true
-//                   property bool adapt: true
+                          PathAngleArc {
+                              centerX: parent.width / 2; centerY: parent.height / 2
+                              radiusX: presenceArc.radiusX; radiusY: presenceArc.radiusY
+                              startAngle: bookedBegin
+                              sweepAngle: bookedDuration
+                          }
+                      }
+                  }
+               }
+               Image {
+                   id: avatarImage
+                   x: parent.width / 2
+                   y: parent.height / (arcs.count + 2) * (index + 1) + (parent.height / 2) -25
+                   width: 50
+                   height: 50
+                   source: avatar
+                   property bool rounded: true
+                   property bool adapt: true
 
-//                   layer.enabled: rounded
-//                   layer.effect: OpacityMask {
-//                       maskSource: Item {
-//                           width: avatarImage.width
-//                           height: avatarImage.height
-//                           Rectangle {
-//                               anchors.centerIn: parent
-//                               width: avatarImage.width
-//                               height: avatarImage.height
-//                               radius: Math.min(width, height)
-//                           }
-//                       }
-//                   }
-//               }
-//           }
+                   layer.enabled: rounded
+                   layer.effect: OpacityMask {
+                       maskSource: Item {
+                           width: avatarImage.width
+                           height: avatarImage.height
+                           Rectangle {
+                               anchors.centerIn: parent
+                               width: avatarImage.width
+                               height: avatarImage.height
+                               radius: Math.min(width, height)
+                           }
+                       }
+                   }
+               }
+           }
         }
         Item {
             id : clock

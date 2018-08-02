@@ -11,47 +11,11 @@ Page {
     title: "Abundance of Presence - " + inConversationWith
     ColumnLayout {
         anchors.fill: parent
-//        JsonModel {
-//            id: arcs
-//            dataUrl: "data/" + channelName + ".json"
-//            onIsLoaded: {
-//                console.log("model" + model.get(0).name)
-//            }
-//        }
-        ListModel {
+        JsonModel {
             id: arcs
-
-            ListElement {
-                name: "Phil"
-                avatar: "images/philip.png"
-                availBegin: 0
-                availEnd: 180
-                booked: [
-                    ListElement {
-                        bookedBegin: 30
-                        bookedDuration: 5
-                    },
-                    ListElement {
-                        bookedBegin: 120
-                        bookedDuration: 15
-                    }
-                ]
-            }
-            ListElement {
-                name: "Micah"
-                avatar: "images/micah.png"
-                availBegin: 300
-                availEnd: 180
-                booked: [
-                    ListElement {
-                        bookedBegin: 30
-                        bookedDuration: 5
-                    },
-                    ListElement {
-                        bookedBegin: 100
-                        bookedDuration: 15
-                    }
-                ]
+            dataUrl: "data/presence_" + channelName + ".json"
+            onIsLoaded: {
+                console.log("model" + model.get(0).booked.get(0).bookedBegin)
             }
         }
         Pane {
@@ -62,7 +26,7 @@ Page {
                 width: parent.width
                 PresenceArcs {
                     Layout.alignment : AlignHCenter
-                    presenceArcs: arcs
+                    presenceArcs: arcs.model
                     width: 300
                     height: 300
                 }
@@ -79,7 +43,7 @@ Page {
             id: chatMessagesModel
             dataUrl: "data/messages_" + channelName + ".json"
             onIsLoaded: {
-                console.log("data/messages_" + channelName + ".json" + model.get(0).name)
+                console.log("data/messages_" + channelName + ".json" + model.get(0).author.name)
             }
         }
 

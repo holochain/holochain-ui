@@ -39,5 +39,7 @@
         <file>data/messages_philip_jean_micah.json</file>
         <file>data/presence_philip_micah.json</file>
         <file>data/presence_philip_jean_micah.json</file>
+        <file>RecursiveJsonModel.qml</file>
+        <file>RecursiveList.qml</file>
     </qresource>
 </RCC>

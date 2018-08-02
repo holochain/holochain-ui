@@ -11,7 +11,7 @@ Item {
     ListModel { id: dataList }
 
     Component.onCompleted: {
-        console.log("Loading data 1" + dataUrl)
+        console.log("Loading data " + dataUrl)
         dataList.clear()
         var req = new XMLHttpRequest;
         req.open("GET", dataUrl);
