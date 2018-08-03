@@ -88,9 +88,13 @@ Page {
                     }
                 }
                 Label {
+                    property var locale: Qt.locale()
+                    property date currentDate: new Date(timestamp)
+                    property string dateString
+
                     id: timestampText
-                    text: Qt.formatDateTime(timestamp, "d MMM hh:mm")
-                    color: "lightgrey"
+                    text: currentDate.toLocaleDateString() + " " + currentDate.toLocaleTimeString()
+                    color: "light gray"
                     anchors.right: wasSentByMe ? parent.right : undefined
                 }
             }
@@ -120,7 +124,12 @@ Page {
                     id: sendButton
                     text: qsTr("Send")
                     enabled: messageField.length > 0
-                    onClicked: chatList.model.push({"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message":"Appended", "timestamp":"2018.07.18:00:11:22"})
+                    property string currentTime
+                    onClicked: {
+                        currentTime = new Date().toISOString();
+                        console.log(currentTime)
+                        chatMessagesModel.insertItem({"author": {"name":"Philip", "avatar":"philip.png"}, "sentByMe":"true", "message": messageField.text, "timestamp":currentTime})
+                    }
                 }
             }
         }
