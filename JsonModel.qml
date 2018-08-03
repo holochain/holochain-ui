@@ -18,7 +18,7 @@ Item {
         req.onreadystatechange = function() {
             status = req.readyState;
             if (status === XMLHttpRequest.DONE) {
-                console.log(req.responseText)
+//                console.log(req.responseText)
                 var objectArray = JSON.parse(req.responseText);
                 if (objectArray.errors !== undefined)
                     console.log("Error fetching data: " + objectArray.errors[0].message)
@@ -29,12 +29,18 @@ Item {
                     }
                 }
                 if (wasLoading == true){
-                    console.log(dataList.rowCount())
-                    wrapper.isLoaded(dataList.rowCount())
+//                    console.log(dataList.rowCount())
+                    console.log("Loaded data " + dataUrl)
+                    wrapper.isLoaded()
                 }
             }
             wasLoading = (status === XMLHttpRequest.LOADING);
         }
         req.send();
+    }
+
+    function insertItem(item) {
+        dataList.insert(0, item)
+        console.log("Send the item to Holochain here!")
     }
 }

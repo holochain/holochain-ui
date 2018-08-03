@@ -6,7 +6,7 @@
     },
     "sentByMe": "true",
     "message": "Phil chat 1",
-    "timestamp": "2018.07.18:00:11:22"
+    "timestamp": "2018-08-03T00:33:26.452Z"
   },
   {
     "author": {
@@ -15,7 +15,7 @@
     },
     "sentByMe": "true",
     "message": "Phil message",
-    "timestamp": "2018.07.18:00:11:22"
+    "timestamp": "2018-08-03T00:33:26.452Z"
   },
   {
     "author": {
@@ -24,7 +24,7 @@
     },
     "sentByMe": "false",
     "message": "Micah More chats",
-    "timestamp": "2018.07.18:00:11:22"
+    "timestamp": "2018-08-03T00:33:26.452Z"
   },
   {
     "author": {
@@ -33,7 +33,7 @@
     },
     "sentByMe": "true",
     "message": "Phil Another tweet",
-    "timestamp": "2018.07.18:00:11:22"
+    "timestamp": "2018-08-03T00:33:26.452Z"
   },
   {
     "author": {
@@ -42,7 +42,7 @@
     },
     "sentByMe": "false",
     "message": "Jean awesome message",
-    "timestamp": "2018.07.18:00:11:22"
+    "timestamp": "2018-08-03T00:33:26.452Z"
   },
   {
     "author": {
@@ -51,7 +51,7 @@
     },
     "sentByMe": "true",
     "message": "Phil message",
-    "timestamp": "2018.07.18:00:11:22"
+    "timestamp": "2018-08-03T00:33:26.452Z"
   },
   {
     "author": {
@@ -60,7 +60,7 @@
     },
     "sentByMe": "true",
     "message": "Phil Testing chat",
-    "timestamp": "2018.07.18:00:11:22"
+    "timestamp": "2018-08-03T00:33:26.452Z"
   },
   {
     "author": {
@@ -69,7 +69,7 @@
     },
     "sentByMe": "false",
     "message": "Jean More chats",
-    "timestamp": "2018.07.18:00:11:22"
+    "timestamp": "2018-08-03T00:33:26.452Z"
   },
   {
     "author": {
@@ -78,7 +78,7 @@
     },
     "sentByMe": "true",
     "message": "Phil Another tweet",
-    "timestamp": "2018.07.18:00:11:22"
+    "timestamp": "2018-08-03T00:33:26.452Z"
   },
   {
     "author": {
@@ -87,7 +87,7 @@
     },
     "sentByMe": "false",
     "message": "Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah",
-    "timestamp": "2018.07.18:00:11:22"
+    "timestamp": "2018-08-03T00:33:26.452Z"
   },
   {
     "author": {
@@ -96,6 +96,6 @@
     },
     "sentByMe": "true",
     "message": "Phil message",
-    "timestamp": "2018.07.18:00:11:22"
+    "timestamp": "2018-08-03T00:33:26.452Z"
   }
 ]
