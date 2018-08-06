@@ -13,13 +13,13 @@ Page {
     property string rememberChannel
     property string meetSpace
 
-    title: "Schedule a meeting with " + findTimewith
+    title: "Schedule a meeting with " + findTimeWith
 
     ColumnLayout {
         anchors.fill: parent
         Text {
             id: currentDate
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             font.bold: true
             horizontalAlignment: Text.AlignHCenter
             text: "Today: " + new Date().toLocaleDateString(Qt.locale("en_AU")) // + "\n" + new Date().toLocaleTimeString(Qt.locale("en_AU"))
@@ -48,12 +48,12 @@ Page {
         }
         Pane {
             id: presence
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             RowLayout {
                 Layout.fillWidth: true
                 width: parent.width
                 PresenceArcs {
-                    Layout.alignment : AlignHCenter
+                    Layout.alignment: Qt.AlignHCenter
                     presenceArcs: arcs.model
                     width: 300
                     height: 300
@@ -64,11 +64,11 @@ Page {
         Label {
             width: parent.width
             wrapMode: Label.Wrap
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             text: "Meeting details"
         }
         ComboBox {
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             currentIndex: 0
             editable:true
             model: ListModel {
@@ -90,7 +90,7 @@ Page {
         }
         RowLayout
         {
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             spacing: 6
 
             ComboBox {
@@ -142,6 +142,7 @@ Page {
 
         TextArea {
             id: notes
+            Layout.alignment: Qt.AlignHCenter
             placeholderText: ("Enter notes: ")
             onTextChanged: {
                 if (selectedTime=="")
@@ -149,15 +150,12 @@ Page {
                 else
                     inviteNotes = text + ": This "+ selectedMeeting + " is scheduled for " + selectedTime + " in " + meetSpace
             }
-
-            anchors.horizontalCenter: parent.horizontalCenter
-
         }
         Button {
             id: submitInvite
+            Layout.alignment: Qt.AlignHCenter
             text: qsTr("Invite")
             enabled: true
-            anchors.horizontalCenter: parent.horizontalCenter
             onClicked: schedule.StackView.view.push("qrc:/Chat.qml",{inviteDetails: inviteNotes , channelName: rememberChannel , inConversationWith: findTimeWith})
         }
     }

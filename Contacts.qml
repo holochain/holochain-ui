@@ -5,7 +5,6 @@ import QtQuick.Controls 2.2
 Page {
     id: contacts
     title: "Contacts"
-    anchors.fill: parent
 
     JsonModel {
         id: contactsModel

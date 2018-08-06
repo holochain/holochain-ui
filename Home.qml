@@ -2,8 +2,7 @@ import QtQuick 2.11
 import QtQuick.Controls 2.4
 
 Page {
-    anchors.fill: parent
-
+    id: "homePage"
     title: qsTr("Holochain")
 
     Grid {

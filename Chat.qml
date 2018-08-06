@@ -20,12 +20,12 @@ Page {
         }
         Pane {
             id: presence
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             RowLayout {
                 Layout.fillWidth: true
                 width: parent.width
                 PresenceArcs {
-                    Layout.alignment : AlignHCenter
+                    Layout.alignment : Qt.AlignHCenter
                     presenceArcs: arcs.model
                     width: 300
                     height: 300
