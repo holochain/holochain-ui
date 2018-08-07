@@ -151,7 +151,7 @@ Page {
                     inviteNotes = text + ": This "+ selectedMeeting + " is scheduled for " + selectedTime + " in " + meetSpace
             }
         }
-        Button {
+        CommonButton {
             id: submitInvite
             Layout.alignment: Qt.AlignHCenter
             text: qsTr("Invite")

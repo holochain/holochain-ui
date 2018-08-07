@@ -30,7 +30,7 @@ Page {
                     width: 300
                     height: 300
                 }
-                Button {
+                CommonButton {
                     id: findTimeButtton
                     text: qsTr("Find Time")
                     enabled: true
@@ -120,7 +120,7 @@ Page {
                     wrapMode: TextArea.Wrap
                 }
 
-                Button {
+                CommonButton {
                     id: sendButton
                     text: qsTr("Send")
                     enabled: messageField.length > 0
