@@ -85,5 +85,6 @@
         <file>images/aaron_faulkner.png</file>
         <file>images/jarodholtz.png</file>
         <file>images/philipbeadle.png</file>
+        <file>CommonButton.qml</file>
     </qresource>
 </RCC>
