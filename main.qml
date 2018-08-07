@@ -15,7 +15,10 @@ ApplicationWindow {
     header: ToolBar {
         id: mainToolBar
         contentHeight: toolButton.implicitHeight
-
+        background: Rectangle {
+                        anchors.fill: parent
+                        color : "#6600ff"
+                    }
         ToolButton {
             id: toolButton
             text: stackView.depth > 1 ? "\u25C0" : "\u2630"
@@ -31,6 +34,7 @@ ApplicationWindow {
 
         Label {
             text: stackView.currentItem.title
+            font.pixelSize: Qt.application.font.pixelSize * 1.6
             anchors.centerIn: parent
         }
     }
@@ -79,7 +83,7 @@ ApplicationWindow {
         anchors.fill: parent
     }
     Timer {
-        interval: 2000; running: true; repeat: false
+        interval: 20; running: true; repeat: false
         onTriggered: {
             stackView.clear()
             stackView.push("Home.qml")

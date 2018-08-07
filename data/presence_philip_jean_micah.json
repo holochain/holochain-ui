@@ -1,7 +1,7 @@
 [
   {
     "name": "Phil",
-    "avatar": "images/philip.png",
+    "avatar": "images/philipbeadle.png",
     "availBegin": 0,
     "availEnd": 180,
     "booked": [
@@ -17,7 +17,7 @@
   },
   {
     "name": "Micah",
-    "avatar": "images/micah.png",
+    "avatar": "images/micah.jefferson.png",
     "availBegin": 300,
     "availEnd": 180,
     "booked": [
@@ -33,7 +33,7 @@
   },
   {
     "name": "Jean",
-    "avatar": "images/jean.png",
+    "avatar": "images/jeanmrussell.png",
     "availBegin": 300,
     "availEnd": 180,
     "booked": [

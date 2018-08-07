@@ -9,6 +9,7 @@ Item {
     property bool isLoading: status === XMLHttpRequest.LOADING
     property bool wasLoading: false
     ListModel { id: dataList }
+    property variant objectArray
 
     Component.onCompleted: {
         console.log("Loading data " + dataUrl)
@@ -19,7 +20,7 @@ Item {
             status = req.readyState;
             if (status === XMLHttpRequest.DONE) {
 //                console.log(req.responseText)
-                var objectArray = JSON.parse(req.responseText);
+                objectArray = JSON.parse(req.responseText);
                 if (objectArray.errors !== undefined)
                     console.log("Error fetching data: " + objectArray.errors[0].message)
                 else {
