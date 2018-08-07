@@ -2,7 +2,7 @@ import QtQuick 2.11
 import QtQuick.Controls 2.4
 
 Page {
-    id: "homePage"
+    id: home
     title: qsTr("Holochain")
 
     Grid {
@@ -18,7 +18,7 @@ Page {
                id: touchArea
                 anchors.fill: parent
                 onClicked: {
-                    stackView.push("Contacts.qml")
+                    stackView.push("Channels.qml")
                 }
             }
         }

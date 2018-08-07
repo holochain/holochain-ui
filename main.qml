@@ -4,7 +4,7 @@ import QtQuick.Controls 2.4
 ApplicationWindow {
     id: window
     visible: true
-    width: 600
+    width: 500
     height: 900
     title: qsTr("Stack")
 
@@ -44,7 +44,17 @@ ApplicationWindow {
             anchors.fill: parent
 
             ItemDelegate {
+                text: qsTr("Channels")
+                font.pixelSize: Qt.application.font.pixelSize * 1.6
+                width: parent.width
+                onClicked: {
+                    stackView.push("Channels.qml")
+                    drawer.close()
+                }
+            }
+            ItemDelegate {
                 text: qsTr("Contacts")
+                font.pixelSize: Qt.application.font.pixelSize * 1.6
                 width: parent.width
                 onClicked: {
                     stackView.push("Contacts.qml")
@@ -53,6 +63,7 @@ ApplicationWindow {
             }
             ItemDelegate {
                 text: qsTr("Profiles")
+                font.pixelSize: Qt.application.font.pixelSize * 1.6
                 width: parent.width
                 onClicked: {
                     stackView.push("Profiles.qml")
@@ -68,8 +79,9 @@ ApplicationWindow {
         anchors.fill: parent
     }
     Timer {
-        interval: 100; running: true; repeat: false
+        interval: 2000; running: true; repeat: false
         onTriggered: {
+            stackView.clear()
             stackView.push("Home.qml")
         }
     }

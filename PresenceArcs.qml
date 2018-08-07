@@ -13,7 +13,6 @@ Item {
         anchors.fill: parent
         source: "images/24-hour-clock-face.jpg"
         anchors.horizontalCenter : parent.horizontalCenter
-
         function calculateRadius(size, index) {
             return size / (presenceArcs.count + 2) * (index + 1);
         }
@@ -23,13 +22,10 @@ Item {
             Shape {
                anchors.fill: parent
                scale: 0.5
-
                ShapePath {
                    fillColor: "transparent"
                    strokeColor: "green"
                    strokeWidth: 20
-                   capStyle: ShapePath.RoundCap
-
                    PathAngleArc {
                        id: presenceArc
                        centerX: parent.width / 2; centerY: parent.height / 2
@@ -63,7 +59,7 @@ Item {
                Image {
                    id: avatarImage
                    x: parent.width / 2
-                   y: parent.height / (arcs.count + 2) * (index + 1) + (parent.height / 2) -25
+                   y: parent.height / (presenceArcs.count + 2) * (index + 1) + (parent.height / 2) -25
                    width: 50
                    height: 50
                    source: avatar

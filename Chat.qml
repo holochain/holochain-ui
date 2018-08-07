@@ -35,7 +35,7 @@ Page {
                     text: qsTr("Find Time")
                     enabled: true
                     onClicked: root.StackView.view.push("qrc:/FindTime.qml",{findTimeWith: inConversationWith , rememberChannel: channelName})
-                }                
+                }
             }
         }
 
@@ -52,7 +52,7 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.margins: pane.leftPadding + messageField.leftPadding
-            displayMarginBeginning: 40
+            displayMarginBeginning: 200
             displayMarginEnd: 40
             verticalLayoutDirection: ListView.BottomToTop
             spacing: 12

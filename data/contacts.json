@@ -1,22 +1,242 @@
 [
   {
-    "name": "Celestial",
-    "channel": "philip_celestial",
-    "avatar": "celestial.png"
+    "name": "Aaron Faulkner",
+    "handle": "aaron_faulkner",
+    "avatar": "aaron_faulkner.png"
   },
   {
-    "name": "Micah",
-    "channel": "philip_micah",
-    "avatar": "micah_notify.png"
+    "name": "Alastair Ong",
+    "handle": "alastairong",
+    "avatar": "alastairong.png"
   },
   {
-    "name": "Jean",
-    "channel": "philip_jean",
-    "avatar": "jean.png"
+    "name": "Anders Aamodt",
+    "handle": "anders",
+    "avatar": "anders.png"
   },
   {
-    "name": "Jean & Micah",
-    "channel": "philip_jean_micah",
-    "avatar": "micah_jean.png"
+    "name": "Arthur Brock",
+    "handle": "artbrock",
+    "avatar": "artbrock.png"
+  },
+  {
+    "name": "Austin",
+    "handle": "austin",
+    "avatar": "austin.png"
+  },
+  {
+    "name": "Moritz Bierling",
+    "handle": "bierlingm",
+    "avatar": "bierlingm.png"
+  },
+  {
+    "name": "Bifeitang",
+    "handle": "bifeitang",
+    "avatar": "bifeitang.png"
+  },
+  {
+    "name": "Celestial Hanley",
+    "handle": "ccxxoo",
+    "avatar": "ccxxoo.png"
+  },
+  {
+    "name": "Charlotte",
+    "handle": "charlotte",
+    "avatar": "charlotte.png"
+  },
+  {
+    "name": "Connor Turland",
+    "handle": "connorturland",
+    "avatar": "connorturland.png"
+  },
+  {
+    "name": "Damien Douté",
+    "handle": "damien",
+    "avatar": "damien.png"
+  },
+  {
+    "name": "Davor Bijelic",
+    "handle": "davor.bijelic",
+    "avatar": "davor.bijelic.png"
+  },
+  {
+    "name": "David Atkinson",
+    "handle": "dcatki",
+    "avatar": "dcatki.png"
+  },
+  {
+    "name": "Emaline Friedman",
+    "handle": "emalinus",
+    "avatar": "emalinus.png"
+  },
+  {
+    "name": "Ferananda Ibarra",
+    "handle": "ferananda",
+    "avatar": "ferananda.png"
+  },
+  {
+    "name": "Regina Fasel",
+    "handle": "ginnyb",
+    "avatar": "ginnyb.png"
+  },
+  {
+    "name": "Greg Schaffer",
+    "handle": "greg",
+    "avatar": "greg.png"
+  },
+  {
+    "name": "Holmes",
+    "handle": "holmes",
+    "avatar": "holmes.png"
+  },
+  {
+    "name": "Hi, I'm holobot!",
+    "handle": "holobot",
+    "avatar": "holobot.png"
+  },
+  {
+    "name": "Hologitlab",
+    "handle": "hologitlab",
+    "avatar": "hologitlab.png"
+  },
+  {
+    "name": "Jarod Holtz",
+    "handle": "jarodholtz",
+    "avatar": "jarodholtz.png"
+  },
+  {
+    "name": "Jean-François Noubel",
+    "handle": "jean-francois",
+    "avatar": "jean-francois.png"
+  },
+  {
+    "name": "Jean M Russell",
+    "handle": "jeanmrussell",
+    "avatar": "jeanmrussell.png"
+  },
+  {
+    "name": "Jerbus",
+    "handle": "jerbus",
+    "avatar": "jerbus.png"
+  },
+  {
+    "name": "Jessica Egan",
+    "handle": "jessicaegan",
+    "avatar": "jessicaegan.png"
+  },
+  {
+    "name": "Lisa Jetton",
+    "handle": "jetttech",
+    "avatar": "jetttech.png"
+  },
+  {
+    "name": "Joel U",
+    "handle": "joel",
+    "avatar": "joel.png"
+  },
+  {
+    "name": "Katie Lucas",
+    "handle": "katielucas",
+    "avatar": "katielucas.png"
+  },
+  {
+    "name": "Katie Teague",
+    "handle": "katieteague",
+    "avatar": "katieteague.png"
+  },
+  {
+    "name": "Laureli Shimayo",
+    "handle": "laurelishimayo",
+    "avatar": "laurelishimayo.png"
+  },
+  {
+    "name": "Nicolas Luck",
+    "handle": "lucksus",
+    "avatar": "lucksus.png"
+  },
+  {
+    "name": "Michael Dougherty",
+    "handle": "maackle",
+    "avatar": "maackle.png"
+  },
+  {
+    "name": "Mamading Ceesay",
+    "handle": "mamading",
+    "avatar": "mamading.png"
+  },
+  {
+    "name": "Mary Camacho",
+    "handle": "mary.camacho",
+    "avatar": "mary.camacho.png"
+  },
+  {
+    "name": "Matt Schutte",
+    "handle": "matthewjosef",
+    "avatar": "matthewjosef.png"
+  },
+  {
+    "name": "Micah Jefferson",
+    "handle": "micah.jefferson",
+    "avatar": "micah.jefferson.png"
+  },
+  {
+    "name": "Miccki Langston",
+    "handle": "mickki",
+    "avatar": "mickki.png"
+  },
+  {
+    "name": "David Braden",
+    "handle": "neonphog",
+    "avatar": "neonphog.png"
+  },
+  {
+    "name": "Paul d'Aoust",
+    "handle": "pauldaoust",
+    "avatar": "pauldaoust.png"
+  },
+  {
+    "name": "Philip Beadle",
+    "handle": "philipbeadle",
+    "avatar": "philipbeadle.png"
+  },
+  {
+    "name": "Perry Kundert",
+    "handle": "pjkundert",
+    "avatar": "pjkundert.png"
+  },
+  {
+    "name": "Poprox",
+    "handle": "poprox",
+    "avatar": "poprox.png"
+  },
+  {
+    "name": "Robert Best",
+    "handle": "robert.best",
+    "avatar": "robert.best.png"
+  },
+  {
+    "name": "Sam Cooley",
+    "handle": "samcooley",
+    "avatar": "samcooley.png"
+  },
+  {
+    "name": "Sami Van Ness",
+    "handle": "sami-honeypot",
+    "avatar": "sami-honeypot.png"
+  },
+  {
+    "name": "Sam Rose",
+    "handle": "samrose",
+    "avatar": "samrose.png"
+  },
+  {
+    "name": "Julian Laubstein",
+    "handle": "sphinxc0re",
+    "avatar": "sphinxc0re.png"
+  },
+  {
+    "name": "David Meister",
+    "handle": "thedavidmeister",
+    "avatar": "thedavidmeister.png"
   }
 ]
