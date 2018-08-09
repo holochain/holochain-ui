@@ -12,15 +12,18 @@
         <file>RoundedAvatar.qml</file>
         <file>FindTime.qml</file>
         <file>Splash.qml</file>
-        <file>data/contacts.json</file>
         <file>ContactDelegate.qml</file>
+        <file>ContactSearchDelegate.qml</file>
         <file>JsonModel.qml</file>
         <file>Channels.qml</file>
+        <file>CommonButton.qml</file>
+        <file>NewChannel.qml</file>
         <file>data/messages_philip_micah.json</file>
         <file>data/messages_philip_jean_micah.json</file>
         <file>data/presence_philip_micah.json</file>
         <file>data/presence_philip_jean_micah.json</file>
         <file>data/channels.json</file>
+        <file>data/contacts.json</file>
         <file>images/24-hour-clock-face.jpg</file>
         <file>images/arrow.png</file>
         <file>images/background.png</file>
@@ -85,6 +88,5 @@
         <file>images/aaron_faulkner.png</file>
         <file>images/jarodholtz.png</file>
         <file>images/philipbeadle.png</file>
-        <file>CommonButton.qml</file>
     </qresource>
 </RCC>

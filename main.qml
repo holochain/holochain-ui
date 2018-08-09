@@ -21,7 +21,7 @@ ApplicationWindow {
                     }
         ToolButton {
             id: toolButton
-            text: stackView.depth > 1 ? "\u25C0" : "\u2630"
+            text: stackView.depth > 1 ? "\u25C0 Back" : "\u2630"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             onClicked: {
                 if (stackView.depth > 1) {
@@ -83,7 +83,7 @@ ApplicationWindow {
         anchors.fill: parent
     }
     Timer {
-        interval: 20; running: true; repeat: false
+        interval: 1; running: true; repeat: false
         onTriggered: {
             stackView.clear()
             stackView.push("Home.qml")

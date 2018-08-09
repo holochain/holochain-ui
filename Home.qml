@@ -3,7 +3,7 @@ import QtQuick.Controls 2.4
 
 Page {
     id: home
-    title: qsTr("Holochain hApps")
+    title: qsTr("Installed hApps")
     Rectangle{
         color: "#4d4d4d"
         anchors.fill: parent

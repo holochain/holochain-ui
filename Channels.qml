@@ -19,40 +19,12 @@ Page {
         Pane {
             id: pane
             Layout.fillWidth: true
-
-            RowLayout {
-                width: parent.width
-                Button {
-                    id: addChannel
-                    text: "Add Channel"
-                    contentItem: Text {
-                            text: addChannel.text
-                            font: addChannel.font
-                            opacity: enabled ? 1.0 : 0.3
-                            color: control.down ? "#17a81a" : "#21be2b"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            elide: Text.ElideRight
-                        }
-                    background: Rectangle {
-                        color : "#00ff99"
-                        implicitWidth: 100
-                        implicitHeight: 40
-                        opacity: enabled ? 1 : 0.3
-                        border.color: addChannel.down ? "#17a81a" : "#21be2b"
-                        border.width: 1
-                        radius: 2
-                    }
-                    onClicked: {
-                        messageField.visible = true
-                    }
-                }
-                TextArea {
-                    id: messageField
-                    visible: false
-                    Layout.fillWidth: true
-                    placeholderText: qsTr("Compose Message: ")
-                    wrapMode: TextArea.Wrap
+            CommonButton {
+                id: addChannel
+                text: qsTr("Add Channel")
+                anchors.right: parent.right
+                onClicked: {
+                    contacts.StackView.view.push("qrc:/NewChannel.qml")
                 }
             }
         }

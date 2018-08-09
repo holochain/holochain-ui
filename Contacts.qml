@@ -1,8 +1,6 @@
 import QtQuick 2.11
 import QtQuick.Window 2.11
 import QtQuick.Controls 2.2
-import QtTest 1.2
-
 
 Page {
     id: contacts
