@@ -9,6 +9,8 @@ Item {
     property bool isLoading: status === XMLHttpRequest.LOADING
     property bool wasLoading: false
     ListModel { id: dataList }
+    property variant objectArray
+    property string searchTerm
 
     Component.onCompleted: {
         console.log("Loading data " + dataUrl)
@@ -18,8 +20,8 @@ Item {
         req.onreadystatechange = function() {
             status = req.readyState;
             if (status === XMLHttpRequest.DONE) {
-//                console.log(req.responseText)
-                var objectArray = JSON.parse(req.responseText);
+                //                console.log(req.responseText)
+                objectArray = JSON.parse(req.responseText);
                 if (objectArray.errors !== undefined)
                     console.log("Error fetching data: " + objectArray.errors[0].message)
                 else {
@@ -29,7 +31,7 @@ Item {
                     }
                 }
                 if (wasLoading == true){
-//                    console.log(dataList.rowCount())
+                    //                    console.log(dataList.rowCount())
                     console.log("Loaded data " + dataUrl)
                     wrapper.isLoaded()
                 }
@@ -42,5 +44,20 @@ Item {
     function insertItem(item) {
         dataList.insert(0, item)
         console.log("Send the item to Holochain here!")
+    }
+
+
+    function containsNameOrHandle(contact) {
+        return contact.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
+    }
+
+    function filter() {
+        dataList.clear()
+        var filteredObjectArray = objectArray.filter(containsNameOrHandle)
+//        console.log(filteredObjectArray)
+        for (var key in filteredObjectArray) {
+            var jsonObject = filteredObjectArray[key];
+            dataList.append(jsonObject);
+        }
     }
 }

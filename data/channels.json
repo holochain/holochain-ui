@@ -2,15 +2,15 @@
   {
     "name": "Celestial",
     "channel": "philip_celestial",
-    "avatar": "celestial.png",
+    "avatar": "ccxxoo.png",
             "members": [
                 {
                   "name": "Celestial",
-                  "avatar": "celestial.png"
+                  "avatar": "ccxxoo.png"
                 },
                 {
                   "name": "Philip",
-                  "avatar": "philip.png"
+                  "avatar": "philipbeadle.png"
                 }
             ]
   },
@@ -21,26 +21,26 @@
             "members": [
                 {
                   "name": "Micah",
-                  "avatar": "micah.png"
+                  "avatar": "micah.jefferson.png"
                 },
                 {
                   "name": "Philip",
-                  "avatar": "philip.png"
+                  "avatar": "philipbeadle.png"
                 }
             ]
   },
   {
     "name": "Jean",
     "channel": "philip_jean",
-    "avatar": "jean.png",
+    "avatar": "jeanmrussell.png",
             "members": [
                 {
                   "name": "Jean",
-                  "avatar": "jean.png"
+                  "avatar": "jeanmrussell.png"
                 },
                 {
                   "name": "Philip",
-                  "avatar": "philip.png"
+                  "avatar": "philipbeadle.png"
                 }
             ]
   },
@@ -51,15 +51,15 @@
             "members": [
                 {
                   "name": "Micah",
-                  "avatar": "micah.png"
+                  "avatar": "micah.jefferson.png"
                 },
                 {
                   "name": "Jean",
-                  "avatar": "jean.png"
+                  "avatar": "jeanmrussell.png"
                 },
                 {
                   "name": "Philip",
-                  "avatar": "philip.png"
+                  "avatar": "philipbeadle.png"
                 }
             ]
   }
