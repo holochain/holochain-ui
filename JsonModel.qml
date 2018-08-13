@@ -46,15 +46,9 @@ Item {
         console.log("Send the item to Holochain here!")
     }
 
-
-    function containsNameOrHandle(contact) {
-        return contact.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
-    }
-
-    function filter() {
+    function filter(filterFunction) {
         dataList.clear()
-        var filteredObjectArray = objectArray.filter(containsNameOrHandle)
-//        console.log(filteredObjectArray)
+        var filteredObjectArray = objectArray.filter(filterFunction)
         for (var key in filteredObjectArray) {
             var jsonObject = filteredObjectArray[key];
             dataList.append(jsonObject);

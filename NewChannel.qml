@@ -15,6 +15,13 @@ Page {
         }
     }
 
+    JsonModel {
+        id: channelsModel
+        dataUrl: "data/channels.json"
+        onIsLoaded: {
+            console.log("Channels loaded")
+        }
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -28,10 +35,11 @@ Page {
                 id: contactSearch
                 Layout.fillWidth: true
                 focus: true
+                function containsNameOrHandle(contact) {
+                    return contact.name.toLowerCase().indexOf(contactSearch.getText(0, contactSearch.length).toLowerCase()) !== -1;
+                }
                 onTextChanged: {
-                    var searchTerm = contactSearch.getText(0, contactSearch.length)
-                    contactsModel.searchTerm = searchTerm
-                    contactsModel.filter()
+                    contactsModel.filter(containsNameOrHandle)
                 }
             }
         }
@@ -53,6 +61,7 @@ Page {
             spacing: 20
             model: contactsModel.model
             delegate: ContactDelegate{
+                createChannel: true
                 stackView: contacts.StackView.view
             }
         }

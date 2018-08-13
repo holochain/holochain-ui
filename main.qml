@@ -83,7 +83,7 @@ ApplicationWindow {
         anchors.fill: parent
     }
     Timer {
-        interval: 1; running: true; repeat: false
+        interval: 2000; running: true; repeat: false
         onTriggered: {
             stackView.clear()
             stackView.push("Home.qml")
