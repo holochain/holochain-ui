@@ -5,15 +5,11 @@ Contacts {
     id: testContacts
 
     TestCase {
-        name: "MathTests"
+        name: "ContactComponentTests"
         when: windowShown
 
-        function test_math() {
-            compare(2 + 2, 4, "2 + 2 = 4")
-        }
-
-        function test_fail() {
-            compare(5, testContacts.numberOfContacts, "2 + 2 = 5")
+        function ttest_when_ncontacts_loads_contacts_full_list_is_shown() {
+            compare(48, testContacts.numberOfContacts, "All contacts")
         }
     }
 }
