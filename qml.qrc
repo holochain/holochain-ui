@@ -8,7 +8,6 @@
         <file>Profiles.qml</file>
         <file>PresenceArcs.qml</file>
         <file>main.cpp</file>
-        <file>Clock.qml</file>
         <file>RoundedAvatar.qml</file>
         <file>FindTime.qml</file>
         <file>Splash.qml</file>

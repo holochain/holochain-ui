@@ -10,7 +10,10 @@ Item {
     property bool wasLoading: false
     ListModel { id: dataList }
     property variant objectArray
+<<<<<<< Updated upstream
     property string searchTerm
+=======
+>>>>>>> Stashed changes
 
     Component.onCompleted: {
         console.log("Loading data " + dataUrl)
@@ -20,7 +23,11 @@ Item {
         req.onreadystatechange = function() {
             status = req.readyState;
             if (status === XMLHttpRequest.DONE) {
+<<<<<<< Updated upstream
                 //                console.log(req.responseText)
+=======
+//                console.log(req.responseText)
+>>>>>>> Stashed changes
                 objectArray = JSON.parse(req.responseText);
                 if (objectArray.errors !== undefined)
                     console.log("Error fetching data: " + objectArray.errors[0].message)
@@ -46,15 +53,9 @@ Item {
         console.log("Send the item to Holochain here!")
     }
 
-
-    function containsNameOrHandle(contact) {
-        return contact.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
-    }
-
-    function filter() {
+    function filter(filterFunction) {
         dataList.clear()
-        var filteredObjectArray = objectArray.filter(containsNameOrHandle)
-//        console.log(filteredObjectArray)
+        var filteredObjectArray = objectArray.filter(filterFunction)
         for (var key in filteredObjectArray) {
             var jsonObject = filteredObjectArray[key];
             dataList.append(jsonObject);
