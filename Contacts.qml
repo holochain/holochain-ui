@@ -5,11 +5,13 @@ import QtQuick.Controls 2.2
 Page {
     id: contacts
     title: "Contacts"
+    property int numberOfContacts: 4
 
     JsonModel {
         id: contactsModel
         dataUrl: "data/contacts.json"
         onIsLoaded: {
+            numberOfContacts = contactsModel.model.rowCount()
             console.log("Loaded Contacts")
         }
     }
