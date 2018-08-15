@@ -33,11 +33,7 @@ Page {
                         width: 300
                         height: 300
                     }
-<<<<<<< Updated upstream
                     CommonButton {
-=======
-                    Button {
->>>>>>> Stashed changes
                         id: findTimeButtton
                         text: qsTr("Find Time")
                         enabled: true
@@ -59,11 +55,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.margins: pane.leftPadding + messageField.leftPadding
-<<<<<<< Updated upstream
                 displayMarginBeginning: 40
-=======
-                displayMarginBeginning: 200
->>>>>>> Stashed changes
                 displayMarginEnd: 40
                 verticalLayoutDirection: ListView.BottomToTop
                 spacing: 12
@@ -109,7 +101,6 @@ Page {
                         anchors.right: wasSentByMe ? parent.right : undefined
                     }
                 }
-<<<<<<< Updated upstream
 
                 ScrollBar.vertical: ScrollBar {}
             }
@@ -120,19 +111,6 @@ Page {
 
                 RowLayout {
                     Layout.fillWidth: true
-=======
-
-                ScrollBar.vertical: ScrollBar {}
-            }
-
-            Pane {
-                id: pane
-                Layout.fillWidth: true
-
-                RowLayout {
-                    width: parent.width
-
->>>>>>> Stashed changes
                     TextArea {
                         id: messageField
                         Layout.fillWidth: true
@@ -143,12 +121,7 @@ Page {
                         text: inviteDetails
                         wrapMode: TextArea.Wrap
                     }
-<<<<<<< Updated upstream
                     CommonButton {
-=======
-
-                    Button {
->>>>>>> Stashed changes
                         id: sendButton
                         text: qsTr("Send")
                         enabled: messageField.length > 0

@@ -4,8 +4,10 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
 Page {
-    id: contacts
+    id: newChannel
     title: "New Channel"
+    property alias contactsModel: contactsModel.model
+    property alias contactSearch: contactSearch
 
     JsonModel {
         id: contactsModel
@@ -62,7 +64,7 @@ Page {
             model: contactsModel.model
             delegate: ContactDelegate{
                 createChannel: true
-                stackView: contacts.StackView.view
+                stackView: newChannel.StackView.view
             }
         }
     }
