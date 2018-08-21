@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
-import { MenuItem } from 'material-ui/Menu';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography'
-import Tooltip from 'material-ui/Tooltip'
-import Save from 'material-ui-icons/Save'
-import Dvr from 'material-ui-icons/Dvr'
-import ViewListIcon from 'material-ui-icons/ViewList'
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import { MenuItem } from '@material-ui/core/Menu';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography'
+import Tooltip from '@material-ui/core/Tooltip'
+import Save from '@material-ui/icons/Save'
+import Dvr from '@material-ui/icons/Dvr'
+import ViewListIcon from '@material-ui/icons/ViewList'
 
 function renderInput(inputProps) {
   const { classes, ref, onChange, ...other } = inputProps;

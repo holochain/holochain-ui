@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withRoot from '../../../../withRoot';
-import { withStyles } from 'material-ui/styles';
-import Card, { CardHeader, CardActions, CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
-import Avatar from 'material-ui/Avatar';
-import Share from 'material-ui-icons/Share';
-import Badge from 'material-ui/Badge';
-import ThumbUp from 'material-ui-icons/ThumbUp';
-import ThumbDown from 'material-ui-icons/ThumbDown';
-import IconButton from 'material-ui/IconButton';
-import InfoOutline from 'material-ui-icons/InfoOutline';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import ListSubheader from 'material-ui/List/ListSubheader';
+import { withStyles } from '@material-ui/styles';
+import Card, { CardHeader, CardActions, CardContent } from '@material-ui/Card';
+import Button from '@material-ui/Button';
+import Typography from '@material-ui/Typography';
+import Avatar from '@material-ui/Avatar';
+import Share from '@material-ui/icons/Share';
+import Badge from '@material-ui/Badge';
+import ThumbUp from '@material-ui/icons/ThumbUp';
+import ThumbDown from '@material-ui/icons/ThumbDown';
+import IconButton from '@material-ui/IconButton';
+import InfoOutline from '@material-ui/icons/InfoOutline';
+import List, { ListItem, ListItemIcon, ListItemText } from '@material-ui/List';
+import ListSubheader from '@material-ui/List/ListSubheader';
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from 'material-ui/Dialog';
+} from '@material-ui/Dialog';
 import Message from './message';
 
 const styles = theme => ({

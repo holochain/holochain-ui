@@ -1,21 +1,19 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Route } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
-import Drawer from 'material-ui/Drawer'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import List from 'material-ui/List'
-import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
-import Typography from 'material-ui/Typography'
-import IconButton from 'material-ui/IconButton'
-import BuildIcon from 'material-ui-icons/Build'
-import Hidden from 'material-ui/Hidden'
-import Collapse from 'material-ui/transitions/Collapse'
-import MenuIcon from 'material-ui-icons/Menu'
-import GroupWorkIcon from 'material-ui-icons/GroupWork';
-import PersonIcon from 'material-ui-icons/Person'
-import LockIcon from 'material-ui-icons/Lock'
+import MediaQuery from 'react-responsive'
+import MenuIcon from '@material-ui/icons/Menu'
 import PersonasContainer from '../cells/holo-vault/containers/personasContainer'
 import PersonaContainer from '../cells/holo-vault/containers/personaContainer'
 import ProfileContainer from '../cells/holo-vault/containers/profileContainer'
@@ -23,159 +21,154 @@ import ProfilesContainer from '../cells/holo-vault/containers/profilesContainer'
 import CellsContainer from '../cells/holo-vault/containers/cellsContainer'
 import FeaturesContainer from '../cells/holo-vault/containers/featuresContainer'
 import SetupContainer from '../cells/holo-chat/containers/setupContainer'
-import ExpandLess from 'material-ui-icons/ExpandLess'
-import ExpandMore from 'material-ui-icons/ExpandMore'
-const drawerWidth = 180
+import Desktop from './desktop'
+import Mobile from './mobile'
+import { mainNav } from './navData';
+
+const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: '100%',
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
     display: 'flex',
-    width: '100%',
   },
   appBar: {
-    colorPrimary: 'primary',
-    position: 'absolute',
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
     marginLeft: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
-  navIconHide: {
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 36,
   },
-  toolbar: theme.mixins.toolbar,
+  hide: {
+    display: 'none',
+  },
   drawerPaper: {
+    position: 'relative',
+    whiteSpace: 'nowrap',
     width: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      position: 'relative',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerPaperClose: {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: theme.spacing.unit * 7,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing.unit * 9,
     },
+  },
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
   },
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: '#ffffff',
     padding: theme.spacing.unit * 3,
   },
-  nested: {
-    paddingLeft: theme.spacing.unit * 4,
-  }
 });
 
-class Navigation extends React.Component {
+class MiniDrawer extends React.Component {
   state = {
-    mobileOpen: false,
+    open: false,
   };
 
-  handleDrawerToggle = () => {
-    this.setState({ mobileOpen: !this.state.mobileOpen });
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
   };
 
-  handleClickListItem = () => {
-    this.setState({ mobileOpen: !this.state.mobileOpen });
+  handleDrawerClose = () => {
+    this.setState({ open: false });
   };
 
-  state = { open: false };
-
-    handleClick = () => {
-      this.setState({ open: !this.state.open });
-    }
   render() {
     const { classes, theme } = this.props;
 
-    const drawer = (
-      <div>
-        <div className={classes.toolbar} />
-        <List>
-          <Route render={({ history}) => (
-            <div>
-              <ListItem button onClick={this.handleClick}>
-                <ListItemIcon>
-                  <LockIcon />
-                </ListItemIcon>
-                <ListItemText inset primary="Vault" />
-                {this.state.open ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <ListItem name="features" button onClick={() => { history.push('/holo-vault/features') }}>
-                    <ListItemIcon>
-                      <BuildIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='Features' />
-                  </ListItem>
-                  <ListItem name="cells" button onClick={() => { history.push('/holo-vault/cells') }}>
-                    <ListItemIcon>
-                      <GroupWorkIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='Cells' />
-                  </ListItem>
-                  <ListItem id="personas" button onClick={() => { history.push('/holo-vault/personas') }}>
-                    <ListItemIcon>
-                      <PersonIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='Personas' />
-                  </ListItem>
-                  <ListItem name="profiles" button onClick={() => { history.push('/holo-vault/profiles') }}>
-                    <ListItemIcon>
-                      <PersonIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='Profiles' />
-                  </ListItem>
-                </List>
-              </Collapse>
-
-            </div>
-          )} />
-      </List>
-    </div>
-    );
-
     return (
       <div className={classes.root}>
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton color='inherit' aria-label='open drawer' onClick={this.handleDrawerToggle} className={classes.navIconHide}>
+        <AppBar
+          position="absolute"
+          className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
+        >
+          <Toolbar disableGutters={!this.state.open}>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerOpen}
+              className={classNames(classes.menuButton, this.state.open && classes.hide)}
+            >
               <MenuIcon />
             </IconButton>
-            <Typography variant='title' color='inherit' noWrap>
-              {this.props.location.pathname.replace(/\//g, ' ').replace('holo-vault', 'Vault')}
+            <Typography variant="title" color="inherit" noWrap>
+              Holochain
             </Typography>
           </Toolbar>
         </AppBar>
-        <Hidden mdUp>
-          <Drawer variant='temporary' anchor={theme.direction === 'rtl' ? 'right' : 'left'} open={this.state.mobileOpen} onClose={this.handleDrawerToggle} classes={{paper: classes.drawerPaper}} ModalProps={{ keepMounted: true }}>
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation='css'>
-          <Drawer variant='permanent' open classes={{paper: classes.drawerPaper}}>
-            {drawer}
-          </Drawer>
-        </Hidden>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+          }}
+          open={this.state.open}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={this.handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>{mainNav}</List>
+        </Drawer>
         <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Route path='/holo-vault/personas' title='Personas' component={PersonasContainer} />
-          <Route path='/holo-vault/persona/:name' component={PersonaContainer} />
-          <Route path='/holo-vault/profiles' component={ProfilesContainer} />
-          <Route path='/holo-vault/profile/:name' component={ProfileContainer} />
-          <Route path='/holo-vault/cells' component={CellsContainer} />
-          <Route path='/holo-vault/cell/:name' component={SetupContainer} />
-          <Route path='/holo-vault/features' component={FeaturesContainer} />
+          <MediaQuery minDeviceWidth={1025}>
+            <Route exact path='/' title='Holochain' component={Desktop} />
+            <Route path='/holo-vault/personas' title='Personas' component={PersonasContainer} />
+            <Route path='/holo-vault/persona/:name' component={PersonaContainer} />
+            <Route path='/holo-vault/profiles' component={ProfilesContainer} />
+            <Route path='/holo-vault/profile/:name' component={ProfileContainer} />
+            <Route path='/holo-vault/cells' component={CellsContainer} />
+            <Route path='/holo-vault/cell/:name' component={SetupContainer} />
+            <Route path='/holo-vault/features' component={FeaturesContainer} />
+          </MediaQuery>
+          <MediaQuery minDeviceWidth={768} maxDeviceWidth={1024}>
+            <Desktop />
+          </MediaQuery>
+          <MediaQuery maxDeviceWidth={767}>
+            <Mobile />
+          </MediaQuery>
+
         </main>
       </div>
     );
   }
 }
 
-Navigation.propTypes = {
+MiniDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Navigation);
+export default withStyles(styles, { withTheme: true })(MiniDrawer);
