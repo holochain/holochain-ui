@@ -157,7 +157,7 @@ class MiniDrawer extends React.Component {
             <Desktop />
           </MediaQuery>
           <MediaQuery maxDeviceWidth={767}>
-            <Mobile />
+            <Route exact path='/' title='Holochain' component={Mobile} />
           </MediaQuery>
 
         </main>

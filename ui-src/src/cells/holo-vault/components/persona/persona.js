@@ -100,7 +100,7 @@ class Persona extends React.Component {
       this.props.personaUpdate(persona)
     }
     this.props.personasList()
-    this.props.history.push("/personas")
+    this.props.history.push("/holo-vault/personas")
   }
 
   handleAddPersonaField = () =>   {
