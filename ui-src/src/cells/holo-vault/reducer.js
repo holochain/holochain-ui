@@ -34,7 +34,7 @@ function vaultReducer (state = initialState, action) {
       // console.log(JSON.parse(payload)[0].hash)
         return {
           ...state,
-          personas: JSON.parse(payload)
+          personas: payload
         }
     default:
       return state

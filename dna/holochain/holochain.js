@@ -17,7 +17,7 @@ function callBridgedFunction(bridgeCall){
   var result = bridge(channelDNA, bridgeCall.zome, bridgeCall.function, bridgeCall.data)
   debug('called ' + bridgeCall.function)
   debug(result)
-  return result
+  return JSON.parse(result)
 }
 
 function getDNA(channel){
