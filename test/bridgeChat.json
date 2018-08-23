@@ -4,7 +4,7 @@
       "Convey": "All HC functions are accessed through the one function that bridges to the appropriate DHT.",
       "Details": "This method lets you easily access any bridged app",
       "Zome": "holochain",
-      "Input": "callBridgedFunction({'channel': 'Aussie_DJs','zome': 'messages','function': 'createMessage','data': {'message': 'Posting to the group'}}).indexOf('Qm') === 0",
+      "Input": "callBridgedFunction({'channel': 'Aussie_DJs','zome': 'messages','function': 'createMessage','data': {'message': 'Posting to the group'}}).indexOf('Qm')",
       "Output": true,
       "Err": "",
       "Raw": true

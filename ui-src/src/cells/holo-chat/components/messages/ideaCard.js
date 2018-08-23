@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withRoot from '../../../../withRoot';
-import { withStyles } from '@material-ui/styles';
-import Card, { CardHeader, CardActions, CardContent } from '@material-ui/Card';
-import Button from '@material-ui/Button';
-import Typography from '@material-ui/Typography';
-import Avatar from '@material-ui/Avatar';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 import Share from '@material-ui/icons/Share';
-import Badge from '@material-ui/Badge';
+import Badge from '@material-ui/core/Badge';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import ThumbDown from '@material-ui/icons/ThumbDown';
-import IconButton from '@material-ui/IconButton';
-import InfoOutline from '@material-ui/icons/InfoOutline';
-import List, { ListItem, ListItemIcon, ListItemText } from '@material-ui/List';
-import ListSubheader from '@material-ui/List/ListSubheader';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from '@material-ui/Dialog';
+import IconButton from '@material-ui/core/IconButton';
+import Info from '@material-ui/icons/Info';
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/List'
+import ListItemIcon from '@material-ui/core/List'
+import ListItemText from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/Dialog'
+import DialogContent from '@material-ui/core/Dialog'
+import DialogContentText from '@material-ui/core/Dialog'
+import DialogTitle from '@material-ui/core/Dialog';
 import Message from './message';
 
 const styles = theme => ({
@@ -170,7 +175,7 @@ class IdeaCard extends Component {
               className={classes.button}
               onClick={this.handleClickOpen}
               aria-label="ThumbDown">
-              <InfoOutline />
+              <Info />
             </IconButton>
             <a href="https://github.com/Holochain/clutter/issues/40">
               <Avatar alt="Holochain" src="GitHub-Mark.png" />

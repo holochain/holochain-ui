@@ -1,19 +1,24 @@
 import React, { Component } from 'react'
-import { withStyles } from '@material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 import withRoot from '../../../../withRoot'
 import PropTypes from 'prop-types'
-import Avatar from '@material-ui/Avatar'
-import List, { ListItem, ListItemText, ListItemAvatar } from '@material-ui/List'
-import Badge from '@material-ui/Badge'
-import Collapse from '@material-ui/transitions/Collapse'
-import Popover from '@material-ui/Popover'
-import Typography from '@material-ui/Typography'
-import LightbulbOutline from '@material-ui/icons/LightbulbOutline'
+import Avatar from '@material-ui/core/Avatar'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/List'
+import ListItemText from '@material-ui/core/List'
+import ListItemAvatar from '@material-ui/core/List'
+import Badge from '@material-ui/core/Badge'
+import Popover from '@material-ui/core/Popover'
+import Typography from '@material-ui/core/Typography'
+import Highlight from '@material-ui/icons/Highlight'
 import ThumbUp from '@material-ui/icons/ThumbUp'
 import ThumbDown from '@material-ui/icons/ThumbDown'
-import IconButton from '@material-ui/IconButton'
-import Card, { CardMedia, CardContent } from '@material-ui/Card'
+import IconButton from '@material-ui/core/IconButton'
+import Card from '@material-ui/core/Card'
+import CardMedia from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/Card'
 import IdeaCard from './ideaCard'
+import Collapse from '@material-ui/core/Collapse'
 
 const styles = theme => ({
   container: {
@@ -94,7 +99,7 @@ function VoteControls (props) {
     return (
       <div style={{position: 'absolute',top: -16,right: -9,width: 'auto', height:'auto', marginHorizontal:10, paddingHorizontal:10, marginVertical:0, backgroundColor:'white', border: 'thin solid lightgrey'}}>
         <IconButton    style={{display: (props.message.idea === true) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea'>
-          <LightbulbOutline />
+          <Highlight />
         </IconButton>
 <IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbUp'>
           <ThumbUp />

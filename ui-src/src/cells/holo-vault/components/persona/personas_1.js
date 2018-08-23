@@ -1,24 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import Typography from '@material-ui/core/Typography';
 import {Route} from 'react-router-dom'
+import {withStyles} from '@material-ui/core/styles';
+import withRoot from '../../../../withRoot';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/List'
+import ListItemText from '@material-ui/core/List'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Person from '@material-ui/icons/Person'
 import PersonAdd from '@material-ui/icons/PersonAdd'
-import withRoot from '../../../../withRoot';
 
 const styles = theme => ({
   root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper
+    textAlign: 'left',
+    paddingTop: theme.spacing.unit
   }
 });
 
@@ -33,12 +30,12 @@ class Personas extends React.Component {
       <Typography variant='display1'>
         Personas
       </Typography>
-      <Typography variant='body1' gutterBottom>
+      <Typography variant='body1' gutterBottom="gutterBottom">
         Look after your personal information here, click on a Persona to update or click Add Persona to create a new one.
       </Typography>
-      <List component="nav">
+      <List>
         {
-          personas.map((persona, index) => (<Route render={({history}) => (<ListItem key={persona.hash} button onClick={() => {
+          personas.map((persona, index) => (<Route render={({history}) => (<ListItem key={persona.hash} button="button" onClick={() => {
                 history.push(`/holo-vault/persona/${persona.persona.name}`)
               }}>
               <ListItemIcon>

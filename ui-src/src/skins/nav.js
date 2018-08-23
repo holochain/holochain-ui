@@ -18,13 +18,11 @@ import PersonasContainer from '../cells/holo-vault/containers/personasContainer'
 import PersonaContainer from '../cells/holo-vault/containers/personaContainer'
 import ProfileContainer from '../cells/holo-vault/containers/profileContainer'
 import ProfilesContainer from '../cells/holo-vault/containers/profilesContainer'
-import CellsContainer from '../cells/holo-vault/containers/cellsContainer'
 import FeaturesContainer from '../cells/holo-vault/containers/featuresContainer'
 import SetupContainer from '../cells/holo-chat/containers/setupContainer'
 import Desktop from './desktop'
 import Mobile from './mobile'
 import { mainNav } from './navData';
-
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -88,6 +86,7 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: '#ffffff',
     padding: theme.spacing.unit * 3,
+    marginTop: 50
   },
 });
 
@@ -149,7 +148,6 @@ class MiniDrawer extends React.Component {
             <Route path='/holo-vault/persona/:name' component={PersonaContainer} />
             <Route path='/holo-vault/profiles' component={ProfilesContainer} />
             <Route path='/holo-vault/profile/:name' component={ProfileContainer} />
-            <Route path='/holo-vault/cells' component={CellsContainer} />
             <Route path='/holo-vault/cell/:name' component={SetupContainer} />
             <Route path='/holo-vault/features' component={FeaturesContainer} />
           </MediaQuery>

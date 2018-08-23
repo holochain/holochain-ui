@@ -2,8 +2,10 @@ import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import withRoot from '../../../../withRoot'
-import { withStyles } from '@material-ui/styles'
-import List, { ListItem, ListItemText } from '@material-ui/List'
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List'
+import ListItem  from '@material-ui/core/List'
+import ListItemText from '@material-ui/core/List'
 import Message from './message'
 
 const styles = theme => ({
