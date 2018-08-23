@@ -6,6 +6,7 @@ ui-automation/cypress/screenshots
 ui-automation/cypress/videos
 ui-automation/node_modules
 ui
+ui-automation/mochawesome-report
 
 # testing
 /coverage

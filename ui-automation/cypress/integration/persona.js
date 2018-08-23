@@ -1,9 +1,11 @@
+const addContext = require('mochawesome/addContext')
+
 describe('How to work with Personas', function () {
   it('Add a new Friends persona by clicking the Add button', function () {
     cy.visit('/holo-vault/persona/new')
     cy.title().should('eq', 'Holochain')
     cy.get('input[name="personaName"]').type('Friends', { delay: 25 })
-    cy.log('Fill out the name you want to refer to this Persona as')
+    addContext(this, 'Fill out the name you want to refer to this Persona as')
     cy.get('button[name="addField"]').click()
     cy.log('Click the Add Field button to start adding your information')
     cy.get('input[name="fieldName0"]').type('nickName', { delay: 25 })
