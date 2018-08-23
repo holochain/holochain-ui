@@ -28,7 +28,8 @@
     "release:files": "node copy-release.js",
     "storybook": "start-storybook -p 9009 -s public",
     "storybook:deploy": "storybook-to-ghpages",
-    "storybook:build": "build-storybook -s public"
+    "storybook:build": "build-storybook -s public",
+    "storybook:mocha": "mocha -require /Users/philipbeadle/Holochain/Apps/holochain-ui/ui-src/.storybook/config.js"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.3.15",

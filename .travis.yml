@@ -39,9 +39,7 @@ script:
 - pwd
 - docker-compose kill
 - docker-compose down
-cache:
-  directories:
-  - ui-automation/node_modules
+
 deploy:
   provider: releases
   api-key:
