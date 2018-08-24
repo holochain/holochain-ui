@@ -19,6 +19,7 @@ import PersonaContainer from '../cells/holo-vault/containers/personaContainer'
 import ProfileContainer from '../cells/holo-vault/containers/profileContainer'
 import ProfilesContainer from '../cells/holo-vault/containers/profilesContainer'
 import FeaturesContainer from '../cells/holo-vault/containers/featuresContainer'
+import HappsContainer from '../cells/holo-vault/containers/happsContainer'
 import SetupContainer from '../cells/holo-chat/containers/setupContainer'
 import Desktop from './desktop'
 import Mobile from './mobile'
@@ -150,6 +151,7 @@ class MiniDrawer extends React.Component {
             <Route path='/holo-vault/profile/:name' component={ProfileContainer} />
             <Route path='/holo-vault/cell/:name' component={SetupContainer} />
             <Route path='/holo-vault/features' component={FeaturesContainer} />
+            <Route path='/holo-vault/happs' component={HappsContainer} />
           </MediaQuery>
           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1024}>
             <Desktop />

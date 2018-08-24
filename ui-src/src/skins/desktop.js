@@ -14,7 +14,6 @@ import withRoot from '../withRoot';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import  * as synApps from '../synApps/installed.js'
 
 const styles = theme => ({
   appBar: {
@@ -27,7 +26,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   heroContent: {
-    maxWidth: 600,
+    maxWidth: 1000,
     margin: '0 auto',
     padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`,
   },
@@ -64,74 +63,18 @@ function Desktop(props) {
       <CssBaseline />
       <main>
         {/* Hero unit */}
+
         <div className={classes.heroUnit}>
           <div className={classes.heroContent}>
-            <Typography variant="display3" align="center" color="textPrimary" gutterBottom>
+            <Typography variant="display3" align="left" color="textPrimary" gutterBottom>
               Holochain
             </Typography>
-            <Typography variant="title" align="center" color="textSecondary" paragraph>
-              These are all the synApps you have installed in your Holochain.
+            <Typography variant="title" align="left" color="textSecondary" paragraph>
+              I'm thinking this view should be some sort of amazing empathic sign vs noise dashboard.
+              We have lots of room in Desktop Mode,
             </Typography>
-            <div className={classes.heroButtons}>
-              <Grid container spacing={16} justify="center">
-                <Grid item>
-                  <Button variant="contained" color="primary">
-                    synApps Store
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Check your Holo
-                  </Button>
-                </Grid>
-              </Grid>
-            </div>
+            <img align="left" width="900" src="https://holo.host/wp-content/uploads/2017/12/HC@2x-e1512472568604.png" alt="https://holo.host/wp-content/uploads/2017/12/How-it-Works_for-website2@2x.png" />
           </div>
-        </div>
-        <div className={classNames(classes.layout, classes.cardGrid)}>
-          {/* End hero unit */}
-          <List id="hApps" component="nav">
-            {
-              synApps.installed.map((group, index) => (
-                <ListItem id={group.name} divider={true}>
-                  <List>
-                    <ListItem >
-                      <Typography variant="title" align="center" color="textSecondary" paragraph>
-                        {group.name}
-                      </Typography>
-                    </ListItem>
-                    <ListItem>
-                      <Grid container spacing={40}>
-                        {group.hApps.map(app => (
-                          <Grid item key={app.name} sm={6} md={4} lg={3}>
-                            <Card>
-                              <CardMedia
-                                className={classes.cardMedia}
-                                image={app.image}
-                                title={app.name}
-                              />
-                              <CardContent>
-                                <Typography gutterBottom variant="headline" component="h2">
-                                  {app.name}
-                                </Typography>
-                                <Typography>
-                                  {app.description}
-                                </Typography>
-                              </CardContent>
-                              <CardActions>
-                                <Button href={app.url} size="small" color="primary">
-                                  {app.buttonText}
-                                </Button>
-                              </CardActions>
-                            </Card>
-                          </Grid>
-                        ))}
-                      </Grid>
-                    </ListItem>
-                  </List>
-                </ListItem>))
-            }
-          </List>
         </div>
       </main>
       {/* Footer */}
