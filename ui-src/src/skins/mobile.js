@@ -5,6 +5,9 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../withRoot';
 
@@ -84,14 +87,36 @@ function Mobile(props) {
         </div>
         <div className={classNames(classes.layout, classes.cardGrid)}>
           {/* End hero unit */}
-          <Grid container spacing={40}>
-            {synApps.installed.map(app => (
-              <Grid item key={app.name} sm={6} md={4} lg={3}>
-                <img src={app.image} alt={app.name} width="75" height="75" />
-              </Grid>
-            ))}
-          </Grid>
+          <List id="hApps" component="nav">
+            {
+              synApps.installed.map((group, index) => (
+                <ListItem id={group.name} divider={true}>
+                  <List>
+                    <ListItem >
+                      <Typography variant="title" align="center" color="textSecondary" paragraph>
+                        {group.name}
+                      </Typography>
+                    </ListItem>
+                    <ListItem>
+                      {group.hApps.map(app => (
+                        <Grid item key={app.name} sm={6} md={4} lg={3}>
+                          <img src={app.image} alt={app.name} width="75" height="75" />
+                        </Grid>
+                      ))}
+                    </ListItem>
+                  </List>
+                </ListItem>))
+            }
+          </List>
         </div>
+
+
+
+        <Grid container spacing={40}>
+
+        </Grid>
+
+
       </main>
       {/* Footer */}
       <footer className={classes.footer}>

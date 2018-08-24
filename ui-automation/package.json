@@ -10,7 +10,7 @@
     "test": "CYPRESS_baseUrl=http://localhost:3000 cypress run --record --key 76c89433-91c8-4cb3-b083-200a4f107448 --reporter mochawesome",
     "cypress:open": "CYPRESS_baseUrl=http://localhost:3000 cypress open",
     "cypress:docker": "CYPRESS_baseUrl=http://localhost:4141 cypress open",
-    "cypress:record": "CYPRESS_baseUrl=http://localhost:3000 cypress run --record --key 76c89433-91c8-4cb3-b083-200a4f107448 --reporter mochawesome"
+    "cypress:mochawesome": "CYPRESS_baseUrl=http://localhost:3000 cypress run --reporter mochawesome"
   },
   "dependencies": {
     "cypress": "^3.1.0"
@@ -29,8 +29,10 @@
     ]
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "mochawesome": "^3.0.3",
-    "mochawesome-report-generator": "^3.1.3"
+    "mochawesome-report-generator": "^3.1.3",
+    "should": "^13.2.3"
   }
 }
