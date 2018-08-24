@@ -28,14 +28,15 @@ class Personas extends React.Component {
     const {classes, personas} = this.props;
     return (<div className={classes.root}>
       <Typography variant='display1'>
-        Personas
+        Personas HI
       </Typography>
       <Typography variant='body1' gutterBottom>
         Look after your personal information here, click on a Persona to update or click Add Persona to create a new one.
       </Typography>
-      <List component="nav">
+      <List id="personas" component="nav">
         {
-          personas.map((persona, index) => (<Route render={({history}) => (<ListItem key={persona.hash} button onClick={() => {
+          personas.map((persona, index) => (<Route render={({history}) => (
+            <ListItem id={persona.hash} button onClick={() => {
                 history.push(`/holo-vault/persona/${persona.persona.name}`)
               }}>
               <ListItemIcon>

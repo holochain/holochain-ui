@@ -1,4 +1,13 @@
-const addContext = require('mochawesome/addContext')
+const should = require('should');
+const addContext = require('mochawesome/addContext');
+
+it('should have context', function () {
+  (1+1).should.equal(2);
+  addContext(this, {
+        title: 'How I Feel When Tests Fail',
+        value: 'http://i.imgur.com/c4jt321.png'
+      });
+});
 
 describe('How to work with Personas', function () {
   it('Add a new Friends persona by clicking the Add button', function () {
@@ -18,6 +27,7 @@ describe('How to work with Personas', function () {
     cy.get('input[name="fieldValue1"]').type('DJ', { delay: 25 })
     cy.get('button[name="createPersona"]').click()
     cy.log('Click the Create Persona button to save into your private data.')
+    cy.contains('Personal')
   })
   it('Add a new Personal persona by clicking the Add button', function () {
     cy.visit('/holo-vault/persona/new')

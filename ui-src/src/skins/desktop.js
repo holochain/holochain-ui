@@ -11,7 +11,9 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../withRoot';
-
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import  * as synApps from '../synApps/installed.js'
 
 const styles = theme => ({
@@ -88,32 +90,48 @@ function Desktop(props) {
         </div>
         <div className={classNames(classes.layout, classes.cardGrid)}>
           {/* End hero unit */}
-          <Grid container spacing={40}>
-            {synApps.installed.map(app => (
-              <Grid item key={app.name} sm={6} md={4} lg={3}>
-                <Card>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={app.image}
-                    title={app.name}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="headline" component="h2">
-                      {app.name}
-                    </Typography>
-                    <Typography>
-                      {app.description}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button href={app.url} size="small" color="primary">
-                      {app.buttonText}
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          <List id="hApps" component="nav">
+            {
+              synApps.installed.map((group, index) => (
+                <ListItem id={group.name} divider={true}>
+                  <List>
+                    <ListItem >
+                      <Typography variant="title" align="center" color="textSecondary" paragraph>
+                        {group.name}
+                      </Typography>
+                    </ListItem>
+                    <ListItem>
+                      <Grid container spacing={40}>
+                        {group.hApps.map(app => (
+                          <Grid item key={app.name} sm={6} md={4} lg={3}>
+                            <Card>
+                              <CardMedia
+                                className={classes.cardMedia}
+                                image={app.image}
+                                title={app.name}
+                              />
+                              <CardContent>
+                                <Typography gutterBottom variant="headline" component="h2">
+                                  {app.name}
+                                </Typography>
+                                <Typography>
+                                  {app.description}
+                                </Typography>
+                              </CardContent>
+                              <CardActions>
+                                <Button href={app.url} size="small" color="primary">
+                                  {app.buttonText}
+                                </Button>
+                              </CardActions>
+                            </Card>
+                          </Grid>
+                        ))}
+                      </Grid>
+                    </ListItem>
+                  </List>
+                </ListItem>))
+            }
+          </List>
         </div>
       </main>
       {/* Footer */}
