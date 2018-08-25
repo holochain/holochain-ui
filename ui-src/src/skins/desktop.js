@@ -1,19 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../withRoot';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+
 
 const styles = theme => ({
   appBar: {
@@ -70,8 +61,8 @@ function Desktop(props) {
               Holochain
             </Typography>
             <Typography variant="title" align="left" color="textSecondary" paragraph>
-              I'm thinking this view should be some sort of amazing empathic sign vs noise dashboard.
-              We have lots of room in Desktop Mode,
+              Im thinking this view should be some sort of amazing empathic sign vs noise dashboard.
+              We have lots of room in Desktop Mode
             </Typography>
             <img align="left" width="900" src="https://holo.host/wp-content/uploads/2017/12/HC@2x-e1512472568604.png" alt="https://holo.host/wp-content/uploads/2017/12/How-it-Works_for-website2@2x.png" />
           </div>

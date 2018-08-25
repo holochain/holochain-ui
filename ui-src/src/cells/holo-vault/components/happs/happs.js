@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../../../../withRoot';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/List'
-import ListItemAvatar from '@material-ui/core/List'
-import ListItemText from '@material-ui/core/List'
-import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 import classNames from 'classnames';
 import Card from '@material-ui/core/Card';
