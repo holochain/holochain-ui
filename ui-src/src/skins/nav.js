@@ -18,12 +18,14 @@ import PersonasContainer from '../cells/holo-vault/containers/personasContainer'
 import PersonaContainer from '../cells/holo-vault/containers/personaContainer'
 import ProfileContainer from '../cells/holo-vault/containers/profileContainer'
 import ProfilesContainer from '../cells/holo-vault/containers/profilesContainer'
-import FeaturesContainer from '../cells/holo-vault/containers/featuresContainer'
+import MessagesContainer from '../cells/holo-chat/containers/messagesContainer'
 import HappsContainer from '../cells/holo-vault/containers/happsContainer'
 import SetupContainer from '../cells/holo-chat/containers/setupContainer'
 import Desktop from './desktop'
 import Mobile from './mobile'
 import { mainNav } from './navData';
+import HoloVaultNav from './holoVaultNavData';
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -141,6 +143,9 @@ class MiniDrawer extends React.Component {
           </div>
           <Divider />
           <List>{mainNav}</List>
+          <MediaQuery minDeviceWidth={1025}>
+            <List><Route path='/holo-vault/profiles' component={HoloVaultNav} /></List>
+          </MediaQuery>
         </Drawer>
         <main className={classes.content}>
           <MediaQuery minDeviceWidth={1025}>
@@ -150,8 +155,8 @@ class MiniDrawer extends React.Component {
             <Route path='/holo-vault/profiles' component={ProfilesContainer} />
             <Route path='/holo-vault/profile/:name' component={ProfileContainer} />
             <Route path='/holo-vault/cell/:name' component={SetupContainer} />
-            <Route path='/holo-vault/features' component={FeaturesContainer} />
             <Route path='/holo-vault/happs' component={HappsContainer} />
+            <Route path='/holo-chat/messages' component={MessagesContainer} />
           </MediaQuery>
           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1024}>
             <Desktop />

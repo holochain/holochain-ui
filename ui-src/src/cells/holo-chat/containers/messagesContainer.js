@@ -1,14 +1,14 @@
 
 import { connect } from 'react-redux'
 import Messages from '../components/messages/messages'
-// import  * as constants from '../constants.js'
+import  * as constants from '../constants.js'
 import {
   messagesList
 } from '../actions'
 
 const mapStateToProps = state => {
   return {
-    messages: []
+    messages: constants.messages
   }
 }
 

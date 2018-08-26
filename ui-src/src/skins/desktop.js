@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../withRoot';
-
+import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
   appBar: {
@@ -62,9 +62,14 @@ function Desktop(props) {
             </Typography>
             <Typography variant="title" align="left" color="textSecondary" paragraph>
               Im thinking this view should be some sort of amazing empathic sign vs noise dashboard.
-              We have lots of room in Desktop Mode
             </Typography>
-            <img align="left" width="900" src="https://holo.host/wp-content/uploads/2017/12/HC@2x-e1512472568604.png" alt="https://holo.host/wp-content/uploads/2017/12/How-it-Works_for-website2@2x.png" />
+
+            <Grid container spacing={40}>
+              <Grid item key="empathy-signal-noise" sm={6} md={4} lg={3}>
+                <img align="left" width="900" src="https://holo.host/wp-content/uploads/2017/12/HC@2x-e1512472568604.png" alt="https://holo.host/wp-content/uploads/2017/12/How-it-Works_for-website2@2x.png" />
+              </Grid>
+            </Grid>
+
           </div>
         </div>
       </main>
