@@ -1,9 +1,21 @@
+import {ProfileMapping, Persona} from './types/profile'
+
+
 export const PROFILEMAPPINGCREATE = 'profileMappingCreate'
 export const PERSONACREATE = 'personaCreate'
 export const PERSONAUPDATE = 'personaUpdate'
 export const PROFILESLIST = 'profilesList'
 export const PERSONASLIST = 'personasList'
 export const CELLSLIST = 'cellsList'
+
+export type VaultAction = {
+  type: string,
+  meta: {
+    isHc: boolean,
+    namespace: string,
+    data: any
+  }
+}
 
 export function cellsList() {
   return {
@@ -15,7 +27,7 @@ export function cellsList() {
   }
 }
 
-export function profileMappingCreate(profileMapping) {
+export function profileMappingCreate(profileMapping: ProfileMapping) {
   profileMapping.channel = 'holo-vault'
   return {
     type: PROFILEMAPPINGCREATE,
@@ -27,7 +39,7 @@ export function profileMappingCreate(profileMapping) {
   }
 }
 
-export function personaCreate(persona) {
+export function personaCreate(persona: Persona) {
   persona.channel = 'holo-vault'
   return {
     type: PERSONACREATE,
@@ -39,7 +51,7 @@ export function personaCreate(persona) {
   }
 }
 
-export function personaUpdate(persona) {
+export function personaUpdate(persona: Persona) {
   persona.channel = 'holo-vault'
   return {
     type: PERSONAUPDATE,

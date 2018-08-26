@@ -5,4 +5,8 @@ export interface Profile {
 	src: string
 }
 
-type ProfileSpec = any //TODO: rewrite as an inteface
+export type ProfileMapping = any //TODO: rewrite as interface
+
+export type ProfileSpec = any //TODO: rewrite as an inteface
+
+export type Persona = any //TODO: rewrite as interface
