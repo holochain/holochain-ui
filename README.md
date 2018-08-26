@@ -5,7 +5,7 @@ A Holochain app (hApp) built to allow people to manage how other hApps access th
 ![GitHub](https://img.shields.io/github/license/holochain/holochain-ui.svg)
 
 ## Features
-Allows you to bridge different services and manage different personas that allow you to build unique profiles for whatever hApp you are using.
+Allows one to bridge different holochain services and manage different personas that provide a way to build unique profiles for whatever hApp will be used.
 
 This app brings together the features of [HoloChat](https://github.com/holochain/holochat) and [HoloVault](https://github.com/holochain/holo-vault) into one extensible user interface.
 
