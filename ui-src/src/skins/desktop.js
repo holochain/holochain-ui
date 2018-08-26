@@ -63,7 +63,7 @@ function Desktop(props) {
 
             <Grid container spacing={40}>
               <Grid item key="empathy-signal-noise" sm={6} md={4} lg={3}>
-                <img align="left" width="900" src="https://image.slidesharecdn.com/learn2learn3-2-17-170301234059/95/linkedin-learning-what-were-learning-about-learning-92-1024.jpg?cb=1488412050" alt="https://image.slidesharecdn.com/learn2learn3-2-17-170301234059/95/linkedin-learning-what-were-learning-about-learning-92-1024.jpg?cb=1488412050" />
+                <img align="left" width="900" src="https://image.slidesharecdn.com/learn2learn3-2-17-170301234059/95/linkedin-learning-what-were-learning-about-learning-92-1024.jpg?cb=1488412050" alt="Thanx" />
               </Grid>
             </Grid>
 

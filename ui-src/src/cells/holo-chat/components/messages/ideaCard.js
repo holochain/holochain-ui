@@ -17,9 +17,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Info from '@material-ui/icons/Info';
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/List'
-import ListItemIcon from '@material-ui/core/List'
-import ListItemText from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/Dialog'

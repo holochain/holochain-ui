@@ -6,8 +6,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/List'
-import Home from '@material-ui/icons/Home'
 import Person from '@material-ui/icons/Person'
 import withRoot from '../withRoot';
 
@@ -25,8 +23,6 @@ const styles = theme => ({
 class HoloVaultNav extends React.Component {
 
   render() {
-    const { classes, theme } = this.props;
-
     return (<Route render={({history}) => (
       <List>
         <div>
@@ -50,7 +46,6 @@ class HoloVaultNav extends React.Component {
 }
 
 HoloVaultNav.propTypes = {
-  classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 

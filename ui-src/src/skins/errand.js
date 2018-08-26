@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Iframe from 'react-iframe'
 import withRoot from '../withRoot';
@@ -19,8 +18,6 @@ const styles = theme => ({
 class ErrandSkin extends React.Component {
 
   render() {
-    const { classes, theme } = this.props;
-
     return (
       <Iframe url="http://localhost:3001"
         width="100%"
@@ -34,7 +31,6 @@ class ErrandSkin extends React.Component {
   }
 
 ErrandSkin.propTypes = {
-  classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 

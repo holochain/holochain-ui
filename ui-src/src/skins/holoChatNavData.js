@@ -6,8 +6,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/List'
-import Home from '@material-ui/icons/Home'
 import Message from '@material-ui/icons/Message'
 import Group from '@material-ui/icons/Group'
 
@@ -27,8 +25,6 @@ const styles = theme => ({
 class HoloChatNav extends React.Component {
 
   render() {
-    const { classes, theme } = this.props;
-
     return (<Route render={({history}) => (
       <List>
         <div>
@@ -52,7 +48,6 @@ class HoloChatNav extends React.Component {
 }
 
 HoloChatNav.propTypes = {
-  classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
