@@ -27,7 +27,7 @@ describe('How to work with Personas', function () {
     cy.get('input[name="fieldValue1"]').type('DJ', { delay: 25 })
     cy.get('button[name="createPersona"]').click()
     cy.log('Click the Create Persona button to save into your private data.')
-    cy.contains('Friends')
+    cy.contains('Friends', {timeout:2000})
   })
   it('Add a new Personal persona by clicking the Add button', function () {
     cy.visit('/holo-vault/persona/new')
