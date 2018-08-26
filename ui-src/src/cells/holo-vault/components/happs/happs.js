@@ -17,7 +17,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 const styles = theme => ({
   root: {
     textAlign: 'left',
-    paddingTop: theme.spacing.unit,
+    paddingTop: 0,
   },
   appBar: {
     position: 'relative',
@@ -47,7 +47,7 @@ const styles = theme => ({
     },
   },
   cardGrid: {
-    padding: `${theme.spacing.unit * 8}px 0`,
+    padding: 0
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9

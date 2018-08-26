@@ -8,7 +8,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/List'
 import Home from '@material-ui/icons/Home'
-import Person from '@material-ui/icons/Person'
+import Message from '@material-ui/icons/Message'
+import Group from '@material-ui/icons/Group'
+
 import withRoot from '../withRoot';
 
 const styles = theme => ({
@@ -22,7 +24,7 @@ const styles = theme => ({
   }
 );
 
-class HoloVaultNav extends React.Component {
+class HoloChatNav extends React.Component {
 
   render() {
     const { classes, theme } = this.props;
@@ -30,17 +32,17 @@ class HoloVaultNav extends React.Component {
     return (<Route render={({history}) => (
       <List>
         <div>
-          <ListItem key="personas" button onClick={() => { history.push('/holo-vault/personas')}}>
+          <ListItem key="messages" button onClick={() => { history.push('/holo-chat/messages')}}>
             <ListItemIcon>
-              <Person/>
+              <Message/>
             </ListItemIcon>
-            <ListItemText primary='Personas'/>
+            <ListItemText primary='Messages'/>
           </ListItem>
-          <ListItem key="profiles" button onClick={() => { history.push('/holo-vault/profiles')}}>
+          <ListItem key="channels" button onClick={() => { history.push('/holo-chat/channels')}}>
             <ListItemIcon>
-              <Person/>
+              <Group/>
             </ListItemIcon>
-            <ListItemText primary='Profiles'/>
+            <ListItemText primary='Channels'/>
           </ListItem>
         </div>
       </List>
@@ -49,9 +51,9 @@ class HoloVaultNav extends React.Component {
   }
 }
 
-HoloVaultNav.propTypes = {
+HoloChatNav.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withRoot(withStyles(styles, { withTheme: true })(HoloVaultNav));
+export default withRoot(withStyles(styles, { withTheme: true })(HoloChatNav));

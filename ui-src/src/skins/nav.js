@@ -25,6 +25,14 @@ import Desktop from './desktop'
 import Mobile from './mobile'
 import { mainNav } from './navData';
 import HoloVaultNav from './holoVaultNavData';
+import StorybookSkin from './storybook'
+import HoloChatNav from './holoChatNavData'
+import HackTogetherSkin from './hackTogether'
+import HoloChessSkin from './holochess'
+import ErrandSkin from './errand'
+import MinersweeperSkin from './minersweeper'
+import FractalWikiSkin from './fractal-wiki'
+
 
 const drawerWidth = 240;
 
@@ -143,13 +151,28 @@ class MiniDrawer extends React.Component {
           </div>
           <Divider />
           <List>{mainNav}</List>
+          <Divider />
           <MediaQuery minDeviceWidth={1025}>
-            <List><Route path='/holo-vault/profiles' component={HoloVaultNav} /></List>
+            <List>
+              <Route path='/holo-vault' component={HoloVaultNav} />
+              <Route path='/holo-chat' component={HoloChatNav} />
+            </List>
           </MediaQuery>
         </Drawer>
         <main className={classes.content}>
           <MediaQuery minDeviceWidth={1025}>
-            <Route exact path='/' title='Holochain' component={Desktop} />
+            <Route exact path='/' title='Holochain' render={props =>
+              <div>
+                <Desktop />
+                <StorybookSkin />
+              </div>
+            } />
+            <Route path='/storybook' title='Storybook' component={StorybookSkin} />
+            <Route path='/hacktogether' title='Hack Together' component={HackTogetherSkin} />
+            <Route path='/holo-chess' title='Holo Chess' component={HoloChessSkin} />
+            <Route path='/errand' title='Errand' component={ErrandSkin} />
+            <Route path='/minersweeper' title='Miner Sweeper' component={MinersweeperSkin} />
+            <Route path='/fractal-wiki' title='Fractal Wiki' component={FractalWikiSkin} />
             <Route path='/holo-vault/personas' title='Personas' component={PersonasContainer} />
             <Route path='/holo-vault/persona/:name' component={PersonaContainer} />
             <Route path='/holo-vault/profiles' component={ProfilesContainer} />

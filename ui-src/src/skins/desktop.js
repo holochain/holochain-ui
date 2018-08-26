@@ -57,16 +57,13 @@ function Desktop(props) {
 
         <div className={classes.heroUnit}>
           <div className={classes.heroContent}>
-            <Typography variant="display3" align="left" color="textPrimary" gutterBottom>
-              Holochain
-            </Typography>
             <Typography variant="title" align="left" color="textSecondary" paragraph>
-              Im thinking this view should be some sort of amazing empathic sign vs noise dashboard.
+              Im thinking this view should be some sort of amazing empathic signal vs noise dashboard.
             </Typography>
 
             <Grid container spacing={40}>
               <Grid item key="empathy-signal-noise" sm={6} md={4} lg={3}>
-                <img align="left" width="900" src="https://holo.host/wp-content/uploads/2017/12/HC@2x-e1512472568604.png" alt="https://holo.host/wp-content/uploads/2017/12/How-it-Works_for-website2@2x.png" />
+                <img align="left" width="900" src="https://image.slidesharecdn.com/learn2learn3-2-17-170301234059/95/linkedin-learning-what-were-learning-about-learning-92-1024.jpg?cb=1488412050" alt="https://image.slidesharecdn.com/learn2learn3-2-17-170301234059/95/linkedin-learning-what-were-learning-about-learning-92-1024.jpg?cb=1488412050" />
               </Grid>
             </Grid>
 
