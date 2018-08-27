@@ -7,16 +7,11 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/List'
 import ListItemText from '@material-ui/core/List'
 import ListItemAvatar from '@material-ui/core/List'
-import Badge from '@material-ui/core/Badge'
-import Popover from '@material-ui/core/Popover'
 import Typography from '@material-ui/core/Typography'
 import Highlight from '@material-ui/icons/Highlight'
 import ThumbUp from '@material-ui/icons/ThumbUp'
 import ThumbDown from '@material-ui/icons/ThumbDown'
 import IconButton from '@material-ui/core/IconButton'
-import Card from '@material-ui/core/Card'
-import CardMedia from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/Card'
 import IdeaCard from './ideaCard'
 import Collapse from '@material-ui/core/Collapse'
 
@@ -121,7 +116,7 @@ function MessageComponent (props) {
       return (
         <div className={props.classes.message}>
           <Typography component='p' className={props.classes.messageText}>{props.message.content.text}</Typography>
-          <img className={(props.message.content.image !== '') ?  props.classes.messageImage : props.classes.messageNoImage}  src={props.message.content.image} />
+          <img alt={props.message.content.image} className={(props.message.content.image !== '') ?  props.classes.messageImage : props.classes.messageNoImage}  src={props.message.content.image} />
         </div>)
     case 'IdeaCard':
       return (

@@ -1,21 +1,21 @@
 
 import { connect } from 'react-redux'
-import Messages from '../components/messages/messages'
-import  * as constants from '../constants.js'
+import Happs from '../components/happs/happs'
+import  * as installedHapps from '../../../happs/installed.js'
 import {
-  messagesList
+  cellsList
 } from '../actions'
 
 const mapStateToProps = state => {
   return {
-    messages: constants.messages
+    happs: installedHapps
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    messagesList: () => {
-      dispatch(messagesList())
+    cellsList: (mapping) => {
+      dispatch(cellsList(mapping))
     }
   }
 }
@@ -23,4 +23,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Messages)
+)(Happs)

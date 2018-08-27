@@ -4,6 +4,7 @@ import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import withRoot from '../../../../withRoot';
 import Typography from '@material-ui/core/Typography';
 import { List, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core'
+
 import Avatar from '@material-ui/core/Avatar'
 // import Markdown from 'react-markdown'
 
