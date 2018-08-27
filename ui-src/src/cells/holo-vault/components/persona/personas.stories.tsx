@@ -1,16 +1,14 @@
-import React from 'react'
+import * as React from 'react'
 import {Provider} from 'react-redux'
 import { MemoryRouter } from 'react-router'
 import {storiesOf} from '@storybook/react'
-import {action, decorateAction} from '@storybook/addon-actions'
 import { withNotes } from '@storybook/addon-notes'
-import {specs, describe, it} from 'storybook-addon-specifications'
-import {configure, mount} from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import {configure} from 'enzyme'
+import * as Adapter from 'enzyme-adapter-react-16'
 import Personas from './personas'
-import expect from 'expect'
 import listPersonasNotes from './listPersonas.md'
 import  * as constants from '../../constants.js'
+import {Persona} from '../../types/profile'
 
 configure({adapter: new Adapter()})
 
@@ -23,6 +21,7 @@ storiesOf('HoloVault/Persona', module)
     return getPersonas(constants.personas)
   }))
 
-function getPersonas(personas) {
-  return (<Provider store={store}><MemoryRouter initialEntries={['/']}><Personas personas={personas} personasList={()=> {}} /></MemoryRouter></Provider>)
+function getPersonas(personas: Array<Persona>) {
+  // tslint:disable jsx-no-lambda
+  return (<Provider store={store}><MemoryRouter initialEntries={['/']}><Personas personas={personas} personaList={()=> {}} /></MemoryRouter></Provider>)
 }
