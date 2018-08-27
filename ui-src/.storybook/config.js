@@ -2,6 +2,10 @@ import { configure } from "@storybook/react";
 import { setAddon, addDecorator } from "@storybook/react";
 import JSXAddon from "storybook-addon-jsx";
 import { withKnobs, select } from "@storybook/addon-knobs/react";
+import { configure as enzymeConfigure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+ 
+enzymeConfigure({ adapter: new Adapter() });
 addDecorator(withKnobs);
 setAddon(JSXAddon);
 
