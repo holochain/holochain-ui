@@ -7,11 +7,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../withRoot';
 
-import  * as synApps from '../synApps/installed.js'
+import  * as happs from '../happs/installed.js'
 
 const styles = theme => ({
   appBar: {
@@ -89,7 +88,7 @@ function Mobile(props) {
           {/* End hero unit */}
           <List id="hApps" component="nav">
             {
-              synApps.installed.map((group, index) => (
+              happs.installedHapps.map((group, index) => (
                 <ListItem id={group.name} divider={true}>
                   <List>
                     <ListItem >

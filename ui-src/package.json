@@ -12,6 +12,7 @@
     "react": "latest",
     "react-autosuggest": "^9.3.4",
     "react-dom": "latest",
+    "react-iframe": "^1.2.0",
     "react-markdown": "^3.3.0",
     "react-redux": "^5.0.7",
     "react-responsive": "^5.0.0",
