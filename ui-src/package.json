@@ -28,6 +28,7 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@storybook/cli": "^3.4.10",
     "@types/jest": "^23.3.1",
     "@types/material-ui": "^0.21.5",
     "@types/node": "^10.9.2",
