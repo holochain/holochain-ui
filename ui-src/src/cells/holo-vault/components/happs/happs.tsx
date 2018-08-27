@@ -1,11 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import * as React from 'react';
+import { withStyles, StyleRulesCallback, Theme } from '@material-ui/core/styles';
 import withRoot from '../../../../withRoot';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/List'
+import { List, ListItem } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import classNames from 'classnames';
 import Card from '@material-ui/core/Card';
@@ -14,7 +12,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 // import listfeatures from './listFeatures.md'
 // import Markdown from 'react-markdown'
-const styles = theme => ({
+
+const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     textAlign: 'left',
     paddingTop: 0,
@@ -58,7 +57,22 @@ const styles = theme => ({
   }
 });
 
-class Happs extends React.Component {
+interface HappsProps {
+  classes: any,
+  happs: {
+    installedHapps: Array<any>
+  }
+}
+
+interface App {
+  name: string,
+  image: any,
+  description: string,
+  buttonText: string,
+  url: string
+}
+
+class Happs extends React.Component<HappsProps, {}> {
   render() {
     const { classes, happs } = this.props;
     return (
@@ -73,14 +87,14 @@ class Happs extends React.Component {
                 <ListItem id={group.name} divider={true}>
                   <List>
                     <ListItem >
-                      <Typography variant="title" align="left" color="textSecondary" paragraph>
+                      <Typography variant="title" align="left" color="textSecondary" paragraph={true}>
                         {group.name}
                       </Typography>
                     </ListItem>
                     <ListItem>
-                      <Grid container spacing={40}>
-                        {group.hApps.map(app => (
-                          <Grid item key={app.name} sm={6} md={4} lg={3}>
+                      <Grid container={true} spacing={40}>
+                        {group.hApps.map((app: App) => (
+                          <Grid item={true} key={app.name} sm={6} md={4} lg={3}>
                             <Card>
                               <CardMedia
                                 className={classes.cardMedia}
@@ -88,7 +102,7 @@ class Happs extends React.Component {
                                 title={app.name}
                               />
                               <CardContent>
-                                <Typography gutterBottom variant="headline" component="h2">
+                                <Typography gutterBottom={true} variant="headline" component="h2">
                                   {app.name}
                                 </Typography>
                                 <Typography>
@@ -112,7 +126,7 @@ class Happs extends React.Component {
         </div>
       </main>
       <footer className={classes.footer}>
-        <Typography variant="title" align="center" gutterBottom>
+        <Typography variant="title" align="center" gutterBottom={true}>
           Holo
         </Typography>
         <Typography variant="subheading" align="center" color="textSecondary" component="p">
@@ -123,9 +137,5 @@ class Happs extends React.Component {
     );
   }
 }
-
-Happs.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withRoot(withStyles(styles)(Happs));
