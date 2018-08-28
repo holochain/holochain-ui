@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import withRoot from '../../../../withRoot';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card'
-import CardHeader from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/Card';
+import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
+import {Card, CardHeader, CardActions, CardContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { Typography } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Share from '@material-ui/icons/Share';
 import Badge from '@material-ui/core/Badge';
@@ -17,14 +13,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Info from '@material-ui/icons/Info';
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/List'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/Dialog'
-import DialogContent from '@material-ui/core/Dialog'
-import DialogContentText from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/Dialog';
+import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import Message from './message';
 
-const styles = theme => ({
+const styles: StyleRulesCallback = (theme: Theme) => ({
   card: {
     display: 'block',
     width: 362,
@@ -133,7 +125,12 @@ const message = {
   ],
 };
 
-class IdeaCard extends Component {
+interface IdeaCardProps {
+  classes: any,
+  idea: any
+}
+
+class IdeaCard extends React.Component<IdeaCardProps, {}> {
   state = {
     open: false,
   };
@@ -162,7 +159,7 @@ class IdeaCard extends Component {
             subheader={idea.date}
           />
           <CardContent>
-            <Typography type="headline" component="h2">
+            <Typography component="h2">
               {idea.title}
             </Typography>
             <Typography component="p">{idea.description}</Typography>
@@ -213,7 +210,7 @@ class IdeaCard extends Component {
               Add more detail to the Idea so it can be promoted to a Top Idea.
             </DialogContentText>
             <List>
-              <ListItem key={1} dense className={classes.listItem}>
+              <ListItem key={1} dense={true} className={classes.listItem}>
                 <Message message={message} />
               </ListItem>
             </List>
@@ -231,8 +228,6 @@ class IdeaCard extends Component {
     );
   }
 }
-IdeaCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+
 
 export default withRoot(withStyles(styles)(IdeaCard));

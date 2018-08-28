@@ -1,12 +1,9 @@
-import React, { Component } from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import { Component } from 'react'
+import * as React from 'react'
 import withRoot from '../../../../withRoot'
-import PropTypes from 'prop-types'
+import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/List'
-import ListItemText from '@material-ui/core/List'
-import ListItemAvatar from '@material-ui/core/List'
+import {List, ListItem, ListItemText, ListItemAvatar} from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Highlight from '@material-ui/icons/Highlight'
 import ThumbUp from '@material-ui/icons/ThumbUp'
@@ -15,7 +12,9 @@ import IconButton from '@material-ui/core/IconButton'
 import IdeaCard from './ideaCard'
 import Collapse from '@material-ui/core/Collapse'
 
-const styles = theme => ({
+import {Message as MessageType} from '../../types/message'
+
+const styles: StyleRulesCallback = (theme: Theme) => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap'
@@ -81,7 +80,7 @@ const styles = theme => ({
   }
 })
 
-function VoteControls (props) {
+function VoteControls (props: any) {
   // handleThumbsUp = () => {
   //   console.log('up')
   //   // this.togglePopover()
@@ -92,7 +91,7 @@ function VoteControls (props) {
   // }
   if (props.isHovered) {
     return (
-      <div style={{position: 'absolute',top: -16,right: -9,width: 'auto', height:'auto', marginHorizontal:10, paddingHorizontal:10, marginVertical:0, backgroundColor:'white', border: 'thin solid lightgrey'}}>
+      <div style={{position: 'absolute',top: -16,right: -9, width: 'auto', height:'auto', marginHorizontal:10, paddingHorizontal:10, marginVertical:0, backgroundColor:'white', border: 'thin solid lightgrey'} as React.CSSProperties}>
         <IconButton    style={{display: (props.message.idea === true) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea'>
           <Highlight />
         </IconButton>
@@ -110,7 +109,7 @@ function VoteControls (props) {
   }
 }
 
-function MessageComponent (props) {
+function MessageComponent (props: any) {
   switch (props.message.type) {
     case 'Message':
       return (
@@ -128,8 +127,17 @@ function MessageComponent (props) {
   }
 }
 
-class Message extends Component {
-  constructor (props) {
+interface MessageProps {
+  classes: any,
+  message: MessageType
+}
+
+interface MessageState {
+  isHovered: boolean
+}
+
+class Message extends Component<MessageProps, MessageState> {
+  constructor (props: MessageProps) {
     super(props)
     this.state = {
       isHovered: false
@@ -138,10 +146,10 @@ class Message extends Component {
     this.onMessageHover = this.onMessageHover.bind(this)
   }
 
-  onMessageHover (event) {
+  onMessageHover (event: React.SyntheticEvent) {
     this.setState({ isHovered: true })
   }
-  onMessageBlur (event) {
+  onMessageBlur (event: React.SyntheticEvent) {
     this.setState({ isHovered: false })
   }
 
@@ -159,27 +167,27 @@ class Message extends Component {
     return (
       <List
         style={{padding: 20,backgroundColor: (this.state.isHovered === true) ? '#f1f1f1' : 'white', }}
-        dense onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
-        <ListItem key={'1'} dense >
+        dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
+        <ListItem key={'1'} dense={true} >
           <ListItemAvatar >
             <Avatar style={{marginTop: 10}} alt={message.author} src={message.avatar} />
           </ListItemAvatar>
           <ListItemText  className={classes.messageAuthor} primary={[message.author, message.time].join(' ')} />
           <VoteControls isHovered={this.state.isHovered} message={message} />
         </ListItem>
-        <ListItem dense className={classes.message}>
+        <ListItem dense={true} className={classes.message}>
           <MessageComponent message={message} classes={classes} />
         </ListItem>
-        <Collapse in unmountOnExit>
+        <Collapse in={true} unmountOnExit={true}>
           {message.replies.map((reply, index) => (
-            <List dense className={classes.reply}>
-              <ListItem key={'1'} dense>
+            <List dense={true} className={classes.reply}>
+              <ListItem key={'1'} dense={true}>
                 <ListItemAvatar>
                   <Avatar alt={reply.author} src={reply.avatar} />
                 </ListItemAvatar>
                 <ListItemText className={classes.messageAuthor} primary={[message.author, message.time].join(' ')} />
               </ListItem>
-              <ListItem dense className={classes.message}>
+              <ListItem dense={true} className={classes.message}>
                 <MessageComponent message={reply} classes={classes} />
               </ListItem>
             </List>
@@ -190,8 +198,5 @@ class Message extends Component {
   }
 }
 
-Message.propTypes = {
-  classes: PropTypes.object.isRequired
-}
 
 export default withRoot(withStyles(styles)(Message))

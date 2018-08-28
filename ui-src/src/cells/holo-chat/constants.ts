@@ -1,3 +1,5 @@
+import {Messages} from './types/message'
+
 export const profileSpec1 = {
   "id": "HoloChat [Holo Team]",
   "sourceDna": "QmZ4CP5unaghnmxbJkSBwobehgcF5VdcKLPimXEkwVTUYh",
@@ -43,7 +45,7 @@ export const profileSpec1 = {
     }
   ]
 }
-export const messages = [
+export const messages: Messages = [
       {date: 'January 25th 2018',
         messages: [
           {

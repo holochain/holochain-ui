@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import Messages from '../components/messages/messages'
-import  * as constants from '../constants.js'
+import  * as constants from '../constants'
 import {
   messagesList
 } from '../actions'

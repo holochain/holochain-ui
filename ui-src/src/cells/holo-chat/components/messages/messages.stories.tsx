@@ -1,17 +1,15 @@
-import React from 'react'
+import * as React from 'react'
 import {Provider} from 'react-redux'
 import {storiesOf} from '@storybook/react'
 import { MemoryRouter } from 'react-router'
-import {action, decorateAction} from '@storybook/addon-actions'
 import { withNotes } from '@storybook/addon-notes'
-import {specs, describe, it} from 'storybook-addon-specifications'
-import {configure, mount} from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import {configure} from 'enzyme'
+import * as Adapter from 'enzyme-adapter-react-16'
 import Messages from './messages'
 import listMessages from './listMessages.md'
-import expect from 'expect'
 import CreateStore from '../../../../store'
-import  * as constants from '../../constants.js'
+import  * as constants from '../../constants'
+import{Messages as MessagesType} from '../../types/message'
 
 configure({adapter: new Adapter()})
 let store = CreateStore()
@@ -26,6 +24,6 @@ storiesOf('HoloChat/Messages', module)
       return getMessages(constants.messages)
   }))
 
-function getMessages(messages) {
+function getMessages(messages: MessagesType) {
   return (<Provider store={store}><Messages messages={messages} /></Provider>)
 }

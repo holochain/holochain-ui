@@ -1,19 +1,22 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import { Route } from 'react-router-dom'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
 import withRoot from '../../../../withRoot'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 
-const styles = theme => ({
+const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     textAlign: 'left',
     paddingTop: theme.spacing.unit,
   },
 });
 
-class Setup extends React.Component {
+interface SetupProps {
+  classes: any
+}
+
+class Setup extends React.Component<SetupProps, {}> {
   render() {
     const { classes } = this.props;
     return (
@@ -35,8 +38,5 @@ class Setup extends React.Component {
   }
 }
 
-Setup.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withRoot(withStyles(styles)(Setup));
