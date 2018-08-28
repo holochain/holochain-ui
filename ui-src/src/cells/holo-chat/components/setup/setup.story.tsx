@@ -1,14 +1,11 @@
-import React from 'react'
+import * as React from 'react'
 import {Provider} from 'react-redux'
 import {storiesOf} from '@storybook/react'
 import { MemoryRouter } from 'react-router'
-import {action, decorateAction} from '@storybook/addon-actions'
 import { withNotes } from '@storybook/addon-notes'
-import {specs, describe, it} from 'storybook-addon-specifications'
-import {configure, mount} from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import {configure} from 'enzyme'
+import * as Adapter from 'enzyme-adapter-react-16'
 import Setup from './setup'
-import expect from 'expect'
 import setupNotes from './setup.md'
 configure({adapter: new Adapter()})
 

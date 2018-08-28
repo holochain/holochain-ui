@@ -2,10 +2,16 @@ import { combineReducers } from 'redux'
 
 import * as A from './actions'
 
-const initialState = {
+// TODO: Redux state and action types are placeholders. Figure out the best possible way to do this
+
+export interface HoloChatState {
+  
 }
 
-function holochatReducer (state = initialState, action) {
+const initialState: HoloChatState = {
+}
+
+function holochatReducer (state = initialState, action: A.Actions) {
   const { type, payload } = action
   switch (type) {
     case A.MESSAGESLIST:
