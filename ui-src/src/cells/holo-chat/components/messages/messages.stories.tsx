@@ -9,7 +9,7 @@ import Messages from './messages'
 import listMessages from './listMessages.md'
 import CreateStore from '../../../../store'
 import  * as constants from '../../constants'
-import{Messages as MessagesType} from '../../types/message'
+import{Message as MessageType} from '../../types/message'
 
 configure({adapter: new Adapter()})
 let store = CreateStore()
@@ -24,6 +24,6 @@ storiesOf('HoloChat/Messages', module)
       return getMessages(constants.messages)
   }))
 
-function getMessages(messages: MessagesType) {
+function getMessages(messages: Array<MessageType>) {
   return (<Provider store={store}><Messages messages={messages} /></Provider>)
 }

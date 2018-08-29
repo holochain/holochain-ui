@@ -9,6 +9,7 @@ export interface HoloChatState {
 }
 
 const initialState: HoloChatState = {
+  
 }
 
 function holochatReducer (state = initialState, action: A.Actions) {

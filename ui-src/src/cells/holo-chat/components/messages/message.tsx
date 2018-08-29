@@ -10,7 +10,6 @@ import ThumbUp from '@material-ui/icons/ThumbUp'
 import ThumbDown from '@material-ui/icons/ThumbDown'
 import IconButton from '@material-ui/core/IconButton'
 import IdeaCard from './ideaCard'
-import Collapse from '@material-ui/core/Collapse'
 
 import {Message as MessageType} from '../../types/message'
 
@@ -129,7 +128,7 @@ function MessageComponent (props: any) {
 
 interface MessageProps {
   classes: any,
-  message: MessageType
+  message: MessageType & {avatar: string}
 }
 
 interface MessageState {
@@ -172,27 +171,12 @@ class Message extends Component<MessageProps, MessageState> {
           <ListItemAvatar >
             <Avatar style={{marginTop: 10}} alt={message.author} src={message.avatar} />
           </ListItemAvatar>
-          <ListItemText  className={classes.messageAuthor} primary={[message.author, message.time].join(' ')} />
+          <ListItemText  className={classes.messageAuthor} primary={[message.author, message.timestamp].join(' ')} />
           <VoteControls isHovered={this.state.isHovered} message={message} />
         </ListItem>
         <ListItem dense={true} className={classes.message}>
           <MessageComponent message={message} classes={classes} />
         </ListItem>
-        <Collapse in={true} unmountOnExit={true}>
-          {message.replies.map((reply, index) => (
-            <List dense={true} className={classes.reply}>
-              <ListItem key={'1'} dense={true}>
-                <ListItemAvatar>
-                  <Avatar alt={reply.author} src={reply.avatar} />
-                </ListItemAvatar>
-                <ListItemText className={classes.messageAuthor} primary={[message.author, message.time].join(' ')} />
-              </ListItem>
-              <ListItem dense={true} className={classes.message}>
-                <MessageComponent message={reply} classes={classes} />
-              </ListItem>
-            </List>
-          ))}
-        </Collapse>
       </List>
     )
   }
