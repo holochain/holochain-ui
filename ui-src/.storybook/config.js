@@ -1,16 +1,19 @@
-import { configure } from '@storybook/react'
-import {storiesOf, action, linkTo, specs, describe, it} from "./facade-mocha";
+import { configure } from "@storybook/react";
+import { setAddon, addDecorator } from "@storybook/react";
+import JSXAddon from "storybook-addon-jsx";
+import { withKnobs, select } from "@storybook/addon-knobs/react";
+import { configure as enzymeConfigure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+ 
+enzymeConfigure({ adapter: new Adapter() });
+addDecorator(withKnobs);
+setAddon(JSXAddon);
 
-const stories = require.context('../src/cells', true, /story\.js$/)
-
-function loadStories () {
-  global.storiesOf = storiesOf;
-  global.action = action;
-  global.linkTo = linkTo;
-  global.specs = specs;
-  global.describe = describe;
-  global.it = it;
-  stories.keys().forEach(stories)
+// automatically import all files ending in *.stories.js
+const req = require.context("../src", true, /.(stories|story).(tsx|ts|js|jsx)$/);
+function loadStories() {
+  require("./welcomeStory");
+  req.keys().forEach(filename => req(filename));
 }
 
-configure(loadStories, module)
+configure(loadStories, module);
