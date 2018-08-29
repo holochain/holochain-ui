@@ -5,7 +5,7 @@ import { wInfo } from "../../../../utils";
 import Happs from './happs'
 import {installedHapps} from '../../../../happs/installed'
 
-(storiesOf("components/Happs", module) as any).addWithJSX(
+(storiesOf("HoloVault/hApps", module) as any).addWithJSX(
   "List of hApps",
   wInfo(`
 
@@ -15,11 +15,7 @@ import {installedHapps} from '../../../../happs/installed'
 
   ### Usage
   ~~~js
-  <Button
-    label={'Enroll'}
-    disabled={false}
-    onClick={() => alert('hello there')}
-  />
+  <Happs happs={{installedHapps}}/>
   ~~~`)(() => (
     <Happs happs={{installedHapps}}/>
   ))

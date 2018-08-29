@@ -1,0 +1,36 @@
+{
+  "name": "holochain-storybook-addons",
+  "version": "0.0.1",
+  "description": "Show Sketches in your Storybook stories.",
+  "keywords": [
+    "addon",
+    "sketch",
+    "storybook"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "jsnext:main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "prepare": "node ./scripts/prepare.js",
+    "publish-storybook": "bash .scripts/publish_storybook.sh",
+    "storybook": "start-storybook -p 9010"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "prop-types": "^15.6.1",
+    "util-deprecate": "^1.0.2"
+  },
+  "devDependencies": {
+    "@storybook/react": "3.4.10",
+    "@types/react": "^16.0.40"
+  },
+  "peerDependencies": {
+    "@storybook/addons": "^3.3.0",
+    "react": "*"
+  }
+}
