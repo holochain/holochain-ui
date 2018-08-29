@@ -1,4 +1,8 @@
-*
+A Holochain app (hApp) built to allow people to manage how other hApps access their personal information.
+
+![GitHub last commit](https://img.shields.io/github/last-commit/holochain/holochain-ui.svg)
+![GitHub](https://img.shields.io/github/license/holochain/holochain-ui.svg)
+
 ## HoloVault - Personas & Profiles
 
 European [GDPR](!https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) "The GDPR aims primarily to give control back to citizens and residents over their personal data and to simplify the regulatory environment for [international business](https://en.wikipedia.org/wiki/International_business "International business") by unifying the regulation within the EU"
