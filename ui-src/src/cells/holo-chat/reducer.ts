@@ -1,29 +1,27 @@
 import { combineReducers } from 'redux'
+import { ActionType, getType } from 'typesafe-actions';
+import * as chatActions from './actions'
 
-import * as A from './actions'
+// create a union type that is all possible chat actions
+export type ChatAction = ActionType<typeof chatActions>;
 
-// TODO: Redux state and action types are placeholders. Figure out the best possible way to do this
+export interface HoloChatState { }
 
-export interface HoloChatState {
-  
-}
+const initialState: HoloChatState = { }
 
-const initialState: HoloChatState = {
-  
-}
 
-function holochatReducer (state = initialState, action: A.Actions) {
-  const { type, payload } = action
-  switch (type) {
-    case A.MESSAGESLIST:
-        return {
-          ...state,
-          hash: payload
-        }
+
+function holochatReducer (state = initialState, action: ChatAction) {
+  switch (action.type) {
+    case getType(chatActions.messagesList):
+      console.log("message list action triggered!");
+      return state // do nothing for now
     default:
       return state
   }
 }
+
+
 
 export default combineReducers({
   holochat: holochatReducer
