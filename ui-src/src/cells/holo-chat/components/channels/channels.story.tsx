@@ -12,9 +12,13 @@ import newChat from './newChat.md'
 // import CreateStore from '../../../../store'
 // import  * as constants from '../../constants'
 // import{Message as MessageType} from '../../types/message'
-
+import Channels from './channels'
 import {specs} from 'storybook-addon-specifications'
-import { tests } from './channels.test'
+import { newChannelTests } from './newChannel.test'
+import { filterAgentsTests } from './filterAgents.test'
+import { selectAgentTests } from './selectAgent.test'
+import { newChatTests } from './newChat.test'
+
 
 configure({adapter: new Adapter()})
 // let store = CreateStore()
@@ -31,16 +35,18 @@ storiesOf('HoloChat/Channels', module)
   ))
   // .addDecorator(story => <Provider store={store}>{story()}</Provider>)
   .add('Start a new Channel', withNotes(newChannel) (() => {
-    specs(() => tests)
-      return <StartComponent />
+    specs(() => newChannelTests)
+      return <Channels channelList={()=> {}} channels={[]} />
   }))
   .add('Filter the list', withNotes(filterAgents) (() => {
+    specs(() => filterAgentsTests)
       return <StartComponent />
   }))
   .add('Select someone to chat to', withNotes(selectAgent) (() => {
+    specs(() => selectAgentTests)
       return <StartComponent />
   }))
   .add('A new chat starts', withNotes(newChat) (() => {
-    specs(() => tests)
+    specs(() => newChatTests)
     return <StartComponent />
   }))

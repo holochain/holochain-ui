@@ -19,7 +19,7 @@ class StorybookSkin extends React.Component {
 
   render() {
     return (
-      <Iframe url="http://localhost:9009"
+      <Iframe url="http://localhost:6006"
         width="100%"
         height="800"
         id="storybook"

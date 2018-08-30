@@ -26,13 +26,15 @@
     "build": "react-scripts-ts build && node copy-to-ui.js",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "storybook": "start-storybook -p 6006 -c .storybook"
+    "storybook": "start-storybook -p 6006 -c .storybook",
+    "storybook:deploy": "storybook-to-ghpages"
   },
   "devDependencies": {
     "@storybook/addon-info": "^3.4.0",
     "@storybook/addon-knobs": "^3.4.0",
     "@storybook/addon-notes": "^3.4.10",
     "@storybook/react": "^3.4.0",
+    "@storybook/storybook-deployer": "^2.3.0",
     "@types/classnames": "^2.2.6",
     "@types/enzyme": "^3.1.13",
     "@types/enzyme-adapter-react-16": "^1.0.3",
