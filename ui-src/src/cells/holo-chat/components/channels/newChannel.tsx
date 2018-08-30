@@ -10,14 +10,13 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 });
 
-interface ChannelsProps {
-  classes: any,
-  channels: Array<string>
+interface NewChannelProps {
+  classes: any
 }
 
-class Channels extends React.Component<ChannelsProps, {}> {
+class NewChannel extends React.Component<NewChannelProps, {}> {
   componentDidMount() {
-    console.log("get channels")
+    console.log("get personas")
     // this.props.channelList()
   }
 
@@ -26,10 +25,10 @@ class Channels extends React.Component<ChannelsProps, {}> {
     const {classes} = this.props;
     return (<div className={classes.root}>
       <Typography variant='display1'>
-        Channels
+        New Channel
       </Typography>
       <Typography variant='body1' gutterBottom={true}>
-        List of existing channels
+        The New Channel view shows an empty list until you start to filter the list
       </Typography>
 
     </div>);
@@ -37,4 +36,4 @@ class Channels extends React.Component<ChannelsProps, {}> {
 }
 
 
-export default withRoot(withStyles(styles)(Channels));
+export default withRoot(withStyles(styles)(NewChannel));
