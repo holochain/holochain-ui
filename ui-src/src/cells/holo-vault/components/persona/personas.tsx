@@ -22,13 +22,13 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 interface PersonasProps {
   classes: any,
   personas: Array<Persona>,
-  personasList: any
+  personaList: any
 }
 
 class Personas extends React.Component<PersonasProps, {}> {
   componentDidMount() {
     console.log("get personas")
-    this.props.personasList()
+    // this.props.personaList()
   }
 
   // tslint:disable jsx-no-lambda

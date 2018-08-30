@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 import { applyMiddleware, compose, createStore } from 'redux'
 import promiseMiddleware from 'redux-promise'
-import { requestSendingMiddleware, hcMiddleware } from 'hc-redux-middleware'
+import { requestSendingMiddleware, hcMiddleware } from './hc-middleware'
 import holoVault from './cells/holo-vault/reducer'
 import holoChat from './cells/holo-chat/reducer'
 
