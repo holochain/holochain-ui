@@ -24,6 +24,8 @@ script:
 - docker run --rm -v "$(pwd):/holochain-ui" holochain/holochain-proto:develop bash -c
   "cd /holochain-ui; hcdev test"
 - cd ui-automation
+- npm install
+- npm test
 - curl http://localhost:4141
 - cd ..
 - cd ui-src
