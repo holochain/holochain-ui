@@ -5,11 +5,11 @@ import * as A from './actions'
 // TODO: Redux state and action types are placeholders. Figure out the best possible way to do this
 
 export interface HoloChatState {
-  
+
 }
 
 const initialState: HoloChatState = {
-  
+
 }
 
 function holochatReducer (state = initialState, action: A.Actions) {
@@ -18,7 +18,12 @@ function holochatReducer (state = initialState, action: A.Actions) {
     case A.MESSAGESLIST:
         return {
           ...state,
-          hash: payload
+          messages: payload
+        }
+    case A.CHANNELSLIST:
+        return {
+          ...state,
+          channels: payload
         }
     default:
       return state

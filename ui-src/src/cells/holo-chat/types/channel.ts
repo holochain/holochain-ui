@@ -11,3 +11,4 @@ export interface PublicChannel {
 	description: string
 }
 
+export type Channel = ChannelType | PublicChannel

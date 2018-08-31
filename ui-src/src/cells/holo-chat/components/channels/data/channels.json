@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Celestial",
+    "channel": "philip_celestial",
+    "avatar": "ccxxoo.png",
+            "members": [
+                {
+                  "name": "Celestial",
+                  "avatar": "ccxxoo.png"
+                },
+                {
+                  "name": "Philip",
+                  "avatar": "philipbeadle.png"
+                }
+            ]
+  },
+  {
+    "name": "Micah",
+    "channel": "philip_micah",
+    "avatar": "micah_notify.png",
+            "members": [
+                {
+                  "name": "Micah",
+                  "avatar": "micah.jefferson.png"
+                },
+                {
+                  "name": "Philip",
+                  "avatar": "philipbeadle.png"
+                }
+            ]
+  },
+  {
+    "name": "Jean",
+    "channel": "philip_jean",
+    "avatar": "jeanmrussell.png",
+            "members": [
+                {
+                  "name": "Jean",
+                  "avatar": "jeanmrussell.png"
+                },
+                {
+                  "name": "Philip",
+                  "avatar": "philipbeadle.png"
+                }
+            ]
+  },
+  {
+    "name": "Jean & Micah",
+    "channel": "philip_jean_micah",
+    "avatar": "holochain-circle-lrg.png",
+            "members": [
+                {
+                  "name": "Micah",
+                  "avatar": "micah.jefferson.png"
+                },
+                {
+                  "name": "Jean",
+                  "avatar": "jeanmrussell.png"
+                },
+                {
+                  "name": "Philip",
+                  "avatar": "philipbeadle.png"
+                }
+            ]
+  }
+]

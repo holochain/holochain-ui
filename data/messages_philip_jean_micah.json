@@ -1,0 +1,101 @@
+[
+  {
+    "author": {
+      "name": "Philip",
+      "avatar": "philipbeadle.png"
+    },
+    "sentByMe": "true",
+    "message": "Phil chat 1",
+    "timestamp": "2018-08-03T00:33:26.452Z"
+  },
+  {
+    "author": {
+      "name": "Philip",
+      "avatar": "philipbeadle.png"
+    },
+    "sentByMe": "true",
+    "message": "Phil message",
+    "timestamp": "2018-08-03T00:33:26.452Z"
+  },
+  {
+    "author": {
+      "name": "Micah",
+      "avatar": "micah.jefferson.png"
+    },
+    "sentByMe": "false",
+    "message": "Micah More chats",
+    "timestamp": "2018-08-03T00:33:26.452Z"
+  },
+  {
+    "author": {
+      "name": "Philip",
+      "avatar": "philipbeadle.png"
+    },
+    "sentByMe": "true",
+    "message": "Phil Another tweet",
+    "timestamp": "2018-08-03T00:33:26.452Z"
+  },
+  {
+    "author": {
+      "name": "Jean",
+      "avatar": "jeanmrussell.png"
+    },
+    "sentByMe": "false",
+    "message": "Jean awesome message",
+    "timestamp": "2018-08-03T00:33:26.452Z"
+  },
+  {
+    "author": {
+      "name": "Philip",
+      "avatar": "philipbeadle.png"
+    },
+    "sentByMe": "true",
+    "message": "Phil message",
+    "timestamp": "2018-08-03T00:33:26.452Z"
+  },
+  {
+    "author": {
+      "name": "Philip",
+      "avatar": "philipbeadle.png"
+    },
+    "sentByMe": "true",
+    "message": "Phil Testing chat",
+    "timestamp": "2018-08-03T00:33:26.452Z"
+  },
+  {
+    "author": {
+      "name": "Jean",
+      "avatar": "jeanmrussell.png"
+    },
+    "sentByMe": "false",
+    "message": "Jean More chats",
+    "timestamp": "2018-08-03T00:33:26.452Z"
+  },
+  {
+    "author": {
+      "name": "Philip",
+      "avatar": "philipbeadle.png"
+    },
+    "sentByMe": "true",
+    "message": "Phil Another tweet",
+    "timestamp": "2018-08-03T00:33:26.452Z"
+  },
+  {
+    "author": {
+      "name": "Micah",
+      "avatar": "micah.jefferson.png"
+    },
+    "sentByMe": "false",
+    "message": "Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah Micah Blah blah",
+    "timestamp": "2018-08-03T00:33:26.452Z"
+  },
+  {
+    "author": {
+      "name": "Philip",
+      "avatar": "philipbeadle.png"
+    },
+    "sentByMe": "true",
+    "message": "Phil message",
+    "timestamp": "2018-08-03T00:33:26.452Z"
+  }
+]
