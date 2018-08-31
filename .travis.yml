@@ -29,6 +29,7 @@ script:
 - curl http://localhost:4141
 - cd ..
 - cd ui-src
+- npm test
 - npm run release:files
 - PACKAGE_NAME=$(node -p -e "require('./package.json').name")
 - PACKAGE_VERSION=$(node -p -e "require('./package.json').version")

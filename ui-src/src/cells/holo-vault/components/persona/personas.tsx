@@ -28,9 +28,9 @@ interface PersonasProps {
 class Personas extends React.Component<PersonasProps, {}> {
   componentDidMount() {
     console.log("get personas")
-    this.props.personaList()
+    // this.props.personaList()
   }
-  
+
   // tslint:disable jsx-no-lambda
   render() {
     const {classes, personas} = this.props;

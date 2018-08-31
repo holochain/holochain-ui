@@ -16,6 +16,7 @@ function holochatReducer (state = initialState, action: ChatAction) {
     case getType(chatActions.messagesList):
       console.log("message list action triggered!");
       return state // do nothing for now
+
     default:
       return state
   }

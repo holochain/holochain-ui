@@ -1,5 +1,6 @@
 import { createAction } from 'typesafe-actions'
 
+
 interface HcMeta {
 	isHc: boolean,
 	namespace: string
