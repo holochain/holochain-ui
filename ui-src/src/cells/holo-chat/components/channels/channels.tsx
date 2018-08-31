@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {withStyles, Theme, StyleRulesCallback} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
+import ListItemText from '@material-ui/core/ListItemText';
 // import SpeakerPhone from '@material-ui/icons/SpeakerPhone'
-// import Channel from '../../types/channel'
+import { Channel as ChannelType } from '../../types/channel'
 import withRoot from '../../../../withRoot';
 import channelData from './data/channels.json'
 
@@ -19,7 +19,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 
 interface ChannelsProps {
   classes: any,
-  channels: Array<string>
+  channels: Array<ChannelType>
 }
 
 class Channels extends React.Component<ChannelsProps, {}> {
@@ -36,19 +36,16 @@ class Channels extends React.Component<ChannelsProps, {}> {
         Channels
       </Typography>
       <Typography variant='body1' gutterBottom={true}>
-        {JSON.stringify(channelData)}
+        Here's your Channels
       </Typography>
-      {/* <List id="personas" component="nav">
+      <List id="channels" component="nav">
         {
-          channelData.map((channel: Channel, index: number) => (
-            <ListItem id={channel.channel} button={true} onClick={() => {}}>
-              <ListItemIcon>
-                <SpeakerPhone/>
-              </ListItemIcon>
+          channelData.map((channel: ChannelType, index: number) => (
+            <ListItem button={true} onClick={() => {}}>
               <ListItemText primary={channel.name}/>
             </ListItem>))
         }
-      </List> */}
+      </List>
     </div>);
   }
 }
