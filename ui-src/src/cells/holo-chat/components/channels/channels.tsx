@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 // import SpeakerPhone from '@material-ui/icons/SpeakerPhone'
 import { Channel as ChannelType } from '../../types/channel'
 import withRoot from '../../../../withRoot';
-import channelData from './data/channels.json'
+import channelData from '../../data/channels.json'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
