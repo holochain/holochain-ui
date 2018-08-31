@@ -23,6 +23,7 @@ storiesOf("Welcome", module).addWithJSX(
       - Tests run all the time in Jest
       - Tests show up as Specifications in Storybook
       - Tests are run as part of the CI
+      - Anyone can add new tests or edit the Notes by editing the files on GitHub
       - We aim for [contravariance with tests.]('http://blog.cleancoder.com/uncle-bob/2017/10/03/TestContravariance.html')
     1. Update Notes tab with the new Sketch design of UI
       - drop a base64 image in the notes mark down

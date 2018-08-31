@@ -36,6 +36,7 @@
     "@storybook/addon-info": "^3.4.0",
     "@storybook/addon-knobs": "^3.4.0",
     "@storybook/addon-notes": "^3.4.10",
+    "@storybook/addon-viewport": "^3.4.10",
     "@storybook/react": "^3.4.0",
     "@storybook/storybook-deployer": "^2.3.0",
     "@types/classnames": "^2.2.6",
