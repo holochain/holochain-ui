@@ -30,6 +30,7 @@ import { mainNav } from './navData';
 import HoloVaultNav from './holoVaultNavData';
 import StorybookSkin from './storybook'
 import HoloChatNav from './holoChatNavData'
+import ErrandNav from './errandNavData'
 import HackTogetherSkin from './hackTogether'
 import HoloChessSkin from './holochess'
 import MinersweeperSkin from './minersweeper'
@@ -158,6 +159,7 @@ class MiniDrawer extends React.Component {
             <List>
               <Route path='/holo-vault' component={HoloVaultNav} />
               <Route path='/holo-chat' component={HoloChatNav} />
+              <Route path='/errand' component={ErrandNav} />
             </List>
           </MediaQuery>
         </Drawer>
