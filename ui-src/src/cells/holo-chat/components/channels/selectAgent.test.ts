@@ -1,5 +1,5 @@
 // import React from 'react'
-// import Chasnnels from './channels'
+// import Channels from './channels'
 // import { shallow } from 'enzyme'
 
 export const selectAgentTests = describe('Select who to add to the Chat Channel', () => {

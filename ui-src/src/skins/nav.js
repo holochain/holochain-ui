@@ -22,6 +22,8 @@ import MessagesContainer from '../cells/holo-chat/containers/messagesContainer'
 import HappsContainer from '../cells/holo-vault/containers/happsContainer'
 import SetupContainer from '../cells/holo-chat/containers/setupContainer'
 import ChannelsContainer from '../cells/holo-chat/containers/channelsContainer'
+import ErrandContainer from '../cells/errand/containers/errandContainer'
+
 import Desktop from './desktop'
 import Mobile from './mobile'
 import { mainNav } from './navData';
@@ -30,7 +32,6 @@ import StorybookSkin from './storybook'
 import HoloChatNav from './holoChatNavData'
 import HackTogetherSkin from './hackTogether'
 import HoloChessSkin from './holochess'
-import ErrandSkin from './errand'
 import MinersweeperSkin from './minersweeper'
 import FractalWikiSkin from './fractal-wiki'
 
@@ -171,7 +172,7 @@ class MiniDrawer extends React.Component {
             <Route path='/storybook' title='Storybook' component={StorybookSkin} />
             <Route path='/hacktogether' title='Hack Together' component={HackTogetherSkin} />
             <Route path='/holo-chess' title='Holo Chess' component={HoloChessSkin} />
-            <Route path='/errand' title='Errand' component={ErrandSkin} />
+            <Route path='/errand' title='Errand' component={ErrandContainer} />
             <Route path='/minersweeper' title='Miner Sweeper' component={MinersweeperSkin} />
             <Route path='/fractal-wiki' title='Fractal Wiki' component={FractalWikiSkin} />
             <Route path='/holo-vault/personas' title='Personas' component={PersonasContainer} />

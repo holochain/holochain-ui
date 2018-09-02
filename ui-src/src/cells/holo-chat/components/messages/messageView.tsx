@@ -135,7 +135,7 @@ interface MessageState {
   isHovered: boolean
 }
 
-class Message extends Component<MessageProps, MessageState> {
+class MessageView extends Component<MessageProps, MessageState> {
   constructor (props: MessageProps) {
     super(props)
     this.state = {
@@ -183,4 +183,4 @@ class Message extends Component<MessageProps, MessageState> {
 }
 
 
-export default withRoot(withStyles(styles)(Message))
+export default withRoot(withStyles(styles)(MessageView))

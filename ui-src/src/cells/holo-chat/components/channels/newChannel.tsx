@@ -25,7 +25,7 @@ class NewChannel extends React.Component<NewChannelProps, {}> {
     const {classes} = this.props;
     return (<div className={classes.root}>
       <Typography variant='display1'>
-        New Channel
+        New Channel Lucy
       </Typography>
       <Typography variant='body1' gutterBottom={true}>
         The New Channel view shows an empty list until you start to filter the list

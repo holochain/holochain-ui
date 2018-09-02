@@ -8,7 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 // import SpeakerPhone from '@material-ui/icons/SpeakerPhone'
 import { Channel as ChannelType } from '../../types/channel'
 import withRoot from '../../../../withRoot';
-import channelData from '../../data/channels.json'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
@@ -30,7 +29,7 @@ class Channels extends React.Component<ChannelsProps, {}> {
 
   // tslint:disable jsx-no-lambda
   render() {
-    const {classes} = this.props;
+    const {classes, channels} = this.props;
     return (<div className={classes.root}>
       <Typography variant='display1'>
         Channels
@@ -40,7 +39,7 @@ class Channels extends React.Component<ChannelsProps, {}> {
       </Typography>
       <List id="channels" component="nav">
         {
-          channelData.map((channel: ChannelType, index: number) => (
+          channels.map((channel: ChannelType, index: number) => (
             <ListItem button={true} onClick={() => {}}>
               <ListItemText primary={channel.name}/>
             </ListItem>))

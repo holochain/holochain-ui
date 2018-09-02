@@ -18,5 +18,10 @@
     "Path": "./services/Aussie_DJs",
     "Side": 1,
     "BridgeZome": "genesis"
+  },
+  {
+    "Path": "../Errand",
+    "Side": 1,
+    "BridgeZome": "genesis"
   }
 ]
