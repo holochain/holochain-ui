@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import Errand from '../components/errand/errand.js'
 
 import {
-  getBoardState
+  getBoardState,
+  moveCard
 } from '../actions'
 
 const mapStateToProps = state => {
@@ -16,6 +17,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getBoardState: () => {
       dispatch(getBoardState())
+    },
+    moveCard: (cardId, sourceLaneId, targetLaneId) => {
+      dispatch(moveCard(cardId, sourceLaneId, targetLaneId))
     }
   }
 }

@@ -39,6 +39,7 @@ function getLaneHash(lane_id) {
     // debug("getLaneHash" + filtered)
     return filtered[0].Hash;
 }
+
 function newCard(_a) {
     var id = _a.id, title = _a.title, description = _a.description, lane_id = _a.lane_id;
     debug("Adding New Card: " + id);
@@ -52,7 +53,7 @@ function newCard(_a) {
 }
 function moveCard(_a) {
     var cardId = _a.cardId, sourceLaneId = _a.sourceLaneId, targetLaneId = _a.targetLaneId;
-    debug("Updating Card " + cardId);
+    debug("Updating Card " + JSON.stringify(_a));
     var new_lane_hash = getLaneHash(targetLaneId);
     var card_hash = deleteCard({ card_id: cardId, lane_id: sourceLaneId });
     // DELETE OLD Link && MAKE new Link

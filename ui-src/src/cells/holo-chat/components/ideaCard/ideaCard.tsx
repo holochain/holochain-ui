@@ -15,7 +15,7 @@ import Info from '@material-ui/icons/Info';
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/List'
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
-import MessageView from './messageView'
+import MessageView from '../messages/messageView'
 import  * as constants from '../../constants'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -70,6 +70,11 @@ class IdeaCard extends React.Component<IdeaCardProps, {}> {
     console.log('down');
     // this.togglePopover()
   };
+  handleErrand = () => {
+    console.log('Errand');
+    // this.togglePopover()
+  };
+
   render() {
     const { classes, idea } = this.props;
     return (
@@ -119,7 +124,7 @@ class IdeaCard extends React.Component<IdeaCardProps, {}> {
             </Badge>
             <IconButton
               className={classes.button}
-              onClick={this.handleThumbsDown}
+              onClick={this.handleErrand}
               aria-label="Errand">
               <Publish />
             </IconButton>

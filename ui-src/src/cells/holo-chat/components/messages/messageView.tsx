@@ -9,7 +9,7 @@ import Highlight from '@material-ui/icons/Highlight'
 import ThumbUp from '@material-ui/icons/ThumbUp'
 import ThumbDown from '@material-ui/icons/ThumbDown'
 import IconButton from '@material-ui/core/IconButton'
-import IdeaCard from './ideaCard'
+import IdeaCard from '../ideaCard/ideaCard'
 
 import {Message as MessageType} from '../../types/message'
 
