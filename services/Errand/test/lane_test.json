@@ -1,0 +1,20 @@
+{
+  "Tests": [{
+      "Convey": "Create New Lanes",
+      "Zome": "boards",
+      "FnName": "newLane",
+      "Input": {
+        "title": "Lane_1",
+        "lable": ""
+      },
+      "Output": "%h1%"
+    },
+    {
+      "Convey": "get the lanes name Lanes",
+      "Zome": "boards",
+      "FnName": "getLanes",
+      "Input": "",
+      "Output": "[object Object]"
+    }
+  ]
+}

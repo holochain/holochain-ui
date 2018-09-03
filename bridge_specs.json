@@ -20,7 +20,7 @@
     "BridgeZome": "genesis"
   },
   {
-    "Path": "../Errand",
+    "Path": "./services/Errand",
     "Side": 1,
     "BridgeZome": "genesis"
   }

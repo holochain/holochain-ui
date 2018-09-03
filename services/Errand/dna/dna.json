@@ -1,0 +1,111 @@
+{
+  "Version": 1,
+  "UUID": "8e18f995-92b5-11e8-9f2e-685b35836414",
+  "Name": "Yollo",
+  "Properties": {
+    "description": "Trello now on Holochain",
+    "language": "en"
+  },
+  "PropertiesSchemaFile": "properties_schema.json",
+  "BasedOn": "",
+  "RequiresVersion": 26,
+  "DHTConfig": {
+    "HashType": "sha2-256"
+  },
+  "Progenitor": {
+    "Identity": "",
+    "PubKey": null
+  },
+  "Zomes": [{
+    "Name": "boards",
+    "Description": "Zome for the board details",
+    "CodeFile": "boards.js",
+    "RibosomeType": "js",
+    "BridgeFuncs": null,
+    "Config": {
+      "ErrorHandling": "throwErrors"
+    },
+    "Entries": [{
+        "Name": "board",
+        "DataFormat": "json",
+        "Sharing": "public"
+      },
+      {
+        "Name": "board_link",
+        "DataFormat": "links"
+      },
+      {
+        "Name": "lane",
+        "DataFormat": "json",
+        "Sharing": "public"
+      },
+      {
+        "Name": "lane_link",
+        "DataFormat": "links"
+      },
+      {
+        "Name": "card",
+        "DataFormat": "json",
+        "Sharing": "public"
+      },
+      {
+        "Name": "card_link",
+        "DataFormat": "links"
+      },
+      {
+        "Name": "lable",
+        "DataFormat": "string",
+        "Sharing": "public"
+      },
+      {
+        "Name": "lable_link",
+        "DataFormat": "links"
+      },
+      {
+        "Name": "comment",
+        "DataFormat": "string",
+        "Sharing": "public"
+      },
+      {
+        "Name": "comment_link",
+        "DataFormat": "links"
+      }
+    ],
+    "Functions": [{
+        "Name": "newLane",
+        "CallingType": "json",
+        "Exposure": "public"
+      },
+      {
+        "Name": "getLanes",
+        "CallingType": "string",
+        "Exposure": "public"
+      },
+      {
+        "Name": "newCard",
+        "CallingType": "json",
+        "Exposure": "public"
+      },
+      {
+        "Name": "getCards",
+        "CallingType": "json",
+        "Exposure": "public"
+      },
+      {
+        "Name": "moveCard",
+        "CallingType": "json",
+        "Exposure": "public"
+      },
+      {
+        "Name": "deleteCard",
+        "CallingType": "json",
+        "Exposure": "public"
+      },
+      {
+        "Name": "getBoardState",
+        "CallingType": "json",
+        "Exposure": "public"
+      }
+    ]
+  }]
+}

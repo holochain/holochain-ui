@@ -1,0 +1,16 @@
+{
+	"title": "Card Schema",
+	"type": "object",
+	"properties": {
+		"uuid": {
+			"type": "string"
+		},
+		"title": {
+			"type": "string"
+		},
+		"description": {
+			"type": "string"
+		}
+	},
+    "required": ["uuid"]
+}
