@@ -18,6 +18,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     messagesList: () => {
       dispatch(messagesList())
+    },
+    errandNewItem: () => {
+      dispatch(messagesList())
     }
   }
 }

@@ -12,6 +12,10 @@ storiesOf("Welcome", module).addWithJSX(
     and a running instance of the component. We use this Storybook to communicate a complete story of what we are building and designing with continuous testing
     ensuring everything always works. We don't find bugs we prevent them.
 
+    ![GitHub last commit](https://img.shields.io/github/last-commit/holochain/holochain-ui.svg)
+    ![GitHub](https://img.shields.io/github/license/holochain/holochain-ui.svg)
+    [![Build Status](https://travis-ci.org/holochain/holochain-ui.svg?branch=develop)](https://travis-ci.org/holochain/holochain-ui)
+    [Latest Cypress Runs](https://dashboard.cypress.io/#/projects/7p5681/runs)
     ## Building Holochain hApps
     **This is how we do it**
     (Processes for getting to a "let's build it" and then building it are coming soon with Errand.)
@@ -23,6 +27,7 @@ storiesOf("Welcome", module).addWithJSX(
       - Tests run all the time in Jest
       - Tests show up as Specifications in Storybook
       - Tests are run as part of the CI
+      - Anyone can add new tests or edit the Notes by editing the files on GitHub
       - We aim for [contravariance with tests.]('http://blog.cleancoder.com/uncle-bob/2017/10/03/TestContravariance.html')
     1. Update Notes tab with the new Sketch design of UI
       - drop a base64 image in the notes mark down

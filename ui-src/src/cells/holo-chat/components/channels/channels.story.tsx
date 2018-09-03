@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router'
 import { withNotes } from '@storybook/addon-notes'
 import {configure} from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
-import channels from './channels.md'
+import listChannels from './listChannels.md'
 import newChannel from './newChannel.md'
 import filterAgents from './filterAgents.md'
 import selectAgent from './selectAgent.md'
@@ -22,6 +22,74 @@ import { filterAgentsTests } from './filterAgents.test'
 import { selectAgentTests } from './selectAgent.test'
 import { newChatTests } from './newChat.test'
 import { channelsTests } from './channels.test'
+import channelData from '../../data/channels.json'
+
+// const channelData = [
+//   {
+//     "name": "Celestial",
+//     "channel": "philip_celestial",
+//     "avatar": "ccxxoo.png",
+//             "members": [
+//                 {
+//                   "name": "Celestial",
+//                   "avatar": "ccxxoo.png"
+//                 },
+//                 {
+//                   "name": "Philip",
+//                   "avatar": "philipbeadle.png"
+//                 }
+//             ]
+//   },
+//   {
+//     "name": "Micah",
+//     "channel": "philip_micah",
+//     "avatar": "micah_notify.png",
+//             "members": [
+//                 {
+//                   "name": "Micah",
+//                   "avatar": "micah.jefferson.png"
+//                 },
+//                 {
+//                   "name": "Philip",
+//                   "avatar": "philipbeadle.png"
+//                 }
+//             ]
+//   },
+//   {
+//     "name": "Jean",
+//     "channel": "philip_jean",
+//     "avatar": "jeanmrussell.png",
+//             "members": [
+//                 {
+//                   "name": "Jean",
+//                   "avatar": "jeanmrussell.png"
+//                 },
+//                 {
+//                   "name": "Philip",
+//                   "avatar": "philipbeadle.png"
+//                 }
+//             ]
+//   },
+//   {
+//     "name": "Jean & Micah",
+//     "channel": "philip_jean_micah",
+//     "avatar": "holochain-circle-lrg.png",
+//             "members": [
+//                 {
+//                   "name": "Micah",
+//                   "avatar": "micah.jefferson.png"
+//                 },
+//                 {
+//                   "name": "Jean",
+//                   "avatar": "jeanmrussell.png"
+//                 },
+//                 {
+//                   "name": "Philip",
+//                   "avatar": "philipbeadle.png"
+//                 }
+//             ]
+//   }
+// ]
 
 
 configure({adapter: new Adapter()})
@@ -38,9 +106,9 @@ storiesOf('HoloChat/Channels', module)
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
   // .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add('List my Channels', withNotes(channels) (() => {
+  .add('List my Channels', withNotes(listChannels) (() => {
     specs(() => channelsTests)
-      return <Channels channelList={()=> {}} channels={[]} />
+      return <Channels channels={channelData} />
   }))
   .add('Start a new Channel', withNotes(newChannel) (() => {
     specs(() => newChannelTests)

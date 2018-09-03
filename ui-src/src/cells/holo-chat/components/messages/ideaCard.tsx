@@ -14,7 +14,7 @@ import Info from '@material-ui/icons/Info';
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/List'
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
-import Message from './message';
+import MessageView from './messageView'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   card: {
@@ -211,7 +211,7 @@ class IdeaCard extends React.Component<IdeaCardProps, {}> {
             </DialogContentText>
             <List>
               <ListItem key={1} dense={true} className={classes.listItem}>
-                <Message message={message} />
+                <MessageView message={message} />
               </ListItem>
             </List>
           </DialogContent>

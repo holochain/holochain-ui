@@ -1,0 +1,9 @@
+{
+	"title": "Properties Schema",
+	"type": "object",
+	"properties": {
+		"description": {
+			"type": "string"
+		}
+	}
+}

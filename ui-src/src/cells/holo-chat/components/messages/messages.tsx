@@ -2,8 +2,8 @@ import * as React from 'react'
 import withRoot from '../../../../withRoot'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
 import {List, ListItem } from '@material-ui/core'
-import Message from './message'
-import {Message as MessageType} from '../../types/message'
+import MessageView from './messageView'
+// import {Message as MessageType} from '../../types/message'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   listItemMessage: {
@@ -13,7 +13,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 
 interface MessagesProps {
   classes: any,
-  messages: Array<MessageType>
+  messages: Array<any>
 }
 
 class Messages extends React.Component<MessagesProps, {}> {
@@ -22,9 +22,9 @@ class Messages extends React.Component<MessagesProps, {}> {
     return (
       <List>
         {
-          messages.map((message: MessageType, index: number) => (
+          messages.map((message: any, index: number) => (
             <ListItem key={index} dense={true} className={classes.listItemMessage}>
-              <Message message={message} />
+              <MessageView message={message} />
             </ListItem>
           ))
         }
