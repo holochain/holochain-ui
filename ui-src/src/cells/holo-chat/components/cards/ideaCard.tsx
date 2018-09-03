@@ -119,7 +119,7 @@ class IdeaCard extends React.Component<IdeaCardProps, {}> {
             </Badge>
             <IconButton
               className={classes.button}
-              onClick={this.handleErrand}
+              href="http://localhost:3000/errand"
               aria-label="Errand">
               <Publish />
             </IconButton>
