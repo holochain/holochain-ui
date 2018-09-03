@@ -1,10 +1,23 @@
 import { createAction } from 'typesafe-actions'
+import { AxiosRequestConfig } from 'axios'
 
 
-interface HcMeta {
-	isHc: boolean,
-	namespace: string
+// TODO: refactor to another file to share between cells
+function makeBridgeReqestPayload(channel: string, zome: string, func: string, data: any): {request: AxiosRequestConfig} {
+	return {
+		request: {
+			url: '/',
+			data: {
+				channel,
+				zome,
+				func,
+				data
+			}
+		}
+	}
 }
+
+
 
 
 /*
@@ -15,13 +28,25 @@ In the reducer it is possible to switch on the type of the action, no constants 
 
 The arguments to resolve will be assigned to payload and meta respectively.
 The type of the action will be automatically set
- */
+*/
 
-export const messagesList = createAction('holochat/MESSAGE_LIST', resolve => {
-	return () => {
-		const meta: HcMeta = { isHc: true, namespace: 'messages' }
-		return resolve(undefined, meta);
+export const createCustomChannel = createAction('holochat/createCustomChannel', resolve => {
+	return (members: Array<string>) => {
+		return resolve(makeBridgeReqestPayload('holo-chat', 'custom_channel', 'createCustomChannel', {members}));
 	}
 })
+
+export const addMembers = createAction('holochat/addMembers', resolve => {
+	return (uuid: string, members: Array<string>) => {
+		return resolve(makeBridgeReqestPayload('holo-chat', 'custom_channel', 'addMembers', {uuid, members}));
+	}
+})
+
+export const getMyChannels = createAction('holochat/getMyChannels', resolve => {
+	return () => {
+		return resolve(makeBridgeReqestPayload('holo-chat', 'custom_channel', 'getMyChannels', {}));
+	}
+})
+
 
 

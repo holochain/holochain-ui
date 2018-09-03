@@ -1,4 +1,4 @@
-
+ 
 type Hash = string
 
 export enum ChannelType {
