@@ -7,7 +7,7 @@ import * as chatActions from './actions'
 describe('Chat Reducer', () => {
 	it('Should update the state when a getMyChannels success action is received', () => {
 		expect(holochatReducer(undefined, {
-			type: getType(chatActions.getMyChannels.success),
+			type: getType(chatActions.GetMyChannels.success),
 			payload: {
 				data: ['channel1', 'channel2']
 			} as AxiosResponse

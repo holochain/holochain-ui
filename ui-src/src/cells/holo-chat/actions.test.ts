@@ -64,6 +64,7 @@ describe('createCustomChannel action', () => {
 		}
 
     const store = mockStore({})
+    // @ts-ignore - minor error in the typings for redux/typesafe-actions
     return store.dispatch(chatActions.createCustomChannel(['123abc'])).then(() => {
       // return of async actions
       const actions = store.getActions()
@@ -72,6 +73,27 @@ describe('createCustomChannel action', () => {
       expect(store.getActions()[1].payload.data).toEqual('CHANNEL_UUID_000')
     })
 
+	})
+})
+
+
+describe('getMyChannels action', () => {
+	it('should produce the correct action type', () => {
+		const expectedAction = {
+			type: 'holochat/getMyChannels',
+			payload: {
+				request: {
+					url: '/',
+					data: {
+						channel: 'holo-chat',
+						zome: 'custom_channel',
+						func: 'getMyChannels',
+						data: {}
+					}
+				}
+			}
+		}
+		expect(chatActions.getMyChannels()).toEqual(expectedAction)
 	})
 })
 

@@ -20,10 +20,10 @@ export function holochatReducer (state = initialState, action: ChatAction) {
     case getType(chatActions.CreateCustomChannel.success):
       	console.log("create custom channel action triggered!");
       	return state // do nothing for now
-    case getType(chatActions.addMembers.success):
+    case getType(chatActions.AddMembers.success):
     	console.log("add members action triggered")
     	return state
-    case getType(chatActions.getMyChannels.success):
+    case getType(chatActions.GetMyChannels.success):
     	return {
         ...state,
         myChannels: action.payload.data
