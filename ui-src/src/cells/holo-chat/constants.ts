@@ -48,8 +48,8 @@ export const profileSpec1 = {
 export const messages: Array<Message> = [
     {
       type: MessageType.CHAT,
+      author: 'Phil',
       channelId: 'holochain',
-      author: 'Art Brock',
       timestamp: 10,
       content: {
         text: 'Text message with an imageText message with an imageText message with an imageText message with an image',
@@ -57,13 +57,17 @@ export const messages: Array<Message> = [
       replies: []
     },
     {
-      type: MessageType.CHAT,
+      type: MessageType.IDEA,
+      author: 'Phil',
       channelId: 'holochain',
-      author: 'Art Brock',
-      timestamp: 20,
+      timestamp: 10,
       content: {
-        text: 'Text message with no image',
-        image: ''
+        upVotes: 33,
+        downVotes: 0,
+        description: 'Lets build it',
+        avatar: '',
+        productOwner: 'Phil',
+        title: 'Awesome idea'
       },
       replies: []
     }

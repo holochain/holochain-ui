@@ -10,7 +10,10 @@ export enum MessageType {
 export interface IdeaMessageContent {
     upVotes: number,
     downVotes: number,
-    description: string
+    description: string,
+    avatar: string,
+    productOwner: string,
+    title: string
 }
 
 export interface ChatMessageContent {
@@ -19,7 +22,7 @@ export interface ChatMessageContent {
 }
 
 
-export type IdeaMessage 
+export type IdeaMessage
     = {type: MessageType.IDEA, content: IdeaMessageContent}
 
 export type ChatMessage
@@ -30,11 +33,11 @@ type MessageUnion
     | ChatMessage
 
 
-export type Message 
-    = MessageUnion & {  
+export type Message
+    = MessageUnion & {
         author: Hash,
         timestamp: number,
         content: any,
         replies: Array<Message>,
-        channelId: string 
+        channelId: string
     }

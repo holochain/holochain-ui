@@ -30,7 +30,7 @@
     "Description": "Zome for the board details",
     "CodeFile": "boards.js",
     "RibosomeType": "js",
-    "BridgeFuncs": ["getBoardState"],
+    "BridgeFuncs": ["getBoardState","newCard"],
     "Config": {
             "ErrorHandling": "throwErrors"
           },

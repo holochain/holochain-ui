@@ -147,14 +147,15 @@ function bridgeGenesis(side, dna, appData){
 }
 
 function testGenesisFunction() {
-    newLane({ id: "LANE_ID_1", title: "Lane_TITLE_1", lable: "Lane_Lable_1" });
-    newCard({ "id": "Card_ID_11", "title": "Card_Title_11", "description": "Description of the First card 11", "lane_id": "LANE_ID_1" });
-    newCard({ "id": "Card_ID_12", "title": "Card_Title_12", "description": "Description of the First card 12", "lane_id": "LANE_ID_1" });
-    newCard({ "id": "Card_ID_13", "title": "Card_Title_13", "description": "Description of the First card 13", "lane_id": "LANE_ID_1" });
-    newLane({ id: "LANE_ID_2", title: "Lane_TITLE_2", lable: "Lane_Lable_2" });
-    newCard({ "id": "Card_ID_21", "title": "Card_Title_21", "description": "Description of the First card 21", "lane_id": "LANE_ID_2" });
-    newCard({ "id": "Card_ID_22", "title": "Card_Title_22", "description": "Description of the First card 22", "lane_id": "LANE_ID_2" });
-    newCard({ "id": "Card_ID_23", "title": "Card_Title_23", "description": "Description of the First card 23", "lane_id": "LANE_ID_2" });
+    newLane({ id: "Backlog", title: "Backlog", lable: "Backlog" });
+    newCard({ "id": "Backlog_ID_11", "title": "Get Sketch of Channels List", "description": "I've got a list of channels showing and it needs styling, so I need a Sketch to dev to", "lane_id": "Backlog" });
+    newCard({ "id": "Backlog_ID_12", "title": "Channels Specs", "description": "Write the UI test code for the specs", "lane_id": "Backlog" });
+    newCard({ "id": "Backlog_ID_13", "title": "Build UI for New Channel", "description": "Build a multi select filtered list of people that are members of the new Channel", "lane_id": "Backlog" });
+    newCard({ "id": "Backlog_ID_14", "title": "Figure out hcadmin", "description": "Currently this all runs on hcdev so to keep data we need to run it on hcadmin", "lane_id": "Backlog" });
+
+    newLane({ id: "Doing", title: "Doing", lable: "Doing" });
+    newCard({ "id": "Doing_ID_11", "title": "Documenting this fun creation pattern", "description": "Documenting the pattern is the pattern - ooh fractals!", "lane_id": "Doing" });
+    newCard({ "id": "Doing_ID_12", "title": "Prepare for Showcase", "description": "Showcase this Friday is intended to increase people's excitement and show them ways to contribute across the whole commuinity.", "lane_id": "Doing" });
 }
 // -----------------------------------------------------------------
 //  Validation functions for every change to the local chain or DHT

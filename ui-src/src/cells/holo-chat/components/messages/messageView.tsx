@@ -109,17 +109,18 @@ function VoteControls (props: any) {
 }
 
 function MessageComponent (props: any) {
+  console.log(props.message)
   switch (props.message.type) {
-    case 'Message':
+    case 0:
       return (
         <div className={props.classes.message}>
           <Typography component='p' className={props.classes.messageText}>{props.message.content.text}</Typography>
           <img alt={props.message.content.image} className={(props.message.content.image !== '') ?  props.classes.messageImage : props.classes.messageNoImage}  src={props.message.content.image} />
         </div>)
-    case 'IdeaCard':
+    case 1:
       return (
         <div className={props.classes.message}>
-          <IdeaCard idea={props.message.content.idea} />
+          <IdeaCard idea={props.message.content} />
         </div>)
     default:
       return <div className={props.classes.message}><Typography component='p'>No message type found</Typography></div>
