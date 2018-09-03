@@ -1,5 +1,6 @@
 import * as React from 'react'
 // import {Provider} from 'react-redux'
+import {action, decorateAction} from '@storybook/addon-actions'
 import { storiesOf } from "@storybook/react";
 import {Provider} from 'react-redux'
 import { MemoryRouter } from 'react-router'
@@ -178,5 +179,5 @@ storiesOf('Errand', module)
   ))
   // .addDecorator(story => <Provider store={store}>{story()}</Provider>)
   .add('Show Errand Board', withNotes(displayErrandItems) (() => {
-      return (<Provider store={store}><MemoryRouter initialEntries={['/']}><Errand boardData={boardData}/></MemoryRouter></Provider>)
+      return (<Provider store={store}><MemoryRouter initialEntries={['/']}><Errand boardData={boardData} getBoardState={action('Get the board state from Holochain')}/></MemoryRouter></Provider>)
   }))
