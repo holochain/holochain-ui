@@ -1,5 +1,6 @@
 import { createAsyncAction } from 'typesafe-actions'
 // import { Channel } from './types/channel'
+import { Message } from './types/message'
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 
 /*
@@ -62,6 +63,19 @@ export const GetMyChannels = createAsyncAction(
 <BridgeCallPayload, AxiosResponse, AxiosError>()
 
 
+export const GetMessages = createAsyncAction(
+	'holochat/getMessages', 
+	'holochat/getMessages_SUCCESS', 
+	'holochat/getMessages_FAILURE')
+<BridgeCallPayload, AxiosResponse, AxiosError>()
+
+export const PostMessage = createAsyncAction(
+	'holochat/postMessage', 
+	'holochat/postMessage_SUCCESS', 
+	'holochat/postMessage_FAILURE')
+<BridgeCallPayload, AxiosResponse, AxiosError>()
+
+
 /*=====  End of Action Type Definitions  ======*/
 
 
@@ -79,6 +93,14 @@ export const addMembers = (members: Array<string>) => {
 
 export const getMyChannels = () => {
 	return GetMyChannels.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getMyChannels', {}))
+}
+
+export const getMessages = (uuid: string) => {
+	return GetMessages.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getMessages', {uuid}))
+}
+
+export const postMessage = (message: Message) => {
+	return GetMessages.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'postMessage', {message}))
 }
 /*=====  End of Action Creator Functions  ======*/
 
