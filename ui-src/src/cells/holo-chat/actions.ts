@@ -1,24 +1,6 @@
-import { createAction } from 'typesafe-actions'
-import { AxiosRequestConfig } from 'axios'
-
-
-// TODO: refactor to another file to share between cells
-function makeBridgeReqestPayload(channel: string, zome: string, func: string, data: any): {request: AxiosRequestConfig} {
-	return {
-		request: {
-			url: '/',
-			data: {
-				channel,
-				zome,
-				func,
-				data
-			}
-		}
-	}
-}
-
-
-
+import { createAsyncAction } from 'typesafe-actions'
+import { Channel } from './types/channel'
+import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 
 /*
 Typed action creators. See (https://github.com/piotrwitek/typesafe-actions#createaction) for details
@@ -30,23 +12,70 @@ The arguments to resolve will be assigned to payload and meta respectively.
 The type of the action will be automatically set
 */
 
-export const createCustomChannel = createAction('holochat/createCustomChannel', resolve => {
-	return (members: Array<string>) => {
-		return resolve(makeBridgeReqestPayload('holo-chat', 'custom_channel', 'createCustomChannel', {members}));
-	}
-})
 
-export const addMembers = createAction('holochat/addMembers', resolve => {
-	return (uuid: string, members: Array<string>) => {
-		return resolve(makeBridgeReqestPayload('holo-chat', 'custom_channel', 'addMembers', {uuid, members}));
-	}
-})
+//TODO: Refactor to another file for reusability
 
-export const getMyChannels = createAction('holochat/getMyChannels', resolve => {
-	return () => {
-		return resolve(makeBridgeReqestPayload('holo-chat', 'custom_channel', 'getMyChannels', {}));
+interface BridgeCallPayload {
+	request: AxiosRequestConfig
+}
+
+function makeBridgeCallPayload(channel: string, zome: string, func: string, data: any): BridgeCallPayload {
+	return {
+		request: {
+			url: '/',
+			data: {
+				channel,
+				zome,
+				func,
+				data
+			}	
+		}
 	}
-})
+}
+
+
+/*===============================================
+=            Action Type Definitions            =
+===============================================*/
+
+// TODO: Add more specific typing on the return types
+
+export const CreateCustomChannel = createAsyncAction(
+	'holochat/createCustomChannel',
+	'holochat/createCustomChannel_SUCCESS',
+	'holochat/createCustomChannel_FAILURE')
+<BridgeCallPayload, AxiosResponse, AxiosError>()
+// <calling payload type, success response type, error response type>S
+
+
+export const addMembers = createAsyncAction(
+	'holochat/addMembers',
+	'holochat/addMembers_SUCCESS',
+	'holochat/addMembers_FAILURE')
+<BridgeCallPayload, AxiosResponse, AxiosError>()
+
+
+export const getMyChannels = createAsyncAction(
+	'holochat/getMyChannels', 
+	'holochat/getMyChannels_SUCCESS', 
+	'holochat/getMyChannels_FAILURE')
+<void, AxiosResponse, AxiosError>()
+
+
+/*=====  End of Action Type Definitions  ======*/
+
+
+/*================================================
+=            Action Creator Functions            =
+================================================*/
+
+export const createCustomChannel = (members: Array<string>) => {
+	return CreateCustomChannel.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'createCustomChannel', {members}))
+}
+
+/*=====  End of Action Creator Functions  ======*/
+
+
 
 
 

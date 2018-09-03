@@ -28,7 +28,6 @@ describe('createCustomChannel action', () => {
 	it('should create an action that is correctly structured given parameters', () => {
 		const expectedAction = {
 			type: 'holochat/createCustomChannel',
-			meta: undefined,
 			payload: {
 				request: {
 					url: '/',
@@ -63,8 +62,6 @@ describe('createCustomChannel action', () => {
 				}
 			}
 		}
-
-
 
     const store = mockStore({})
     return store.dispatch(chatActions.createCustomChannel(['123abc'])).then(() => {
