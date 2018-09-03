@@ -1,0 +1,76 @@
+{
+  "Tests": [{
+      "Convey": "0. Create new Channel",
+      "Zome": "custom_channel",
+      "FnName": "createCustomChannel",
+      "Input": [],
+      "RegExp": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+      "Err": ""
+    },
+    {
+      "Convey": "1. Get the channels|chats you are part of (UUID)",
+      "Zome": "custom_channel",
+      "FnName": "getMyChannels",
+      "Input": "",
+      "Output": "%r1%"
+    },
+    {
+      "Convey": "2. Get member for the channel (UUID)",
+      "Zome": "custom_channel",
+      "FnName": "getMembers",
+      "Input": "%r2%",
+      "RegExp": "(?s).*"
+    },
+    {
+      "Convey": "3. Get the channel details by UUID",
+      "Zome": "custom_channel",
+      "FnName": "getChannelDetails",
+      "Input": "%r3%",
+      "RegExp": "(?s).*"
+    },
+    {
+      "Convey": "4. post message to the channel",
+      "Zome": "custom_channel",
+      "FnName": "postMessage",
+      "Input": {"uuid":"%r3%","message":{"content":{"text":"Testing out the First message!!"}}},
+      "Output": "%h1%"
+    },
+    {
+      "Convey": "5. 'REDUNDANTE' Again Get the channels|chats you are part of (UUID)",
+      "Zome": "custom_channel",
+      "FnName": "getMyChannels",
+      "Input": "",
+      "RegExp": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+
+    },
+    {
+      "Convey": "6. get message of the channel",
+      "Zome": "custom_channel",
+      "FnName": "getMessages",
+      "Input": "%r1%",
+      "RegExp": "[{\"Entry\":{\"author\":\"%key%\",\"content\":{\"text\":\"Testing out the First message!!\"},\"timestamp\":\"[^\"]*\"},\"EntryType\":\"message\",\"Hash\":\"[^\"]*\",\"Source\":\"%key%\"}]"
+    },
+    {
+      "Convey": "7. update message of the channel",
+      "Zome": "custom_channel",
+      "FnName": "updateMessage",
+      "Input": {"old_hash":"%r3%","new_message":{"content":{"text":"Testing out the First message Update !!"}}},
+      "RegExp": "%h%"
+    },
+    {
+      "Convey": "8. 'REDUNDANTE' Again Get the channels|chats you are part of (UUID)",
+      "Zome": "custom_channel",
+      "FnName": "getMyChannels",
+      "Input": "",
+      "RegExp": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+
+    },
+    {
+      "Convey": "9. get message of the channel",
+      "Zome": "custom_channel",
+      "FnName": "getMessages",
+      "Input": "%r1%",
+      "RegExp": "[{\"Entry\":{\"author\":\"%key%\",\"content\":{\"text\":\"Testing out the First message Update !!\"},\"timestamp\":\"[^\"]*\"},\"EntryType\":\"message\",\"Hash\":\"[^\"]*\",\"Source\":\"%key%\"}]"
+    }
+  ]
+}

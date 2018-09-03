@@ -2,10 +2,16 @@
 	"title": "Properties Schema",
 	"type": "object",
 	"properties": {
-		"description": {
+		"name": {
+			"type": "string"
+		},
+		"purpose": {
 			"type": "string"
 		},
 		"language": {
+			"type": "string"
+		},
+		"initial_admin": {
 			"type": "string"
 		}
 	}

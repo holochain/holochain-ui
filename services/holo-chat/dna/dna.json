@@ -1,102 +1,111 @@
 {
-  "Version": 1,
-  "UUID": "eebdfcb8-3097-11e8-a19b-80e650006988",
-  "Name": "holochat",
-  "Properties": {
-    "description": "provides an application template",
-    "language": "en"
-  },
-  "PropertiesSchemaFile": "properties_schema.json",
-  "RequiresVersion": 23,
-  "DHTConfig": {
-    "HashType": "sha2-256",
-    "NeighborhoodSize": 0
-  },
-  "Progenitor": {
-    "Identity": "",
-    "PubKey": null
-  },
-  "Zomes": [
-    {
-      "Name": "genesis",
-      "Description": "Verifies your rights to manage the keys",
-      "CodeFile": "genesis.js",
-      "RibosomeType": "js",
-      "Config": null,
-      "Entries": [],
-      "Functions": []
+    "Version": 3,
+    "UUID": "00000000-0000-0000-0000-000000000000",
+    "Name": "chat",
+    "RequiresVersion": 26,
+    "Properties": {
+        "name": "My Chat",
+        "purpose": "chatting up a storm",
+        "language": "en"
     },
-    {
-      "Name": "messages",
-      "Description": "CRUD for HoloChat messages",
-      "CodeFile": "messages.js",
-      "RibosomeType": "js",
-      "Config": {
+    "PropertiesSchemaFile": "properties_schema.json",
+    "DHTConfig": {
+        "HashType": "sha2-256"
+    },
+    "Zomes": [
+      {
+            "Name": "custom_channel",
+            "Description": "used to create channels when members start a converstion | can add members",
+            "RibosomeType": "js",
+            "CodeFile": "custom_channel.js",
+            "Config": {
               "ErrorHandling": "throwErrors"
             },
-      "BridgeFuncs": [
-        "getMessages",
-        "createMessage",
-        "listMessages"
-      ],
-      "Entries": [
-        {
-          "Name": "message",
-          "DataFormat": "json",
-          "Schema": "",
-          "SchemaFile": "message.json",
-          "Sharing": "public"
-        },
-        {
-          "Name": "message_link",
-          "DataFormat": "links"
+            "Entries": [
+              {
+                "Name": "custom_channel_uuid",
+                "DataFormat": "string",
+                "Sharing": "public"
+              },
+              {
+                  "Name": "custom_channel_details",
+                  "DataFormat": "json",
+                  "Sharing": "public"
+                },
+                {
+                  "Name": "custom_channel_link",
+                  "DataFormat": "links"
+                },
+                {
+                  "Name": "channel_to_member_link",
+                  "DataFormat": "links"
+                },
+                {
+                  "Name": "member_to_channel_link",
+                  "DataFormat": "links"
+                },
+                {
+                  "Name": "message",
+                  "DataFormat": "json",
+                  "Sharing":"public"
+                },
+                {
+                  "Name": "message_link",
+                  "DataFormat": "links"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "createCustomChannel",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                  "Name": "getcustomChannel",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "addMembers",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getMembers",
+                  "CallingType": "string",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getChannelDetails",
+                  "CallingType": "string",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getMyChannels",
+                  "CallingType": "string",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getKey",
+                  "CallingType": "string",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "postMessage",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getMessages",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "updateMessage",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                }
+            ]
         }
-      ],
-      "Functions": [
-        {
-          "Name": "listMessagesBridged",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "listMessages",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "createMessageBridged",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "createMessage",
-          "CallingType": "json",
-          "Exposure": "public"
-        }
-      ]
-    },
-    {
-      "Name": "channels",
-      "Description": "Manage the channels subscribed to.  Stores entries privately",
-      "CodeFile": "channels.js",
-      "RibosomeType": "js",
-      "Config": null,
-      "Entries": [
-        {
-          "Name": "channel",
-          "DataFormat": "json",
-          "Schema": "",
-          "SchemaFile": "channel.json",
-          "Sharing": "private"
-        }
-      ],
-      "Functions": [
-        {
-          "Name": "getDNA",
-          "CallingType": "json",
-          "Exposure": "public"
-        }
-      ]
-    }
-  ]
+    ]
 }
