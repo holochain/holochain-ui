@@ -52,9 +52,18 @@ export const messages: Array<Message> = [
       channelId: 'holochain',
       timestamp: 10,
       content: {
-        text: 'Text message with an imageText message with an imageText message with an imageText message with an image',
+        text: 'Hey Micah, how are you doing?',
       },
-      replies: []
+      replies: [{
+        type: MessageType.CHAT,
+        author: 'Micah',
+        channelId: 'holochain',
+        timestamp: 11,
+        content: {
+          text: 'Buenas dias! good u?',
+        },
+        replies: []
+      }]
     },
     {
       type: MessageType.IDEA,
@@ -64,10 +73,10 @@ export const messages: Array<Message> = [
       content: {
         upVotes: 33,
         downVotes: 0,
-        description: 'Lets build it',
+        description: 'Errand is running bridged so to add a card we can just call the Errand dna from the new up arrow (we\'ll get a Holocahin icon soon) button below :).',
         avatar: '',
         productOwner: 'Phil',
-        title: 'Awesome idea'
+        title: 'Errand Action Button'
       },
       replies: []
     }

@@ -5,6 +5,7 @@ import channelData from '../data/channels.json'
 import {HoloChatState} from '../reducer'
 import {Dispatch} from 'redux'
 import {
+
 } from '../actions'
 
 const mapStateToProps = (state: HoloChatState) => {
@@ -14,7 +15,8 @@ const mapStateToProps = (state: HoloChatState) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return null
+  return {
+  }
 }
 
 export default connect(

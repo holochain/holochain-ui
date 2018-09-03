@@ -1,10 +1,10 @@
 import * as React from 'react';
 import withRoot from '../../../../withRoot';
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
-import {Card, CardHeader, CardActions, CardContent } from '@material-ui/core';
+import {Card, CardActions, CardContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { Typography } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
+// import Avatar from '@material-ui/core/Avatar';
 import Share from '@material-ui/icons/Share';
 import Badge from '@material-ui/core/Badge';
 import ThumbUp from '@material-ui/icons/ThumbUp';
@@ -80,13 +80,8 @@ class IdeaCard extends React.Component<IdeaCardProps, {}> {
     return (
       <div>
         <Card className={classes.card}>
-          <CardHeader
-            avatar={<Avatar alt="Holochain" src={idea.avatar} />}
-            title={idea.productOwner}
-            subheader={idea.date}
-          />
           <CardContent>
-            <Typography component="h2">
+            <Typography variant='display1'>
               {idea.title}
             </Typography>
             <Typography component="p">{idea.description}</Typography>

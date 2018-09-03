@@ -1,6 +1,6 @@
 
 import { connect } from 'react-redux'
-import IdeaCard from '../components/ideaCard/ideaCard'
+import IdeaCard from '../components/cards/ideaCard'
 import  * as constants from '../constants'
 import {HoloChatState} from '../reducer'
 import {Dispatch} from 'redux'
@@ -15,6 +15,7 @@ const mapStateToProps = (state: HoloChatState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
+
   }
 }
 
