@@ -54,17 +54,7 @@
       ],
       "Functions": [
         {
-          "Name": "listMessagesBridged",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
           "Name": "listMessages",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "createMessageBridged",
           "CallingType": "json",
           "Exposure": "public"
         },

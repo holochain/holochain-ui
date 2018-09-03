@@ -104,6 +104,7 @@ function getCardHash(_a) {
     // debug("getCardHash" + filtered[0].Hash)
     return filtered[0].Hash;
 }
+
 function getBoardState() {
   debug('getBoardState')
     // const BOARD_HASH = makeHash("board", { title: "First_Board", label: "" });
@@ -135,10 +136,16 @@ function uuidGenerator() {
 //  The Genesis Function
 // -----------------------------------------------------------------
 function genesis() {
-    newBoard({ title: "First_Board", label: "" });
-    testGenesisFunction();
     return true;
 }
+
+function bridgeGenesis(side, dna, appData){
+  debug('Social DNA ' + App.Name + ' Bridged to: DNA: ' + dna + ' appData: ' + appData)
+  newBoard({ title: "First_Board", label: "" });
+  testGenesisFunction();
+  return true;
+}
+
 function testGenesisFunction() {
     newLane({ id: "LANE_ID_1", title: "Lane_TITLE_1", lable: "Lane_Lable_1" });
     newCard({ "id": "Card_ID_11", "title": "Card_Title_11", "description": "Description of the First card 11", "lane_id": "LANE_ID_1" });

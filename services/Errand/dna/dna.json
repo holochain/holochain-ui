@@ -15,15 +15,25 @@
     "Identity": "",
     "PubKey": null
   },
-  "Zomes": [{
+  "Zomes": [
+    {
+      "Name": "genesis",
+      "Description": "Verifies your rights to manage the keys",
+      "CodeFile": "genesis.js",
+      "RibosomeType": "js",
+      "Config": null,
+      "Entries": [],
+      "Functions": []
+    },
+    {
     "Name": "boards",
     "Description": "Zome for the board details",
     "CodeFile": "boards.js",
     "RibosomeType": "js",
-    "BridgeFuncs": null,
+    "BridgeFuncs": ["getBoardState"],
     "Config": {
-      "ErrorHandling": "throwErrors"
-    },
+            "ErrorHandling": "throwErrors"
+          },
     "Entries": [{
         "Name": "board",
         "DataFormat": "json",
