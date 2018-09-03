@@ -1,34 +1,27 @@
-export const MESSAGESLIST = 'messagesList'
-export const CHANNELSLIST = 'channelsList'
+import { createAction } from 'typesafe-actions'
 
 
-export interface Meta {
-	isHc: true,
+interface HcMeta {
+	isHc: boolean,
 	namespace: string
 }
 
-type MessagesList = {type: typeof MESSAGESLIST, meta: Meta, payload?: any}
 
-export function messagesList(): MessagesList {
-  return {
-    type: MESSAGESLIST,
-    meta: {
-      isHc: true,
-      namespace: 'messages'
-    }
-  }
-}
+/*
+Typed action creators. See (https://github.com/piotrwitek/typesafe-actions#createaction) for details
 
-type ChannelsList = {type: typeof CHANNELSLIST, meta: Meta, payload?: any}
+This method allows for defining arbitraty function as action creators that also have their own types!
+In the reducer it is possible to switch on the type of the action, no constants required
 
-export function channelsList(): ChannelsList {
-  return {
-    type: CHANNELSLIST,
-    meta: {
-      isHc: true,
-      namespace: 'channels'
-    }
-  }
-}
+The arguments to resolve will be assigned to payload and meta respectively.
+The type of the action will be automatically set
+ */
 
-export type Actions = MessagesList | ChannelsList
+export const messagesList = createAction('holochat/MESSAGE_LIST', resolve => {
+	return () => {
+		const meta: HcMeta = { isHc: true, namespace: 'messages' }
+		return resolve(undefined, meta);
+	}
+})
+
+
