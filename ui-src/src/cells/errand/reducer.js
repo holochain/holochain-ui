@@ -7,10 +7,10 @@ const errandApp = ( state = initialState, action) => {
   const {meta, type , payload} = action;
   switch (type) {
     case actions.GET_BOARD_STATE:
-      return {...state}
-      break;
-    //   const {board}=payload;
-    //   return Object.assign({...state},board);
+      // return {...state}
+      // break;
+      const {board}=payload;
+      return Object.assign({...state},board);
     case actions.ADD_CARD:
       return {...state}
       break;

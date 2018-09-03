@@ -8,7 +8,7 @@ import {
 
 const mapStateToProps = state => {
   return {
-    state : state
+    boardData : state.errand
   }
 }
 

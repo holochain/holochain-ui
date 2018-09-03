@@ -27,7 +27,7 @@ function StartComponent () {
       <div>Starting point</div>
     )
 }
-const initialState =  {
+const boardData =  {
   "lanes": [
     {
       "id": "TASK",
@@ -178,5 +178,5 @@ storiesOf('Errand', module)
   ))
   // .addDecorator(story => <Provider store={store}>{story()}</Provider>)
   .add('Show Errand Board', withNotes(displayErrandItems) (() => {
-      return (<Provider store={store}><MemoryRouter initialEntries={['/']}><Errand/></MemoryRouter></Provider>)
+      return (<Provider store={store}><MemoryRouter initialEntries={['/']}><Errand boardData={boardData}/></MemoryRouter></Provider>)
   }))

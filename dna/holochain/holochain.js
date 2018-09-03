@@ -10,7 +10,7 @@ function callBridgedFunction(bridgeCall){
   debug('channelDNA ' + channelDNA)
   debug('function ' + bridgeCall.function)
   debug('zome ' + bridgeCall.zome)
-  debug('data ' + bridgeCall.data)
+  debug('data ' + JSON.stringify(bridgeCall.data))
   if(bridgeCall.data === undefined){
     bridgeCall.data = {}
   }

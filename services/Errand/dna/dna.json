@@ -1,13 +1,12 @@
 {
   "Version": 1,
   "UUID": "8e18f995-92b5-11e8-9f2e-685b35836414",
-  "Name": "Yollo",
+  "Name": "Errand",
   "Properties": {
     "description": "Trello now on Holochain",
     "language": "en"
   },
   "PropertiesSchemaFile": "properties_schema.json",
-  "BasedOn": "",
   "RequiresVersion": 26,
   "DHTConfig": {
     "HashType": "sha2-256"

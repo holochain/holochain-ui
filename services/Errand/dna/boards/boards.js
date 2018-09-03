@@ -105,6 +105,7 @@ function getCardHash(_a) {
     return filtered[0].Hash;
 }
 function getBoardState() {
+  debug('getBoardState')
     // const BOARD_HASH = makeHash("board", { title: "First_Board", label: "" });
     var lanes = getLanes();
     var data = { board: { lanes: [] } };
@@ -118,7 +119,6 @@ function getBoardState() {
         };
         i++;
     });
-    // debug("Board State:" + JSON.stringify(data))
     return data;
 }
 //------------------------------
