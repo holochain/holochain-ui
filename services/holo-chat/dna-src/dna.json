@@ -1,7 +1,7 @@
 {
     "Version": 3,
     "UUID": "00000000-0000-0000-0000-000000000000",
-    "Name": "chat",
+    "Name": "holo-chat",
     "RequiresVersion": 26,
     "Properties": {
         "name": "My Chat",

@@ -1,7 +1,7 @@
 {
     "Version": 3,
     "UUID": "00000000-0000-0000-0000-000000000000",
-    "Name": "chat",
+    "Name": "holo-chat",
     "RequiresVersion": 26,
     "Properties": {
         "name": "My Chat",
@@ -21,6 +21,14 @@
             "Config": {
               "ErrorHandling": "throwErrors"
             },
+            "BridgeFuncs": [
+              "createCustomChannel",
+              "addMembers",
+              "getMembers",
+              "getMyChannels",
+              "postMessage",
+              "getMessages"
+            ],
             "Entries": [
               {
                 "Name": "custom_channel_uuid",
@@ -56,12 +64,7 @@
             ],
             "Functions": [
                 {
-                    "Name": "createCustomChannel",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                  "Name": "getcustomChannel",
+                  "Name": "createCustomChannel",
                   "CallingType": "json",
                   "Exposure": "public"
                 },
@@ -77,11 +80,6 @@
                 },
                 {
                   "Name": "getMyChannels",
-                  "CallingType": "json",
-                  "Exposure": "public"
-                },
-                {
-                  "Name": "getKey",
                   "CallingType": "json",
                   "Exposure": "public"
                 },

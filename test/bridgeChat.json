@@ -25,6 +25,15 @@
       "Output": true,
       "Err": "",
       "Raw": true
+    },
+    {
+      "Convey": "Check we can bridge to the new version of holo-chat",
+      "Details": "Call get channels to test if the bridge is working",
+      "Zome": "holochain",
+      "Input": "callBridgedFunction({'channel':'holo-chat','zome':'custom_channel','function':'getMyChannels','data':undefined}).length === 0",
+      "Output": true,
+      "Err": "",
+      "Raw": true
     }
   ]
 }
