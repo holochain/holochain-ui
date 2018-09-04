@@ -2,9 +2,9 @@
 	"title": "Room Schema",
 	"type": "object",
 	"properties": {
-    "name": {
-      "type": "string"
-    },
+	    "name": {
+	      "type": "string"
+	    },
 		"access": {
 			"type": "string"
 		},

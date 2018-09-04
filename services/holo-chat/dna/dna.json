@@ -72,22 +72,22 @@
                 },
                 {
                   "Name": "getMembers",
-                  "CallingType": "string",
+                  "CallingType": "json",
                   "Exposure": "public"
                 },
                 {
                   "Name": "getChannelDetails",
-                  "CallingType": "string",
+                  "CallingType": "json",
                   "Exposure": "public"
                 },
                 {
                   "Name": "getMyChannels",
-                  "CallingType": "string",
+                  "CallingType": "json",
                   "Exposure": "public"
                 },
                 {
                   "Name": "getKey",
-                  "CallingType": "string",
+                  "CallingType": "json",
                   "Exposure": "public"
                 },
                 {

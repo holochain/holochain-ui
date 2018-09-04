@@ -11,7 +11,8 @@ var module = {};
  * @param  {holochain.Hash[]} - Array of public key hashes of members to add to channel
  * @return {UUID} - Channel UUID
  */
-function createCustomChannel(members) {
+function createCustomChannel(payload) {
+    var members = payload.members;
     members.push(App.Key.Hash);
     var uuid = uuidGenerator();
     var custom_channel_details = {
@@ -24,7 +25,7 @@ function createCustomChannel(members) {
     var details_hash = commit("custom_channel_details", custom_channel_details);
     //debug("details_hash: " + details_hash);
     commit("custom_channel_link", { Links: [{ Base: uuid_hash, Link: details_hash, Tag: "channel_details" }] });
-    addMembers(uuid, members);
+    addMembers({ uuid: uuid, members: members });
     return uuid;
 }
 //TODO : Test for non creator of the channel adding a member in the channel
@@ -34,7 +35,8 @@ function createCustomChannel(members) {
  * @param  {holochain.Hash[]} - Array of members to add
  * @return {boolean} - Returns true if successful otherwise returns an error
  */
-function addMembers(uuid, members) {
+function addMembers(payload) {
+    var uuid = payload.uuid, members = payload.members;
     var uuid_hash = makeHash("custom_channel_uuid", uuid);
     members.forEach(function (member) {
         try {
@@ -68,7 +70,8 @@ function getMyChannels() {
  * @param  {UUID} - Channel UUID
  * @return {string[]} - Array of key hashes of members in channel
  */
-function getMembers(uuid) {
+function getMembers(payload) {
+    var uuid = payload.uuid;
     var members;
     try {
         members = getLinks(makeHash("custom_channel_uuid", uuid), "channel_members", { Load: true });
@@ -84,7 +87,8 @@ function getMembers(uuid) {
  * @param  {UUID} - Channel UUID
  * @return {string[]} - TODO: Write spec for channel details
  */
-function getChannelDetails(uuid) {
+function getChannelDetails(payload) {
+    var uuid = payload.uuid;
     var details;
     try {
         details = getLinks(makeHash("custom_channel_uuid", uuid), "channel_details", { Load: true });
@@ -120,7 +124,8 @@ function postMessage(payload) {
  * @param  {UUID} - Channel UUID
  * @return {Array<holochain.GetLinksResponse>} - Array of messages
  */
-function getMessages(uuid) {
+function getMessages(payload) {
+    var uuid = payload.uuid;
     var messages;
     try {
         var messages_1 = getLinks(makeHash("custom_channel_uuid", uuid), "messages", { Load: true });
