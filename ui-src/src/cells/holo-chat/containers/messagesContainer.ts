@@ -4,9 +4,7 @@ import Messages from '../components/messages/messages'
 import  * as constants from '../constants'
 import {HoloChatState} from '../reducer'
 import {Dispatch} from 'redux'
-import {
-  messagesList
-} from '../actions'
+
 
 const mapStateToProps = (state: HoloChatState) => {
   return {
@@ -15,11 +13,7 @@ const mapStateToProps = (state: HoloChatState) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    messagesList: () => {
-      dispatch(messagesList())
-    }
-  }
+
 }
 
 export default connect(

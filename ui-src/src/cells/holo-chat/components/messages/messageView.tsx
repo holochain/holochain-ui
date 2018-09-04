@@ -9,9 +9,9 @@ import Highlight from '@material-ui/icons/Highlight'
 import ThumbUp from '@material-ui/icons/ThumbUp'
 import ThumbDown from '@material-ui/icons/ThumbDown'
 import IconButton from '@material-ui/core/IconButton'
-import IdeaCard from '../cards/ideaCard'
+import IdeaContainer from '../../containers/ideaContainer'
 
-import {Message as MessageType} from '../../types/message'
+import {Message as MessageType} from '../../types/view/message'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   container: {
@@ -129,7 +129,7 @@ function MessageComponent (props: any) {
     case 1:
       return (
         <div className={props.classes.message}>
-          <IdeaCard idea={props.message.content} />
+          <IdeaContainer idea={props.message.content} />
         </div>)
     default:
       return <div className={props.classes.message}><Typography component='p'>No message type found</Typography></div>

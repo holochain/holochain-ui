@@ -8,6 +8,9 @@ env:
 services:
 - docker
 before_install:
+- cd services/holo-chat/dna-src
+- npm install && npm run build
+- cd ../../..
 - cd ui-src
 - npm install
 - npm run build

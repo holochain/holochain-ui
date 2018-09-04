@@ -1,23 +1,35 @@
-import { compact } from 'lodash'
+
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
-import { applyMiddleware, compose, createStore } from 'redux'
-import promiseMiddleware from 'redux-promise'
-import { requestSendingMiddleware, hcMiddleware } from './hc-middleware'
+import { applyMiddleware, createStore } from 'redux'
 import holoVault from './cells/holo-vault/reducer'
 import holoChat from './cells/holo-chat/reducer'
+import axiosMiddleware from 'redux-axios-middleware'
+import promiseMiddleware from 'redux-promise'
+import axios from 'axios';
 import errand from './cells/errand/reducer'
+import { requestSendingMiddleware, hcMiddleware } from './hc-middleware'
+
+const holochainClient = axios.create({
+		baseURL: 'http://localhost:4141/fn/holochain/callBridgedFunction',
+  	responseType: 'json',
+  	method: 'POST'
+})
 
 
-const middleware = compact([
-    hcMiddleware,
-    requestSendingMiddleware,
-    promiseMiddleware
-])
 let rootReducer = combineReducers({holoVault: holoVault, holoChat: holoChat, errand: errand, form: formReducer})
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
 function CreateStore() {
-  return createStore(rootReducer, undefined, composeEnhancers(applyMiddleware(...middleware)))
+  return createStore(
+  	rootReducer, 
+  	applyMiddleware(
+  		// axiosMiddleware(holochainClient),
+  		hcMiddleware,
+  		requestSendingMiddleware,
+  		promiseMiddleware
+  	)
+  )
 }
+
 
 export default CreateStore;
