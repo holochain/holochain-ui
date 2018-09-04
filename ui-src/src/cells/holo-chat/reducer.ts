@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import { ActionType, getType } from 'typesafe-actions';
 import * as chatActions from './actions'
-import {Channel} from './types/model/channel'
-import {Message} from './types/model/message'
+import {Channel} from './types/view/channel'
+import {Message} from './types/view/message'
 
 
 // create a union type that is all possible chat actions
@@ -10,12 +10,14 @@ export type ChatAction = ActionType<typeof chatActions>;
 
 export interface HoloChatState {
   myChannels: Array<Channel>,
+  activeChannel: Channel,
   currentMessages: Array<Message>
 }
 
 export const initialState: HoloChatState = {
   myChannels: [],
-  currentMessages: []
+  currentMessages: [],
+  activeChannel: null
 }
 
 

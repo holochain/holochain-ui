@@ -21,6 +21,7 @@ export function getBoardState() {
     meta: {
       isHc: true,
       namespace: namespace,
+      data: {'channel': 'Errand'}
     }
   }
 }
@@ -32,7 +33,8 @@ export function addCard(card_info, lane_id) {
     id: card_info.id,
     title: card_info.title,
     description: card_info.description,
-    lane_id: lane_id
+    lane_id: lane_id,
+    channel: 'Errand'
   };
   return {
     type: ADD_CARD,
@@ -51,7 +53,7 @@ export function moveCard(cardId, sourceLaneId, targetLaneId) {
     meta: {
       isHc: true,
       namespace: namespace,
-      data: {cardId, sourceLaneId, targetLaneId},
+      data: {cardId, sourceLaneId, targetLaneId, 'channel': 'Errand'}
     }
   }
 }
@@ -63,7 +65,7 @@ export function deleteCard(card_id,lane_id) {
     meta: {
       isHc: true,
       namespace: namespace,
-      data: {card_id:card_id,lane_id:lane_id},
+      data: {card_id:card_id,lane_id:lane_id, 'channel': 'Errand'},
     }
   }
 }
