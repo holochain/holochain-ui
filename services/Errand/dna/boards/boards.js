@@ -154,7 +154,6 @@ function testGenesisFunction() {
     newCard({ "id": "Backlog_ID_13", "title": "Build UI for New Channel", "description": "Build a multi select filtered list of people that are members of the new Channel", "lane_id": "Backlog" });
     newCard({ "id": "Backlog_ID_14", "title": "Figure out hcadmin", "description": "Currently this all runs on hcdev so to keep data we need to run it on hcadmin", "lane_id": "Backlog" });
     newCard({ "id": "Backlog_ID_15", "title": "Wire up Profiles to dna", "description": "The Profiles list is using the Storybook data live, need to wire up the dna.", "lane_id": "Backlog" });
-    newCard({ "id": "Backlog_ID_16", "title": "Errand Action Button", "description": "Errand is running bridged so to add a card we can just call the Errand dna from the new up arrow (we'll get a Holocahin icon soon) button below :).", "lane_id": "Backlog" });
 
     newLane({ id: "Reviewing", title: "Reviewing", lable: "Reviewing" });
     newCard({ "id": "Reviewing_ID_11", "title": "Showcase demo to hApps crew.", "description": "indepth demo of how all this works and how everyone get\'s involved.", "lane_id": "Reviewing" });

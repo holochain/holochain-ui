@@ -6,12 +6,15 @@ import withRoot from '../../../../withRoot';
 import { Stage, Layer } from 'react-konva';
 import { PresenceArc } from './presenceArc'
 import { Arc as ArcType } from '../../types/arc'
+// import Image from './24-hour-clock-face'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     width: '100%',
-    backgroundColor: theme.palette.background.paper
-  }
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundImage: `url(${"http://localhost:3000/24-hour-clock-face.jpg"})`
+    }
 });
 
 interface PresenceArcsProps {
@@ -33,7 +36,7 @@ class PresenceArcs extends React.Component<PresenceArcsProps, {}> {
         <Layer>
           {
             arcs.map((arc: ArcType, index: number) => (
-              <PresenceArc classes={classes} arc={arc} index={index + 1} />
+              <PresenceArc classes={classes} arc={arc} index={index + 1} width={window.innerWidth} height={window.innerHeight} />
             ))
           }
         </Layer>
