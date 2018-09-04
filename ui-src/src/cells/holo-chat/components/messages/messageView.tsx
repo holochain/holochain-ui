@@ -9,7 +9,7 @@ import Highlight from '@material-ui/icons/Highlight'
 import ThumbUp from '@material-ui/icons/ThumbUp'
 import ThumbDown from '@material-ui/icons/ThumbDown'
 import IconButton from '@material-ui/core/IconButton'
-import IdeaCard from './ideaCard'
+import IdeaCard from '../cards/ideaCard'
 
 import {Message as MessageType} from '../../types/message'
 
@@ -53,7 +53,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   messageText: {
     marginLeft: 19,
     marginTop: -8,
-    fontSize: '0.62rem',
+    fontSize: '16',
     margin: 0,
     whiteSpace: 'pre-wrap',
     width: '100%',
@@ -109,17 +109,27 @@ function VoteControls (props: any) {
 }
 
 function MessageComponent (props: any) {
+  console.log(props.message)
   switch (props.message.type) {
-    case 'Message':
+    case 0:
       return (
         <div className={props.classes.message}>
-          <Typography component='p' className={props.classes.messageText}>{props.message.content.text}</Typography>
+          <Typography className={props.classes.messageText}>{props.message.content.text}</Typography>
           <img alt={props.message.content.image} className={(props.message.content.image !== '') ?  props.classes.messageImage : props.classes.messageNoImage}  src={props.message.content.image} />
+          <List>
+            {
+              props.message.replies.map((message: any, index: number) => (
+                <ListItem key={index} dense={true} className={props.classes.listItemMessage}>
+                  <Typography className={props.classes.messageText}>{message.content.text}</Typography>
+                </ListItem>
+              ))
+            }
+          </List>
         </div>)
-    case 'IdeaCard':
+    case 1:
       return (
         <div className={props.classes.message}>
-          <IdeaCard idea={props.message.content.idea} />
+          <IdeaCard idea={props.message.content} />
         </div>)
     default:
       return <div className={props.classes.message}><Typography component='p'>No message type found</Typography></div>

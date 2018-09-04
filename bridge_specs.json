@@ -5,6 +5,11 @@
     "BridgeZome": "genesis"
   },
   {
+    "Path": "./services/Errand",
+    "Side": 1,
+    "BridgeZome": "genesis"
+  },
+  {
     "Path": "./services/Holo_Community",
     "Side": 1,
     "BridgeZome": "genesis"
@@ -16,11 +21,6 @@
   },
   {
     "Path": "./services/Aussie_DJs",
-    "Side": 1,
-    "BridgeZome": "genesis"
-  },
-  {
-    "Path": "./services/Errand",
     "Side": 1,
     "BridgeZome": "genesis"
   }

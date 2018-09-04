@@ -48,22 +48,35 @@ export const profileSpec1 = {
 export const messages: Array<Message> = [
     {
       type: MessageType.CHAT,
+      author: 'Phil',
       channelId: 'holochain',
-      author: 'Art Brock',
       timestamp: 10,
       content: {
-        text: 'Text message with an imageText message with an imageText message with an imageText message with an image',
+        text: 'Hey Micah, how are you doing?',
       },
-      replies: []
+      replies: [{
+        type: MessageType.CHAT,
+        author: 'Micah',
+        channelId: 'holochain',
+        timestamp: 11,
+        content: {
+          text: 'Buenas dias! good u?',
+        },
+        replies: []
+      }]
     },
     {
-      type: MessageType.CHAT,
+      type: MessageType.IDEA,
+      author: 'Phil',
       channelId: 'holochain',
-      author: 'Art Brock',
-      timestamp: 20,
+      timestamp: 10,
       content: {
-        text: 'Text message with no image',
-        image: ''
+        upVotes: 33,
+        downVotes: 0,
+        description: 'Errand is running bridged so to add a card we can just call the Errand dna from the new up arrow (we\'ll get a Holocahin icon soon) button below :).',
+        avatar: '',
+        productOwner: 'Phil',
+        title: 'Errand Action Button'
       },
       replies: []
     }

@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 // import SpeakerPhone from '@material-ui/icons/SpeakerPhone'
 import { Channel as ChannelType } from '../../types/channel'
 import withRoot from '../../../../withRoot';
+import {Route} from 'react-router-dom'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
@@ -40,9 +41,14 @@ class Channels extends React.Component<ChannelsProps, {}> {
       <List id="channels" component="nav">
         {
           channels.map((channel: ChannelType, index: number) => (
-            <ListItem button={true} onClick={() => {}}>
-              <ListItemText primary={channel.name}/>
-            </ListItem>))
+                <Route render={({history}) => (
+                  <ListItem id={channel.name} button={true} onClick={() => {history.push(`/holo-chat/messages`)}}>
+                    <ListItemText primary={channel.name}/>
+                  </ListItem>
+                )
+              }
+            />
+          ))
         }
       </List>
     </div>);
