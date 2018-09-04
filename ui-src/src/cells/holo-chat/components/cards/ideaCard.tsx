@@ -49,7 +49,8 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 
 interface IdeaCardProps {
   classes: any,
-  idea: any
+  idea: any,
+  addCard: any
 }
 
 class IdeaCard extends React.Component<IdeaCardProps, {}> {
@@ -72,6 +73,7 @@ class IdeaCard extends React.Component<IdeaCardProps, {}> {
   };
   handleErrand = () => {
     console.log('Errand');
+    this.props.addCard({id:'backlogid1111', title:'chat card', description: 'added from chat'}, 'Backlog');
     // this.togglePopover()
   };
 
@@ -119,7 +121,8 @@ class IdeaCard extends React.Component<IdeaCardProps, {}> {
             </Badge>
             <IconButton
               className={classes.button}
-              href="http://localhost:3000/errand"
+              // href="http://localhost:3000/errand"
+              onClick={this.handleErrand}
               aria-label="Errand">
               <Publish />
             </IconButton>
