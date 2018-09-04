@@ -21,6 +21,14 @@
             "Config": {
               "ErrorHandling": "throwErrors"
             },
+            "BridgeFuncs": [
+              "createCustomChannel",
+              "addMembers",
+              "getMembers",
+              "getMyChannels",
+              "postMessage",
+              "getMessages"
+            ],
             "Entries": [
               {
                 "Name": "custom_channel_uuid",
@@ -56,12 +64,7 @@
             ],
             "Functions": [
                 {
-                    "Name": "createCustomChannel",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                  "Name": "getcustomChannel",
+                  "Name": "createCustomChannel",
                   "CallingType": "json",
                   "Exposure": "public"
                 },
@@ -77,11 +80,6 @@
                 },
                 {
                   "Name": "getMyChannels",
-                  "CallingType": "json",
-                  "Exposure": "public"
-                },
-                {
-                  "Name": "getKey",
                   "CallingType": "json",
                   "Exposure": "public"
                 },

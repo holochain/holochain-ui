@@ -178,6 +178,10 @@ function genesis() {
   return true;
 }
 
+function bridgeGenesis(side, dna, appData) {
+  return true;
+}
+
 // Check if the pub_hash is a member of the
 function isValidAdmin(base_hash: string, entry_source: string): boolean {
   debug("Checking if Agent is an Admin..");

@@ -23,5 +23,10 @@
     "Path": "./services/Errand",
     "Side": 1,
     "BridgeZome": "genesis"
+  },
+  {
+    "Path": "./services/holo-chat",
+    "Side": 1,
+    "BridgeZome": "genesis"
   }
 ]
