@@ -8,6 +8,10 @@ export const channelsTests = describe('Listing your channels', () => {
     expect(3).toEqual(3)
   })
 
+  it('Each channel can be clicked to go to the messages.', () => {
+    expect(3).toEqual(3)
+  })
+  
   it('People can add new specs via the GitHub editor.', () => {
     expect(3).toEqual(3)
   })
