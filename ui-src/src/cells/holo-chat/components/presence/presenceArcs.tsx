@@ -4,7 +4,8 @@ import {withStyles, Theme, StyleRulesCallback} from '@material-ui/core/styles';
 import withRoot from '../../../../withRoot';
 // import {Route} from 'react-router-dom'
 import { Stage, Layer } from 'react-konva';
-import { ColouredArc } from './colouredArc'
+import { PresenceArc } from './presenceArc'
+import { Arc as ArcType } from '../../types/arc'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
@@ -13,24 +14,28 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 });
 
-interface PresenceArcProps {
+interface PresenceArcsProps {
   classes: any,
-  arcs: Array<any>
+  arcs: Array<ArcType>
 }
 
-class PresenceArcs extends React.Component<PresenceArcProps, {}> {
+class PresenceArcs extends React.Component<PresenceArcsProps, {}> {
   componentDidMount() {
-    console.log("get channels")
+    console.log("get arcs")
     // this.props.channelList()
   }
 
   // tslint:disable jsx-no-lambda
   render() {
-    const {classes} = this.props;
+    const {classes, arcs} = this.props;
     return (<div className={classes.root}>
       <Stage width={window.innerWidth} height={window.innerHeight}>
         <Layer>
-          <ColouredArc />
+          {
+            arcs.map((arc: ArcType, index: number) => (
+              <PresenceArc classes={classes} arc={arc} index={index + 1} />
+            ))
+          }
         </Layer>
       </Stage>
     </div>);

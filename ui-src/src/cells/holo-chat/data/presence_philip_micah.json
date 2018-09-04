@@ -1,34 +1,23 @@
 [
   {
+    "id": "phil",
+    "type": 1,
     "name": "Phil",
-    "avatar": "images/philipbeadle.png",
-    "availBegin": 0,
-    "availEnd": 180,
-    "booked": [
-      {
-        "bookedBegin": 30,
-        "bookedDuration": 5
-      },
-      {
-        "bookedBegin": 120,
-        "bookedDuration": 15
-      }
-    ]
+    "begin": 0,
+    "duration": 90
   },
   {
+    "id": "micah",
+    "type": 1,
     "name": "Micah",
-    "avatar": "images/micah.jefferson.png",
-    "availBegin": 300,
-    "availEnd": 180,
-    "booked": [
-      {
-        "bookedBegin": 30,
-        "bookedDuration": 5
-      },
-      {
-        "bookedBegin": 100,
-        "bookedDuration": 15
-      }
-    ]
+    "begin": 100,
+    "duration": 90
+  },
+  {
+    "id": "jean",
+    "type": 1,
+    "name": "Jean",
+    "begin": 100,
+    "duration": 150
   }
 ]

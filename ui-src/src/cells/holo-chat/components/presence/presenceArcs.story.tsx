@@ -9,7 +9,7 @@ import presenceArcsNotes from './presenceArcs.notes.md'
 import {specs} from 'storybook-addon-specifications'
 import { presenceArcsTests } from './presenceArcs.test'
 import PresenceArcs from './presenceArcs'
-// import channelData from '../../data/channels.json'
+import presenceData from '../../data/presence_philip_micah.json'
 
 
 configure({adapter: new Adapter()})
@@ -27,5 +27,5 @@ storiesOf('HoloChat/Presence', module)
   ))
   .add('Arcs of Presence', withNotes(presenceArcsNotes) (() => {
     specs(() => presenceArcsTests)
-      return <PresenceArcs />
+      return <PresenceArcs arcs={presenceData}/>
   }))
