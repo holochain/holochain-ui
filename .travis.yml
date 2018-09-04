@@ -10,7 +10,7 @@ services:
 before_install:
 - cd services/holo-chat/dna-src
 - npm run install && npm run build
-- cd ../..
+- cd ../../..
 - cd ui-src
 - npm install
 - npm run build
