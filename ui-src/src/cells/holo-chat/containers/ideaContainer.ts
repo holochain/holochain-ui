@@ -15,7 +15,9 @@ const mapStateToProps = (state: HoloChatState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-
+    // addCard: (card_info, lane_id) => {
+    //   dispatch(addCard(card_info, lane_id))
+    // }
   }
 }
 
