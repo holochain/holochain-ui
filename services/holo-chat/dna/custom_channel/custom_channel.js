@@ -12,14 +12,14 @@ function createCustomChannel(payload) {
     var members = payload.members;
     members.push(App.Key.Hash);
     var uuid = uuidGenerator();
-    var custom_channel_details = {
-        name: uuid
+    var channel = {
+        id: uuid
     };
     debug("Your Channel UUID: " + uuid);
     var uuid_hash = commit("custom_channel_uuid", uuid);
     //debug("uuid_hash: " + uuid_hash);
     commit("custom_channel_link", { Links: [{ Base: App.DNA.Hash, Link: uuid_hash, Tag: "channel_uuid" }] });
-    var details_hash = commit("custom_channel_details", custom_channel_details);
+    var details_hash = commit("custom_channel_details", channel);
     //debug("details_hash: " + details_hash);
     commit("custom_channel_link", { Links: [{ Base: uuid_hash, Link: details_hash, Tag: "channel_details" }] });
     addMembers({ uuid: uuid, members: members });

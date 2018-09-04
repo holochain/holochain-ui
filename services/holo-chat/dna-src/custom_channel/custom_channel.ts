@@ -1,8 +1,8 @@
 //------------------------------
 // Public Functions
 //------------------------------
-import {Message} from '../types/message'
 import {Channel} from '../types/channel'
+import {Message} from '../types/message'
 
 
 export = 0;
@@ -25,15 +25,15 @@ function createCustomChannel(payload: {members: holochain.Hash[]}): UUID {
   const {members} = payload
   members.push(App.Key.Hash)
   let uuid: string = uuidGenerator();
-  var custom_channel_details: any = {
-    name: uuid
+  let channel: Channel = {
+    id: uuid
   }
   debug("Your Channel UUID: " + uuid);
   let uuid_hash = commit("custom_channel_uuid", uuid);
   //debug("uuid_hash: " + uuid_hash);
   commit("custom_channel_link", { Links: [{ Base: App.DNA.Hash, Link: uuid_hash, Tag: "channel_uuid" }] });
 
-  let details_hash = commit("custom_channel_details", custom_channel_details);
+  let details_hash = commit("custom_channel_details", channel);
   //debug("details_hash: " + details_hash);
   commit("custom_channel_link", { Links: [{ Base: uuid_hash, Link: details_hash, Tag: "channel_details" }] });
 
