@@ -1,4 +1,4 @@
-import {Message, MessageType} from './types/message'
+import {Message, MessageType} from './types/view/message'
 
 export const profileSpec1 = {
   "id": "HoloChat [Holo Team]",

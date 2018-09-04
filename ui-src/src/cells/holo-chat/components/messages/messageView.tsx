@@ -11,7 +11,7 @@ import ThumbDown from '@material-ui/icons/ThumbDown'
 import IconButton from '@material-ui/core/IconButton'
 import IdeaCard from './ideaCard'
 
-import {Message as MessageType} from '../../types/message'
+import {Message as MessageType} from '../../types/view/message'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   container: {

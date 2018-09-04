@@ -1,6 +1,6 @@
 import { createAsyncAction } from 'typesafe-actions'
 // import { Channel } from './types/channel'
-import { Message } from './types/message'
+import { Message } from './types/model/message'
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 
 /*
@@ -17,7 +17,14 @@ The type of the action will be automatically set
 //TODO: Refactor to another file for reusability
 
 interface BridgeCallPayload {
-	request: AxiosRequestConfig
+	request: AxiosRequestConfig & {
+		data: {
+			channel: string,
+			zome: string,
+			func: string,
+			data: any
+		}
+	}
 }
 
 function makeBridgeCallPayload(channel: string, zome: string, func: string, data: any): BridgeCallPayload {

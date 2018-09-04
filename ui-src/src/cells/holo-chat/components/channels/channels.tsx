@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 // import SpeakerPhone from '@material-ui/icons/SpeakerPhone'
-import { Channel as ChannelType } from '../../types/channel'
+import { Channel as ChannelType } from '../../types/view/channel'
 import withRoot from '../../../../withRoot';
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
