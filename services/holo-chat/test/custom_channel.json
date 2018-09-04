@@ -22,54 +22,19 @@
       "RegExp": "(?s).*"
     },
     {
-      "Convey": "3. Get the channel details by UUID",
-      "Zome": "custom_channel",
-      "FnName": "getChannelDetails",
-      "Input": {"%result%":0},
-      "RegExp": "(?s).*"
-    },
-    {
-      "Convey": "4. post message to the channel",
+      "Convey": "3. post message to the channel",
       "Zome": "custom_channel",
       "FnName": "postMessage",
-      "Input": {"uuid":{"%result%":0},"message":{"content":{"text":"Testing out the First message!!"}}},
+      "Input": {"content":{"text":"Testing out the First message!!"}, "channelId":{"%result%":0}},
       "Output": "%h1%"
     },
     {
-      "Convey": "5. 'REDUNDANTE' Again Get the channels|chats you are part of (UUID)",
-      "Zome": "custom_channel",
-      "FnName": "getMyChannels",
-      "Input": "",
-      "RegExp": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-    },
-    {
-      "Convey": "6. get message of the channel",
+      "Convey": "4. get message of the channel",
       "Zome": "custom_channel",
       "FnName": "getMessages",
-      "Input": {"uuid": {"%result%":0}},
-      "RegExp": "[{\"Entry\":{\"author\":\"%key%\",\"content\":{\"text\":\"Testing out the First message!!\"},\"timestamp\":\"[^\"]*\"},\"EntryType\":\"message\",\"Hash\":\"[^\"]*\",\"Source\":\"%key%\"}]"
-    },
-    {
-      "Convey": "7. update message of the channel",
-      "Zome": "custom_channel",
-      "FnName": "updateMessage",
-      "Input": {"old_hash":"%r3%","new_message":{"content":{"text":"Testing out the First message Update !!"}}},
-      "RegExp": "%h%"
-    },
-    {
-      "Convey": "8. 'REDUNDANTE' Again Get the channels|chats you are part of (UUID)",
-      "Zome": "custom_channel",
-      "FnName": "getMyChannels",
-      "Input": "",
-      "RegExp": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-
-    },
-    {
-      "Convey": "9. get message of the channel",
-      "Zome": "custom_channel",
-      "FnName": "getMessages",
-      "Input": {"uuid": {"%result%":0}},
-      "RegExp": "[{\"Entry\":{\"author\":\"%key%\",\"content\":{\"text\":\"Testing out the First message Update !!\"},\"timestamp\":\"[^\"]*\"},\"EntryType\":\"message\",\"Hash\":\"[^\"]*\",\"Source\":\"%key%\"}]"
+      "Raw": true,
+      "Input": "getMessages({\"uuid\": {\"%result%\":0}}).length === 1",
+      "Output": true
     }
   ]
 }

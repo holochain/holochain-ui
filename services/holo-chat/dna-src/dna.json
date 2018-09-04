@@ -76,11 +76,6 @@
                   "Exposure": "public"
                 },
                 {
-                  "Name": "getChannelDetails",
-                  "CallingType": "json",
-                  "Exposure": "public"
-                },
-                {
                   "Name": "getMyChannels",
                   "CallingType": "json",
                   "Exposure": "public"
@@ -97,11 +92,6 @@
                 },
                 {
                   "Name": "getMessages",
-                  "CallingType": "json",
-                  "Exposure": "public"
-                },
-                {
-                  "Name": "updateMessage",
                   "CallingType": "json",
                   "Exposure": "public"
                 }

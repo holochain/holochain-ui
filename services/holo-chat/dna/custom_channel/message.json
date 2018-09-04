@@ -6,7 +6,7 @@
 			"type": "string"
 		},
 		"timestamp": {
-			"type": "string"
+			"type": "number"
 		},
 		"content": {
 			"properties":{

@@ -1,7 +1,4 @@
 "use strict";
-//------------------------------
-// Public Functions
-//------------------------------
 var module = {};
 /*=============================================
 =            Public Zome Functions            =
@@ -52,7 +49,7 @@ function addMembers(payload) {
 }
 /**
  * Get the channels this user is a member of
- * @return {Array<any>} - Array of channel specs for channels this user is a member of
+ * @return {Array<Channel>} - Array of channel specs for channels this user is a member of
  */
 function getMyChannels() {
     var my_channels;
@@ -83,36 +80,19 @@ function getMembers(payload) {
     return members;
 }
 /**
- * Get the details of a channel given its UUID
- * @param  {UUID} - Channel UUID
- * @return {string[]} - TODO: Write spec for channel details
- */
-function getChannelDetails(payload) {
-    var uuid = payload.uuid;
-    var details;
-    try {
-        details = getLinks(makeHash("custom_channel_uuid", uuid), "channel_details", { Load: true });
-    }
-    catch (e) {
-        return e;
-    }
-    debug("Channel Details for " + uuid + ": " + JSON.stringify(details));
-    return details;
-}
-/**
  * Post a message to a channel
  * @param  {message} - message object to post
  * @return {holochain.Hash} - Returns the hash of the message if successful or an error
  */
 function postMessage(payload) {
     debug(payload);
-    payload.message.timestamp = new Date();
-    payload.message.author = App.Key.Hash;
-    debug(payload.message);
+    payload.timestamp = Date.now();
+    payload.author = App.Key.Hash;
+    debug(payload);
     var hash;
     try {
-        hash = commit("message", payload.message);
-        commit("message_link", { Links: [{ Base: makeHash("custom_channel_uuid", payload.uuid), Link: hash, Tag: "messages" }] });
+        hash = commit("message", payload);
+        commit("message_link", { Links: [{ Base: makeHash("custom_channel_uuid", payload.channelId), Link: hash, Tag: "messages" }] });
     }
     catch (e) {
         return e;
@@ -136,18 +116,6 @@ function getMessages(payload) {
         debug("ERROR: " + e);
         return e;
     }
-}
-/**
- * Updates an already posted message
- * @param  {updateMessageType} - Message update object
- * @return {holochain.Hash} - Returns the hash of the new message or an error
- */
-function updateMessage(payload) {
-    debug(payload);
-    payload.new_message.timestamp = new Date();
-    payload.new_message.author = App.Key.Hash;
-    var hash = update("message", payload.new_message, payload.old_hash);
-    return hash;
 }
 /*=====  End of Public Zome Functions  ======*/
 /*=========================================

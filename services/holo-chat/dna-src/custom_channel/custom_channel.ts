@@ -1,12 +1,14 @@
 //------------------------------
 // Public Functions
 //------------------------------
+import {Message} from '../types/message'
+import {Channel} from '../types/channel'
+
 
 export = 0;
 let module = {}
 
 
-type message = any;
 type updateMessageType = any;
 type UUID = string;
 
@@ -68,9 +70,9 @@ function addMembers(payload: {uuid: UUID, members: holochain.Hash[]}): boolean |
 
 /**
  * Get the channels this user is a member of
- * @return {Array<any>} - Array of channel specs for channels this user is a member of
+ * @return {Array<Channel>} - Array of channel specs for channels this user is a member of
  */
-function getMyChannels(): Array<any> | holochain.HolochainError {
+function getMyChannels(): Array<Channel> | holochain.HolochainError {
   let my_channels: any;
   try {
     my_channels = getLinks(App.Key.Hash, "my_channels", { Load: true });
@@ -100,38 +102,22 @@ function getMembers(payload: {uuid: UUID}): holochain.Hash[] | holochain.Holocha
   return members;
 }
 
-/**
- * Get the details of a channel given its UUID
- * @param  {UUID} - Channel UUID
- * @return {string[]} - TODO: Write spec for channel details
- */
-function getChannelDetails(payload: {uuid: UUID}): string[] {
-  const {uuid} = payload
-  let details: any;
-  try {
-    details = getLinks(makeHash("custom_channel_uuid", uuid), "channel_details", { Load: true });
-  } catch (e) {
-    return e;
-  }
-  debug("Channel Details for " + uuid + ": " + JSON.stringify(details));
-  return details;
-}
 
 /**
  * Post a message to a channel
  * @param  {message} - message object to post
  * @return {holochain.Hash} - Returns the hash of the message if successful or an error
  */
-function postMessage(payload: message): holochain.Hash | holochain.HolochainError {
+function postMessage(payload: Message): holochain.Hash | holochain.HolochainError {
   debug(payload)
-  payload.message.timestamp = new Date();
-  payload.message.author = App.Key.Hash;
-  debug(payload.message)
+  payload.timestamp = Date.now();
+  payload.author = App.Key.Hash;
+  debug(payload)
 
   let hash: holochain.Hash;
   try {
-    hash = commit("message", payload.message);
-    commit("message_link", { Links: [{ Base: makeHash("custom_channel_uuid", payload.uuid), Link: hash, Tag: "messages" }] });
+    hash = commit("message", payload);
+    commit("message_link", { Links: [{ Base: makeHash("custom_channel_uuid", payload.channelId), Link: hash, Tag: "messages" }] });
   } catch (e) {
     return e;
   }
@@ -144,7 +130,7 @@ function postMessage(payload: message): holochain.Hash | holochain.HolochainErro
  * @param  {UUID} - Channel UUID
  * @return {Array<holochain.GetLinksResponse>} - Array of messages
  */
-function getMessages(payload: {uuid: UUID}): Array<holochain.GetLinksResponse> | holochain.HolochainError {
+function getMessages(payload: {uuid: UUID}): Array<Message> | holochain.HolochainError {
   const {uuid} = payload
   let messages;
   try {
@@ -156,19 +142,6 @@ function getMessages(payload: {uuid: UUID}): Array<holochain.GetLinksResponse> |
     return e;
   }
 
-}
-
-/**
- * Updates an already posted message
- * @param  {updateMessageType} - Message update object
- * @return {holochain.Hash} - Returns the hash of the new message or an error
- */
-function updateMessage(payload: updateMessageType): holochain.Hash | holochain.HolochainError {
-  debug(payload);
-  payload.new_message.timestamp = new Date();
-  payload.new_message.author = App.Key.Hash;
-  let hash: holochain.Hash = update("message", payload.new_message, payload.old_hash);
-  return hash;
 }
 
 /*=====  End of Public Zome Functions  ======*/

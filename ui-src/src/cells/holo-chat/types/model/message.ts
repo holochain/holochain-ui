@@ -1,7 +1,7 @@
 
 export interface Message {  
-	author: string,
-	timestamp: string,
+	author?: string,
+	timestamp: number,
 	content: {
 		text: string,
 		mediaLink?: string
