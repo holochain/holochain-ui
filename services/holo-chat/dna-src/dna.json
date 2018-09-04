@@ -1,0 +1,111 @@
+{
+    "Version": 3,
+    "UUID": "00000000-0000-0000-0000-000000000000",
+    "Name": "chat",
+    "RequiresVersion": 26,
+    "Properties": {
+        "name": "My Chat",
+        "purpose": "chatting up a storm",
+        "language": "en"
+    },
+    "PropertiesSchemaFile": "properties_schema.json",
+    "DHTConfig": {
+        "HashType": "sha2-256"
+    },
+    "Zomes": [
+      {
+            "Name": "custom_channel",
+            "Description": "used to create channels when members start a converstion | can add members",
+            "RibosomeType": "js",
+            "CodeFile": "custom_channel.js",
+            "Config": {
+              "ErrorHandling": "throwErrors"
+            },
+            "Entries": [
+              {
+                "Name": "custom_channel_uuid",
+                "DataFormat": "string",
+                "Sharing": "public"
+              },
+              {
+                  "Name": "custom_channel_details",
+                  "DataFormat": "json",
+                  "Sharing": "public"
+                },
+                {
+                  "Name": "custom_channel_link",
+                  "DataFormat": "links"
+                },
+                {
+                  "Name": "channel_to_member_link",
+                  "DataFormat": "links"
+                },
+                {
+                  "Name": "member_to_channel_link",
+                  "DataFormat": "links"
+                },
+                {
+                  "Name": "message",
+                  "DataFormat": "json",
+                  "Sharing":"public"
+                },
+                {
+                  "Name": "message_link",
+                  "DataFormat": "links"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "createCustomChannel",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                  "Name": "getcustomChannel",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "addMembers",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getMembers",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getChannelDetails",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getMyChannels",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getKey",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "postMessage",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getMessages",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "updateMessage",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+	"title": "Message Schema",
+	"type": "object",
+	"properties": {
+		"author":{
+			"type": "string"
+		},
+		"timestamp": {
+			"type": "string"
+		},
+		"content": {
+			"properties":{
+				"text":{
+					"type": "string"
+				},
+				"mediaLink":{
+					"type": "string"
+				}
+			}
+		}
+	},
+    "required": ["author","timestamp","content"]
+}
