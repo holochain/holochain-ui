@@ -10,7 +10,9 @@ type AppState = {
 interface PresenceArcProps {
   classes: any,
   arc: ArcType,
-  index: number
+  x: number,
+  y: number,
+  radius: number
 }
 
 export class PresenceArc extends React.Component<PresenceArcProps, AppState> {
@@ -27,18 +29,18 @@ export class PresenceArc extends React.Component<PresenceArcProps, AppState> {
   }
 
   public render() {
-    const { arc, index } = this.props;
+    const { arc, x, y, radius } = this.props;
     return (
       <Arc
-        x={500}
-        y={300}
-        innerRadius = {50 * index}
-        outerRadius = {50 * index + 20}
+        x={x}
+        y={y}
+        innerRadius = {radius}
+        outerRadius = {radius}
         rotation = {arc.begin}
         angle = {arc.duration}
         fill = 'green'
-        stroke = 'black'
-        strokeWidth = {0}
+        stroke = {arc.type === 1 ? 'green' : 'red'}
+        strokeWidth = {5}
       />
     );
   }

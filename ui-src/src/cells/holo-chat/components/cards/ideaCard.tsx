@@ -73,7 +73,7 @@ class IdeaCard extends React.Component<IdeaCardProps, {}> {
   };
   handleErrand = () => {
     console.log('Errand');
-    this.props.addCard({id:'backlogid1111', title:'chat card', description: 'added from chat'}, 'Backlog');
+    this.props.addCard({id:'backlogid1111', title:this.props.idea.title, description: this.props.idea.description}, 'Backlog');
     // this.togglePopover()
   };
 

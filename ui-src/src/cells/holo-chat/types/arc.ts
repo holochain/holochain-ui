@@ -11,7 +11,10 @@ export interface AvailableArc {
 	type: ArcType.AVAILABLE
 	name: string,
 	begin: number
-	duration: number
+	duration: number,
+	x: number,
+	y: number,
+	radius: number
 }
 
 export interface UnavailableArc {
@@ -19,7 +22,10 @@ export interface UnavailableArc {
 	type: ArcType.UNAVAILABLE
 	name: string,
 	begin: number
-	duration: number
+	duration: number,
+	x: number,
+	y: number,
+	radius: number
 }
 
 export type Arc = AvailableArc | UnavailableArc
