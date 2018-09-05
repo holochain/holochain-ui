@@ -6,17 +6,20 @@ import {Message as ViewMessage} from './types/view/message'
 import {Channel as ModelChannel} from './types/model/channel'
 import {Message as ModelMessage} from './types/model/message'
 
+
 // create a union type that is all possible chat actions
 export type ChatAction = ActionType<typeof chatActions>;
 
 export interface HoloChatState {
   myChannels: Array<ViewChannel>,
   currentMessages: Array<ViewMessage>
+  activeChannel: ViewChannel,
 }
 
 export const initialState: HoloChatState = {
   myChannels: [],
-  currentMessages: []
+  currentMessages: [],
+  activeChannel: null
 }
 
 function modelMessagesToDisplayMessages(messages: Array<ModelMessage>) {

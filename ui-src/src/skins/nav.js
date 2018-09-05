@@ -168,7 +168,7 @@ class MiniDrawer extends React.Component {
             <Route exact path='/' title='Holochain' render={props =>
               <div>
                 <Desktop />
-                <StorybookSkin />
+                <MessagesContainer />
               </div>
             } />
             <Route path='/storybook' title='Storybook' component={StorybookSkin} />

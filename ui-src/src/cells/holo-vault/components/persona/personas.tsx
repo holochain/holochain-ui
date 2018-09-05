@@ -22,13 +22,13 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 interface PersonasProps {
   classes: any,
   personas: Array<Persona>,
-  personaList: any
+  personasList: any
 }
 
 class Personas extends React.Component<PersonasProps, {}> {
   componentDidMount() {
     console.log("get personas")
-    // this.props.personaList()
+    this.props.personasList()
   }
 
   // tslint:disable jsx-no-lambda
@@ -36,7 +36,7 @@ class Personas extends React.Component<PersonasProps, {}> {
     const {classes, personas} = this.props;
     return (<div className={classes.root}>
       <Typography variant='display1'>
-        Personas Hi
+        Personas
       </Typography>
       <Typography variant='body1' gutterBottom={true}>
         Look after your personal information here, click on a Persona to update or click Add Persona to create a new one.

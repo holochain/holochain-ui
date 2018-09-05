@@ -39,6 +39,7 @@ function getLaneHash(lane_id) {
     // debug("getLaneHash" + filtered)
     return filtered[0].Hash;
 }
+
 function newCard(_a) {
     var id = _a.id, title = _a.title, description = _a.description, lane_id = _a.lane_id;
     debug("Adding New Card: " + id);
@@ -52,7 +53,7 @@ function newCard(_a) {
 }
 function moveCard(_a) {
     var cardId = _a.cardId, sourceLaneId = _a.sourceLaneId, targetLaneId = _a.targetLaneId;
-    debug("Updating Card " + cardId);
+    debug("Updating Card " + JSON.stringify(_a));
     var new_lane_hash = getLaneHash(targetLaneId);
     var card_hash = deleteCard({ card_id: cardId, lane_id: sourceLaneId });
     // DELETE OLD Link && MAKE new Link
@@ -104,7 +105,9 @@ function getCardHash(_a) {
     // debug("getCardHash" + filtered[0].Hash)
     return filtered[0].Hash;
 }
+
 function getBoardState() {
+  debug('getBoardState')
     // const BOARD_HASH = makeHash("board", { title: "First_Board", label: "" });
     var lanes = getLanes();
     var data = { board: { lanes: [] } };
@@ -118,7 +121,6 @@ function getBoardState() {
         };
         i++;
     });
-    // debug("Board State:" + JSON.stringify(data))
     return data;
 }
 //------------------------------
@@ -135,19 +137,31 @@ function uuidGenerator() {
 //  The Genesis Function
 // -----------------------------------------------------------------
 function genesis() {
-    newBoard({ title: "First_Board", label: "" });
-    testGenesisFunction();
     return true;
 }
+
+function bridgeGenesis(side, dna, appData){
+  debug('Social DNA ' + App.Name + ' Bridged to: DNA: ' + dna + ' appData: ' + appData)
+  newBoard({ title: "First_Board", label: "" });
+  testGenesisFunction();
+  return true;
+}
+
 function testGenesisFunction() {
-    newLane({ id: "LANE_ID_1", title: "Lane_TITLE_1", lable: "Lane_Lable_1" });
-    newCard({ "id": "Card_ID_11", "title": "Card_Title_11", "description": "Description of the First card 11", "lane_id": "LANE_ID_1" });
-    newCard({ "id": "Card_ID_12", "title": "Card_Title_12", "description": "Description of the First card 12", "lane_id": "LANE_ID_1" });
-    newCard({ "id": "Card_ID_13", "title": "Card_Title_13", "description": "Description of the First card 13", "lane_id": "LANE_ID_1" });
-    newLane({ id: "LANE_ID_2", title: "Lane_TITLE_2", lable: "Lane_Lable_2" });
-    newCard({ "id": "Card_ID_21", "title": "Card_Title_21", "description": "Description of the First card 21", "lane_id": "LANE_ID_2" });
-    newCard({ "id": "Card_ID_22", "title": "Card_Title_22", "description": "Description of the First card 22", "lane_id": "LANE_ID_2" });
-    newCard({ "id": "Card_ID_23", "title": "Card_Title_23", "description": "Description of the First card 23", "lane_id": "LANE_ID_2" });
+    newLane({ id: "Backlog", title: "Backlog", lable: "Backlog" });
+    newCard({ "id": "Backlog_ID_11", "title": "Get Sketch of Channels List", "description": "I've got a list of channels showing and it needs styling, so I need a Sketch to dev to", "lane_id": "Backlog" });
+    newCard({ "id": "Backlog_ID_12", "title": "Channels Specs", "description": "Write the UI test code for the specs", "lane_id": "Backlog" });
+    newCard({ "id": "Backlog_ID_13", "title": "Build UI for New Channel", "description": "Build a multi select filtered list of people that are members of the new Channel", "lane_id": "Backlog" });
+    newCard({ "id": "Backlog_ID_14", "title": "Figure out hcadmin", "description": "Currently this all runs on hcdev so to keep data we need to run it on hcadmin", "lane_id": "Backlog" });
+    newCard({ "id": "Backlog_ID_15", "title": "Wire up Profiles to dna", "description": "The Profiles list is using the Storybook data live, need to wire up the dna.", "lane_id": "Backlog" });
+
+    newLane({ id: "Reviewing", title: "Reviewing", lable: "Reviewing" });
+    newCard({ "id": "Reviewing_ID_11", "title": "Showcase demo to hApps crew.", "description": "indepth demo of how all this works and how everyone get\'s involved.", "lane_id": "Reviewing" });
+
+    newLane({ id: "Doing", title: "Doing", lable: "Doing" });
+    newCard({ "id": "Doing_ID_11", "title": "Documenting this fun creation pattern", "description": "Documenting the pattern is the pattern - ooh fractals!", "lane_id": "Doing" });
+    newCard({ "id": "Doing_ID_12", "title": "Prepare for Showcase", "description": "Showcase this Friday is intended to increase people's excitement and show them ways to contribute across the whole commuinity.", "lane_id": "Doing" });
+
 }
 // -----------------------------------------------------------------
 //  Validation functions for every change to the local chain or DHT

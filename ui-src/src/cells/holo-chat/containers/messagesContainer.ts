@@ -13,6 +13,7 @@ const mapStateToProps = (state: HoloChatState) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
+
 }
 
 export default connect(

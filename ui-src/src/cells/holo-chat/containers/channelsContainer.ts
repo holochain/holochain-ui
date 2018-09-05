@@ -6,6 +6,7 @@ import {HoloChatState} from '../reducer'
 import {getMyChannels} from '../actions'
 import {Dispatch} from 'redux'
 import {
+
 } from '../actions'
 
 const mapStateToProps = (state: HoloChatState) => {
