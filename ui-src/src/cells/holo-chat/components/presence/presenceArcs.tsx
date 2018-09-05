@@ -13,6 +13,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     width: '100%',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
+    backgroundSize: 'contain',
     backgroundImage: `url(${"http://localhost:3000/24-hour-clock-face.jpg"})`
     }
 });
@@ -28,6 +29,13 @@ class PresenceArcs extends React.Component<PresenceArcsProps, {}> {
     // this.props.channelList()
   }
 
+  calculateRadius(index: number, arcsLength: number): number {
+    var w = window.innerWidth / 2
+    var h = window.innerHeight / 2
+    var scale = Math.min(w, h) / (arcsLength + 1)
+    console.log(Math.max(index * scale - 25, 1))
+    return Math.max(index * scale - 25, 21)
+  }
   // tslint:disable jsx-no-lambda
   render() {
     const {classes, arcs} = this.props;
@@ -36,7 +44,7 @@ class PresenceArcs extends React.Component<PresenceArcsProps, {}> {
         <Layer>
           {
             arcs.map((arc: ArcType, index: number) => (
-              <PresenceArc classes={classes} arc={arc} index={index + 1} width={window.innerWidth} height={window.innerHeight} />
+              <PresenceArc classes={classes} arc={arc} radius={this.calculateRadius(index + 1, arcs.length)} x={window.innerWidth / 2} y={window.innerHeight / 2} />
             ))
           }
         </Layer>
