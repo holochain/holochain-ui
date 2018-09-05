@@ -19,5 +19,40 @@
     "name": "Jean",
     "begin": 100,
     "duration": 150
+  },
+  {
+    "id": "c",
+    "type": 1,
+    "name": "C",
+    "begin": 100,
+    "duration": 150
+  },
+  {
+    "id": "Willem",
+    "type": 1,
+    "name": "Willem",
+    "begin": 15,
+    "duration": 100
+  },
+  {
+    "id": "micah",
+    "type": 1,
+    "name": "Micah",
+    "begin": 100,
+    "duration": 90
+  },
+  {
+    "id": "jean",
+    "type": 1,
+    "name": "Jean",
+    "begin": 100,
+    "duration": 150
+  },
+  {
+    "id": "c",
+    "type": 1,
+    "name": "C",
+    "begin": 100,
+    "duration": 150
   }
 ]

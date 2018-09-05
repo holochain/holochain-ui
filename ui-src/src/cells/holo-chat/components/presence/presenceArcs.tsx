@@ -32,9 +32,9 @@ class PresenceArcs extends React.Component<PresenceArcsProps, {}> {
   calculateRadius(index: number, arcsLength: number): number {
     var w = window.innerWidth / 2
     var h = window.innerHeight / 2
-    var scale = Math.min(w, h) / (arcsLength + 1)
+    var scale = Math.min(w, h) / (arcsLength + 2) * 0.7
     console.log(Math.max(index * scale - 25, 1))
-    return Math.max(index * scale - 25, 21)
+    return index * scale
   }
   // tslint:disable jsx-no-lambda
   render() {
@@ -44,7 +44,7 @@ class PresenceArcs extends React.Component<PresenceArcsProps, {}> {
         <Layer>
           {
             arcs.map((arc: ArcType, index: number) => (
-              <PresenceArc classes={classes} arc={arc} radius={this.calculateRadius(index + 1, arcs.length)} x={window.innerWidth / 2} y={window.innerHeight / 2} />
+              <PresenceArc classes={classes} arc={arc} radius={this.calculateRadius(index + 2, arcs.length)} x={window.innerWidth / 2} y={window.innerHeight / 2} />
             ))
           }
         </Layer>

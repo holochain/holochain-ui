@@ -34,13 +34,13 @@ export class PresenceArc extends React.Component<PresenceArcProps, AppState> {
       <Arc
         x={x}
         y={y}
-        innerRadius = {radius -20}
+        innerRadius = {radius}
         outerRadius = {radius}
         rotation = {arc.begin}
         angle = {arc.duration}
         fill = 'green'
-        stroke = 'black'
-        strokeWidth = {0}
+        stroke = 'green'
+        strokeWidth = {5}
       />
     );
   }
