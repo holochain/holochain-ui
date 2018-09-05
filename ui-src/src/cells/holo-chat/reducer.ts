@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import { ActionType, getType } from 'typesafe-actions';
 import * as chatActions from './actions'
-import {ViewChannel} from './types/view/channel'
-import {ViewMessage} from './types/view/message'
-import {ModelChannel} from './types/model/channel'
-import {ModelMessage} from './types/model/message'
+import {Channel as ViewChannel} from './types/view/channel'
+import {Message as ViewMessage} from './types/view/message'
+import {Channel as ModelChannel} from './types/model/channel'
+import {Message as ModelMessage} from './types/model/message'
 
 // create a union type that is all possible chat actions
 export type ChatAction = ActionType<typeof chatActions>;
@@ -23,7 +23,7 @@ function modelMessagesToDisplayMessages(messages: Array<ModelMessage>) {
   return messages
 }
 
-function modelChannelsToDisplayChannels(channels: ModelChannel<ModelChannel>) {
+function modelChannelsToDisplayChannels(channels: Array<ModelChannel>) {
   return channels
 }
 
