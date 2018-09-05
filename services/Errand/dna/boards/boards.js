@@ -162,6 +162,8 @@ function testGenesisFunction() {
     newCard({ "id": "Doing_ID_11", "title": "Documenting this fun creation pattern", "description": "Documenting the pattern is the pattern - ooh fractals!", "lane_id": "Doing" });
     newCard({ "id": "Doing_ID_12", "title": "Prepare for Showcase", "description": "Showcase this Friday is intended to increase people's excitement and show them ways to contribute across the whole commuinity.", "lane_id": "Doing" });
 
+    newLane({ id: "Inbox", title: "Inbox", lable: "Inbox" });
+
 }
 // -----------------------------------------------------------------
 //  Validation functions for every change to the local chain or DHT

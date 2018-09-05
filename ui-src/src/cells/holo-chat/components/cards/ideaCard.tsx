@@ -1,4 +1,5 @@
 import * as React from 'react';
+// import { withRouter } from 'react-router-dom'
 import withRoot from '../../../../withRoot';
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
 import {Card, CardActions, CardContent } from '@material-ui/core';
@@ -73,8 +74,10 @@ class IdeaCard extends React.Component<IdeaCardProps, {}> {
   };
   handleErrand = () => {
     console.log('Errand');
-    this.props.addCard({id:'backlogid1111', title:this.props.idea.title, description: this.props.idea.description}, 'Backlog');
-    // this.togglePopover()
+    this.props.addCard({id:'backlogid1111', title:this.props.idea.title, description: this.props.idea.description}, 'Inbox');
+    this.props.addCard({id:'backlogid1112', title:'Describe how ' + this.props.idea.title + ' works', description: 'Write out the instructions for each state'}, 'Inbox');
+    this.props.addCard({id:'backlogid1113', title:'Sketch of ' + this.props.idea.title, description: 'Sketch drawing'}, 'Inbox');
+    // this.props.history.push("/errand")
   };
 
   render() {

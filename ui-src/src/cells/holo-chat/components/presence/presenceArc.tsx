@@ -40,7 +40,7 @@ export class PresenceArc extends React.Component<PresenceArcProps, AppState> {
         angle = {arc.duration}
         fill = 'green'
         stroke = {arc.type === 1 ? 'green' : 'red'}
-        strokeWidth = {5}
+        strokeWidth = {2}
       />
     );
   }
