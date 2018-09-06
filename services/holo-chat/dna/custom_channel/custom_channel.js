@@ -133,11 +133,30 @@ function getKey() {
     return App.Key.Hash;
 }
 function addTestData() {
-    var channel = createCustomChannel({ members: [] });
+    var channel1 = createCustomChannel({ members: [] });
     postMessage({
-        channelId: channel,
+        channelId: channel1,
         content: {
-            text: "test message"
+            text: "test message 1 in channel 1"
+        }
+    });
+    postMessage({
+        channelId: channel1,
+        content: {
+            text: "test message 2 in channel 1"
+        }
+    });
+    var channel2 = createCustomChannel({ members: [] });
+    postMessage({
+        channelId: channel2,
+        content: {
+            text: "test message 1 in channel 2"
+        }
+    });
+    postMessage({
+        channelId: channel2,
+        content: {
+            text: "test message 2 in channel 2"
         }
     });
 }
