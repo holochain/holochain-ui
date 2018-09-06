@@ -21,7 +21,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 interface ChannelsProps {
   classes: any,
   channels: Array<ChannelType>,
-  
+
   getMyChannels: () => void,
   newChannel: () => void,
   setActiveChannel: (channel: ChannelType) => void
@@ -65,8 +65,8 @@ class Channels extends React.Component<ChannelsProps, {}> {
         {
           channels.map((channel: ChannelType, index: number) => (
                 <Route render={({history}) => (
-                  <ListItem id={channel.name} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
-                    <ListItemText primary={channel.name}/>
+                  <ListItem id={channel} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
+                    <ListItemText primary={channel}/>
                   </ListItem>
                 )
               }

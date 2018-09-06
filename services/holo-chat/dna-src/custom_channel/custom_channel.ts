@@ -165,6 +165,16 @@ function getKey() {
   return App.Key.Hash;
 }
 
+function addTestData() {
+  const channel = createCustomChannel({members: []})
+  postMessage({
+    channelId: channel,
+    content: {
+      text: "test message"
+    } 
+  });
+}
+
 /*=====  End of Private Functions  ======*/
 
 
@@ -175,6 +185,7 @@ function getKey() {
 ==================================*/
 
 function genesis() {
+  addTestData();
   return true;
 }
 

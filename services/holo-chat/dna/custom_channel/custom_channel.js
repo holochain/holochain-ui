@@ -132,11 +132,21 @@ function uuidGenerator() {
 function getKey() {
     return App.Key.Hash;
 }
+function addTestData() {
+    var channel = createCustomChannel({ members: [] });
+    postMessage({
+        channelId: channel,
+        content: {
+            text: "test message"
+        }
+    });
+}
 /*=====  End of Private Functions  ======*/
 /*==================================
 =            Validation            =
 ==================================*/
 function genesis() {
+    addTestData();
     return true;
 }
 function bridgeGenesis(side, dna, appData) {
