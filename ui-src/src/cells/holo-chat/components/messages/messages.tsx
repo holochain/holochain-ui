@@ -38,7 +38,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      message: 'Cat in the Hat'
+      message: ''
     }
   }
 
