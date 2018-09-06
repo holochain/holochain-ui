@@ -117,6 +117,31 @@ function getMessages(payload) {
         return e;
     }
 }
+/*======================================
+=            Identity Stuff            =
+======================================*/
+// TODO: Move to own zome 
+function whoami() {
+    return App.Key.Hash;
+}
+function getIdentity(keyHash) {
+    return getLinks(keyHash, 'identity', { Load: true }).map(function (elem) {
+        return elem.Entry;
+    })[0];
+}
+function setIdentity(identity) {
+    // mark any old identites as deleted
+    var currentIdentity = getIdentity(App.Key.Hash);
+    if (currentIdentity) {
+        update('identity', identity, makeHash('identity', currentIdentity));
+    }
+    else {
+        var idHash = commit('identity', identity);
+        commit('identity_links', { Links: [{ Base: App.Key.Hash, Link: idHash, Tag: 'identity' }] });
+    }
+    return true;
+}
+/*=====  End of Identity Stuff  ======*/
 /*=====  End of Public Zome Functions  ======*/
 /*=========================================
 =            Private Functions            =
@@ -166,6 +191,7 @@ function addTestData() {
 ==================================*/
 function genesis() {
     addTestData();
+    setIdentity({ handle: App.Agent.String, avatar: '' });
     return true;
 }
 function bridgeGenesis(side, dna, appData) {
@@ -216,7 +242,7 @@ function isValidModifier(replaces, sources) {
         return false;
 }
 function validateCommit(entryName, entry, header, pkg, sources) {
-    debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
+    // debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
     return validate(entryName, entry, header, pkg, sources);
 }
 function validate(entryName, entry, header, pkg, sources) {
@@ -236,6 +262,10 @@ function validate(entryName, entry, header, pkg, sources) {
             return true;
         case "message_link":
             return true;
+        case "identity":
+            return true;
+        case "identity_links":
+            return true;
         default:
             return false;
     }
@@ -244,16 +274,11 @@ function validatePut(entryName, entry, header, pkg, sources) {
     return true;
 }
 function validateMod(entryName, entry, header, replaces, pkg, sources) {
-    debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "replaces: " + replaces + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
-    switch (entryName) {
-        case "message":
-            return isValidModifier(replaces, sources);
-        default:
-            return false;
-    }
+    // debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "replaces: " + replaces + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
+    return true;
 }
 function validateDel(entryName, hash, pkg, sources) {
-    return false;
+    return true;
 }
 function validateLink(entryName, baseHash, links, pkg, sources) {
     //debug("entryName: "+entryName+" baseHash: "+ baseHash+" links: "+ links+" sources: "+ sources);
@@ -265,6 +290,8 @@ function validateLink(entryName, baseHash, links, pkg, sources) {
         case "member_to_channel_link":
             return true;
         case "message_link":
+            return true;
+        case "identity_links":
             return true;
         default:
             return false;
