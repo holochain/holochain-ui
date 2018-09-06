@@ -110,7 +110,7 @@ function getMessages(payload) {
     try {
         var messages_1 = getLinks(makeHash("custom_channel_uuid", uuid), "messages", { Load: true });
         debug("Messages : " + JSON.stringify(messages_1));
-        return messages_1;
+        return messages_1.map(function (elem) { return elem.Entry; });
     }
     catch (e) {
         debug("ERROR: " + e);

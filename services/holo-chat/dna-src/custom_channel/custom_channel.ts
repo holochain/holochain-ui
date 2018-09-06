@@ -136,7 +136,7 @@ function getMessages(payload: {uuid: UUID}): Array<Message> | holochain.Holochai
   try {
     let messages = getLinks(makeHash("custom_channel_uuid", uuid), "messages", { Load: true });
     debug("Messages : " + JSON.stringify(messages))
-    return messages;
+    return messages.map((elem) => {return elem.Entry});
   } catch (e) {
     debug("ERROR: " + e);
     return e;

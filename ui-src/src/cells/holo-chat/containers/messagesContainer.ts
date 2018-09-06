@@ -4,13 +4,14 @@ import Messages from '../components/messages/messages'
 // import  * as constants from '../constants'
 // import {HoloChatState} from '../reducer'
 import {Dispatch} from 'redux'
+import {modelMessagesToViewMessages} from '../types/view/message'
 import {
 	getMessages
 } from '../actions'
 
 const mapStateToProps = (state: any) => {
   return {
-    messages: state.holoChat.currentMessages,
+    messages: modelMessagesToViewMessages(state.holoChat.currentMessages),
     channel: state.holoChat.activeChannel
   }
 }
