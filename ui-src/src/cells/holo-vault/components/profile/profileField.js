@@ -35,22 +35,10 @@ function renderInput(inputProps) {
 function renderSuggestion(suggestion, { query, isHighlighted }) {
   const matches = match(suggestion.label, query);
   const parts = parse(suggestion.label, matches);
-
+  console.log('renderSuggestion')
   return (
     <MenuItem selected={isHighlighted} component="div">
-      <div>
-        {parts.map((part, index) => {
-          return part.highlight ? (
-            <span key={String(index)} style={{ fontWeight: 300 }}>
-              {part.text}
-            </span>
-          ) : (
-            <strong key={String(index)} style={{ fontWeight: 500 }}>
-              {part.text + ' - ' + suggestion.persona + ' (' + suggestion.field + ')'}
-            </strong>
-          );
-        })}
-      </div>
+        
     </MenuItem>
   );
 }
@@ -76,6 +64,7 @@ function setSuggestions(suggestions) {
 }
 
 function getSuggestions(value) {
+  console.log('get suggestions')
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
   let count = 0;
@@ -89,7 +78,7 @@ function getSuggestions(value) {
         if (keep) {
           count += 1;
         }
-
+        console.log(keep)
         return keep;
       });
 }
@@ -140,6 +129,7 @@ class ProfileField extends React.Component {
 
 
   handleSuggestionsFetchRequested = ({ value }) => {
+    console.log('handleSuggestionsFetchRequested')
     this.setState({
       suggestions: getSuggestions(value),
     });
@@ -152,6 +142,9 @@ class ProfileField extends React.Component {
   };
 
   handleChange = (event, { newValue }) => {
+    console.log('handleChange')
+    console.log('suggestions ' + this.state.suggestions)
+
     let personaFieldValue  = newValue.split(' - ')[0]
     let personaField = newValue.split(' - ')[1]
     console.log(newValue)

@@ -12,7 +12,8 @@ interface PresenceArcProps {
   arc: ArcType,
   x: number,
   y: number,
-  radius: number
+  radius: number,
+  strokeWidth: number
 }
 
 export class PresenceArc extends React.Component<PresenceArcProps, AppState> {
@@ -29,7 +30,7 @@ export class PresenceArc extends React.Component<PresenceArcProps, AppState> {
   }
 
   public render() {
-    const { arc, x, y, radius } = this.props;
+    const { arc, x, y, radius, strokeWidth } = this.props;
     return (
       <Arc
         x={x}
@@ -40,7 +41,7 @@ export class PresenceArc extends React.Component<PresenceArcProps, AppState> {
         angle = {arc.duration}
         fill = 'green'
         stroke = {arc.type === 1 ? 'green' : 'red'}
-        strokeWidth = {5}
+        strokeWidth = {strokeWidth}
       />
     );
   }
