@@ -5,7 +5,7 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import { MenuItem } from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem'
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -76,6 +76,7 @@ function setSuggestions(suggestions) {
 }
 
 function getSuggestions(value) {
+  console.log('get suggestions')
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
   let count = 0;
@@ -89,7 +90,7 @@ function getSuggestions(value) {
         if (keep) {
           count += 1;
         }
-
+        console.log(keep)
         return keep;
       });
 }
@@ -140,6 +141,7 @@ class ProfileField extends React.Component {
 
 
   handleSuggestionsFetchRequested = ({ value }) => {
+    console.log('handleSuggestionsFetchRequested')
     this.setState({
       suggestions: getSuggestions(value),
     });
@@ -152,6 +154,9 @@ class ProfileField extends React.Component {
   };
 
   handleChange = (event, { newValue }) => {
+    console.log('handleChange')
+    console.log('suggestions ' + this.state.suggestions)
+
     let personaFieldValue  = newValue.split(' - ')[0]
     let personaField = newValue.split(' - ')[1]
     console.log(newValue)

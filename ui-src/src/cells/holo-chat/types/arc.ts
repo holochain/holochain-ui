@@ -8,6 +8,7 @@ export enum ArcType {
 
 export interface AvailableArc {
 	id: Hash,
+	index: number,
 	type: ArcType.AVAILABLE
 	name: string,
 	begin: number
@@ -19,6 +20,7 @@ export interface AvailableArc {
 
 export interface UnavailableArc {
 	id: Hash,
+	index: number,
 	type: ArcType.UNAVAILABLE
 	name: string,
 	begin: number

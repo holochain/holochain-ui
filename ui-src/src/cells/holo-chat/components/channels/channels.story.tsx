@@ -14,7 +14,7 @@ import newChat from './newChat.md'
 // import  * as constants from '../../constants'
 // import{Message as MessageType} from '../../types/message'
 import Channels from './channels'
-import NewChannel from './newChannel'
+// import NewChannel from './newChannel'
 
 import {specs} from 'storybook-addon-specifications'
 import { newChannelTests } from './newChannel.test'
@@ -24,80 +24,12 @@ import { newChatTests } from './newChat.test'
 import { channelsTests } from './channels.test'
 import channelData from '../../data/channels.json'
 
-// const channelData = [
-//   {
-//     "name": "Celestial",
-//     "channel": "philip_celestial",
-//     "avatar": "ccxxoo.png",
-//             "members": [
-//                 {
-//                   "name": "Celestial",
-//                   "avatar": "ccxxoo.png"
-//                 },
-//                 {
-//                   "name": "Philip",
-//                   "avatar": "philipbeadle.png"
-//                 }
-//             ]
-//   },
-//   {
-//     "name": "Micah",
-//     "channel": "philip_micah",
-//     "avatar": "micah_notify.png",
-//             "members": [
-//                 {
-//                   "name": "Micah",
-//                   "avatar": "micah.jefferson.png"
-//                 },
-//                 {
-//                   "name": "Philip",
-//                   "avatar": "philipbeadle.png"
-//                 }
-//             ]
-//   },
-//   {
-//     "name": "Jean",
-//     "channel": "philip_jean",
-//     "avatar": "jeanmrussell.png",
-//             "members": [
-//                 {
-//                   "name": "Jean",
-//                   "avatar": "jeanmrussell.png"
-//                 },
-//                 {
-//                   "name": "Philip",
-//                   "avatar": "philipbeadle.png"
-//                 }
-//             ]
-//   },
-//   {
-//     "name": "Jean & Micah",
-//     "channel": "philip_jean_micah",
-//     "avatar": "holochain-circle-lrg.png",
-//             "members": [
-//                 {
-//                   "name": "Micah",
-//                   "avatar": "micah.jefferson.png"
-//                 },
-//                 {
-//                   "name": "Jean",
-//                   "avatar": "jeanmrussell.png"
-//                 },
-//                 {
-//                   "name": "Philip",
-//                   "avatar": "philipbeadle.png"
-//                 }
-//             ]
-//   }
-// ]
-
-
 configure({adapter: new Adapter()})
 // let store = CreateStore()
 
 function StartComponent () {
     return (
-      <div>Starting point</div>
+      <h1>Awesomeness on the way!</h1>
     )
 }
 
@@ -112,7 +44,7 @@ storiesOf('HoloChat/Channels', module)
   }))
   .add('Start a new Channel', withNotes(newChannel) (() => {
     specs(() => newChannelTests)
-      return <NewChannel />
+      return <StartComponent />
   }))
   .add('Filter the list', withNotes(filterAgents) (() => {
     specs(() => filterAgentsTests)

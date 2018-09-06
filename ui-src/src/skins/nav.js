@@ -23,7 +23,7 @@ import HappsContainer from '../cells/holo-vault/containers/happsContainer'
 import SetupContainer from '../cells/holo-chat/containers/setupContainer'
 import ChannelsContainer from '../cells/holo-chat/containers/channelsContainer'
 import ErrandContainer from '../cells/errand/containers/errandContainer'
-
+import ArcsOfPresenceContainer from '../cells/holo-chat/containers/arcsOfPresenceContainer'
 import Desktop from './desktop'
 import Mobile from './mobile'
 import { mainNav } from './navData';
@@ -183,7 +183,12 @@ class MiniDrawer extends React.Component {
             <Route path='/holo-vault/profile/:name' component={ProfileContainer} />
             <Route path='/holo-vault/cell/:name' component={SetupContainer} />
             <Route path='/holo-vault/happs' component={HappsContainer} />
-            <Route path='/holo-chat/messages' component={MessagesContainer} />
+            <Route path='/holo-chat/messages' title='Holochain' render={props =>
+              <div>
+                <ArcsOfPresenceContainer />
+                <MessagesContainer />
+              </div>
+            } />
             <Route path='/holo-chat/channels' component={ChannelsContainer} />
           </MediaQuery>
           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1024}>
