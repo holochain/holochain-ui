@@ -20,6 +20,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 
 interface PresenceArcsProps {
   classes: any,
+  strokeWidth: number,
   arcs: Array<ArcType>
 }
 
@@ -29,22 +30,45 @@ class PresenceArcs extends React.Component<PresenceArcsProps, {}> {
     // this.props.channelList()
   }
 
-  calculateRadius(index: number, arcsLength: number): number {
-    var w = window.innerWidth / 2
-    var h = window.innerHeight / 2
-    var scale = Math.min(w, h) / (arcsLength + 2) * 0.7
-    console.log(Math.max(index * scale - 25, 1))
-    return index * scale
+  calculateRadius(index: number, arcsLength: number, width: number, height: number): number {
+    var w = width / 2
+    var h = height / 2
+    var scale = Math.min(w, h) / (arcsLength)
+    return index * scale * 0.65
+  }
+  getSize(dir: string): number{
+    // var container = document.querySelector('#stage-parent')!
+    //
+    // // now we need to fit stage into parent
+    // var containerWidth = container.clientWidth;
+    // console.log(containerWidth)
+    return 300
+  }
+
+  filterArcs (arcType: number, arcs: Array<ArcType>): Array<ArcType>{
+    return arcs.filter(arc => arc.type === arcType)
+  }
+
+  numberMembers(): number {
+    console.log(this.filterArcs(1, this.props.arcs).length)
+    return this.filterArcs(1, this.props.arcs).length
   }
   // tslint:disable jsx-no-lambda
   render() {
-    const {classes, arcs} = this.props;
-    return (<div className={classes.root}>
-      <Stage width={window.innerWidth} height={window.innerHeight}>
+    const {classes, arcs, strokeWidth} = this.props;
+    return (<div className={classes.root} id="stage-parent">
+      <Stage width={window.innerWidth} height={this.getSize('h')}>
         <Layer>
           {
-            arcs.map((arc: ArcType, index: number) => (
-              <PresenceArc classes={classes} arc={arc} radius={this.calculateRadius(index + 2, arcs.length)} x={window.innerWidth / 2} y={window.innerHeight / 2} />
+            this.filterArcs(1, arcs).map((arc: ArcType, index: number) => (
+              <PresenceArc key={index} classes={classes} arc={arc} radius={this.calculateRadius(arc.index, this.numberMembers(), window.innerWidth, this.getSize('h'))} strokeWidth={strokeWidth} x={window.innerWidth / 2} y={this.getSize('h') / 2} />
+            ))
+          }
+        </Layer>
+        <Layer>
+          {
+            this.filterArcs(0, arcs).map((arc: ArcType, index: number) => (
+              <PresenceArc key={index} classes={classes} arc={arc} radius={this.calculateRadius(arc.index, this.numberMembers(), window.innerWidth, this.getSize('h'))} strokeWidth={strokeWidth} x={window.innerWidth / 2} y={this.getSize('h') / 2} />
             ))
           }
         </Layer>

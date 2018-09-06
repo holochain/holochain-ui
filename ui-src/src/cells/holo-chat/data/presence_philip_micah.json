@@ -1,464 +1,51 @@
 [
   {
-    "id": "phil",
+    "index": "1",
     "type": 1,
     "name": "Phil",
     "begin": 0,
     "duration": 90
   },
   {
-    "id": "micah",
+    "index": "2",
+    "type": 1,
+    "name": "Micah",
+    "begin": 100,
+    "duration": 90
+  },
+  {
+    "index": "1",
     "type": 0,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "Willem",
-    "type": 1,
-    "name": "Willem",
-    "begin": 15,
-    "duration": 100
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "phil",
-    "type": 1,
     "name": "Phil",
-    "begin": 0,
-    "duration": 90
+    "begin": 10,
+    "duration": 25
   },
   {
-    "id": "micah",
+    "index": "1",
     "type": 0,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "Willem",
-    "type": 1,
-    "name": "Willem",
-    "begin": 15,
-    "duration": 100
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "phil",
-    "type": 1,
     "name": "Phil",
-    "begin": 0,
-    "duration": 90
+    "begin": 45,
+    "duration": 15
   },
   {
-    "id": "micah",
+    "index": "1",
     "type": 0,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "Willem",
-    "type": 1,
-    "name": "Willem",
-    "begin": 15,
-    "duration": 100
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "phil",
-    "type": 1,
     "name": "Phil",
-    "begin": 0,
-    "duration": 90
+    "begin": 75,
+    "duration": 10
   },
   {
-    "id": "micah",
+    "index": "2",
     "type": 0,
     "name": "Micah",
-    "begin": 100,
-    "duration": 90
+    "begin": 110,
+    "duration": 15
   },
   {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "Willem",
-    "type": 1,
-    "name": "Willem",
-    "begin": 15,
-    "duration": 100
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "phil",
-    "type": 1,
-    "name": "Phil",
-    "begin": 0,
-    "duration": 90
-  },
-  {
-    "id": "micah",
+    "index": "2",
     "type": 0,
     "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "Willem",
-    "type": 1,
-    "name": "Willem",
-    "begin": 15,
-    "duration": 100
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "phil",
-    "type": 1,
-    "name": "Phil",
-    "begin": 0,
-    "duration": 90
-  },
-  {
-    "id": "micah",
-    "type": 0,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "Willem",
-    "type": 1,
-    "name": "Willem",
-    "begin": 15,
-    "duration": 100
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "micah",
-    "type": 1,
-    "name": "Micah",
-    "begin": 100,
-    "duration": 90
-  },
-  {
-    "id": "jean",
-    "type": 1,
-    "name": "Jean",
-    "begin": 100,
-    "duration": 150
-  },
-  {
-    "id": "c",
-    "type": 1,
-    "name": "C",
-    "begin": 100,
-    "duration": 150
+    "begin": 170,
+    "duration": 15
   }
 ]
