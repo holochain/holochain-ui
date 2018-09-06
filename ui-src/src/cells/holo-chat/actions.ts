@@ -1,4 +1,4 @@
-import { createAsyncAction } from 'typesafe-actions'
+import { createAction, createAsyncAction } from 'typesafe-actions'
 // import { Channel } from './types/channel'
 import { Message } from './types/model/message'
 import { Channel } from './types/model/channel'
@@ -88,6 +88,9 @@ export const GetMessages = createAsyncAction(
 <BridgeCallPayload<{uuid: string}>, BridgeCallResponse<Array<Message>>, AxiosError>()
 
 
+export const SetActiveChannel = createAction('holochat/setActiveChannel', resolve => {
+  return (channel: Channel) => resolve(channel);
+});
 
 
 /*=====  End of Action Type Definitions  ======*/

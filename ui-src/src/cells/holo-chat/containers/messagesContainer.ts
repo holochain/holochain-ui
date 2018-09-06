@@ -10,7 +10,8 @@ import {
 
 const mapStateToProps = (state: any) => {
   return {
-    messages: state.holoChat.currentMessages
+    messages: state.holoChat.currentMessages,
+    channel: state.holoChat.activeChannel
   }
 }
 

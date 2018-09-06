@@ -38,6 +38,11 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         ...state,
         currentMessages: action.payload.data
       }
+    case getType(chatActions.SetActiveChannel):
+      return {
+        ...state,
+        activeChannel: action.payload
+      }
     default:
       return state
   }

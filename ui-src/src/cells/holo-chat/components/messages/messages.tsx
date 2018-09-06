@@ -4,6 +4,7 @@ import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import {List, ListItem } from '@material-ui/core'
 import MessageView from './messageView'
 import {Message as MessageType} from '../../types/view/message'
+import {Channel as ChannelType} from '../../types/view/channel'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   listItemMessage: {
@@ -13,10 +14,18 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 
 interface MessagesProps {
   classes: any,
-  messages: Array<MessageType>
+  messages: Array<MessageType>,
+  channel: ChannelType,
+  getMessages: (channelUUID: string) => void
 }
 
 class Messages extends React.Component<MessagesProps, {}> {
+  componentDidMount() {
+    if(this.props.channel) {
+      setInterval(this.props.getMessages(this.props.channel), 1000)
+    }
+  }
+
   render () {
     const { classes, messages } = this.props
     return (

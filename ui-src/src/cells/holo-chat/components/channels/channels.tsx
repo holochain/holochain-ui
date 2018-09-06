@@ -22,17 +22,29 @@ interface ChannelsProps {
   classes: any,
   channels: Array<ChannelType>
   getMyChannels: () => void,
-  newChannel: () => void
+  newChannel: () => void,
+  setActiveChannel: (channel: ChannelType) => void
 }
 
 class Channels extends React.Component<ChannelsProps, {}> {
+  getChannelsInterval: any
+
   componentDidMount() {
     console.log("get channels")
-    setInterval(this.props.getMyChannels, 1000)
+    this.getChannelsInterval = setInterval(this.props.getMyChannels, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.getChannelsInterval)
   }
 
   handleNewChannelButtonClick = () => {
     this.props.newChannel()
+  }
+
+  handleChannelListClick = (history: any, channel: ChannelType) => {
+    this.props.setActiveChannel(channel)
+    history.push(`/holo-chat/messages`)
   }
 
   // tslint:disable jsx-no-lambda
@@ -52,7 +64,7 @@ class Channels extends React.Component<ChannelsProps, {}> {
         {
           channels.map((channel: ChannelType, index: number) => (
                 <Route render={({history}) => (
-                  <ListItem id={channel.name} button={true} onClick={() => {history.push(`/holo-chat/messages`)}}>
+                  <ListItem id={channel.name} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
                     <ListItemText primary={channel.name}/>
                   </ListItem>
                 )

@@ -6,8 +6,10 @@ import Channels from '../components/channels/channels'
 import {Dispatch} from 'redux'
 import {
 	getMyChannels,
-	createCustomChannel
+	createCustomChannel,
+  SetActiveChannel
 } from '../actions'
+import {Channel} from '../types/model/channel'
 
 
 
@@ -21,7 +23,8 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
   	getMyChannels: () => { dispatch(getMyChannels()) },
-  	newChannel: () => { dispatch(createCustomChannel([])) }
+  	newChannel: () => { dispatch(createCustomChannel([])) }, //TODO: let this accept a channel spec object
+    setActiveChannel: (channel: Channel) => { dispatch( SetActiveChannel(channel) )}
   }
 }
 
