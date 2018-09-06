@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var module = {};
 /*=============================================
 =            Public Zome Functions            =
@@ -9,8 +20,9 @@ var module = {};
  * @return {UUID} - Channel UUID
  */
 function createCustomChannel(payload) {
-    var members = payload.members;
-    members.push(App.Key.Hash);
+    // const {members} = payload
+    var members = getLinks(App.DNA.Hash, 'directory', { Load: false }).map(function (elem) { return elem.Hash; });
+    // members.push(App.Key.Hash)
     var uuid = uuidGenerator();
     var channel = {
         id: uuid
@@ -71,13 +83,15 @@ function getMembers(payload) {
     var uuid = payload.uuid;
     var members;
     try {
-        members = getLinks(makeHash("custom_channel_uuid", uuid), "channel_members", { Load: true });
+        // members = getLinks(makeHash("custom_channel_uuid", uuid), "channel_members", { Load: true });
+        members = getLinks(App.DNA.Hash, 'directory', { Load: true }); // everyone is a member of all channels for now
+        return members.map(function (elem) {
+            return __assign({ hash: elem.Hash }, getIdentity(elem.Hash));
+        });
     }
     catch (e) {
         return e;
     }
-    debug("Members for " + uuid + ": " + JSON.stringify(members));
-    return members;
 }
 /**
  * Post a message to a channel
@@ -110,13 +124,38 @@ function getMessages(payload) {
     try {
         var messages_1 = getLinks(makeHash("custom_channel_uuid", uuid), "messages", { Load: true });
         debug("Messages : " + JSON.stringify(messages_1));
-        return messages_1;
+        return messages_1.map(function (elem) { return elem.Entry; });
     }
     catch (e) {
         debug("ERROR: " + e);
         return e;
     }
 }
+/*======================================
+=            Identity Stuff            =
+======================================*/
+// TODO: Move to own zome 
+function whoami() {
+    return App.Key.Hash;
+}
+function getIdentity(keyHash) {
+    return getLinks(keyHash, 'identity', { Load: true }).map(function (elem) {
+        return elem.Entry;
+    })[0];
+}
+function setIdentity(identity) {
+    // mark any old identites as deleted
+    var currentIdentity = getIdentity(App.Key.Hash);
+    if (currentIdentity) {
+        update('identity', identity, makeHash('identity', currentIdentity));
+    }
+    else {
+        var idHash = commit('identity', identity);
+        commit('identity_links', { Links: [{ Base: App.Key.Hash, Link: idHash, Tag: 'identity' }] });
+    }
+    return true;
+}
+/*=====  End of Identity Stuff  ======*/
 /*=====  End of Public Zome Functions  ======*/
 /*=========================================
 =            Private Functions            =
@@ -132,11 +171,43 @@ function uuidGenerator() {
 function getKey() {
     return App.Key.Hash;
 }
+function addTestData() {
+    var channel1 = createCustomChannel({ members: [] });
+    postMessage({
+        channelId: channel1,
+        content: {
+            text: "test message 1 in channel 1"
+        }
+    });
+    postMessage({
+        channelId: channel1,
+        content: {
+            text: "test message 2 in channel 1"
+        }
+    });
+    var channel2 = createCustomChannel({ members: [] });
+    postMessage({
+        channelId: channel2,
+        content: {
+            text: "test message 1 in channel 2"
+        }
+    });
+    postMessage({
+        channelId: channel2,
+        content: {
+            text: "test message 2 in channel 2"
+        }
+    });
+}
 /*=====  End of Private Functions  ======*/
 /*==================================
 =            Validation            =
 ==================================*/
 function genesis() {
+    addTestData();
+    setIdentity({ handle: App.Agent.String, avatar: '' });
+    // link hash to root on genesis
+    commit('identity_links', { Links: [{ Base: App.DNA.Hash, Link: App.Key.Hash, Tag: 'directory' }] });
     return true;
 }
 function bridgeGenesis(side, dna, appData) {
@@ -187,44 +258,44 @@ function isValidModifier(replaces, sources) {
         return false;
 }
 function validateCommit(entryName, entry, header, pkg, sources) {
-    debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
+    // debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
     return validate(entryName, entry, header, pkg, sources);
 }
 function validate(entryName, entry, header, pkg, sources) {
-    switch (entryName) {
-        case "custom_channel_uuid":
-            return true;
-        case "custom_channel_details":
-            return true;
-        case "custom_channel_link":
-            return true;
-        case "channel_to_member_link":
-            return isValidAdmin(entry.Links[0].Base, sources);
-        case "member_to_channel_link":
-            //isValidAdmin(entry);
-            return true;
-        case "message":
-            return true;
-        case "message_link":
-            return true;
-        default:
-            return false;
-    }
+    return true;
+    // switch (entryName) {
+    //   case "custom_channel_uuid":
+    //     return true;
+    //   case "custom_channel_details":
+    //     return true;
+    //   case "custom_channel_link":
+    //     return true;
+    //   case "channel_to_member_link":
+    //     return isValidAdmin(entry.Links[0].Base, sources);
+    //   case "member_to_channel_link":
+    //     //isValidAdmin(entry);
+    //     return true;
+    //   case "message":
+    //     return true;
+    //   case "message_link":
+    //     return true;
+    //   case "identity":
+    //     return true;
+    //   case "identity_links":
+    //     return true;
+    //   default:
+    //     return false;
+    // }
 }
 function validatePut(entryName, entry, header, pkg, sources) {
     return true;
 }
 function validateMod(entryName, entry, header, replaces, pkg, sources) {
-    debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "replaces: " + replaces + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
-    switch (entryName) {
-        case "message":
-            return isValidModifier(replaces, sources);
-        default:
-            return false;
-    }
+    // debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "replaces: " + replaces + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
+    return true;
 }
 function validateDel(entryName, hash, pkg, sources) {
-    return false;
+    return true;
 }
 function validateLink(entryName, baseHash, links, pkg, sources) {
     //debug("entryName: "+entryName+" baseHash: "+ baseHash+" links: "+ links+" sources: "+ sources);
@@ -236,6 +307,8 @@ function validateLink(entryName, baseHash, links, pkg, sources) {
         case "member_to_channel_link":
             return true;
         case "message_link":
+            return true;
+        case "identity_links":
             return true;
         default:
             return false;

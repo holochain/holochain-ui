@@ -22,7 +22,7 @@ export function send(namespace, fnName, data) {
   var bridgeCall = {}
   bridgeCall.channel = data.channel
   bridgeCall.zome = namespace
-  bridgeCall.function = fnName
+  bridgeCall.func = fnName
   bridgeCall.data = data
   const stringified = JSON.stringify(bridgeCall)
   console.log(stringified)

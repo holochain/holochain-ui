@@ -27,6 +27,7 @@ export function cellsList() {
   }
 }
 
+
 export function profileMappingCreate(profileMapping: ProfileMapping): VaultAction {
   profileMapping.channel = 'holo-vault'
   return {

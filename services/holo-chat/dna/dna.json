@@ -27,7 +27,10 @@
               "getMembers",
               "getMyChannels",
               "postMessage",
-              "getMessages"
+              "getMessages",
+              "whoami",
+              "getIdentity",
+              "setIdentity"
             ],
             "Entries": [
               {
@@ -55,11 +58,23 @@
                 {
                   "Name": "message",
                   "DataFormat": "json",
+                  "SchemaFile": "message.json",
                   "Sharing":"public"
                 },
                 {
                   "Name": "message_link",
                   "DataFormat": "links"
+                },
+                {
+                  "Name": "identity",
+                  "DataFormat": "json",
+                  "SchemaFile": "identity.json",
+                  "Sharing": "public"
+                },
+                {
+                  "Name": "identity_links",
+                  "DataFormat": "links",
+                  "Sharing": "public"
                 }
             ],
             "Functions": [
@@ -90,6 +105,21 @@
                 },
                 {
                   "Name": "getMessages",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "whoami",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getIdentity",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "setIdentity",
                   "CallingType": "json",
                   "Exposure": "public"
                 }

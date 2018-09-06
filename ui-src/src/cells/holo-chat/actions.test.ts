@@ -20,7 +20,6 @@ describe('createCustomChannel action', () => {
 		type: 'holochat/createCustomChannel',
 		payload: {
 			request: {
-				url: '/',
 				data: {
 					channel: 'holo-chat',
 					zome: 'custom_channel',
@@ -52,7 +51,6 @@ describe('createCustomChannel action', () => {
 			type: 'holochat/createCustomChannel',
 			payload: {
 				request: {
-					url: '/',
 					data: {
 						channel: 'holo-chat',
 						zome: 'custom_channel',
@@ -83,7 +81,6 @@ describe('getMyChannels action', () => {
 		type: 'holochat/getMyChannels',
 		payload: {
 			request: {
-				url: '/',
 				data: {
 					channel: 'holo-chat',
 					zome: 'custom_channel',

@@ -22,8 +22,9 @@ type UUID = string;
  * @return {UUID} - Channel UUID
  */
 function createCustomChannel(payload: {members: holochain.Hash[]}): UUID {
-  const {members} = payload
-  members.push(App.Key.Hash)
+  // const {members} = payload
+  const members = getLinks(App.DNA.Hash, 'directory', {Load: false}).map((elem) => {return elem.Hash})
+  // members.push(App.Key.Hash)
   let uuid: string = uuidGenerator();
   let channel: Channel = {
     id: uuid
@@ -90,16 +91,21 @@ function getMyChannels(): Array<Channel> | holochain.HolochainError {
  * @param  {UUID} - Channel UUID
  * @return {string[]} - Array of key hashes of members in channel
  */
-function getMembers(payload: {uuid: UUID}): holochain.Hash[] | holochain.HolochainError {
+function getMembers(payload: {uuid: UUID}): any[] | holochain.HolochainError {
   const {uuid} = payload
   let members: any;
   try {
-    members = getLinks(makeHash("custom_channel_uuid", uuid), "channel_members", { Load: true });
+    // members = getLinks(makeHash("custom_channel_uuid", uuid), "channel_members", { Load: true });
+    members = getLinks(App.DNA.Hash, 'directory', {Load: true}) // everyone is a member of all channels for now
+    return members.map((elem) => {
+      return {
+        hash: elem.Hash,
+        ...getIdentity(elem.Hash)
+      };
+    })
   } catch (e) {
     return e;
   }
-  debug("Members for " + uuid + ": " + JSON.stringify(members));
-  return members;
 }
 
 
@@ -136,13 +142,45 @@ function getMessages(payload: {uuid: UUID}): Array<Message> | holochain.Holochai
   try {
     let messages = getLinks(makeHash("custom_channel_uuid", uuid), "messages", { Load: true });
     debug("Messages : " + JSON.stringify(messages))
-    return messages;
+    return messages.map((elem) => {return elem.Entry});
   } catch (e) {
     debug("ERROR: " + e);
     return e;
   }
 
 }
+
+
+/*======================================
+=            Identity Stuff            =
+======================================*/
+// TODO: Move to own zome 
+
+function whoami(): holochain.Hash {
+  return App.Key.Hash;
+}
+
+function getIdentity(keyHash: holochain.Hash): any {
+  return getLinks(keyHash, 'identity', {Load: true}).map((elem) => {
+    return elem.Entry;
+  })[0]
+}
+
+function setIdentity(identity: any): boolean {
+  // mark any old identites as deleted
+  const currentIdentity = getIdentity(App.Key.Hash)
+  if(currentIdentity) {
+    update('identity', identity, makeHash('identity', currentIdentity))
+  } else {
+    const idHash = commit('identity', identity);
+    commit('identity_links', { Links: [ { Base: App.Key.Hash, Link: idHash, Tag: 'identity' } ] })
+  }
+  
+  return true;
+}
+
+/*=====  End of Identity Stuff  ======*/
+
 
 /*=====  End of Public Zome Functions  ======*/
 
@@ -165,6 +203,36 @@ function getKey() {
   return App.Key.Hash;
 }
 
+function addTestData() {
+  const channel1 = createCustomChannel({members: []})
+  postMessage({
+    channelId: channel1,
+    content: {
+      text: "test message 1 in channel 1"
+    } 
+  });
+  postMessage({
+    channelId: channel1,
+    content: {
+      text: "test message 2 in channel 1"
+    } 
+  });
+
+  const channel2 = createCustomChannel({members: []})
+  postMessage({
+    channelId: channel2,
+    content: {
+      text: "test message 1 in channel 2"
+    } 
+  });
+  postMessage({
+    channelId: channel2,
+    content: {
+      text: "test message 2 in channel 2"
+    } 
+  });
+}
+
 /*=====  End of Private Functions  ======*/
 
 
@@ -175,6 +243,10 @@ function getKey() {
 ==================================*/
 
 function genesis() {
+  addTestData();
+  setIdentity({handle: App.Agent.String, avatar: ''});
+  // link hash to root on genesis
+  commit('identity_links', { Links: [ { Base: App.DNA.Hash, Link: App.Key.Hash, Tag: 'directory' } ] })
   return true;
 }
 
@@ -224,30 +296,35 @@ function isValidModifier(replaces: string, sources: any): boolean {
     return false;
 }
 function validateCommit(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
-  debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
+  // debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
   return validate(entryName, entry, header, pkg, sources);
 }
 
 function validate(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
-  switch (entryName) {
-    case "custom_channel_uuid":
-      return true;
-    case "custom_channel_details":
-      return true;
-    case "custom_channel_link":
-      return true;
-    case "channel_to_member_link":
-      return isValidAdmin(entry.Links[0].Base, sources);
-    case "member_to_channel_link":
-      //isValidAdmin(entry);
-      return true;
-    case "message":
-      return true;
-    case "message_link":
-      return true;
-    default:
-      return false;
-  }
+  return true
+  // switch (entryName) {
+  //   case "custom_channel_uuid":
+  //     return true;
+  //   case "custom_channel_details":
+  //     return true;
+  //   case "custom_channel_link":
+  //     return true;
+  //   case "channel_to_member_link":
+  //     return isValidAdmin(entry.Links[0].Base, sources);
+  //   case "member_to_channel_link":
+  //     //isValidAdmin(entry);
+  //     return true;
+  //   case "message":
+  //     return true;
+  //   case "message_link":
+  //     return true;
+  //   case "identity":
+  //     return true;
+  //   case "identity_links":
+  //     return true;
+  //   default:
+  //     return false;
+  // }
 }
 
 function validatePut(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
@@ -255,17 +332,12 @@ function validatePut(entryName: any, entry: any, header: any, pkg: any, sources:
 }
 
 function validateMod(entryName: any, entry: any, header: any, replaces: any, pkg: any, sources: any): boolean {
-  debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "replaces: " + replaces + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
-  switch (entryName) {
-    case "message":
-      return isValidModifier(replaces, sources);
-    default:
-      return false;
-  }
+  // debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "replaces: " + replaces + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
+  return true
 }
 
 function validateDel(entryName: any, hash: any, pkg: any, sources: any): boolean {
-  return false;
+  return true;
 }
 
 function validateLink(entryName: any, baseHash: any, links: any, pkg: any, sources: any): boolean {
@@ -278,6 +350,8 @@ function validateLink(entryName: any, baseHash: any, links: any, pkg: any, sourc
     case "member_to_channel_link":
       return true;
     case "message_link":
+      return true;
+    case "identity_links":
       return true;
     default:
       return false;
