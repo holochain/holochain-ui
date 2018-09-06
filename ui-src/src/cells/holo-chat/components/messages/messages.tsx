@@ -56,26 +56,30 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     const { classes, messages } = this.props
     return (
       <div>
-        <List>
-          {
-            messages.map((message: any, index: number) => (
-              <ListItem key={index} dense={true} className={classes.listItemMessage}>
-                <MessageView message={message} />
-              </ListItem>
-            ))
-          }
-        </List>
-        <TextField
-            id="message"
-            label="Chat message"
-            className={classes.textField}
-            value={this.state.message}
-            onChange={this.handleChange}
-            margin="normal"
-          />
-        <Button variant="fab" className={classes.button} onClick={this.handleSendMessage}>
-          <Send />
-        </Button>
+        <div style={{overflow: 'auto'}}>
+          <List>
+            {
+              messages.map((message: any, index: number) => (
+                <ListItem key={index} dense={true} className={classes.listItemMessage}>
+                  <MessageView message={message} />
+                </ListItem>
+              ))
+            }
+          </List>
+        </div>
+        <div style={{position: 'absolute', bottom: 0, width: '100%', backgroundColor: '#fff'}}>
+          <TextField
+              id="message"
+              label="Chat message"
+              className={classes.textField}
+              value={this.state.message}
+              onChange={this.handleChange}
+              margin="normal"
+            />
+          <Button variant="fab" className={classes.button} onClick={this.handleSendMessage}>
+            <Send />
+          </Button>
+        </div>
       </div>
     )
   }
