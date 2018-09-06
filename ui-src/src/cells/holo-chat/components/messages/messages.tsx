@@ -5,6 +5,7 @@ import {List, ListItem } from '@material-ui/core'
 import MessageView from './messageView'
 import {Message as MessageType} from '../../types/view/message'
 import {Channel as ChannelType} from '../../types/view/channel'
+import {Identity} from '../../reducer'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   listItemMessage: {
@@ -16,16 +17,20 @@ interface MessagesProps {
   classes: any,
   messages: Array<MessageType>,
   channel: ChannelType,
-
-  getMessages: (channelUUID: string) => void
+  members: Map<string, Identity>,
+  getMessages: (channelUUID: string) => void,
+  getMembers: (channelUUID: string) => void
 }
 
 class Messages extends React.Component<MessagesProps, {}> {
   getMessageInterval: any
-  
+
   componentDidMount() {
     if(this.props.channel) {
-      this.getMessageInterval = setInterval(this.props.getMessages(this.props.channel), 1000)
+      this.getMessageInterval = setInterval(() => {
+        this.props.getMessages(this.props.channel)
+        this.props.getMembers(this.props.channel)
+      }, 1000)
     }
   }
 

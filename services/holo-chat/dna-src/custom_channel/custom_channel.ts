@@ -90,16 +90,20 @@ function getMyChannels(): Array<Channel> | holochain.HolochainError {
  * @param  {UUID} - Channel UUID
  * @return {string[]} - Array of key hashes of members in channel
  */
-function getMembers(payload: {uuid: UUID}): holochain.Hash[] | holochain.HolochainError {
+function getMembers(payload: {uuid: UUID}): any[] | holochain.HolochainError {
   const {uuid} = payload
   let members: any;
   try {
     members = getLinks(makeHash("custom_channel_uuid", uuid), "channel_members", { Load: true });
+    return members.map((elem) => {
+      return {
+        hash: elem.Hash,
+        ...getIdentity(elem.Hash)
+      };
+    })
   } catch (e) {
     return e;
   }
-  debug("Members for " + uuid + ": " + JSON.stringify(members));
-  return members;
 }
 
 
