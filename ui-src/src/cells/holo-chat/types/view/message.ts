@@ -5,6 +5,10 @@ export type Message = ModelMessage & { type: MessageType } | any
 
 export function modelMessagesToViewMessages(messages: Array<ModelMessage>, members: Array<Identity>, myHash: string): Array<Message> {
 	
+	if(!Array.isArray(messages)) {
+		return [] //TODO: find out why this is happening and make a better fix
+	}
+
 	const memberMap = members.reduce((obj, item) => {
      obj[item.hash] = item
      return obj

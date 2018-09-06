@@ -32,7 +32,7 @@ class Channels extends React.Component<ChannelsProps, {}> {
 
   componentDidMount() {
     console.log("get channels")
-    this.getChannelsInterval = setInterval(this.props.getMyChannels, 1000)
+    this.getChannelsInterval = setInterval(this.props.getMyChannels, 200)
   }
 
   componentWillUnmount() {

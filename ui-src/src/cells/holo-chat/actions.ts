@@ -133,7 +133,7 @@ export const getMembers = (uuid: string) => {
 }
 
 export const postMessage = (message: Message) => {
-	return GetMessages.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'postMessage', message))
+	return PostMessage.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'postMessage', message))
 }
 
 export const getMessages = (uuid: string) => {

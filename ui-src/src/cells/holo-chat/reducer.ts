@@ -37,13 +37,9 @@ export const initialState: HoloChatState = {
 
 
 export function holochatReducer (state = initialState, action: ChatAction) {
-  console.log('Current state: ', state)
-  console.log('processing action: ', action)
+  // console.log('Current state: ', state)
+  // console.log('processing action: ', action)
   switch (action.type) {
-    case getType(chatActions.CreateCustomChannel.success):
-      	return state // do nothing for now
-    case getType(chatActions.AddMembers.success):
-    	return state // do nothing for now
     case getType(chatActions.GetMyChannels.success):
     	return {
         ...state,

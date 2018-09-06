@@ -4,6 +4,7 @@ import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import {List, ListItem } from '@material-ui/core'
 import MessageView from './messageView'
 import {Message as MessageType} from '../../types/view/message'
+import {Message as ModelMessage} from '../../types/model/message'
 import {Channel as ChannelType} from '../../types/view/channel'
 import {Identity} from '../../reducer'
 // import {Message as MessageType} from '../../types/message'
@@ -35,7 +36,8 @@ interface MessagesProps {
   myHash: string,
   getMessages: (channelUUID: string) => void,
   getMembers: (channelUUID: string) => void,
-  whoami: () => void
+  whoami: () => void,
+  sendMessage: (message: ModelMessage) => void
 }
 
 
@@ -52,7 +54,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
         this.props.whoami()
         this.props.getMessages(this.props.channel)
         this.props.getMembers(this.props.channel)
-      }, 1000)
+      }, 200)
     }
   }
 
@@ -72,6 +74,12 @@ class Messages extends React.Component<MessagesProps, MessageState> {
   handleSendMessage = () =>   {
     console.log(this.state.message)
     // call holochain here.
+    this.props.sendMessage({
+      channelId: this.props.channel,
+      content: {
+        text: this.state.message
+      }
+    })
   }
 
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -80,6 +88,13 @@ class Messages extends React.Component<MessagesProps, MessageState> {
 
   render () {
     const { classes, messages } = this.props
+
+
+
+    messages.sort((a, b) => {
+      return a.timestamp - b.timestamp
+    })
+
     return (
       <div>
         <Paper style={{maxHeight: 400, overflow: 'auto', boxShadow: 'none'}}>
