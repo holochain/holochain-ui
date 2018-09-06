@@ -3,7 +3,7 @@ import withRoot from '../../../../withRoot'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
 import {List, ListItem } from '@material-ui/core'
 import MessageView from './messageView'
-// import {Message as MessageType} from '../../types/message'
+import {Message as MessageType} from '../../types/view/message'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   listItemMessage: {
@@ -13,7 +13,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 
 interface MessagesProps {
   classes: any,
-  messages: Array<any>
+  messages: Array<MessageType>
 }
 
 class Messages extends React.Component<MessagesProps, {}> {

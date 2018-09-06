@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-// import SpeakerPhone from '@material-ui/icons/SpeakerPhone'
+import AddIcon from '@material-ui/icons/Add'
 import { Channel as ChannelType } from '../../types/view/channel'
 import withRoot from '../../../../withRoot';
 import {Route} from 'react-router-dom'
@@ -28,14 +28,20 @@ interface ChannelsProps {
 class Channels extends React.Component<ChannelsProps, {}> {
   componentDidMount() {
     console.log("get channels")
-    // this.props.channelList()
+    setInterval(this.props.getMyChannels, 1000)
+  }
+
+  handleNewChannelButtonClick = () => {
+    this.props.newChannel()
   }
 
   // tslint:disable jsx-no-lambda
   render() {
     const {classes, channels} = this.props;
     return (<div className={classes.root}>
-      <Button variant='fab' onClick={this.props.newChannel}/>
+      <Button variant='fab' onClick={this.handleNewChannelButtonClick}>
+      <AddIcon/>
+      </Button>
       <Typography variant='display1'>
         Channels
       </Typography>

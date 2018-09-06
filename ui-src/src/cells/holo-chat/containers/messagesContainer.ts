@@ -1,19 +1,23 @@
 
 import { connect } from 'react-redux'
 import Messages from '../components/messages/messages'
-import  * as constants from '../constants'
-import {HoloChatState} from '../reducer'
+// import  * as constants from '../constants'
+// import {HoloChatState} from '../reducer'
 import {Dispatch} from 'redux'
+import {
+	getMessages
+} from '../actions'
 
-
-const mapStateToProps = (state: HoloChatState) => {
+const mapStateToProps = (state: any) => {
   return {
-    messages: constants.messages
+    messages: state.holoChat.currentMessages
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-
+	return {
+		getMessages: (channelUUID: string) => dispatch(getMessages(channelUUID))
+	}
 }
 
 export default connect(

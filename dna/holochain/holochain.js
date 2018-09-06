@@ -8,14 +8,14 @@ function callBridgedFunction(bridgeCall){
   debug(bridgeCall)
   var channelDNA = getDNA(bridgeCall.channel).replace(/"/g, '')
   debug('channelDNA ' + channelDNA)
-  debug('function ' + bridgeCall.function)
+  debug('func ' + bridgeCall.func)
   debug('zome ' + bridgeCall.zome)
   debug('data ' + JSON.stringify(bridgeCall.data))
   if(bridgeCall.data === undefined){
     bridgeCall.data = {}
   }
-  var result = bridge(channelDNA, bridgeCall.zome, bridgeCall.function, bridgeCall.data)
-  debug('called ' + bridgeCall.function)
+  var result = bridge(channelDNA, bridgeCall.zome, bridgeCall.func, bridgeCall.data)
+  debug('called ' + bridgeCall.func)
   debug(result)
   return JSON.parse(result)
 }
