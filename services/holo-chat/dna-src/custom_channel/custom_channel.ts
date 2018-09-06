@@ -94,7 +94,8 @@ function getMembers(payload: {uuid: UUID}): any[] | holochain.HolochainError {
   const {uuid} = payload
   let members: any;
   try {
-    members = getLinks(makeHash("custom_channel_uuid", uuid), "channel_members", { Load: true });
+    // members = getLinks(makeHash("custom_channel_uuid", uuid), "channel_members", { Load: true });
+    members = getLinks(App.DNA.Hash, 'directory', {Load: true}) // everyone is a member of all channels for now
     return members.map((elem) => {
       return {
         hash: elem.Hash,
@@ -243,6 +244,8 @@ function addTestData() {
 function genesis() {
   addTestData();
   setIdentity({handle: App.Agent.String, avatar: ''});
+  // link hash to root on genesis
+  commit('identity_links', { Links: [ { Base: App.DNA.Hash, Link: App.Key.Hash, Tag: 'directory' } ] })
   return true;
 }
 
@@ -297,29 +300,30 @@ function validateCommit(entryName: any, entry: any, header: any, pkg: any, sourc
 }
 
 function validate(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
-  switch (entryName) {
-    case "custom_channel_uuid":
-      return true;
-    case "custom_channel_details":
-      return true;
-    case "custom_channel_link":
-      return true;
-    case "channel_to_member_link":
-      return isValidAdmin(entry.Links[0].Base, sources);
-    case "member_to_channel_link":
-      //isValidAdmin(entry);
-      return true;
-    case "message":
-      return true;
-    case "message_link":
-      return true;
-    case "identity":
-      return true;
-    case "identity_links":
-      return true;
-    default:
-      return false;
-  }
+  return true
+  // switch (entryName) {
+  //   case "custom_channel_uuid":
+  //     return true;
+  //   case "custom_channel_details":
+  //     return true;
+  //   case "custom_channel_link":
+  //     return true;
+  //   case "channel_to_member_link":
+  //     return isValidAdmin(entry.Links[0].Base, sources);
+  //   case "member_to_channel_link":
+  //     //isValidAdmin(entry);
+  //     return true;
+  //   case "message":
+  //     return true;
+  //   case "message_link":
+  //     return true;
+  //   case "identity":
+  //     return true;
+  //   case "identity_links":
+  //     return true;
+  //   default:
+  //     return false;
+  // }
 }
 
 function validatePut(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
