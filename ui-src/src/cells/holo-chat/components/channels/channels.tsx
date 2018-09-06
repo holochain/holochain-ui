@@ -20,7 +20,8 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 
 interface ChannelsProps {
   classes: any,
-  channels: Array<ChannelType>
+  channels: Array<ChannelType>,
+  
   getMyChannels: () => void,
   newChannel: () => void,
   setActiveChannel: (channel: ChannelType) => void

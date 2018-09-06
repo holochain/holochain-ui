@@ -16,14 +16,21 @@ interface MessagesProps {
   classes: any,
   messages: Array<MessageType>,
   channel: ChannelType,
+
   getMessages: (channelUUID: string) => void
 }
 
 class Messages extends React.Component<MessagesProps, {}> {
+  getMessageInterval: any
+  
   componentDidMount() {
     if(this.props.channel) {
-      setInterval(this.props.getMessages(this.props.channel), 1000)
+      this.getMessageInterval = setInterval(this.props.getMessages(this.props.channel), 1000)
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.getMessageInterval)
   }
 
   render () {
