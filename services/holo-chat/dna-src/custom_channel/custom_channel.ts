@@ -22,8 +22,9 @@ type UUID = string;
  * @return {UUID} - Channel UUID
  */
 function createCustomChannel(payload: {members: holochain.Hash[]}): UUID {
-  const {members} = payload
-  members.push(App.Key.Hash)
+  // const {members} = payload
+  const members = getLinks(App.DNA.Hash, 'directory', {Load: false}).map((elem) => {return elem.Hash})
+  // members.push(App.Key.Hash)
   let uuid: string = uuidGenerator();
   let channel: Channel = {
     id: uuid

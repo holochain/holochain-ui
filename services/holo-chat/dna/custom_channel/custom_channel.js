@@ -20,8 +20,9 @@ var module = {};
  * @return {UUID} - Channel UUID
  */
 function createCustomChannel(payload) {
-    var members = payload.members;
-    members.push(App.Key.Hash);
+    // const {members} = payload
+    var members = getLinks(App.DNA.Hash, 'directory', { Load: false }).map(function (elem) { return elem.Hash; });
+    // members.push(App.Key.Hash)
     var uuid = uuidGenerator();
     var channel = {
         id: uuid

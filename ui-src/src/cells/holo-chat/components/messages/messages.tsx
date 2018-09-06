@@ -90,8 +90,6 @@ class Messages extends React.Component<MessagesProps, MessageState> {
   render () {
     const { classes, messages } = this.props
 
-
-
     messages.sort((a, b) => {
       return a.timestamp - b.timestamp
     })
