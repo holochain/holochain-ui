@@ -181,7 +181,8 @@ class ProfileField extends React.Component {
   };
 
   componentDidMount(){
-    setSuggestions(this.props.suggestions)
+    allSuggestions = this.props.suggestions
+    // setSuggestions(this.props.suggestions)
     this.setState({
       personaField: this.props.personaField,
       personaFieldValue: this.props.personaFieldValue
