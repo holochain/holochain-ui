@@ -4,7 +4,7 @@
       "Convey": "All HC functions are accessed through the one function that bridges to the appropriate DHT.",
       "Details": "This method lets you easily access any bridged app",
       "Zome": "holochain",
-      "Input": "callBridgedFunction({'channel': 'Aussie_DJs','zome': 'messages','function': 'createMessage','data': {'message': 'Posting to the group'}}).indexOf('Qm') === 0",
+      "Input": "callBridgedFunction({'channel': 'Aussie_DJs','zome': 'messages','func': 'createMessage','data': {'message': 'Posting to the group'}}).indexOf('Qm') === 0",
       "Output": true,
       "Err": "",
       "Raw": true
@@ -13,7 +13,7 @@
       "Convey": "Check we can bridge to the Vault",
       "Details": "Create a Persona",
       "Zome": "holochain",
-      "Input": "callBridgedFunction({'channel':'holo-vault','zome':'personas','function':'personaCreate','data':{'name':'AwesomeApp','personaFields':[{'userName':'@philt3r'},{'dogsname':'Thor'}]}}).indexOf('Qm') === 0",
+      "Input": "callBridgedFunction({'channel':'holo-vault','zome':'personas','func':'personaCreate','data':{'name':'AwesomeApp','personaFields':[{'userName':'@philt3r'},{'dogsname':'Thor'}]}}).indexOf('Qm') === 0",
       "Output": true,
       "Err": "",
       "Raw": true
@@ -21,7 +21,7 @@
     {
       "Convey": "Check we can list peronas in the Vault via the bridge",
       "Zome": "holochain",
-      "Input": "callBridgedFunction({'channel':'holo-vault','zome':'personas','function':'personasList','data':''}).length === 1",
+      "Input": "callBridgedFunction({'channel':'holo-vault','zome':'personas','func':'personasList','data':''}).length === 1",
       "Output": true,
       "Err": "",
       "Raw": true
@@ -30,7 +30,7 @@
       "Convey": "Check we can bridge to the new version of holo-chat",
       "Details": "Call get channels to test if the bridge is working",
       "Zome": "holochain",
-      "Input": "callBridgedFunction({'channel':'holo-chat','zome':'custom_channel','function':'getMyChannels','data':undefined}).length === 0",
+      "Input": "callBridgedFunction({'channel':'holo-chat','zome':'custom_channel','func':'getMyChannels','data':undefined}).length === 2",
       "Output": true,
       "Err": "",
       "Raw": true

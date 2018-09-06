@@ -13,6 +13,11 @@ export interface Identity {
   avatar: string
 }
 
+export interface IdentitySpec {
+  handle: string,
+  avatar: string
+}
+
 export interface HoloChatState {
   myChannels: Array<Channel>,
   currentMessages: Array<Message>

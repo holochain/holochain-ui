@@ -3,7 +3,7 @@ import { createAction, createAsyncAction } from 'typesafe-actions'
 import { Message } from './types/model/message'
 import { Channel } from './types/model/channel'
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
-import { Identity } from './reducer'
+import { Identity, IdentitySpec } from './reducer'
 /*
 Typed action creators. See (https://github.com/piotrwitek/typesafe-actions#createaction) for details
 
@@ -97,7 +97,11 @@ export const GetIdentity = createAsyncAction(
 	'holochat/getIdentity_FAILURE')
 <BridgeCallPayload<string>, BridgeCallResponse<Identity>, AxiosError>()
 
-
+export const SetIdentity = createAsyncAction(
+	'holochat/setIdentity', 
+	'holochat/setIdentity_SUCCESS', 
+	'holochat/setIdentity_FAILURE')
+<BridgeCallPayload<IdentitySpec>, BridgeCallResponse<boolean>, AxiosError>()
 
 
 export const SetActiveChannel = createAction('holochat/setActiveChannel', resolve => {
@@ -142,6 +146,10 @@ export const whoami = () => {
 
 export const getIdentity = () => {
 	return GetIdentity.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getIdentity', {}))
+}
+
+export const setIdentity = (identity: IdentitySpec) => {
+	return SetIdentity.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'setIdentity', identity))	
 }
 
 /*=====  End of Action Creator Functions  ======*/
