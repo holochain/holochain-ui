@@ -33,7 +33,6 @@ type BridgeCallResponse<ResponseType> = AxiosResponse<ResponseType>
 function makeBridgeCallPayload<PayloadType>(channel: string, zome: string, func: string, data: PayloadType): BridgeCallPayload<PayloadType> {
 	return {
 		request: {
-			url: '/',
 			data: {
 				channel,
 				zome,

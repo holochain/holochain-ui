@@ -3,6 +3,7 @@ import {withStyles, Theme, StyleRulesCallback} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import Button from '@material-ui/core/Button';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 // import SpeakerPhone from '@material-ui/icons/SpeakerPhone'
@@ -20,6 +21,8 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 interface ChannelsProps {
   classes: any,
   channels: Array<ChannelType>
+  getMyChannels: () => void,
+  newChannel: () => void
 }
 
 class Channels extends React.Component<ChannelsProps, {}> {
@@ -32,6 +35,7 @@ class Channels extends React.Component<ChannelsProps, {}> {
   render() {
     const {classes, channels} = this.props;
     return (<div className={classes.root}>
+      <Button variant='fab' onClick={this.props.newChannel}/>
       <Typography variant='display1'>
         Channels
       </Typography>

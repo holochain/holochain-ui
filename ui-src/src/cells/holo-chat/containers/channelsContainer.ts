@@ -2,22 +2,26 @@
 import { connect } from 'react-redux'
 import Channels from '../components/channels/channels'
 // import channelData from '../data/channels.json'
-import {HoloChatState} from '../reducer'
-import {getMyChannels} from '../actions'
+// import {HoloChatState} from '../reducer'
 import {Dispatch} from 'redux'
 import {
-
+	getMyChannels,
+	createCustomChannel
 } from '../actions'
 
-const mapStateToProps = (state: HoloChatState) => {
+
+
+// TODO: Add proper typing to the global state and figure out why holochat is two levels deep
+const mapStateToProps = (state: any) => {
   return {
-    channels: state.myChannels
+    channels: state.holoChat.myChannels
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-  	getMyChannels: dispatch(getMyChannels())
+  	getMyChannels: () => { dispatch(getMyChannels()) },
+  	newChannel: () => { dispatch(createCustomChannel([])) }
   }
 }
 

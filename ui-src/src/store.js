@@ -11,10 +11,14 @@ import errand from './cells/errand/reducer'
 import { requestSendingMiddleware, hcMiddleware } from './hc-middleware'
 
 const holochainClient = axios.create({
-		baseURL: 'http://localhost:4141/fn/holochain/callBridgedFunction',
-  	responseType: 'json',
-  	method: 'POST'
-})
+		baseURL: '/fn/holochain/callBridgedFunction',
+  	method: 'POST',
+    transformRequest: [
+      function(data, headers) {
+        return JSON.stringify(data)
+      }
+    ]
+  })
 
 
 let rootReducer = combineReducers({holoVault: holoVault, holoChat: holoChat, errand: errand, form: formReducer})
@@ -23,7 +27,7 @@ function CreateStore() {
   return createStore(
   	rootReducer, 
   	applyMiddleware(
-  		// axiosMiddleware(holochainClient),
+  		axiosMiddleware(holochainClient),
   		hcMiddleware,
   		requestSendingMiddleware,
   		promiseMiddleware
