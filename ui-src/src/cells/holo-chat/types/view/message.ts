@@ -3,7 +3,7 @@ import {Identity} from '../../reducer'
 
 export type Message = ModelMessage & { type: MessageType } | any
 
-export function modelMessagesToViewMessages(messages: Array<ModelMessage>, members: Array<Identity>): Array<Message> {
+export function modelMessagesToViewMessages(messages: Array<ModelMessage>, members: Array<Identity>, myHash: string): Array<Message> {
 	
 	const memberMap = members.reduce((obj, item) => {
      obj[item.hash] = item
@@ -11,11 +11,13 @@ export function modelMessagesToViewMessages(messages: Array<ModelMessage>, membe
   }, {})
 
   return messages.map((m) => {
+  	const fromMe = m.author! === myHash
   	return {
   		...m, 
   		author: memberMap[m.author!],
   		type: MessageType.CHAT,
-  		replies: []
+  		replies: [],
+  		fromMe
   	}
   	}) as Array<Message>
 }

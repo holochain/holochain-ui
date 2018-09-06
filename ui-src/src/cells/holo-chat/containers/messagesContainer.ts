@@ -7,21 +7,24 @@ import {Dispatch} from 'redux'
 import {modelMessagesToViewMessages} from '../types/view/message'
 import {
 	getMessages,
-	getMembers
+	getMembers,
+	whoami
 } from '../actions'
 
 const mapStateToProps = (state: any) => {
   return {
-    messages: modelMessagesToViewMessages(state.holoChat.currentMessages, state.holoChat.activeChannelMembers),
+    messages: modelMessagesToViewMessages(state.holoChat.currentMessages, state.holoChat.activeChannelMembers, state.holoChat.myHash),
     channel: state.holoChat.activeChannel,
-    members: state.holoChat.activeChannelMembers
+    members: state.holoChat.activeChannelMembers,
+    myHash: state.holoChat.myHash
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
 	return {
 		getMessages: (channelUUID: string) => dispatch(getMessages(channelUUID)),
-		getMembers:  (channelUUID: string) => dispatch(getMembers(channelUUID))
+		getMembers:  (channelUUID: string) => dispatch(getMembers(channelUUID)),
+		whoami: () => dispatch(whoami())
 	}
 }
 

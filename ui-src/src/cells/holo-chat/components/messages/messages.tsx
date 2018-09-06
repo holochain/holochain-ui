@@ -18,8 +18,10 @@ interface MessagesProps {
   messages: Array<MessageType>,
   channel: ChannelType,
   members: Map<string, Identity>,
+  myHash: string,
   getMessages: (channelUUID: string) => void,
-  getMembers: (channelUUID: string) => void
+  getMembers: (channelUUID: string) => void,
+  whoami: () => void
 }
 
 class Messages extends React.Component<MessagesProps, {}> {
@@ -28,6 +30,7 @@ class Messages extends React.Component<MessagesProps, {}> {
   componentDidMount() {
     if(this.props.channel) {
       this.getMessageInterval = setInterval(() => {
+        this.props.whoami()
         this.props.getMessages(this.props.channel)
         this.props.getMembers(this.props.channel)
       }, 1000)
