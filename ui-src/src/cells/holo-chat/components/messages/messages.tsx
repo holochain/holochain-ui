@@ -5,6 +5,7 @@ import {List, ListItem } from '@material-ui/core'
 import MessageView from './messageView'
 // import {Message as MessageType} from '../../types/message'
 import TextField from '@material-ui/core/TextField'
+import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Send from '@material-ui/icons/Send'
 
@@ -15,10 +16,9 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   textField: {
     float: 'left',
-    width: '80%'
+    width: '70%'
   },
   button: {
-    float: 'right',
     marginRight: theme.spacing.unit,
     marginTop: theme.spacing.unit
   }
@@ -56,8 +56,8 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     const { classes, messages } = this.props
     return (
       <div>
-        <div style={{overflow: 'auto'}}>
-          <List>
+        <Paper style={{maxHeight: 400, overflow: 'auto', boxShadow: 'none'}}>
+            <List>
             {
               messages.map((message: any, index: number) => (
                 <ListItem key={index} dense={true} className={classes.listItemMessage}>
@@ -66,7 +66,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
               ))
             }
           </List>
-        </div>
+        </Paper>
         <div style={{position: 'absolute', bottom: 0, width: '100%', backgroundColor: '#fff'}}>
           <TextField
               id="message"
