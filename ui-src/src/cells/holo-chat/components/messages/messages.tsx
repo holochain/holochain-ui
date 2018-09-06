@@ -80,6 +80,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
         text: this.state.message
       }
     })
+    this.setState({message: ''})
   }
 
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
