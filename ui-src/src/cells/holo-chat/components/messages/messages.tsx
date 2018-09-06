@@ -4,10 +4,23 @@ import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import {List, ListItem } from '@material-ui/core'
 import MessageView from './messageView'
 // import {Message as MessageType} from '../../types/message'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import Send from '@material-ui/icons/Send'
+
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   listItemMessage: {
     position: 'relative'
+  },
+  textField: {
+    float: 'left',
+    width: '80%'
+  },
+  button: {
+    float: 'right',
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit
   }
 })
 
@@ -16,19 +29,54 @@ interface MessagesProps {
   messages: Array<any>
 }
 
-class Messages extends React.Component<MessagesProps, {}> {
+interface MessageState {
+   message: string;
+}
+
+class Messages extends React.Component<MessagesProps, MessageState> {
+  constructor(props: MessagesProps) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      message: 'Cat in the Hat'
+    }
+  }
+
+
+  handleSendMessage = () =>   {
+    console.log(this.state.message)
+    // call holochain here.
+  }
+
+  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+     this.setState({message: e.target.value});
+   }
+
   render () {
     const { classes, messages } = this.props
     return (
-      <List>
-        {
-          messages.map((message: any, index: number) => (
-            <ListItem key={index} dense={true} className={classes.listItemMessage}>
-              <MessageView message={message} />
-            </ListItem>
-          ))
-        }
-      </List>
+      <div>
+        <List>
+          {
+            messages.map((message: any, index: number) => (
+              <ListItem key={index} dense={true} className={classes.listItemMessage}>
+                <MessageView message={message} />
+              </ListItem>
+            ))
+          }
+        </List>
+        <TextField
+            id="message"
+            label="Chat message"
+            className={classes.textField}
+            value={this.state.message}
+            onChange={this.handleChange}
+            margin="normal"
+          />
+        <Button variant="fab" className={classes.button} onClick={this.handleSendMessage}>
+          <Send />
+        </Button>
+      </div>
     )
   }
 }

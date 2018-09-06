@@ -109,7 +109,7 @@ function VoteControls (props: any) {
 }
 
 function MessageComponent (props: any) {
-  console.log(props.message)
+  // console.log(props.message)
   switch (props.message.type) {
     case 0:
       return (
