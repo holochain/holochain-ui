@@ -34,48 +34,44 @@
             ],
             "Entries": [
               {
-                "Name": "custom_channel_uuid",
-                "DataFormat": "string",
+                "Name": "custom_channel",
+                "DataFormat": "json",
+                "SchemaFile": "custom_channel.json",
                 "Sharing": "public"
               },
               {
-                  "Name": "custom_channel_details",
-                  "DataFormat": "json",
-                  "Sharing": "public"
-                },
-                {
-                  "Name": "custom_channel_link",
-                  "DataFormat": "links"
-                },
-                {
-                  "Name": "channel_to_member_link",
-                  "DataFormat": "links"
-                },
-                {
-                  "Name": "member_to_channel_link",
-                  "DataFormat": "links"
-                },
-                {
-                  "Name": "message",
-                  "DataFormat": "json",
-                  "SchemaFile": "message.json",
-                  "Sharing":"public"
-                },
-                {
-                  "Name": "message_link",
-                  "DataFormat": "links"
-                },
-                {
-                  "Name": "identity",
-                  "DataFormat": "json",
-                  "SchemaFile": "identity.json",
-                  "Sharing": "public"
-                },
-                {
-                  "Name": "identity_links",
-                  "DataFormat": "links",
-                  "Sharing": "public"
-                }
+                "Name": "custom_channel_link",
+                "DataFormat": "links"
+              },
+              {
+                "Name": "channel_to_member_link",
+                "DataFormat": "links"
+              },
+              {
+                "Name": "member_to_channel_link",
+                "DataFormat": "links"
+              },
+              {
+                "Name": "message",
+                "DataFormat": "json",
+                "SchemaFile": "message.json",
+                "Sharing":"public"
+              },
+              {
+                "Name": "message_link",
+                "DataFormat": "links"
+              },
+              {
+                "Name": "identity",
+                "DataFormat": "json",
+                "SchemaFile": "identity.json",
+                "Sharing": "public"
+              },
+              {
+                "Name": "identity_links",
+                "DataFormat": "links",
+                "Sharing": "public"
+              }
             ],
             "Functions": [
                 {

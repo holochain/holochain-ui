@@ -2,15 +2,14 @@
 	"title": "Room Schema",
 	"type": "object",
 	"properties": {
-	    "name": {
+	    "id": {
 	      "type": "string"
 	    },
-		"access": {
+		"name": {
 			"type": "string"
 		},
-		"purpose": {
+		"description": {
 			"type": "string"
 		}
-	},
-	"required": ["name"]
+	}
 }

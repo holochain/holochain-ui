@@ -16,46 +16,40 @@ var module = {};
 =============================================*/
 /**
  * Creates a channel with members
- * @param  {holochain.Hash[]} - Array of public key hashes of members to add to channel
- * @return {UUID} - Channel UUID
+ * @param  {ChannelSpec} - Specification of the members to add, name and description of the channel
+ * @return {channelHash} - Channel UUID
  */
 function createCustomChannel(payload) {
-    // const {members} = payload
-    var members = getLinks(App.DNA.Hash, 'directory', { Load: false }).map(function (elem) { return elem.Hash; });
-    // members.push(App.Key.Hash)
-    var uuid = uuidGenerator();
+    var members = payload.members;
+    members.push(App.Key.Hash);
     var channel = {
-        id: uuid
+        id: uuidGenerator(),
+        name: payload.name,
+        description: payload.description
     };
-    debug("Your Channel UUID: " + uuid);
-    var uuid_hash = commit("custom_channel_uuid", uuid);
-    //debug("uuid_hash: " + uuid_hash);
-    commit("custom_channel_link", { Links: [{ Base: App.DNA.Hash, Link: uuid_hash, Tag: "channel_uuid" }] });
-    var details_hash = commit("custom_channel_details", channel);
-    //debug("details_hash: " + details_hash);
-    commit("custom_channel_link", { Links: [{ Base: uuid_hash, Link: details_hash, Tag: "channel_details" }] });
-    addMembers({ uuid: uuid, members: members });
-    return uuid;
+    var channelHash = commit("custom_channel", channel);
+    commit("custom_channel_link", { Links: [{ Base: App.DNA.Hash, Link: channelHash, Tag: "channel" }] });
+    addMembers({ channelHash: channelHash, members: members });
+    return channelHash;
 }
 //TODO : Test for non creator of the channel adding a member in the channel
 /**
  * Add members to an existing channel
- * @param  {UUID} - Channel UUID
+ * @param  {channelHash} - Channel hash
  * @param  {holochain.Hash[]} - Array of members to add
  * @return {boolean} - Returns true if successful otherwise returns an error
  */
 function addMembers(payload) {
-    var uuid = payload.uuid, members = payload.members;
-    var uuid_hash = makeHash("custom_channel_uuid", uuid);
+    var channelHash = payload.channelHash, members = payload.members;
     members.forEach(function (member) {
         try {
-            commit("channel_to_member_link", { Links: [{ Base: uuid_hash, Link: member, Tag: "channel_members" }] });
+            commit("channel_to_member_link", { Links: [{ Base: channelHash, Link: member, Tag: "channel_members" }] });
         }
         catch (e) {
             debug(e);
             return e;
         }
-        commit("member_to_channel_link", { Links: [{ Base: member, Link: uuid_hash, Tag: "my_channels" }] });
+        commit("member_to_channel_link", { Links: [{ Base: member, Link: channelHash, Tag: "my_channels" }] });
     });
     return true;
 }
@@ -67,24 +61,22 @@ function getMyChannels() {
     var my_channels;
     try {
         my_channels = getLinks(App.Key.Hash, "my_channels", { Load: true });
+        return my_channels.map(function (channel) { return channel.Entry; });
     }
     catch (e) {
         return e;
     }
-    debug("My Channel Chats : " + JSON.stringify(my_channels));
-    return my_channels.map(function (channel) { return channel.Entry; });
 }
 /**
  * Retrieve the members of a channel given its UUID
- * @param  {UUID} - Channel UUID
- * @return {string[]} - Array of key hashes of members in channel
+ * @param  {channelHash} - Channel UUID
+ * @return {Array<Identity>} - Array of key hashes of members in channel
  */
 function getMembers(payload) {
-    var uuid = payload.uuid;
+    var channelHash = payload.channelHash;
     var members;
     try {
-        // members = getLinks(makeHash("custom_channel_uuid", uuid), "channel_members", { Load: true });
-        members = getLinks(App.DNA.Hash, 'directory', { Load: true }); // everyone is a member of all channels for now
+        members = getLinks(channelHash, "channel_members", { Load: true });
         return members.map(function (elem) {
             return __assign({ hash: elem.Hash }, getIdentity(elem.Hash));
         });
@@ -99,14 +91,11 @@ function getMembers(payload) {
  * @return {holochain.Hash} - Returns the hash of the message if successful or an error
  */
 function postMessage(payload) {
-    debug(payload);
-    payload.timestamp = Date.now();
-    payload.author = App.Key.Hash;
-    debug(payload);
+    var messageToPost = __assign({}, payload.message, { timestamp: Date.now(), author: App.Key.Hash });
     var hash;
     try {
-        hash = commit("message", payload);
-        commit("message_link", { Links: [{ Base: makeHash("custom_channel_uuid", payload.channelId), Link: hash, Tag: "messages" }] });
+        hash = commit("message", messageToPost);
+        commit("message_link", { Links: [{ Base: payload.channelHash, Link: hash, Tag: "messages" }] });
     }
     catch (e) {
         return e;
@@ -119,15 +108,12 @@ function postMessage(payload) {
  * @return {Array<holochain.GetLinksResponse>} - Array of messages
  */
 function getMessages(payload) {
-    var uuid = payload.uuid;
-    var messages;
+    var channelHash = payload.channelHash;
     try {
-        var messages_1 = getLinks(makeHash("custom_channel_uuid", uuid), "messages", { Load: true });
-        debug("Messages : " + JSON.stringify(messages_1));
-        return messages_1.map(function (elem) { return elem.Entry; });
+        var messages = getLinks(channelHash, "messages", { Load: true });
+        return messages.map(function (elem) { return elem.Entry; });
     }
     catch (e) {
-        debug("ERROR: " + e);
         return e;
     }
 }
@@ -172,31 +158,39 @@ function getKey() {
     return App.Key.Hash;
 }
 function addTestData() {
-    var channel1 = createCustomChannel({ members: [] });
+    var channel1 = createCustomChannel({ name: 'Channel 1', description: 'to chat', members: [] });
     postMessage({
-        channelId: channel1,
-        content: {
-            text: "test message 1 in channel 1"
-        }
+        message: {
+            content: {
+                text: "test message 1 in channel 1"
+            }
+        },
+        channelHash: channel1
     });
     postMessage({
-        channelId: channel1,
-        content: {
-            text: "test message 2 in channel 1"
-        }
+        message: {
+            content: {
+                text: "test message 2 in channel 1"
+            }
+        },
+        channelHash: channel1
     });
-    var channel2 = createCustomChannel({ members: [] });
+    var channel2 = createCustomChannel({ name: 'Channel 2', description: 'to chat', members: [] });
     postMessage({
-        channelId: channel2,
-        content: {
-            text: "test message 1 in channel 2"
-        }
+        message: {
+            content: {
+                text: "test message 1 in channel 2"
+            }
+        },
+        channelHash: channel2
     });
     postMessage({
-        channelId: channel2,
-        content: {
-            text: "test message 2 in channel 2"
-        }
+        message: {
+            content: {
+                text: "test message 2 in channel 2"
+            }
+        },
+        channelHash: channel2
     });
 }
 /*=====  End of Private Functions  ======*/

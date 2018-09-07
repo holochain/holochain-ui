@@ -7,16 +7,6 @@ import {Message} from './types/model/message'
 // create a union type that is all possible chat actions
 export type ChatAction = ActionType<typeof chatActions>;
 
-export interface Identity {
-  hash: string,
-  handle: string,
-  avatar: string
-}
-
-export interface IdentitySpec {
-  handle: string,
-  avatar: string
-}
 
 export interface HoloChatState {
   myChannels: Array<Channel>,
