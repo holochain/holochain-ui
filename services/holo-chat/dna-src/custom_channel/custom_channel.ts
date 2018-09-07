@@ -69,7 +69,12 @@ function getMyChannels(): Array<Channel> | holochain.HolochainError {
   let my_channels: any;
   try {
     my_channels = getLinks(App.Key.Hash, "my_channels", { Load: true });
-    return my_channels.map((channel) => { return channel.Entry });
+    return my_channels.map((elem) => { 
+      return {
+        ...elem.Entry,
+        id: elem.Hash
+      }
+    });
   } catch (e) {
     debug(e)
     return e;
