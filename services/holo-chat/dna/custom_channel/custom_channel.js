@@ -64,6 +64,7 @@ function getMyChannels() {
         return my_channels.map(function (channel) { return channel.Entry; });
     }
     catch (e) {
+        debug(e);
         return e;
     }
 }
@@ -82,6 +83,7 @@ function getMembers(payload) {
         });
     }
     catch (e) {
+        debug(e);
         return e;
     }
 }
@@ -98,6 +100,7 @@ function postMessage(payload) {
         commit("message_link", { Links: [{ Base: payload.channelHash, Link: hash, Tag: "messages" }] });
     }
     catch (e) {
+        debug(e);
         return e;
     }
     return hash;
@@ -114,6 +117,7 @@ function getMessages(payload) {
         return messages.map(function (elem) { return elem.Entry; });
     }
     catch (e) {
+        debug(e);
         return e;
     }
 }

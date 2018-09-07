@@ -71,6 +71,7 @@ function getMyChannels(): Array<Channel> | holochain.HolochainError {
     my_channels = getLinks(App.Key.Hash, "my_channels", { Load: true });
     return my_channels.map((channel) => { return channel.Entry });
   } catch (e) {
+    debug(e)
     return e;
   }
 }
@@ -94,6 +95,7 @@ function getMembers(payload: {channelHash: holochain.Hash}): Array<Identity> | h
       };
     })
   } catch (e) {
+    debug(e)
     return e;
   }
 }
@@ -117,6 +119,7 @@ function postMessage(payload: {channelHash: holochain.Hash, message: MessageSpec
     hash = commit("message", messageToPost);
     commit("message_link", { Links: [{ Base: payload.channelHash, Link: hash, Tag: "messages" }] });
   } catch (e) {
+    debug(e)
     return e;
   }
   return hash;
@@ -134,6 +137,7 @@ function getMessages(payload: {channelHash: holochain.Hash}): Array<Message> | h
     let messages = getLinks(channelHash, "messages", { Load: true });
     return messages.map((elem) => {return elem.Entry});
   } catch (e) {
+    debug(e)
     return e;
   }
 
