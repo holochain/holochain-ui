@@ -61,18 +61,32 @@ const asyncActionTestTable: Array<[string, (input: any) => AnyAction, any, any]>
 		{}, 
 		[{name: 'channel1', members: ['member1']}]
 	],
-	[
-		'getMembers', 
-		chatActions.getMembers, 
-		'Qmchannelhash', 
-		[{handle: 'member'}]
-	],
+	//TODO: add test for getMembers
 	[
 		'postMessage', 
 		chatActions.postMessage, 
 		{channelHash: 'Qmchanelhash', message: {content:{text:'message body'}}}, 
 		'Qmmessagehash'
-	]
+	],
+	//TODO: add test for getMessages
+	[
+		'whoami', 
+		chatActions.whoami, 
+		{}, 
+		'Qmmyagenthash'
+	],
+	[
+		'getIdentity', 
+		chatActions.getIdentity, 
+		{}, 
+		{handle: 'wollum', hash: 'Qmmyagenthash', avatar: ''}
+	],
+	[
+		'setIdentity', 
+		chatActions.setIdentity, 
+		{handle: 'newHandle', avatar: ''}, 
+		true
+	],
 ]
 
 asyncActionTestTable.forEach(([name, actionCreator, testInput, testResponse]) => {
