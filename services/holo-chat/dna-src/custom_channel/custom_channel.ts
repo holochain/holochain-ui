@@ -22,7 +22,7 @@ function createCustomChannel(payload: ChannelSpec): holochain.Hash {
   const members = payload.members
   members.push(App.Key.Hash)
 
-  let channel: Channel = {
+  let channel: any = {
     id: uuidGenerator(),
     name: payload.name,
     description: payload.description
@@ -71,8 +71,9 @@ function getMyChannels(): Array<Channel> | holochain.HolochainError {
     my_channels = getLinks(App.Key.Hash, "my_channels", { Load: true });
     return my_channels.map((elem) => { 
       return {
-        ...elem.Entry,
-        id: elem.Hash
+        name: elem.Entry.name,
+        description: elem.Entry.description,
+        hash: elem.Hash
       }
     });
   } catch (e) {

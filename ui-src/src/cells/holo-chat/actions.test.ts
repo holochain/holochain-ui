@@ -39,7 +39,7 @@ describe('createCustomChannel action', () => {
 
 	it('should create an action that is correctly structured given parameters', () => {
 
-		expect(chatActions.createCustomChannel(['123abc'])).toEqual(expectedAction)
+		expect(chatActions.createCustomChannel({name: 'test channel', description: '', members: ['123abc']})).toEqual(expectedAction)
 	})
 
 
@@ -55,7 +55,7 @@ describe('createCustomChannel action', () => {
 						channel: 'holo-chat',
 						zome: 'custom_channel',
 						func: 'createCustomChannel',
-						data: {members: ['123abc']}
+						data: {name: 'test channel', description: '', members: ['123abc']}
 					}
 				}
 			}

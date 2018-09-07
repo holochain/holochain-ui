@@ -4,9 +4,9 @@ import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import {List, ListItem } from '@material-ui/core'
 import MessageView from './messageView'
 import {Message as MessageType} from '../../types/view/message'
-import {Message as ModelMessage} from '../../types/model/message'
+import {MessageSpec} from '../../types/model/message'
 import {Channel as ChannelType} from '../../types/view/channel'
-import {Identity} from '../../reducer'
+import { Identity } from '../../types/model/identity'
 // import {Message as MessageType} from '../../types/message'
 import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
@@ -37,7 +37,7 @@ interface MessagesProps {
   getMessages: (channelUUID: string) => void,
   getMembers: (channelUUID: string) => void,
   whoami: () => void,
-  sendMessage: (message: ModelMessage) => void
+  sendMessage: (payload: {channelHash: string, message: MessageSpec}) => void
 }
 
 
@@ -75,9 +75,11 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     console.log(this.state.message)
     // call holochain here.
     this.props.sendMessage({
-      channelId: this.props.channel,
-      content: {
-        text: this.state.message
+      channelHash: this.props.channel,
+      message: {
+        content: {
+          text: this.state.message
+        }
       }
     })
     this.setState({message: ''})

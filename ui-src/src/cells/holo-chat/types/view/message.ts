@@ -1,5 +1,5 @@
 import {Message as ModelMessage} from '../model/message'
-import {Identity} from '../../reducer'
+import {Identity} from '../model/identity'
 
 export type Message = ModelMessage & { type: MessageType } | any
 

@@ -62,7 +62,11 @@ function getMyChannels() {
     try {
         my_channels = getLinks(App.Key.Hash, "my_channels", { Load: true });
         return my_channels.map(function (elem) {
-            return __assign({}, elem.Entry, { id: elem.Hash });
+            return {
+                name: elem.Entry.name,
+                description: elem.Entry.description,
+                hash: elem.Hash
+            };
         });
     }
     catch (e) {

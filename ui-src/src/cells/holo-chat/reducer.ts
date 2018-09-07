@@ -2,7 +2,7 @@ import { ActionType, getType } from 'typesafe-actions';
 import * as chatActions from './actions'
 import {Channel} from './types/model/channel'
 import {Message} from './types/model/message'
-
+import {Identity} from './types/model/identity'
 
 // create a union type that is all possible chat actions
 export type ChatAction = ActionType<typeof chatActions>;

@@ -1,9 +1,9 @@
 import { createAction, createAsyncAction } from 'typesafe-actions'
 // import { Channel } from './types/channel'
-import { Message } from './types/model/message'
-import { Channel } from './types/model/channel'
+import { Message, MessageSpec } from './types/model/message'
+import { Channel, ChannelSpec } from './types/model/channel'
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
-import { Identity, IdentitySpec } from './reducer'
+import { Identity, IdentitySpec } from './types/model/identity'
 /*
 Typed action creators. See (https://github.com/piotrwitek/typesafe-actions#createaction) for details
 
@@ -52,14 +52,14 @@ export const CreateCustomChannel = createAsyncAction(
 	'holochat/createCustomChannel',
 	'holochat/createCustomChannel_SUCCESS',
 	'holochat/createCustomChannel_FAILURE')
-<BridgeCallPayload<{members: Array<string>}>, BridgeCallResponse<string>, AxiosError>()
+<BridgeCallPayload<ChannelSpec>, BridgeCallResponse<string>, AxiosError>()
 // <calling payload type, success response type, error response type>S
 
 export const AddMembers = createAsyncAction(
 	'holochat/addMembers',
 	'holochat/addMembers_SUCCESS',
 	'holochat/addMembers_FAILURE')
-<BridgeCallPayload<{members: Array<string>}>, BridgeCallResponse<boolean>, AxiosError>()
+<BridgeCallPayload<{channelHash: string, members: Array<string>}>, BridgeCallResponse<boolean>, AxiosError>()
 
 export const GetMyChannels = createAsyncAction(
 	'holochat/getMyChannels', 
@@ -71,19 +71,19 @@ export const GetMembers = createAsyncAction(
 	'holochat/getMembers', 
 	'holochat/getMembers_SUCCESS', 
 	'holochat/getMembers_FAILURE')
-<BridgeCallPayload<{uuid: string}>, BridgeCallResponse<Array<Identity>>, AxiosError>()
+<BridgeCallPayload<{channelHash: string}>, BridgeCallResponse<Array<Identity>>, AxiosError>()
 
 export const PostMessage = createAsyncAction(
 	'holochat/postMessage', 
 	'holochat/postMessage_SUCCESS', 
 	'holochat/postMessage_FAILURE')
-<BridgeCallPayload<Message>, BridgeCallResponse<string>, AxiosError>()
+<BridgeCallPayload<{channelHash: string, message: MessageSpec}>, BridgeCallResponse<string>, AxiosError>()
 
 export const GetMessages = createAsyncAction(
 	'holochat/getMessages', 
 	'holochat/getMessages_SUCCESS', 
 	'holochat/getMessages_FAILURE')
-<BridgeCallPayload<{uuid: string}>, BridgeCallResponse<Array<Message>>, AxiosError>()
+<BridgeCallPayload<{channelHash: string}>, BridgeCallResponse<Array<Message>>, AxiosError>()
 
 export const Whoami = createAsyncAction(
 	'holochat/whoami', 
@@ -116,28 +116,28 @@ export const SetActiveChannel = createAction('holochat/setActiveChannel', resolv
 =            Action Creator Functions            =
 ================================================*/
 
-export const createCustomChannel = (members: Array<string>) => {
-	return CreateCustomChannel.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'createCustomChannel', {members}))
+export const createCustomChannel = (channelSpec: ChannelSpec) => {
+	return CreateCustomChannel.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'createCustomChannel', channelSpec))
 }
 
-export const addMembers = (members: Array<string>) => {
-	return AddMembers.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'addMembers', {members}))
+export const addMembers = (payload: {channelHash: string, members: Array<string>}) => {
+	return AddMembers.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'addMembers', payload))
 }
 
 export const getMyChannels = () => {
 	return GetMyChannels.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getMyChannels', {}))
 }
 
-export const getMembers = (uuid: string) => {
-	return GetMembers.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getMembers', {uuid}))
+export const getMembers = (channelHash: string) => {
+	return GetMembers.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getMembers', {channelHash}))
 }
 
-export const postMessage = (message: Message) => {
-	return PostMessage.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'postMessage', message))
+export const postMessage = (payload: {channelHash: string, message: Message}) => {
+	return PostMessage.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'postMessage', payload))
 }
 
-export const getMessages = (uuid: string) => {
-	return GetMessages.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getMessages', {uuid}))
+export const getMessages = (channelHash: string) => {
+	return GetMessages.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getMessages', {channelHash}))
 }
 
 export const whoami = () => {

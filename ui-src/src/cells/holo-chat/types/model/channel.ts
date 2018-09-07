@@ -6,7 +6,7 @@ export interface ChannelSpec {
 }
 
 export interface Channel {
-	id: string,
+	hash: string,
 	name?: string,
 	description?: string
 }
