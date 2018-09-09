@@ -178,6 +178,14 @@ function setIdentity(identity: IdentitySpec): boolean {
   return true;
 }
 
+function getUsers(): Array<Identity> {
+  return getLinks(App.DNA.Hash, 'directory').map((users) => {
+    return getLinks(users.Hash, 'identity', {Load: true}).map((elem) => {
+      return elem.Entry
+    })[0]
+  })
+}
+
 /*=====  End of Identity Stuff  ======*/
 
 
@@ -306,7 +314,6 @@ function isValidModifier(replaces: string, sources: any): boolean {
     return false;
 }
 function validateCommit(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
-  // debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
   return validate(entryName, entry, header, pkg, sources);
 }
 
@@ -342,7 +349,6 @@ function validatePut(entryName: any, entry: any, header: any, pkg: any, sources:
 }
 
 function validateMod(entryName: any, entry: any, header: any, replaces: any, pkg: any, sources: any): boolean {
-  // debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "replaces: " + replaces + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
   return true
 }
 
@@ -351,7 +357,6 @@ function validateDel(entryName: any, hash: any, pkg: any, sources: any): boolean
 }
 
 function validateLink(entryName: any, baseHash: any, links: any, pkg: any, sources: any): boolean {
-  //debug("entryName: "+entryName+" baseHash: "+ baseHash+" links: "+ links+" sources: "+ sources);
   switch (entryName) {
     case "custom_channel_link":
       return true;

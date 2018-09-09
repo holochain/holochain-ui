@@ -30,7 +30,8 @@
               "getMessages",
               "whoami",
               "getIdentity",
-              "setIdentity"
+              "setIdentity",
+              "getUsers"
             ],
             "Entries": [
               {
@@ -116,6 +117,11 @@
                 },
                 {
                   "Name": "setIdentity",
+                  "CallingType": "json",
+                  "Exposure": "public"
+                },
+                {
+                  "Name": "getUsers",
                   "CallingType": "json",
                   "Exposure": "public"
                 }

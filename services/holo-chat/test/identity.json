@@ -27,6 +27,13 @@
       "FnName": "getIdentity",
       "Input": "%key%",
       "Output": {"handle": "wollum", "avatar": "base64-str"}
+    },
+    {
+      "Convey": "4. Can get the list of identities",
+      "Zome": "custom_channel",
+      "FnName": "getUsers",
+      "Input": {},
+      "Output": [{"handle": "wollum", "avatar": "base64-str"}]
     }
   ]
 }

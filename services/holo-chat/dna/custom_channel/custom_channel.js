@@ -151,6 +151,13 @@ function setIdentity(identity) {
     }
     return true;
 }
+function getUsers() {
+    return getLinks(App.DNA.Hash, 'directory').map(function (users) {
+        return getLinks(users.Hash, 'identity', { Load: true }).map(function (elem) {
+            return elem.Entry;
+        })[0];
+    });
+}
 /*=====  End of Identity Stuff  ======*/
 /*=====  End of Public Zome Functions  ======*/
 /*=========================================
@@ -262,7 +269,6 @@ function isValidModifier(replaces, sources) {
         return false;
 }
 function validateCommit(entryName, entry, header, pkg, sources) {
-    // debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
     return validate(entryName, entry, header, pkg, sources);
 }
 function validate(entryName, entry, header, pkg, sources) {
@@ -295,14 +301,12 @@ function validatePut(entryName, entry, header, pkg, sources) {
     return true;
 }
 function validateMod(entryName, entry, header, replaces, pkg, sources) {
-    // debug("entry_type:" + entryName + "entry" + JSON.stringify(entry) + "header" + JSON.stringify(header) + "replaces: " + replaces + "PKG: " + JSON.stringify(pkg) + "sources" + sources);
     return true;
 }
 function validateDel(entryName, hash, pkg, sources) {
     return true;
 }
 function validateLink(entryName, baseHash, links, pkg, sources) {
-    //debug("entryName: "+entryName+" baseHash: "+ baseHash+" links: "+ links+" sources: "+ sources);
     switch (entryName) {
         case "custom_channel_link":
             return true;
