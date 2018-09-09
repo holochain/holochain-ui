@@ -14,6 +14,7 @@ export interface HoloChatState {
   activeChannel: Channel | null,
   activeChannelMembers: Array<Identity>,
   myHash: string | null,
+  users: Array<Identity>
 }
 
 
@@ -23,6 +24,7 @@ export const initialState: HoloChatState = {
   activeChannel: null,
   activeChannelMembers: [],
   myHash: null,
+  users: []
 }
 
 
@@ -54,6 +56,11 @@ export function holochatReducer (state = initialState, action: ChatAction) {
       return {
         ...state,
         myHash: action.payload.data
+      }
+    case getType(chatActions.GetUsers.success):
+      return {
+        ...state,
+        users: action.payload.data
       }
     default:
       return state
