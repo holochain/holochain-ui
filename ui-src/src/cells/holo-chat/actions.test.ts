@@ -108,6 +108,7 @@ asyncActionTestTable.forEach(([name, actionCreator, testInput, testResponse]) =>
 				expect(store.getActions()[1].payload.data).toEqual(testResponse)
 		    })
 		})
+		
 	})
 
 })

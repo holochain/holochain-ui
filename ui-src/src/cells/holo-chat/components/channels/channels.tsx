@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddIcon from '@material-ui/icons/Add'
-import { Channel as ChannelType } from '../../types/view/channel'
+import { Channel as ChannelType } from '../../types/model/channel'
 import withRoot from '../../../../withRoot';
 import {Route} from 'react-router-dom'
 
@@ -65,8 +65,8 @@ class Channels extends React.Component<ChannelsProps, {}> {
         {
           channels.map((channel: ChannelType, index: number) => (
                 <Route render={({history}) => (
-                  <ListItem id={channel} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
-                    <ListItemText primary={channel}/>
+                  <ListItem id={channel.hash} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
+                    <ListItemText primary={channel.name}/>
                   </ListItem>
                 )
               }

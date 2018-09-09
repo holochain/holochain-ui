@@ -5,7 +5,7 @@ import {List, ListItem } from '@material-ui/core'
 import MessageView from './messageView'
 import {Message as MessageType} from '../../types/view/message'
 import {MessageSpec} from '../../types/model/message'
-import {Channel as ChannelType} from '../../types/view/channel'
+import {Channel as ChannelType} from '../../types/model/channel'
 import { Identity } from '../../types/model/identity'
 // import {Message as MessageType} from '../../types/message'
 import TextField from '@material-ui/core/TextField'
@@ -52,8 +52,8 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     if(this.props.channel) {
       this.getMessageInterval = setInterval(() => {
         this.props.whoami()
-        this.props.getMessages(this.props.channel)
-        this.props.getMembers(this.props.channel)
+        this.props.getMessages(this.props.channel.hash)
+        this.props.getMembers(this.props.channel.hash)
       }, 200)
     }
   }
@@ -75,7 +75,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     console.log(this.state.message)
     // call holochain here.
     this.props.sendMessage({
-      channelHash: this.props.channel,
+      channelHash: this.props.channel.hash,
       message: {
         content: {
           text: this.state.message
