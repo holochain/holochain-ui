@@ -147,19 +147,19 @@ export const getMessages = (channelHash: string) => {
 }
 
 export const whoami = () => {
-	return Whoami.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'whoami', {}))
+	return Whoami.request(makeBridgeCallPayload('holo-chat', 'users', 'whoami', {}))
 }
 
 export const getIdentity = () => {
-	return GetIdentity.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getIdentity', {}))
+	return GetIdentity.request(makeBridgeCallPayload('holo-chat', 'users', 'getIdentity', {}))
 }
 
 export const setIdentity = (identity: IdentitySpec) => {
-	return SetIdentity.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'setIdentity', identity))	
+	return SetIdentity.request(makeBridgeCallPayload('holo-chat', 'users', 'setIdentity', identity))	
 }
 
 export const getUsers = () => {
-	return GetUsers.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getUsers', {}))	
+	return GetUsers.request(makeBridgeCallPayload('holo-chat', 'users', 'getUsers', {}))	
 }
 
 /*=====  End of Action Creator Functions  ======*/

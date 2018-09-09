@@ -26,14 +26,14 @@ afterEach(() => {
 	mock.reset()
 })
 
-function genExpectedAction(fname: string, data: any): any {
+function genExpectedAction(zome: string, fname: string, data: any): any {
 	return {
 		type: 'holochat/'+fname,
 		payload: {
 			request: {
 				data: {
 					channel: 'holo-chat',
-					zome: 'custom_channel',
+					zome: zome,
 					func: fname,
 					data: data
 				}
@@ -42,20 +42,23 @@ function genExpectedAction(fname: string, data: any): any {
 	}
 }
 
-const asyncActionTestTable: Array<[string, (input: any) => AnyAction, any, any]> = [
+const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, any, any]> = [
 	[
+		'custom_channel',
 		'createCustomChannel', 
 		chatActions.createCustomChannel, 
 		{name: 'test channel', description: '', members: ['123abc']}, 
 		'channel-hash-12345'
 	],
 	[
+		'custom_channel',
 		'addMembers', 
 		chatActions.addMembers, 
 		{channelHash: 'Qmchannelhash', members: ['123abc']}, 
 		true
 	],
 	[
+		'custom_channel',
 		'getMyChannels', 
 		chatActions.getMyChannels, 
 		{}, 
@@ -63,6 +66,7 @@ const asyncActionTestTable: Array<[string, (input: any) => AnyAction, any, any]>
 	],
 	//TODO: add test for getMembers
 	[
+		'custom_channel',
 		'postMessage', 
 		chatActions.postMessage, 
 		{channelHash: 'Qmchanelhash', message: {content:{text:'message body'}}}, 
@@ -70,24 +74,28 @@ const asyncActionTestTable: Array<[string, (input: any) => AnyAction, any, any]>
 	],
 	//TODO: add test for getMessages
 	[
+		'users',
 		'whoami', 
 		chatActions.whoami, 
 		{}, 
 		'Qmmyagenthash'
 	],
 	[
+		'users',
 		'getIdentity', 
 		chatActions.getIdentity, 
 		{}, 
 		{handle: 'wollum', hash: 'Qmmyagenthash', avatar: ''}
 	],
 	[
+		'users',
 		'setIdentity', 
 		chatActions.setIdentity, 
 		{handle: 'newHandle', avatar: ''}, 
 		true
 	],
 	[
+		'users',
 		'getUsers', 
 		chatActions.getUsers, 
 		{}, 
@@ -95,11 +103,11 @@ const asyncActionTestTable: Array<[string, (input: any) => AnyAction, any, any]>
 	],
 ]
 
-asyncActionTestTable.forEach(([name, actionCreator, testInput, testResponse]) => {
+asyncActionTestTable.forEach(([zome, name, actionCreator, testInput, testResponse]) => {
 
 	describe(`${name} action`, () => {
 
-		const expectedAction = genExpectedAction(name, testInput)
+		const expectedAction = genExpectedAction(zome, name, testInput)
 
 		it('should create an action that is correctly structured given parameters', () => {
 			expect(actionCreator(testInput)).toEqual(expectedAction)
