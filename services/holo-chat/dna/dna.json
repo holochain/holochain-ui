@@ -27,11 +27,7 @@
               "getMembers",
               "getMyChannels",
               "postMessage",
-              "getMessages",
-              "whoami",
-              "getIdentity",
-              "setIdentity",
-              "getUsers"
+              "getMessages"
             ],
             "Entries": [
               {
@@ -61,17 +57,6 @@
               {
                 "Name": "message_link",
                 "DataFormat": "links"
-              },
-              {
-                "Name": "identity",
-                "DataFormat": "json",
-                "SchemaFile": "identity.json",
-                "Sharing": "public"
-              },
-              {
-                "Name": "identity_links",
-                "DataFormat": "links",
-                "Sharing": "public"
               }
             ],
             "Functions": [
@@ -104,28 +89,58 @@
                   "Name": "getMessages",
                   "CallingType": "json",
                   "Exposure": "public"
-                },
-                {
-                  "Name": "whoami",
-                  "CallingType": "json",
-                  "Exposure": "public"
-                },
-                {
-                  "Name": "getIdentity",
-                  "CallingType": "json",
-                  "Exposure": "public"
-                },
-                {
-                  "Name": "setIdentity",
-                  "CallingType": "json",
-                  "Exposure": "public"
-                },
-                {
-                  "Name": "getUsers",
-                  "CallingType": "json",
-                  "Exposure": "public"
                 }
             ]
-        }
+        },
+        {
+              "Name": "users",
+              "Description": "Used to manage the directory of user identities",
+              "RibosomeType": "js",
+              "CodeFile": "users.js",
+              "Config": {
+                "ErrorHandling": "throwErrors"
+              },
+              "BridgeFuncs": [
+                "whoami",
+                "getIdentity",
+                "setIdentity",
+                "getUsers"
+              ],
+              "Entries": [
+                {
+                  "Name": "identity",
+                  "DataFormat": "json",
+                  "SchemaFile": "identity.json",
+                  "Sharing": "public"
+                },
+                {
+                  "Name": "identity_links",
+                  "DataFormat": "links",
+                  "Sharing": "public"
+                }
+              ],
+              "Functions": [
+                  {
+                    "Name": "whoami",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                  },
+                  {
+                    "Name": "getIdentity",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                  },
+                  {
+                    "Name": "setIdentity",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                  },
+                  {
+                    "Name": "getUsers",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                  }
+              ]
+          }
     ]
 }

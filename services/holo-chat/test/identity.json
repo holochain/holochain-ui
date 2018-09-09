@@ -2,35 +2,35 @@
   "Tests": [
     {
       "Convey": "0. Initial handle is set to agent string",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "getIdentity",
       "Input": "%key%",
       "Output": {"handle": "%agentstr%", "avatar": ""}
     },
     {
       "Convey": "1. Can retrieve own key hash using whoami",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "whoami",
       "Input": "",
       "Output": "%key%"
     },
     {
       "Convey": "2. Can update the indentity entry",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "setIdentity",
       "Input": {"handle": "wollum", "avatar": "base64-str"},
       "Output": true
     },
     {
       "Convey": "3. New identity can be retrieved",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "getIdentity",
       "Input": "%key%",
       "Output": {"handle": "wollum", "avatar": "base64-str"}
     },
     {
       "Convey": "4. Can get the list of identities",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "getUsers",
       "Input": {},
       "Output": [{"handle": "wollum", "avatar": "base64-str"}]

@@ -97,7 +97,7 @@ function getMembers(payload: {channelHash: holochain.Hash}): Array<Identity> | h
     return members.map((elem) => {
       return {
         hash: elem.Hash,
-        ...getIdentity(elem.Hash)
+        ...call('users', 'getIdentity', elem.Hash)
       };
     })
   } catch (e) {
@@ -148,45 +148,6 @@ function getMessages(payload: {channelHash: holochain.Hash}): Array<Message> | h
   }
 
 }
-
-
-/*======================================
-=            Identity Stuff            =
-======================================*/
-// TODO: Move to own zome 
-
-function whoami(): holochain.Hash {
-  return App.Key.Hash;
-}
-
-function getIdentity(keyHash: holochain.Hash): Identity {
-  return getLinks(keyHash, 'identity', {Load: true}).map((elem) => {
-    return elem.Entry;
-  })[0]
-}
-
-function setIdentity(identity: IdentitySpec): boolean {
-  // mark any old identites as deleted
-  const currentIdentity = getIdentity(App.Key.Hash)
-  if(currentIdentity) {
-    update('identity', identity, makeHash('identity', currentIdentity))
-  } else {
-    const idHash = commit('identity', identity);
-    commit('identity_links', { Links: [ { Base: App.Key.Hash, Link: idHash, Tag: 'identity' } ] })
-  }
-  
-  return true;
-}
-
-function getUsers(): Array<Identity> {
-  return getLinks(App.DNA.Hash, 'directory').map((users) => {
-    return getLinks(users.Hash, 'identity', {Load: true}).map((elem) => {
-      return elem.Entry
-    })[0]
-  })
-}
-
-/*=====  End of Identity Stuff  ======*/
 
 
 /*=====  End of Public Zome Functions  ======*/
@@ -262,9 +223,6 @@ function addTestData() {
 
 function genesis() {
   addTestData();
-  setIdentity({handle: App.Agent.String, avatar: ''});
-  // link hash to root on genesis
-  commit('identity_links', { Links: [ { Base: App.DNA.Hash, Link: App.Key.Hash, Tag: 'directory' } ] })
   return true;
 }
 
@@ -272,80 +230,17 @@ function bridgeGenesis(side, dna, appData) {
   return true;
 }
 
-// Check if the pub_hash is a member of the
-function isValidAdmin(base_hash: string, entry_source: string): boolean {
-  debug("Checking if Agent is an Admin..");
-  //Checking if the Creator is trying to add people to the channel
-  let source: any;
-  try {
-    source = get(base_hash, { GetMask: HC.GetMask.Sources });
-  } catch (e) {
-    return false;
-  }
-  //Added the creater of the channel as a member of the channel
-  if (JSON.stringify(source) === JSON.stringify(entry_source)) {
-    //debug("Adding Channel Creator as a member of the channel")
-    return true;
-  }
-  //Checking to see if members are trying to add new members to the channel
-  let members: any;
-  try {
-    members = getLinks(base_hash, "channel_members", { Load: true });
-  } catch (e) {
-    debug("Channels Dosnt Exist " + e);
-    return false;
-  }
-  let access: boolean = members.some((member) => {
-    return member.Hash == entry_source
-  });
-  return access;
-}
-// Check to validate if the same user that created the message is modifying the message
-function isValidModifier(replaces: string, sources: any): boolean {
-  let old_message: any;
-  try {
-    old_message = get(replaces)
-  } catch (e) {
-    debug("ERROR: isValidModifier() " + e)
-  }
-  if (old_message.author == sources[0])
-    return true;
-  else
-    return false;
-}
+
 function validateCommit(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
   return validate(entryName, entry, header, pkg, sources);
 }
 
 function validate(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
   return true
-  // switch (entryName) {
-  //   case "custom_channel_uuid":
-  //     return true;
-  //   case "custom_channel_details":
-  //     return true;
-  //   case "custom_channel_link":
-  //     return true;
-  //   case "channel_to_member_link":
-  //     return isValidAdmin(entry.Links[0].Base, sources);
-  //   case "member_to_channel_link":
-  //     //isValidAdmin(entry);
-  //     return true;
-  //   case "message":
-  //     return true;
-  //   case "message_link":
-  //     return true;
-  //   case "identity":
-  //     return true;
-  //   case "identity_links":
-  //     return true;
-  //   default:
-  //     return false;
-  // }
 }
 
 function validatePut(entryName: any, entry: any, header: any, pkg: any, sources: any): boolean {
-  return true;
+  return validate(entryName, entry, header, pkg, sources);
 }
 
 function validateMod(entryName: any, entry: any, header: any, replaces: any, pkg: any, sources: any): boolean {
@@ -357,20 +252,7 @@ function validateDel(entryName: any, hash: any, pkg: any, sources: any): boolean
 }
 
 function validateLink(entryName: any, baseHash: any, links: any, pkg: any, sources: any): boolean {
-  switch (entryName) {
-    case "custom_channel_link":
-      return true;
-    case "channel_to_member_link":
-      return true;
-    case "member_to_channel_link":
-      return true;
-    case "message_link":
-      return true;
-    case "identity_links":
-      return true;
-    default:
-      return false;
-  }
+  return true
 }
 
 function validatePutPkg(entryName) {

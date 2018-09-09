@@ -4,7 +4,7 @@
     {
     	"Time": 100,
       "Convey": "0. Initial handle is set to agent string",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "getIdentity",
       "Input": "%key%",
       "Output": {"handle": "%agentB_str%", "avatar": ""}
@@ -12,7 +12,7 @@
     {
       "Time": 2100,
       "Convey": "1. Can get the list of identities and see the other agent",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "getUsers",
       "Input": {},
       "Output": [
@@ -23,7 +23,7 @@
     {
       "Time": 4000,
       "Convey": "3. Can see the update that agent A made",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "getUsers",
       "Input": {},
       "Output": [

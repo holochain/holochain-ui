@@ -4,7 +4,7 @@
     {
       "Time": 0,
       "Convey": "0. Initial handle is set to agent string",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "getIdentity",
       "Input": "%key%",
       "Output": {"handle": "%agentA_str%", "avatar": ""}
@@ -12,7 +12,7 @@
     {
       "Time": 2000,
       "Convey": "1. Can get the list of identities and see the other agent",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "getUsers",
       "Input": {},
       "Output": [
@@ -23,7 +23,7 @@
     {
       "Time": 2500,
       "Convey": "2. Can update own indentity entry",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "setIdentity",
       "Input": {"handle": "wollum", "avatar": "base64-str"},
       "Output": true
@@ -31,7 +31,7 @@
     {
       "Time": 3000,
       "Convey": "3. New identity can be retrieved directly",
-      "Zome": "custom_channel",
+      "Zome": "users",
       "FnName": "getIdentity",
       "Input": "%key%",
       "Output": {"handle": "wollum", "avatar": "base64-str"}
