@@ -19,6 +19,22 @@
         {"handle": "%agentA_str%", "avatar": ""}, 
         {"handle": "%agentB_str%", "avatar": ""}
       ]
+    },
+    {
+      "Time": 2500,
+      "Convey": "2. Can update own indentity entry",
+      "Zome": "custom_channel",
+      "FnName": "setIdentity",
+      "Input": {"handle": "wollum", "avatar": "base64-str"},
+      "Output": true
+    },
+    {
+      "Time": 3000,
+      "Convey": "3. New identity can be retrieved directly",
+      "Zome": "custom_channel",
+      "FnName": "getIdentity",
+      "Input": "%key%",
+      "Output": {"handle": "wollum", "avatar": "base64-str"}
     }
 	]
 }

@@ -19,6 +19,17 @@
         {"handle": "%agentA_str%", "avatar": ""}, 
         {"handle": "%agentB_str%", "avatar": ""}
       ]
+    },
+    {
+      "Time": 4000,
+      "Convey": "3. Can see the update that agent A made",
+      "Zome": "custom_channel",
+      "FnName": "getUsers",
+      "Input": {},
+      "Output": [
+        {"handle": "wollum", "avatar": "base64-str"}, 
+        {"handle": "%agentB_str%", "avatar": ""}
+      ]
     }
 	]
 }
