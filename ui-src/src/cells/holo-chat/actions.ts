@@ -103,6 +103,12 @@ export const SetIdentity = createAsyncAction(
 	'holochat/setIdentity_FAILURE')
 <BridgeCallPayload<IdentitySpec>, BridgeCallResponse<boolean>, AxiosError>()
 
+export const GetUsers = createAsyncAction(
+	'holochat/getUsers', 
+	'holochat/getUsers_SUCCESS', 
+	'holochat/getUsers_FAILURE')
+<BridgeCallPayload<{}>, BridgeCallResponse<Array<Identity>>, AxiosError>()
+
 
 export const SetActiveChannel = createAction('holochat/setActiveChannel', resolve => {
   return (channel: Channel) => resolve(channel);
@@ -150,6 +156,10 @@ export const getIdentity = () => {
 
 export const setIdentity = (identity: IdentitySpec) => {
 	return SetIdentity.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'setIdentity', identity))	
+}
+
+export const getUsers = () => {
+	return GetUsers.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getUsers', {}))	
 }
 
 /*=====  End of Action Creator Functions  ======*/

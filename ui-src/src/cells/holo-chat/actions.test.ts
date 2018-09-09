@@ -87,6 +87,12 @@ const asyncActionTestTable: Array<[string, (input: any) => AnyAction, any, any]>
 		{handle: 'newHandle', avatar: ''}, 
 		true
 	],
+	[
+		'getUsers', 
+		chatActions.getUsers, 
+		{}, 
+		[{handle: 'wollum', hash: 'Qmmyagenthash', avatar: ''}]
+	],
 ]
 
 asyncActionTestTable.forEach(([name, actionCreator, testInput, testResponse]) => {
