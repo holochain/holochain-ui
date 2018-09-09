@@ -18,7 +18,7 @@
       "Convey": "2. Get member for the channel (UUID)",
       "Zome": "custom_channel",
       "FnName": "getMembers",
-      "Input": {"uuid": {"%result%":0}},
+      "Input": {"channelHash": {"%result%":0}},
       "RegExp": "(?s).*"
     },
     {

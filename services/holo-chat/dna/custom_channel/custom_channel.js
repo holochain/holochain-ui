@@ -80,12 +80,14 @@ function getMyChannels() {
  * @return {Array<Identity>} - Array of key hashes of members in channel
  */
 function getMembers(payload) {
+    debug('entering getMembers');
     var channelHash = payload.channelHash;
     var members;
     try {
         members = getLinks(channelHash, "channel_members", { Load: true });
         return members.map(function (elem) {
-            return __assign({ hash: elem.Hash }, call('users', 'getIdentity', elem.Hash));
+            debug(__assign({ hash: elem.Hash }, JSON.parse(call('users', 'getIdentity', JSON.stringify(elem.Hash)))));
+            return __assign({ hash: elem.Hash }, JSON.parse(call('users', 'getIdentity', JSON.stringify(elem.Hash))));
         });
     }
     catch (e) {

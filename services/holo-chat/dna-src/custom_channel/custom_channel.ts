@@ -90,6 +90,7 @@ function getMyChannels(): Array<Channel> | holochain.HolochainError {
  * @return {Array<Identity>} - Array of key hashes of members in channel
  */
 function getMembers(payload: {channelHash: holochain.Hash}): Array<Identity> | holochain.HolochainError {
+  debug('entering getMembers')
   const {channelHash} = payload
   let members: any;
   try {
@@ -97,7 +98,7 @@ function getMembers(payload: {channelHash: holochain.Hash}): Array<Identity> | h
     return members.map((elem) => {
       return {
         hash: elem.Hash,
-        ...call('users', 'getIdentity', elem.Hash)
+        ...JSON.parse(call('users', 'getIdentity', JSON.stringify(elem.Hash)))
       };
     })
   } catch (e) {
