@@ -30,7 +30,7 @@
       "Convey": "Check we can bridge to the new version of holo-chat",
       "Details": "Call get channels to test if the bridge is working",
       "Zome": "holochain",
-      "Input": "callBridgedFunction({'channel':'holo-chat','zome':'custom_channel','func':'getMyChannels','data':undefined}).length === 0",
+      "Input": "callBridgedFunction({'channel':'holo-chat','zome':'custom_channel','func':'getMyChannels','data':undefined}).length === 2",
       "Output": true,
       "Err": "",
       "Raw": true
