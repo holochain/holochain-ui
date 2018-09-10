@@ -41,7 +41,7 @@ const MakeAvatar = (props: {user: Identity}) => {
   }
 }
 
-export class AgentList extends React.Component<AgentListProps, AgentListState> {
+class AgentList extends React.Component<AgentListProps, AgentListState> {
   constructor(props: AgentListProps) {
     super(props)
     this.state = {
@@ -55,9 +55,6 @@ export class AgentList extends React.Component<AgentListProps, AgentListState> {
       ...this.state, 
       filterString: e.target.value
     })
-    if(this.props.selectionChanged) {
-      this.props.selectionChanged(this.state.selectedUsers)
-    }
   }
 
   onRowClick = (value: Identity) => () => {
@@ -75,7 +72,12 @@ export class AgentList extends React.Component<AgentListProps, AgentListState> {
       ...this.state,
       selectedUsers: newChecked,
     });
+
+    if(this.props.selectionChanged) {
+      this.props.selectionChanged(newChecked)
+    }
   };
+
 
   render() {
     const {classes, users} = this.props

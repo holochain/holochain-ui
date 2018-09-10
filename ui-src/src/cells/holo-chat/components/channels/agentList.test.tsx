@@ -1,9 +1,8 @@
 import * as React from "react";
-import AgentList, {AgentList as AgentListComponent, AgentListState, AgentListProps} from "./agentList";
+import AgentList, {AgentListState, AgentListProps} from "./agentList";
 import * as Enzyme from 'enzyme';
 import { mount, ReactWrapper } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
-import Avatar from '@material-ui/core/Avatar';
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -12,7 +11,7 @@ Enzyme.configure({ adapter: new Adapter() })
 
 export const agentListTest = describe('agentList component', () => {
   let props: AgentListProps
-  let mountedAgentList: ReactWrapper<AgentListProps, AgentListState, AgentListComponent> | undefined
+  let mountedAgentList: ReactWrapper<AgentListProps, AgentListState> | undefined
 
   const agentList = () => {
     if (!mountedAgentList) {
