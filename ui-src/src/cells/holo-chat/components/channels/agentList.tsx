@@ -24,7 +24,19 @@ interface AgentListProps {
   users: Array<Identity>
 }
 
+
+const MakeAvatar = (props: {user: Identity}) => {
+  const {user} = props
+  if(user.avatar && user.avatar.length > 0) {
+    return (<Avatar src={user.avatar}/>)
+  } else {
+    return (<Avatar>{user.handle[0]}</Avatar>)
+  }
+}
+
 class AgentList extends React.Component<AgentListProps, {}> {
+
+
 
   render() {
     const {classes, users} = this.props
@@ -41,7 +53,7 @@ class AgentList extends React.Component<AgentListProps, {}> {
           {
             users.map((user, i) => { return (
               <ListItem key={i} button={true} value={user.hash} className={classes.listItem}>
-                <Avatar alt={user.handle} src={user.avatar}/>
+                <MakeAvatar user={user}/>
                 <ListItemText primary={user.handle}/>
               </ListItem>
             )})

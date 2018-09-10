@@ -21,7 +21,7 @@ storiesOf('HoloChat/UserList', module)
   ))
   .add('Initially displays unfiltered list of all agents', () => {
     specs(() => agentListTest)
-    return <AgentList users={[{hash: '12334', handle:'wollum', avatar:avatar}]}/>
+    return <AgentList users={[{hash: '12334', handle:'wollum', avatar:avatar}, {hash: '1233', handle:'wollum2', avatar:''}]}/>
   })
 
 
