@@ -73,10 +73,10 @@ export const messages: Array<Message> = [
       content: {
         upVotes: 33,
         downVotes: 0,
-        description: 'Errand is running bridged so to add a card we can just call the Errand dna from the new up arrow (we\'ll get a Holocahin icon soon) button below :).',
+        description: 'New Channel feature makes it intuitive to add new channels with members.',
         avatar: '',
         productOwner: 'Phil',
-        title: 'Errand Action Button'
+        title: 'New Channel'
       },
       replies: []
     }

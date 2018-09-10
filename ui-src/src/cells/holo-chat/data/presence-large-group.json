@@ -170,175 +170,517 @@
     "begin": 160,
     "duration": 5
   },
-    {
-      "index": "8",
-      "id": "phil",
-      "type": 1,
-      "name": "Phil",
-      "begin": 0,
-      "duration": 90
-    },
-    {
-      "index": "9",
-      "id": "micah",
-      "type": 1,
-      "name": "Micah",
-      "begin": 100,
-      "duration": 90
-    },
-    {
-      "index": "10",
-      "id": "jean",
-      "type": 1,
-      "name": "Jean",
-      "begin": 100,
-      "duration": 150
-    },
-    {
-      "index": "11",
-      "type": 1,
-      "name": "C",
-      "begin": 100,
-      "duration": 150
-    },
-    {
-      "index": "12",
-      "type": 1,
-      "name": "Willem",
-      "begin": 15,
-      "duration": 100
-    },
-    {
-      "index": "13",
-      "type": 1,
-      "name": "Micah",
-      "begin": 100,
-      "duration": 90
-    },
-    {
-      "index": "14",
-      "type": 1,
-      "name": "Micah",
-      "begin": 100,
-      "duration": 90
-    },
-    {
-      "index": "8",
-      "type": 0,
-      "name": "Phil",
-      "begin": 10,
-      "duration": 25
-    },
-    {
-      "index": "8",
-      "type": 0,
-      "name": "Phil",
-      "begin": 45,
-      "duration": 15
-    },
-    {
-      "index": "8",
-      "type": 0,
-      "name": "Phil",
-      "begin": 75,
-      "duration": 10
-    },
-    {
-      "index": "9",
-      "type": 0,
-      "name": "Micah",
-      "begin": 110,
-      "duration": 15
-    },
-    {
-      "index": "9",
-      "type": 0,
-      "name": "Micah",
-      "begin": 170,
-      "duration": 15
-    },
-    {
-      "index": "10",
-      "type": 0,
-      "name": "Jean",
-      "begin": 110,
-      "duration": 15
-    },
-    {
-      "index": "10",
-      "type": 0,
-      "name": "Jean",
-      "begin": 170,
-      "duration": 15
-    },
-    {
-      "index": "11",
-      "type": 0,
-      "name": "Jean",
-      "begin": 110,
-      "duration": 15
-    },
-    {
-      "index": "11",
-      "type": 0,
-      "name": "Jean",
-      "begin": 170,
-      "duration": 15
-    },
-    {
-      "index": "12",
-      "type": 0,
-      "name": "Jean",
-      "begin": 110,
-      "duration": 25
-    },
-    {
-      "index": "12",
-      "type": 0,
-      "name": "Jean",
-      "begin": 25,
-      "duration": 25
-    },
-    {
-      "index": "13",
-      "type": 0,
-      "name": "Jean",
-      "begin": 120,
-      "duration": 5
-    },
-    {
-      "index": "13",
-      "type": 0,
-      "name": "Jean",
-      "begin": 140,
-      "duration": 15
-    },
-    {
-      "index": "13",
-      "type": 0,
-      "name": "Jean",
-      "begin": 160,
-      "duration": 5
-    },
-    {
-      "index": "14",
-      "type": 0,
-      "name": "Jean",
-      "begin": 120,
-      "duration": 5
-    },
-    {
-      "index": "14",
-      "type": 0,
-      "name": "Jean",
-      "begin": 140,
-      "duration": 15
-    },
-    {
-      "index": "14",
-      "type": 0,
-      "name": "Jean",
-      "begin": 160,
-      "duration": 5
-    }
+  {
+    "index": "8",
+    "id": "phil",
+    "type": 1,
+    "name": "Phil",
+    "begin": 0,
+    "duration": 90
+  },
+  {
+    "index": "9",
+    "id": "micah",
+    "type": 1,
+    "name": "Micah",
+    "begin": 100,
+    "duration": 90
+  },
+  {
+    "index": "10",
+    "id": "jean",
+    "type": 1,
+    "name": "Jean",
+    "begin": 100,
+    "duration": 150
+  },
+  {
+    "index": "11",
+    "type": 1,
+    "name": "C",
+    "begin": 100,
+    "duration": 150
+  },
+  {
+    "index": "12",
+    "type": 1,
+    "name": "Willem",
+    "begin": 15,
+    "duration": 100
+  },
+  {
+    "index": "13",
+    "type": 1,
+    "name": "Micah",
+    "begin": 100,
+    "duration": 90
+  },
+  {
+    "index": "14",
+    "type": 1,
+    "name": "Micah",
+    "begin": 100,
+    "duration": 90
+  },
+  {
+    "index": "8",
+    "type": 0,
+    "name": "Phil",
+    "begin": 10,
+    "duration": 25
+  },
+  {
+    "index": "8",
+    "type": 0,
+    "name": "Phil",
+    "begin": 45,
+    "duration": 15
+  },
+  {
+    "index": "8",
+    "type": 0,
+    "name": "Phil",
+    "begin": 75,
+    "duration": 10
+  },
+  {
+    "index": "9",
+    "type": 0,
+    "name": "Micah",
+    "begin": 110,
+    "duration": 15
+  },
+  {
+    "index": "9",
+    "type": 0,
+    "name": "Micah",
+    "begin": 170,
+    "duration": 15
+  },
+  {
+    "index": "10",
+    "type": 0,
+    "name": "Jean",
+    "begin": 110,
+    "duration": 15
+  },
+  {
+    "index": "10",
+    "type": 0,
+    "name": "Jean",
+    "begin": 170,
+    "duration": 15
+  },
+  {
+    "index": "11",
+    "type": 0,
+    "name": "Jean",
+    "begin": 110,
+    "duration": 15
+  },
+  {
+    "index": "11",
+    "type": 0,
+    "name": "Jean",
+    "begin": 170,
+    "duration": 15
+  },
+  {
+    "index": "12",
+    "type": 0,
+    "name": "Jean",
+    "begin": 110,
+    "duration": 25
+  },
+  {
+    "index": "12",
+    "type": 0,
+    "name": "Jean",
+    "begin": 25,
+    "duration": 25
+  },
+  {
+    "index": "13",
+    "type": 0,
+    "name": "Jean",
+    "begin": 120,
+    "duration": 5
+  },
+  {
+    "index": "13",
+    "type": 0,
+    "name": "Jean",
+    "begin": 140,
+    "duration": 15
+  },
+  {
+    "index": "13",
+    "type": 0,
+    "name": "Jean",
+    "begin": 160,
+    "duration": 5
+  },
+  {
+    "index": "14",
+    "type": 0,
+    "name": "Jean",
+    "begin": 120,
+    "duration": 5
+  },
+  {
+    "index": "14",
+    "type": 0,
+    "name": "Jean",
+    "begin": 140,
+    "duration": 15
+  },
+  {
+    "index": "14",
+    "type": 0,
+    "name": "Jean",
+    "begin": 160,
+    "duration": 5
+  },
+  {
+    "index": "15",
+    "id": "phil",
+    "type": 1,
+    "name": "Phil",
+    "begin": 60,
+    "duration": 90
+  },
+  {
+    "index": "16",
+    "id": "micah",
+    "type": 1,
+    "name": "Micah",
+    "begin": 160,
+    "duration": 90
+  },
+  {
+    "index": "17",
+    "id": "jean",
+    "type": 1,
+    "name": "Jean",
+    "begin": 160,
+    "duration": 150
+  },
+  {
+    "index": "18",
+    "type": 1,
+    "name": "C",
+    "begin": 160,
+    "duration": 150
+  },
+  {
+    "index": "19",
+    "type": 1,
+    "name": "Willem",
+    "begin": 75,
+    "duration": 100
+  },
+  {
+    "index": "20",
+    "type": 1,
+    "name": "Micah",
+    "begin": 160,
+    "duration": 90
+  },
+  {
+    "index": "21",
+    "type": 1,
+    "name": "Micah",
+    "begin": 160,
+    "duration": 180
+  },
+  {
+    "index": "15",
+    "type": 0,
+    "name": "Phil",
+    "begin": 160,
+    "duration": 25
+  },
+  {
+    "index": "15",
+    "type": 0,
+    "name": "Phil",
+    "begin": 205,
+    "duration": 15
+  },
+  {
+    "index": "15",
+    "type": 0,
+    "name": "Phil",
+    "begin": 135,
+    "duration": 10
+  },
+  {
+    "index": "16",
+    "type": 0,
+    "name": "Micah",
+    "begin": 170,
+    "duration": 15
+  },
+  {
+    "index": "16",
+    "type": 0,
+    "name": "Micah",
+    "begin": 240,
+    "duration": 15
+  },
+  {
+    "index": "17",
+    "type": 0,
+    "name": "Jean",
+    "begin": 140,
+    "duration": 15
+  },
+  {
+    "index": "17",
+    "type": 0,
+    "name": "Jean",
+    "begin": 270,
+    "duration": 15
+  },
+  {
+    "index": "18",
+    "type": 0,
+    "name": "Jean",
+    "begin": 110,
+    "duration": 15
+  },
+  {
+    "index": "18",
+    "type": 0,
+    "name": "Jean",
+    "begin": 170,
+    "duration": 15
+  },
+  {
+    "index": "19",
+    "type": 0,
+    "name": "Jean",
+    "begin": 110,
+    "duration": 25
+  },
+  {
+    "index": "19",
+    "type": 0,
+    "name": "Jean",
+    "begin": 25,
+    "duration": 25
+  },
+  {
+    "index": "20",
+    "type": 0,
+    "name": "Jean",
+    "begin": 120,
+    "duration": 5
+  },
+  {
+    "index": "20",
+    "type": 0,
+    "name": "Jean",
+    "begin": 140,
+    "duration": 15
+  },
+  {
+    "index": "20",
+    "type": 0,
+    "name": "Jean",
+    "begin": 160,
+    "duration": 5
+  },
+  {
+    "index": "21",
+    "type": 0,
+    "name": "Jean",
+    "begin": 120,
+    "duration": 5
+  },
+  {
+    "index": "21",
+    "type": 0,
+    "name": "Jean",
+    "begin": 140,
+    "duration": 15
+  },
+  {
+    "index": "21",
+    "type": 0,
+    "name": "Jean",
+    "begin": 160,
+    "duration": 5
+  },
+  {
+  "index": "22",
+    "id": "phil",
+    "type": 1,
+    "name": "Phil",
+    "begin": 240,
+    "duration": 90
+  },
+  {
+  "index": "23",
+    "id": "micah",
+    "type": 1,
+    "name": "Micah",
+    "begin": 280,
+    "duration": 90
+  },
+  {
+  "index": "24",
+    "id": "jean",
+    "type": 1,
+    "name": "Jean",
+    "begin": 300,
+    "duration": 150
+  },
+  {
+  "index": "25",
+    "type": 1,
+    "name": "C",
+    "begin": 290,
+    "duration": 150
+  },
+  {
+  "index": "26",
+    "type": 1,
+    "name": "Willem",
+    "begin": 275,
+    "duration": 100
+  },
+  {
+  "index": "27",
+    "type": 1,
+    "name": "Micah",
+    "begin": 350,
+    "duration": 90
+  },
+  {
+  "index": "28",
+    "type": 1,
+    "name": "Micah",
+    "begin": 160,
+    "duration": 180
+  },
+  {
+  "index": "22",
+    "type": 0,
+    "name": "Phil",
+    "begin": 240,
+    "duration": 25
+  },
+  {
+  "index": "22",
+    "type": 0,
+    "name": "Phil",
+    "begin": 245,
+    "duration": 15
+  },
+  {
+  "index": "22",
+    "type": 0,
+    "name": "Phil",
+    "begin": 215,
+    "duration": 10
+  },
+  {
+  "index": "23",
+    "type": 0,
+    "name": "Micah",
+    "begin": 290,
+    "duration": 15
+  },
+  {
+  "index": "23",
+    "type": 0,
+    "name": "Micah",
+    "begin": 320,
+    "duration": 15
+  },
+  {
+  "index": "24",
+    "type": 0,
+    "name": "Jean",
+    "begin": 320,
+    "duration": 15
+  },
+  {
+  "index": "24",
+    "type": 0,
+    "name": "Jean",
+    "begin": 380,
+    "duration": 15
+  },
+  {
+  "index": "25",
+    "type": 0,
+    "name": "Jean",
+    "begin": 300,
+    "duration": 15
+  },
+  {
+  "index": "25",
+    "type": 0,
+    "name": "Jean",
+    "begin": 120,
+    "duration": 15
+  },
+  {
+  "index": "26",
+    "type": 0,
+    "name": "Jean",
+    "begin": 140,
+    "duration": 25
+  },
+  {
+  "index": "26",
+    "type": 0,
+    "name": "Jean",
+    "begin": 325,
+    "duration": 25
+  },
+  {
+  "index": "27",
+    "type": 0,
+    "name": "Jean",
+    "begin": 70,
+    "duration": 5
+  },
+  {
+  "index": "27",
+    "type": 0,
+    "name": "Jean",
+    "begin": 140,
+    "duration": 15
+  },
+  {
+  "index": "27",
+    "type": 0,
+    "name": "Jean",
+    "begin": 160,
+    "duration": 5
+  },
+  {
+  "index": "28",
+    "type": 0,
+    "name": "Jean",
+    "begin": 120,
+    "duration": 5
+  },
+  {
+  "index": "28",
+    "type": 0,
+    "name": "Jean",
+    "begin": 140,
+    "duration": 15
+  },
+  {
+  "index": "28",
+    "type": 0,
+    "name": "Jean",
+    "begin": 160,
+    "duration": 5
+  }
 ]

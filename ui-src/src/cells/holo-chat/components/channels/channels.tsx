@@ -56,7 +56,7 @@ class Channels extends React.Component<ChannelsProps, {}> {
       <AddIcon/>
       </Button>
       <Typography variant='display1'>
-        Channels HI NICO
+        Channels
       </Typography>
       <Typography variant='body1' gutterBottom={true}>
         Here's your Channels
