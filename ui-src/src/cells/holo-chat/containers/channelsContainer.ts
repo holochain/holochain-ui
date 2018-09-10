@@ -23,7 +23,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
   	getMyChannels: () => { dispatch(getMyChannels()) },
-  	newChannel: () => { dispatch(createCustomChannel([])) }, //TODO: let this accept a channel spec object
+  	newChannel: () => { dispatch(createCustomChannel({name: 'new channel', description: 'new channel', members: []})) }, //TODO: let this accept a channel spec object
     setActiveChannel: (channel: Channel) => { dispatch( SetActiveChannel(channel) )}
   }
 }

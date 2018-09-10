@@ -5,7 +5,7 @@ import Messages from '../components/messages/messages'
 // import {HoloChatState} from '../reducer'
 import {Dispatch} from 'redux'
 import {modelMessagesToViewMessages} from '../types/view/message'
-import {Message} from '../types/model/message'
+import {MessageSpec} from '../types/model/message'
 import {
 	getMessages,
 	getMembers,
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 		getMessages: (channelUUID: string) => dispatch(getMessages(channelUUID)),
 		getMembers:  (channelUUID: string) => dispatch(getMembers(channelUUID)),
 		whoami: () => dispatch(whoami()),
-		sendMessage: (message: Message) => dispatch(postMessage(message))
+		sendMessage: (payload: {message: MessageSpec, channelHash: string}) => dispatch(postMessage(payload))
 	}
 }
 
