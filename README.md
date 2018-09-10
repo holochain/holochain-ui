@@ -1,5 +1,5 @@
-# identity-manager
-A Holochain app (hApp) built to allow people to manage how other hApps access their personal information.
+# Holochian UI
+A Holochain app (hApp) that you can add your own hApps to.
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/holochain/holochain-ui.svg)
 ![GitHub](https://img.shields.io/github/license/holochain/holochain-ui.svg)
@@ -27,7 +27,7 @@ hcdev  -agentID="{'KeyMgtAppDNA':'QmSRE81MdaGdupbQfR9qafi3F8x1EDqfMMRWY9TXrzD7cV
 
 
 ## Built With
-[React](https://reactjs.org/) 
+[React](https://reactjs.org/)
 
 [Redux](https://redux.js.org/)
 

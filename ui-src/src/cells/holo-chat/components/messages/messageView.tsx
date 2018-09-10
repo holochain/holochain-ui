@@ -80,10 +80,10 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 })
 
 function VoteControls (props: any) {
-  // handleThumbsUp = () => {
-  //   console.log('up')
-  //   // this.togglePopover()
-  // }
+  const handleThumbsUp = () => {
+    console.log('up')
+    // this.togglePopover()
+  }
   // handleThumbsDown = () => {
   //   console.log('down')
   //   // this.togglePopover()
@@ -92,7 +92,7 @@ function VoteControls (props: any) {
   if (props.isHovered) {
     return (
       <div style={{position: 'absolute',top: -16,right: -9, width: 'auto', height:'auto', marginHorizontal:10, paddingHorizontal:10, marginVertical:0, backgroundColor:'white', border: 'thin solid lightgrey'} as React.CSSProperties}>
-        <IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbUp'>
+        <IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} onClick={handleThumbsUp} aria-label='ThumbUp'>
           <ThumbUp />
         </IconButton>
         <IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbDown'>
