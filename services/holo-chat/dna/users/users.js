@@ -3,6 +3,11 @@ var module = {};
 /*=============================================
 =            Public Zome Functions            =
 =============================================*/
+/**
+ * Return the key hash of this agent
+ *
+ * @return     {holochain.Hash}  Key hash of agent
+ */
 function whoami() {
     return App.Key.Hash;
 }
@@ -11,6 +16,12 @@ function getIdentity(keyHash) {
         return elem.Entry;
     })[0];
 }
+/**
+ * Sets the identity.
+ *
+ * @param      {IdentitySpec}  identity  The identity
+ * @return     {boolean}  Returns true if successful in setting identity
+ */
 function setIdentity(identity) {
     // mark any old identites as deleted
     var currentIdentity = getIdentity(App.Key.Hash);
@@ -23,15 +34,36 @@ function setIdentity(identity) {
     }
     return true;
 }
+/**
+ * Gets all the users of this DNA
+ *
+ * @return     {Array<Identity>}  Array of the identies of all users
+ */
 function getUsers() {
     return getLinks(App.DNA.Hash, 'directory').map(function (users) {
+        debug(users);
         return getLinks(users.Hash, 'identity', { Load: true }).map(function (elem) {
             return elem.Entry;
         })[0];
     });
 }
 /*=====  End of Public Zome Functions  ======*/
+function generateTestData() {
+    var identities = [
+        { handle: 'Willem', avatar: '' },
+        { handle: 'Philip', avatar: '' },
+        { handle: 'Jean', avatar: '' },
+        { handle: 'Micah', avatar: '' },
+        { handle: 'Celestial', avatar: '' }
+    ].forEach(function (identity) {
+        var idHash = commit('identity', identity);
+        var keyHash = commit('fake_hash', identity.handle);
+        commit('identity_links', { Links: [{ Base: App.DNA.Hash, Link: keyHash, Tag: 'directory' }] });
+        commit('identity_links', { Links: [{ Base: keyHash, Link: idHash, Tag: 'identity' }] });
+    });
+}
 function genesis() {
+    generateTestData();
     setIdentity({ handle: App.Agent.String, avatar: '' });
     commit('identity_links', { Links: [{ Base: App.DNA.Hash, Link: App.Key.Hash, Tag: 'directory' }] });
     return true;

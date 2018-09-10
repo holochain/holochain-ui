@@ -50,6 +50,7 @@ function setIdentity(identity: IdentitySpec): boolean {
  */
 function getUsers(): Array<Identity> {
   return getLinks(App.DNA.Hash, 'directory').map((users) => {
+    debug(users)
     return getLinks(users.Hash, 'identity', {Load: true}).map((elem) => {
       return elem.Entry
     })[0]
@@ -59,7 +60,24 @@ function getUsers(): Array<Identity> {
 
 /*=====  End of Public Zome Functions  ======*/
 
+
+function generateTestData() {
+  const identities = [
+    {handle: 'Willem', avatar: ''},
+    {handle: 'Philip', avatar: ''},
+    {handle: 'Jean', avatar: ''},
+    {handle: 'Micah', avatar: ''},
+    {handle: 'Celestial', avatar: ''}
+  ].forEach((identity) => {
+    const idHash = commit('identity', identity)
+    const keyHash = commit('fake_hash', identity.handle)
+    commit('identity_links', { Links: [ { Base: App.DNA.Hash, Link: keyHash, Tag: 'directory' } ] })
+    commit('identity_links', { Links: [ { Base: keyHash, Link: idHash, Tag: 'identity' } ] })
+  })
+}
+
 function genesis() {
+  generateTestData()
   setIdentity({handle: App.Agent.String, avatar: ''});
   commit('identity_links', { Links: [ { Base: App.DNA.Hash, Link: App.Key.Hash, Tag: 'directory' } ] })
   return true;

@@ -86,7 +86,6 @@ function getMembers(payload) {
     try {
         members = getLinks(channelHash, "channel_members", { Load: true });
         return members.map(function (elem) {
-            debug(__assign({ hash: elem.Hash }, JSON.parse(call('users', 'getIdentity', JSON.stringify(elem.Hash)))));
             return __assign({ hash: elem.Hash }, JSON.parse(call('users', 'getIdentity', JSON.stringify(elem.Hash))));
         });
     }
