@@ -24,6 +24,11 @@ interface AgentListProps {
   users: Array<Identity>
 }
 
+interface AgentListState {
+  filterString: string,
+  selectedAgents: Array<Identity>
+}
+
 
 const MakeAvatar = (props: {user: Identity}) => {
   const {user} = props
@@ -34,9 +39,21 @@ const MakeAvatar = (props: {user: Identity}) => {
   }
 }
 
-class AgentList extends React.Component<AgentListProps, {}> {
+class AgentList extends React.Component<AgentListProps, AgentListState> {
+  constructor(props: AgentListProps) {
+    super(props)
+    this.state = {
+      filterString: '',
+      selectedAgents: []
+    }
+  }
 
-
+  onFilterStringChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      ...this.state, 
+      filterString: e.target.value
+    })
+  }
 
   render() {
     const {classes, users} = this.props
@@ -48,10 +65,14 @@ class AgentList extends React.Component<AgentListProps, {}> {
         <Input
           id="filter-bar"
           placeholder="filter"
+          value={this.state.filterString}
+          onChange={this.onFilterStringChange}
         />
         <List id="users" component="nav">
           {
-            users.map((user, i) => { return (
+            users
+            .filter((user) => {return user.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1})
+            .map((user, i) => { return (
               <ListItem key={i} button={true} value={user.hash} className={classes.listItem}>
                 <MakeAvatar user={user}/>
                 <ListItemText primary={user.handle}/>
