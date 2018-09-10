@@ -172,15 +172,22 @@ class MessageView extends Component<MessageProps, MessageState> {
   render () {
     const { classes, message } = this.props
 
+    if(!message.author) {
+      message.author = {
+        handle: '?',
+        avatar: ''
+      }
+    }
+
     return (
       <List
         style={{padding: 20,backgroundColor: (this.state.isHovered === true) ? '#f1f1f1' : 'white', }}
         dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
         <ListItem key={'1'} dense={true} >
           <ListItemAvatar >
-            <Avatar style={{marginTop: 10}} alt={message.author} src={message.avatar} />
+            <Avatar style={{marginTop: 10}} alt={message.author.handle} src={message.author.avatar} />
           </ListItemAvatar>
-          <ListItemText  className={classes.messageAuthor} primary={[message.author, message.timestamp].join(' ')} />
+          <ListItemText  className={classes.messageAuthor} primary={message.author.handle} />
           <VoteControls isHovered={this.state.isHovered} message={message} />
         </ListItem>
         <ListItem dense={true} className={classes.message}>
