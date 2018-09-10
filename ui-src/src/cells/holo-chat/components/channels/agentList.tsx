@@ -2,7 +2,6 @@ import * as React from 'react';
 import {withStyles, Theme, StyleRulesCallback} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Input from '@material-ui/core/Input';
 import Checkbox from '@material-ui/core/Checkbox'
@@ -83,9 +82,6 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
     const {classes, users} = this.props
     return (
       <div className={classes.root}>
-        <Typography variant='display1'>
-          Users
-        </Typography>
         <Input
           id="filter-bar"
           placeholder="filter"
@@ -102,7 +98,6 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
                 <ListItemText primary={user.handle}/>
                 <Checkbox
                   checked={this.state.selectedUsers.indexOf(user) !== -1}
-                  disableRipple
                 />
               </ListItem>
             )})
