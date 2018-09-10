@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Input from '@material-ui/core/Input';
+import Checkbox from '@material-ui/core/Checkbox'
 import ListItemText from '@material-ui/core/ListItemText';
 import withRoot from '../../../../withRoot';
 // import {Route} from 'react-router-dom'
@@ -26,7 +27,7 @@ interface AgentListProps {
 
 interface AgentListState {
   filterString: string,
-  selectedAgents: Array<Identity>
+  selectedUsers: Array<Identity>
 }
 
 
@@ -44,7 +45,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
     super(props)
     this.state = {
       filterString: '',
-      selectedAgents: []
+      selectedUsers: []
     }
   }
 
@@ -54,6 +55,23 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
       filterString: e.target.value
     })
   }
+
+  onRowClick = (value: Identity) => () => {
+    const checked = this.state.selectedUsers;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      ...this.state,
+      selectedUsers: newChecked,
+    });
+  };
 
   render() {
     const {classes, users} = this.props
@@ -73,9 +91,13 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
             users
             .filter((user) => {return user.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1})
             .map((user, i) => { return (
-              <ListItem key={i} button={true} value={user.hash} className={classes.listItem}>
+              <ListItem key={i} button={true} value={user.hash} className={classes.listItem} onClick={this.onRowClick(user)}>
                 <MakeAvatar user={user}/>
                 <ListItemText primary={user.handle}/>
+                <Checkbox
+                  checked={this.state.selectedUsers.indexOf(user) !== -1}
+                  disableRipple
+                />
               </ListItem>
             )})
           }
