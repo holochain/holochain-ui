@@ -88,19 +88,19 @@ function VoteControls (props: any) {
   //   console.log('down')
   //   // this.togglePopover()
   // }
+
   if (props.isHovered) {
     return (
       <div style={{position: 'absolute',top: -16,right: -9, width: 'auto', height:'auto', marginHorizontal:10, paddingHorizontal:10, marginVertical:0, backgroundColor:'white', border: 'thin solid lightgrey'} as React.CSSProperties}>
-        <IconButton    style={{display: (props.message.idea === true) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea'>
-          <Highlight />
-        </IconButton>
-<IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbUp'>
+        <IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbUp'>
           <ThumbUp />
         </IconButton>
         <IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbDown'>
           <ThumbDown />
         </IconButton>
-
+        <IconButton style={{display: (props.message.type === 0) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea'>
+          <Highlight />
+        </IconButton>
       </div>
     )
   } else {
@@ -109,7 +109,6 @@ function VoteControls (props: any) {
 }
 
 function MessageComponent (props: any) {
-  // console.log(props.message)
   switch (props.message.type) {
     case 0:
       return (

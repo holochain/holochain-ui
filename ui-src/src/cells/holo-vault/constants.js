@@ -313,6 +313,18 @@ export const profile6 = {
             "reason": "So promoters can find awesome Aussie talent"
           }
         ]
+      },
+      {
+        "appLabel": "timeZone",
+        "display": "Time Zone",
+        "required": true,
+        "type": "string",
+        "usage": [
+          {
+            "type": "display",
+            "reason": "So I can demonstrate Personas"
+          }
+        ]
       }
     ]
   },
