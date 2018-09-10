@@ -20,12 +20,13 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 });
 
 
-interface AgentListProps {
-  classes: any,
-  users: Array<Identity>
+export interface AgentListProps {
+  classes?: any,
+  users: Array<Identity>,
+  selectionChanged?: (selectedUsers: Array<Identity>) => void
 }
 
-interface AgentListState {
+export interface AgentListState {
   filterString: string,
   selectedUsers: Array<Identity>
 }
@@ -40,7 +41,7 @@ const MakeAvatar = (props: {user: Identity}) => {
   }
 }
 
-class AgentList extends React.Component<AgentListProps, AgentListState> {
+export class AgentList extends React.Component<AgentListProps, AgentListState> {
   constructor(props: AgentListProps) {
     super(props)
     this.state = {
@@ -54,6 +55,9 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
       ...this.state, 
       filterString: e.target.value
     })
+    if(this.props.selectionChanged) {
+      this.props.selectionChanged(this.state.selectedUsers)
+    }
   }
 
   onRowClick = (value: Identity) => () => {

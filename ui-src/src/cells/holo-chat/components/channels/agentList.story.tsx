@@ -1,17 +1,11 @@
 import * as React from 'react'
 import { storiesOf } from "@storybook/react";
 import { MemoryRouter } from 'react-router'
-import {configure} from 'enzyme'
-import * as Adapter from 'enzyme-adapter-react-16'
-
 
 import {agentListTest} from './agentList.test'
 import {specs} from 'storybook-addon-specifications'
 
 import AgentList from './agentList'
-
-configure({adapter: new Adapter()})
-// let store = CreateStore()
 
 
 
@@ -21,7 +15,7 @@ storiesOf('HoloChat/UserList', module)
   ))
   .add('Initially displays unfiltered list of all agents', () => {
     specs(() => agentListTest)
-    return <AgentList users={[{hash: '12334', handle:'wollum', avatar:avatar}, {hash: '1233', handle:'wollum2', avatar:''}]}/>
+    return <AgentList users={[{hash: '12334', handle:'wollum', avatar:avatar}, {hash: '1233', handle:'Sarah', avatar:''}, {hash: '1234', handle:'Nicksmith', avatar:''}]}/>
   })
 
 
