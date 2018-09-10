@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../withRoot';
 import Grid from '@material-ui/core/Grid'
+import presenceLargeGroup from '../cells/holo-chat/data/presence-large-group.json'
+import PresenceArcs from '../cells/holo-chat/components/presence/presenceArcs'
 
 const styles = theme => ({
   appBar: {
@@ -57,15 +59,11 @@ function Desktop(props) {
 
         <div className={classes.heroUnit}>
           <div className={classes.heroContent}>
-            <Typography variant="title" align="left" color="textSecondary" paragraph>
-              Im thinking this view should be some sort of amazing empathic signal vs noise dashboard.
+            <Typography variant="title" align="center" color="textSecondary" paragraph>
+              Organisation wide Presence Map
             </Typography>
 
-            <Grid container spacing={40}>
-              <Grid item key="empathy-signal-noise" sm={6} md={4} lg={3}>
-                <img align="left" width="900" src="https://image.slidesharecdn.com/learn2learn3-2-17-170301234059/95/linkedin-learning-what-were-learning-about-learning-92-1024.jpg?cb=1488412050" alt="Thanx" />
-              </Grid>
-            </Grid>
+            <PresenceArcs arcs={presenceLargeGroup} strokeWidth={2}/>
 
           </div>
         </div>

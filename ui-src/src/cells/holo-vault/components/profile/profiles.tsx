@@ -33,7 +33,7 @@ class Profiles extends React.Component<ProfilesProps, {}> {
           Profiles
         </Typography>
         <Typography variant='body1' gutterBottom={true}>
-          Each time an app asks for Profile Information it gets stored here so you can see exactly what your informaiton is being used for.
+          Each time an app asks for Profile Information it gets stored here so you can see exactly what your information is being used for.
         </Typography>
         <List>
           {

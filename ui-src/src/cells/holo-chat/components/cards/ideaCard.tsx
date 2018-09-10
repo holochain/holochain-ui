@@ -1,5 +1,6 @@
-import * as React from 'react';
-// import { withRouter } from 'react-router-dom'
+// import * as React from 'react';
+import { withRouter } from 'react-router-dom'
+import {RouteComponentProps} from "react-router";
 import withRoot from '../../../../withRoot';
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
 import {Card, CardActions, CardContent } from '@material-ui/core';
@@ -18,6 +19,7 @@ import ListItem from '@material-ui/core/List'
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import MessageView from '../messages/messageView'
 import  * as constants from '../../constants'
+import * as React from 'react';
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   card: {
@@ -54,7 +56,7 @@ interface IdeaCardProps {
   addCard: any
 }
 
-class IdeaCard extends React.Component<IdeaCardProps, {}> {
+class IdeaCard extends React.Component<IdeaCardProps & RouteComponentProps<{}>, {}> {
   state = {
     open: false,
   };
@@ -77,7 +79,7 @@ class IdeaCard extends React.Component<IdeaCardProps, {}> {
     this.props.addCard({id:'backlogid1111', title:this.props.idea.title, description: this.props.idea.description}, 'Inbox');
     this.props.addCard({id:'backlogid1112', title:'Describe how ' + this.props.idea.title + ' works', description: 'Write out the instructions for each state'}, 'Inbox');
     this.props.addCard({id:'backlogid1113', title:'Sketch of ' + this.props.idea.title, description: 'Sketch drawing'}, 'Inbox');
-    // this.props.history.push("/errand")
+    this.props.history.push("/errand")
   };
 
   render() {
@@ -161,4 +163,4 @@ class IdeaCard extends React.Component<IdeaCardProps, {}> {
 }
 
 
-export default withRoot(withStyles(styles)(IdeaCard));
+export default withRoot(withStyles(styles)(withRouter(IdeaCard)));
