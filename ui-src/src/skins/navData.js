@@ -10,7 +10,7 @@ import Apps from '@material-ui/icons/Apps'
 import Avatar from '@material-ui/core/Avatar'
 export const mainNav = (<Route render={({history}) => (
   <div>
-    <ListItem key="home" button onClick={() => { history.push('/')}}>
+    <ListItem key="home" button onClick={() => { history.push('/home')}}>
       <ListItemIcon>
         <Home/>
       </ListItemIcon>

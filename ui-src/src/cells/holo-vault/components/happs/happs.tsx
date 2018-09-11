@@ -10,6 +10,8 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import MediaQuery from 'react-responsive'
+
 // import listfeatures from './listFeatures.md'
 // import Markdown from 'react-markdown'
 
@@ -81,48 +83,75 @@ class Happs extends React.Component<HappsProps, {}> {
         {/* Hero unit */}
         <div className={classNames(classes.layout, classes.cardGrid)}>
           {/* End hero unit */}
-          <List id="hApps" component="nav">
-            {
-              happs.installedHapps.map((group, index) => (
-                <ListItem id={group.name} divider={true}>
-                  <List>
-                    <ListItem >
-                      <Typography variant="title" align="left" color="textSecondary" paragraph={true}>
-                        {group.name}
-                      </Typography>
-                    </ListItem>
-                    <ListItem>
-                      <Grid container={true} spacing={40}>
+          <MediaQuery minDeviceWidth={1025}>
+            <List id="hApps" component="nav">
+              {
+                happs.installedHapps.map((group, index) => (
+                  <ListItem id={group.name} divider={true}>
+                    <List>
+                      <ListItem >
+                        <Typography variant="title" align="left" color="textSecondary" paragraph={true}>
+                          {group.name}
+                        </Typography>
+                      </ListItem>
+                      <ListItem>
+                        <Grid container={true} spacing={40}>
+                          {group.hApps.map((app: App) => (
+                            <Grid item={true} key={app.name} sm={6} md={4} lg={3}>
+                              <Card>
+                                <CardMedia
+                                  className={classes.cardMedia}
+                                  image={app.image}
+                                  title={app.name}
+                                />
+                                <CardContent>
+                                  <Typography gutterBottom={true} variant="headline" component="h2">
+                                    {app.name}
+                                  </Typography>
+                                  <Typography>
+                                    {app.description}
+                                  </Typography>
+                                </CardContent>
+                                <CardActions>
+                                  <Button href={app.url} size="small" color="primary">
+                                    {app.buttonText}
+                                  </Button>
+                                </CardActions>
+                              </Card>
+                            </Grid>
+                          ))}
+                        </Grid>
+                      </ListItem>
+                    </List>
+                  </ListItem>))
+              }
+            </List>
+          </MediaQuery>
+          <MediaQuery  maxDeviceWidth={767}>
+            <List id="hApps" component="nav">
+              {
+                happs.installedHapps.map((group, index) => (
+                  <ListItem id={group.name} divider={true}>
+                    <List>
+                      <ListItem >
+                        <Typography variant="title" align="center" color="textSecondary" paragraph={true}>
+                          {group.name}
+                        </Typography>
+                      </ListItem>
+                      <ListItem>
                         {group.hApps.map((app: App) => (
-                          <Grid item={true} key={app.name} sm={6} md={4} lg={3}>
-                            <Card>
-                              <CardMedia
-                                className={classes.cardMedia}
-                                image={app.image}
-                                title={app.name}
-                              />
-                              <CardContent>
-                                <Typography gutterBottom={true} variant="headline" component="h2">
-                                  {app.name}
-                                </Typography>
-                                <Typography>
-                                  {app.description}
-                                </Typography>
-                              </CardContent>
-                              <CardActions>
-                                <Button href={app.url} size="small" color="primary">
-                                  {app.buttonText}
-                                </Button>
-                              </CardActions>
-                            </Card>
+                          <Grid item={true} key={app.name}>
+                            <Button href={app.url} size="small" color="primary">
+                              <img src={app.image} alt={app.name} width="75" height="75" />
+                            </Button>
                           </Grid>
                         ))}
-                      </Grid>
-                    </ListItem>
-                  </List>
-                </ListItem>))
-            }
-          </List>
+                      </ListItem>
+                    </List>
+                  </ListItem>))
+              }
+            </List>
+          </MediaQuery>
         </div>
       </main>
       <footer className={classes.footer}>
