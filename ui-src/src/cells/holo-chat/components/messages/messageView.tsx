@@ -97,7 +97,7 @@ function VoteControls (props: MessageState & {handleIdea: Function}) {
         <IconButton onClick={handleThumbsDown} style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbDown'>
           <ThumbDown />
         </IconButton>
-        <IconButton onClick={props.handleIdea(props.message)} style={{display: (props.message.type === 0) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea'>
+        <IconButton onClick={() => props.handleIdea(props.message)} style={{display: (props.message.type === 0) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea'>
           <Highlight />
         </IconButton>
       </div>
