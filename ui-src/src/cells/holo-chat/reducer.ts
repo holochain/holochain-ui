@@ -38,6 +38,7 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         myChannels: action.payload.data
       }
     case getType(chatActions.GetMessages.success):
+      console.log(action.payload.data)
       return {
         ...state,
         currentMessages: action.payload.data

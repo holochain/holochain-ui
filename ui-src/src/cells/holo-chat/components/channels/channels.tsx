@@ -85,8 +85,8 @@ class Channels extends React.Component<ChannelsProps, ChannelsState> {
       <List id="channels" component="nav">
         {
           channels.map((channel: ChannelType, index: number) => (
-                <Route render={({history}) => (
-                  <ListItem id={channel.hash} key={index} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
+                <Route key={index} render={({history}) => (
+                  <ListItem id={channel.hash} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
                     <ListItemText primary={channel.name}/>
                   </ListItem>
                 )

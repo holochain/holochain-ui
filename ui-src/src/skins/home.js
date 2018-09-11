@@ -120,14 +120,14 @@ class MiniDrawer extends React.Component {
     this.setState({ open: false });
   };
 
-  componentWillMount() {
-     this.unlisten = this.props.history.listen((location, action) => {
-       this.setState({ open: false })
-     });
-   }
-   componentWillUnmount() {
-       this.unlisten();
-   }
+  // componentWillMount() {
+  //    this.unlisten = this.props.history.listen((location, action) => {
+  //      this.setState({ open: false })
+  //    });
+  //  }
+  //  componentWillUnmount() {
+  //      this.unlisten();
+  //  }
 
   render() {
     const { classes, theme } = this.props;

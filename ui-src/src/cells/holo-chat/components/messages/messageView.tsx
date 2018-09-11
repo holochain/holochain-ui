@@ -97,7 +97,7 @@ function VoteControls (props: MessageState & {handleIdea: Function}) {
         <IconButton onClick={handleThumbsDown} style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbDown'>
           <ThumbDown />
         </IconButton>
-        <IconButton onClick={props.handleIdea(props.message)} style={{display: (props.message.type === 0) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea'>
+        <IconButton onClick={() => props.handleIdea(props.message)} style={{display: (props.message.type === 0) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea' >
           <Highlight />
         </IconButton>
       </div>
@@ -183,9 +183,17 @@ class MessageView extends Component<MessageProps, MessageState> {
   }
 
   onHandleIdea = (message: MessageType) => {
-    //message.type == 1
+    message.type = 1
+    message.content = {
+      upVotes: 33,
+      downVotes: 0,
+      description: 'Just turned into an Idea.',
+      avatar: '',
+      productOwner: 'Phil',
+      title: 'New Idea'
+    }
     console.log(message.type)
-    // this.setState({ message: message })
+    this.setState({ message: message })
   }
 
   render () {
@@ -197,9 +205,9 @@ class MessageView extends Component<MessageProps, MessageState> {
         dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
         <ListItem key={'1'} dense={true} >
           <ListItemAvatar >
-            <Avatar style={{marginTop: 10}} alt={this.state.message.author} src={this.state.message.author.avatar} />
+            <Avatar style={{marginTop: 10}} alt={this.state.message.author.handle} src={this.state.message.author.avatar} />
           </ListItemAvatar>
-          <ListItemText  className={classes.messageAuthor} primary={message.author} />
+          <ListItemText  className={classes.messageAuthor} primary={this.state.message.author.handle} />
           <VoteControls isHovered={this.state.isHovered} message={this.state.message} handleIdea={() => this.onHandleIdea(message)} />
         </ListItem>
         <ListItem dense={true} className={classes.message}>
