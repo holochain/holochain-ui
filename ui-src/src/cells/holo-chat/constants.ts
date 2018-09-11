@@ -67,7 +67,7 @@ export const messages: Array<Message> = [
     },
     {
       type: MessageType.IDEA,
-      author: 'Phil',
+      author: 'Jean',
       channelId: 'holochain',
       timestamp: 10,
       content: {
