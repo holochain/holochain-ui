@@ -182,7 +182,7 @@ class MessageView extends Component<MessageProps, MessageState> {
     this.setState({ isHovered: false })
   }
 
-  onHandleIdea (e: React.SyntheticEvent, message: MessageType) {
+  onHandleIdea = (message: MessageType) => {
     //message.type == 1
     console.log(message.type)
     // this.setState({ message: message })
@@ -200,7 +200,7 @@ class MessageView extends Component<MessageProps, MessageState> {
             <Avatar style={{marginTop: 10}} alt={this.state.message.author} src={this.state.message.author.avatar} />
           </ListItemAvatar>
           <ListItemText  className={classes.messageAuthor} primary={message.author} />
-          <VoteControls isHovered={this.state.isHovered} message={this.state.message} handleIdea={(e:React.SyntheticEvent) => this.onHandleIdea(e, message)} />
+          <VoteControls isHovered={this.state.isHovered} message={this.state.message} handleIdea={() => this.onHandleIdea(message)} />
         </ListItem>
         <ListItem dense={true} className={classes.message}>
           <MessageComponent message={this.state.message} classes={classes} />

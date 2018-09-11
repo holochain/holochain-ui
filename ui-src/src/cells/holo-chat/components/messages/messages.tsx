@@ -25,6 +25,19 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   button: {
     marginRight: theme.spacing.unit,
     marginTop: theme.spacing.unit
+  },
+  send: {
+    position: 'fixed',
+    bottom: 0,
+    width: '100%',
+    backgroundColor: '#fff',
+    height: 50
+  },
+  chatHistory: {
+    maxHeight: window.innerHeight,
+    overflow: 'auto',
+    boxShadow: 'none',
+    marginBottom: 50
   }
 })
 
@@ -98,7 +111,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
 
     return (
       <div>
-        <Paper style={{maxHeight: 400, overflow: 'auto', boxShadow: 'none'}}>
+        <Paper className={classes.chatHistory}>
             <List>
             {
               messages.map((message: any, index: number) => (
@@ -109,7 +122,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
             }
           </List>
         </Paper>
-        <div style={{position: 'absolute', bottom: 0, width: '100%', backgroundColor: '#fff'}}>
+        <div className={classes.send}>
           <TextField
               id="message"
               label="Chat message"
