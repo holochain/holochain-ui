@@ -8,6 +8,11 @@ let module = {}
 =            Public Zome Functions            =
 =============================================*/
 
+/**
+ * Return the key hash of this agent
+ *
+ * @return     {holochain.Hash}  Key hash of agent
+ */
 function whoami(): holochain.Hash {
   return App.Key.Hash;
 }
@@ -18,6 +23,13 @@ function getIdentity(keyHash: holochain.Hash): Identity {
   })[0]
 }
 
+
+/**
+ * Sets the identity.
+ *
+ * @param      {IdentitySpec}  identity  The identity
+ * @return     {boolean}  Returns true if successful in setting identity
+ */
 function setIdentity(identity: IdentitySpec): boolean {
   // mark any old identites as deleted
   const currentIdentity = getIdentity(App.Key.Hash)
@@ -27,12 +39,18 @@ function setIdentity(identity: IdentitySpec): boolean {
     const idHash = commit('identity', identity);
     commit('identity_links', { Links: [ { Base: App.Key.Hash, Link: idHash, Tag: 'identity' } ] })
   }
-  
   return true;
 }
 
+
+/**
+ * Gets all the users of this DNA
+ *
+ * @return     {Array<Identity>}  Array of the identies of all users
+ */
 function getUsers(): Array<Identity> {
   return getLinks(App.DNA.Hash, 'directory').map((users) => {
+    debug(users)
     return getLinks(users.Hash, 'identity', {Load: true}).map((elem) => {
       return elem.Entry
     })[0]
@@ -42,7 +60,24 @@ function getUsers(): Array<Identity> {
 
 /*=====  End of Public Zome Functions  ======*/
 
+
+function generateTestData() {
+  const identities = [
+    {handle: 'Willem', avatar: ''},
+    {handle: 'Philip', avatar: ''},
+    {handle: 'Jean', avatar: ''},
+    {handle: 'Micah', avatar: ''},
+    {handle: 'Celestial', avatar: ''}
+  ].forEach((identity) => {
+    const idHash = commit('identity', identity)
+    const keyHash = commit('fake_hash', identity.handle)
+    commit('identity_links', { Links: [ { Base: App.DNA.Hash, Link: keyHash, Tag: 'directory' } ] })
+    commit('identity_links', { Links: [ { Base: keyHash, Link: idHash, Tag: 'identity' } ] })
+  })
+}
+
 function genesis() {
+  generateTestData()
   setIdentity({handle: App.Agent.String, avatar: ''});
   commit('identity_links', { Links: [ { Base: App.DNA.Hash, Link: App.Key.Hash, Tag: 'directory' } ] })
   return true;

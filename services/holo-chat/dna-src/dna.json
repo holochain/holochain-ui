@@ -117,6 +117,11 @@
                   "Name": "identity_links",
                   "DataFormat": "links",
                   "Sharing": "public"
+                },
+                {
+                  "Name": "fake_hash",
+                  "DataFormat": "string",
+                  "Sharing": "public"
                 }
               ],
               "Functions": [
