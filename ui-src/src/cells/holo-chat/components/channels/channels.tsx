@@ -7,9 +7,11 @@ import Button from '@material-ui/core/Button';
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddIcon from '@material-ui/icons/Add'
-import { Channel as ChannelType } from '../../types/model/channel'
+import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
 import withRoot from '../../../../withRoot';
 import {Route} from 'react-router-dom'
+
+import NewChannel from '../../containers/newChannelContainer'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
@@ -23,12 +25,23 @@ interface ChannelsProps {
   channels: Array<ChannelType>,
 
   getMyChannels: () => void,
-  newChannel: () => void,
-  setActiveChannel: (channel: ChannelType) => void
+  newChannel: (channelSpec: ChannelSpec) => void,
+  setActiveChannel: (channel: ChannelType) => void,
+  getUsers: () => void
 }
 
-class Channels extends React.Component<ChannelsProps, {}> {
+interface ChannelsState {
+  modalOpen: boolean
+}
+
+class Channels extends React.Component<ChannelsProps, ChannelsState> {
   getChannelsInterval: any
+  constructor(props: ChannelsProps) {
+    super(props)
+    this.state = {
+      modalOpen: false
+    }
+  }
 
   componentDidMount() {
     console.log("get channels")
@@ -40,7 +53,13 @@ class Channels extends React.Component<ChannelsProps, {}> {
   }
 
   handleNewChannelButtonClick = () => {
-    this.props.newChannel()
+    this.props.getUsers()
+    this.setState({modalOpen: true})
+  }
+
+  addNewChannel = (channelSpec: ChannelSpec) => {
+    this.props.newChannel(channelSpec)
+    this.setState({modalOpen: false})
   }
 
   handleChannelListClick = (history: any, channel: ChannelType) => {
@@ -48,10 +67,10 @@ class Channels extends React.Component<ChannelsProps, {}> {
     history.push(`/holo-chat/messages`)
   }
 
-  // tslint:disable jsx-no-lambda
   render() {
     const {classes, channels} = this.props;
-    return (<div className={classes.root}>
+    return (
+    <div className={classes.root}>
       <Button variant='fab' onClick={this.handleNewChannelButtonClick}>
       <AddIcon/>
       </Button>
@@ -65,7 +84,7 @@ class Channels extends React.Component<ChannelsProps, {}> {
         {
           channels.map((channel: ChannelType, index: number) => (
                 <Route render={({history}) => (
-                  <ListItem id={channel.hash} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
+                  <ListItem id={channel.hash} key={index} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
                     <ListItemText primary={channel.name}/>
                   </ListItem>
                 )
@@ -73,7 +92,8 @@ class Channels extends React.Component<ChannelsProps, {}> {
             />
           ))
         }
-      </List>
+      </List>    
+      <NewChannel open={this.state.modalOpen} onSubmit={this.addNewChannel}/>
     </div>);
   }
 }
