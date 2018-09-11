@@ -31,7 +31,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     bottom: 0,
     width: '100%',
     backgroundColor: '#fff',
-    height: 50
+    height: 70
   },
   chatHistory: {
     maxHeight: window.innerHeight,
@@ -131,7 +131,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
               onChange={this.handleChange}
               margin="normal"
             />
-          <Button variant="fab" className={classes.button} onClick={this.handleSendMessage}>
+          <Button variant="fab" mini={true} className={classes.button} onClick={this.handleSendMessage}>
             <Send />
           </Button>
         </div>

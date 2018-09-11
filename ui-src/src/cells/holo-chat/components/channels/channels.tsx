@@ -17,6 +17,9 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     width: '100%',
     backgroundColor: theme.palette.background.paper
+  },
+  addButton: {
+    float: 'right'
   }
 });
 
@@ -69,10 +72,9 @@ class Channels extends React.Component<ChannelsProps, ChannelsState> {
 
   render() {
     const {classes, channels} = this.props;
-    return (
-    <div className={classes.root}>
-      <Button variant='fab' onClick={this.handleNewChannelButtonClick}>
-      <AddIcon/>
+    return (<div className={classes.root}>
+      <Button variant='fab' mini={true} onClick={this.handleNewChannelButtonClick} className={classes.addButton}>
+        <AddIcon/>
       </Button>
       <Typography variant='display1'>
         Channels
@@ -92,7 +94,7 @@ class Channels extends React.Component<ChannelsProps, ChannelsState> {
             />
           ))
         }
-      </List>    
+      </List>
       <NewChannel open={this.state.modalOpen} onSubmit={this.addNewChannel}/>
     </div>);
   }

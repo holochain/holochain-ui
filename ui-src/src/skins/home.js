@@ -45,7 +45,7 @@ const styles = theme => ({
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
-    display: 'flex',
+    display: 'flex'
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -120,7 +120,7 @@ class MiniDrawer extends React.Component {
     this.setState({ open: false });
   };
 
-  componentDidMount() {
+  componentWillMount() {
      this.unlisten = this.props.history.listen((location, action) => {
        this.setState({ open: false })
      });
@@ -193,6 +193,11 @@ class MiniDrawer extends React.Component {
                 <Desktop />
               </div>
             } />
+            <Route exact path='/' title='Holochain' render={props =>
+              <div>
+                <Desktop />
+              </div>
+            } />
             <Route path='/holo-chat/messages' title='Holochain' render={props =>
               <div>
                 <ArcsOfPresenceContainer />
@@ -205,6 +210,13 @@ class MiniDrawer extends React.Component {
           </MediaQuery>
           <MediaQuery maxDeviceWidth={767}>
             <Route exact path='/home' title='Holochain' component={Desktop} />
+            <Route exact path='/' title='Holochain' component={Desktop} />
+            <Route path='/holo-chat/messages' title='Holochain' render={props =>
+              <div>
+                <ArcsOfPresenceContainer />
+                <MessagesContainer />
+              </div>
+            } />
           </MediaQuery>
 
         </main>
