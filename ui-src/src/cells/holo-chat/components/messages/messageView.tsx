@@ -79,15 +79,14 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 })
 
-function VoteControls (props: any) {
+function VoteControls (props: MessageState & {handleIdea: Function}) {
   const handleThumbsUp = () => {
     console.log('up')
-    // this.togglePopover()
   }
-  // handleThumbsDown = () => {
-  //   console.log('down')
-  //   // this.togglePopover()
-  // }
+
+  const handleThumbsDown = () => {
+    console.log('down')
+  }
 
   if (props.isHovered) {
     return (
@@ -95,10 +94,10 @@ function VoteControls (props: any) {
         <IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} onClick={handleThumbsUp} aria-label='ThumbUp'>
           <ThumbUp />
         </IconButton>
-        <IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbDown'>
+        <IconButton onClick={handleThumbsDown} style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbDown'>
           <ThumbDown />
         </IconButton>
-        <IconButton style={{display: (props.message.type === 0) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea'>
+        <IconButton onClick={props.handleIdea(props.message)} style={{display: (props.message.type === 0) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea'>
           <Highlight />
         </IconButton>
       </div>
@@ -109,6 +108,7 @@ function VoteControls (props: any) {
 }
 
 function MessageComponent (props: any) {
+
   switch (props.message.type) {
     case 0:
       return (
@@ -141,17 +141,38 @@ interface MessageProps {
 }
 
 interface MessageState {
-  isHovered: boolean
+  isHovered: boolean,
+  message: MessageType & {avatar: string}
 }
 
 class MessageView extends Component<MessageProps, MessageState> {
   constructor (props: MessageProps) {
     super(props)
     this.state = {
-      isHovered: false
+      isHovered: false,
+      message: {
+        type: 0,
+        author: 'Phil',
+        channelId: 'holochain',
+        timestamp: 10,
+        content: {
+          text: 'Hey Micah, how are you doing?',
+        },
+        replies: []
+      },
     }
     this.onMessageBlur = this.onMessageBlur.bind(this)
     this.onMessageHover = this.onMessageHover.bind(this)
+  }
+
+  componentDidMount() {
+    if(!this.props.message.author) {
+      this.props.message.author = {
+        handle: '?',
+        avatar: ''
+      }
+    }
+    this.setState({ message: this.props.message })
   }
 
   onMessageHover (event: React.SyntheticEvent) {
@@ -161,37 +182,28 @@ class MessageView extends Component<MessageProps, MessageState> {
     this.setState({ isHovered: false })
   }
 
-  // style: function() {
-  //       if (this.state.isHovered) {
-  //         return { backgroundColor: "red" }
-  //       } else {
-  //         return { backgroundColor: "grey" }
-  //       }
-  //     }
+  onHandleIdea (e: React.SyntheticEvent, message: MessageType) {
+    //message.type == 1
+    console.log(message.type)
+    // this.setState({ message: message })
+  }
 
   render () {
     const { classes, message } = this.props
 
-    if(!message.author) {
-      message.author = {
-        handle: '?',
-        avatar: ''
-      }
-    }
-
     return (
       <List
-        style={{padding: 20,backgroundColor: (this.state.isHovered === true) ? '#f1f1f1' : 'white', }}
+        style={{padding: 20,backgroundColor: (this.state.isHovered === true) ? 'white' : 'white', }}
         dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
         <ListItem key={'1'} dense={true} >
           <ListItemAvatar >
-            <Avatar style={{marginTop: 10}} alt={message.author.handle} src={message.author.avatar} />
+            <Avatar style={{marginTop: 10}} alt={this.state.message.author} src={this.state.message.author.avatar} />
           </ListItemAvatar>
-          <ListItemText  className={classes.messageAuthor} primary={message.author.handle} />
-          <VoteControls isHovered={this.state.isHovered} message={message} />
+          <ListItemText  className={classes.messageAuthor} primary={message.author} />
+          <VoteControls isHovered={this.state.isHovered} message={this.state.message} handleIdea={(e:React.SyntheticEvent) => this.onHandleIdea(e, message)} />
         </ListItem>
         <ListItem dense={true} className={classes.message}>
-          <MessageComponent message={message} classes={classes} />
+          <MessageComponent message={this.state.message} classes={classes} />
         </ListItem>
       </List>
     )
