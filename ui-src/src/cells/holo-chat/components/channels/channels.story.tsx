@@ -1,5 +1,5 @@
 import * as React from 'react'
-// import {Provider} from 'react-redux'
+import {Provider} from 'react-redux'
 import { storiesOf } from "@storybook/react";
 import { MemoryRouter } from 'react-router'
 import { withNotes } from '@storybook/addon-notes'
@@ -10,12 +10,11 @@ import newChannel from './newChannel.md'
 import filterAgents from './filterAgents.md'
 import selectAgent from './selectAgent.md'
 import newChat from './newChat.md'
-// import CreateStore from '../../../../store'
+import CreateStore from '../../../../store'
 // import  * as constants from '../../constants'
 // import{Message as MessageType} from '../../types/message'
 import Channels from './channels'
-// import NewChannel from './newChannel'
-
+import NewChannel from './newChannel'
 import {specs} from 'storybook-addon-specifications'
 import { newChannelTests } from './newChannel.test'
 import { filterAgentsTests } from './filterAgents.test'
@@ -25,7 +24,7 @@ import { channelsTests } from './channels.test'
 import channelData from '../../data/channels.json'
 
 configure({adapter: new Adapter()})
-// let store = CreateStore()
+let store = CreateStore()
 
 function StartComponent () {
     return (
@@ -40,7 +39,7 @@ storiesOf('HoloChat/Channels', module)
   // .addDecorator(story => <Provider store={store}>{story()}</Provider>)
   .add('List my Channels', withNotes(listChannels) (() => {
     specs(() => channelsTests)
-      return <Channels channels={channelData} />
+      return <Provider store={store}><MemoryRouter initialEntries={['/']}><Channels channels={channelData} /></MemoryRouter></Provider>
   }))
   .add('Start a new Channel', withNotes(newChannel) (() => {
     specs(() => newChannelTests)
@@ -48,7 +47,7 @@ storiesOf('HoloChat/Channels', module)
   }))
   .add('Filter the list', withNotes(filterAgents) (() => {
     specs(() => filterAgentsTests)
-      return <StartComponent />
+    return <NewChannel open={true} users={[{hash: '12334', handle:'wollum', avatar:''}, {hash: '1233', handle:'Sarah', avatar:''}, {hash: '1234', handle:'Nicksmith', avatar:''}]}/>
   }))
   .add('Add people to the Channel', withNotes(selectAgent) (() => {
     specs(() => selectAgentTests)
