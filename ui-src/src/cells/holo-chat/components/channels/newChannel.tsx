@@ -71,7 +71,7 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
     const { classes } = this.props;
 
     return (
-      <Dialog open={this.props.open} aria-labelledby="simple-dialog-title">
+      <Dialog fullScreen={true} open={this.props.open} aria-labelledby="simple-dialog-title">
         <DialogTitle id="simple-dialog-title">Create Channel</DialogTitle>
 
         <Button color="primary" className={classes.button} onClick={this.onCreateChannelButtonClick}>

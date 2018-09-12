@@ -16,7 +16,7 @@ services:
       - bootstrap
     volumes:
       - "${TARGETDIR}:/holochain-ui"
-    command: bash -c "cd /holochain-ui && apt-get install moreutils jq && bash ./start_apps Willem 0 bootstrap:3142"
+    command: bash -c "cd /holochain-ui && apt-get update && apt-get install -y moreutils jq && bash ./start_apps Willem 0 bootstrap:3142"
 
   holochain-ui2:
     image: holochain/holochain-proto:develop
@@ -26,7 +26,7 @@ services:
       - bootstrap
     volumes:
       - "${TARGETDIR}:/holochain-ui"
-    command: bash -c "cd /holochain-ui && apt-get install moreutils jq && bash ./start_apps Philip 1 bootstrap:3142"
+    command: bash -c "cd /holochain-ui && apt-get update && apt-get install -y moreutils jq && bash ./start_apps Philip 1 bootstrap:3142"
 
   holochain-ui3:
     image: holochain/holochain-proto:develop
@@ -36,4 +36,4 @@ services:
       - bootstrap
     volumes:
       - "${TARGETDIR}:/holochain-ui"
-    command: bash -c "cd /holochain-ui && apt-get install moreutils jq && bash ./start_apps Micah 2 bootstrap:3142"
+    command: bash -c "cd /holochain-ui && apt-get update && apt-get install -y moreutils jq && bash ./start_apps Micah 2 bootstrap:3142"

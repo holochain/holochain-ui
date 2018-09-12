@@ -14,9 +14,5 @@ function getDNA(channel){
 
 function bridgeGenesis(side, dna, appData) {
   debug(App.Name + ' Bridged to: DNA: ' + dna)
-  var KeyMgtAppDNA = getDNA('holo-keys')
-  //var Agent = JSON.parse(App.Agent.String.replace(/'/g, '"').slice(0, App.Agent.String.indexOf('}') + 1))
-  var genesisPublicKey = bridge(KeyMgtAppDNA, 'verify', 'getGenesisPublicKey', '')
-  var signature = bridge(KeyMgtAppDNA, 'verify', 'getSignature', '')
-  return verifySignature(signature, 'Revocation Method', genesisPublicKey)
+  return true
 }
