@@ -1,0 +1,35 @@
+{
+  "Identity": "agent B",
+  "Tests" : [
+    {
+    	"Time": 100,
+      "Convey": "0. Initial handle is set to agent string",
+      "Zome": "users",
+      "FnName": "getIdentity",
+      "Input": "%key%",
+      "Output": {"handle": "%agentB_str%", "avatar": ""}
+    },
+    {
+      "Time": 2100,
+      "Convey": "1. Can get the list of identities and see the other agent",
+      "Zome": "users",
+      "FnName": "getUsers",
+      "Input": {},
+      "Output": [
+        {"handle": "%agentA_str%", "avatar": ""}, 
+        {"handle": "%agentB_str%", "avatar": ""}
+      ]
+    },
+    {
+      "Time": 4000,
+      "Convey": "3. Can see the update that agent A made",
+      "Zome": "users",
+      "FnName": "getUsers",
+      "Input": {},
+      "Output": [
+        {"handle": "wollum", "avatar": "base64-str"}, 
+        {"handle": "%agentB_str%", "avatar": ""}
+      ]
+    }
+	]
+}

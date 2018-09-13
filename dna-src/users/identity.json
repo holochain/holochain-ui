@@ -1,0 +1,8 @@
+{
+	"title": "Identity Schema",
+	"type": "object",
+	"properties": {
+		"handle" : {"type" : "string"},
+		"avatar" : {"type" : "string"}
+	}
+}
