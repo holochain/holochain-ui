@@ -111,6 +111,98 @@
             ]
         },
         {
+          "Name": "boards",
+          "Description": "Zome for the board details",
+          "CodeFile": "boards.js",
+          "RibosomeType": "js",
+          "BridgeFuncs": ["getBoardState","newCard","moveCard"],
+          "Config": {
+                  "ErrorHandling": "throwErrors"
+                },
+          "Entries": [{
+              "Name": "board",
+              "DataFormat": "json",
+              "Sharing": "public"
+            },
+            {
+              "Name": "board_link",
+              "DataFormat": "links"
+            },
+            {
+              "Name": "lane",
+              "DataFormat": "json",
+              "Sharing": "public"
+            },
+            {
+              "Name": "lane_link",
+              "DataFormat": "links"
+            },
+            {
+              "Name": "card",
+              "DataFormat": "json",
+              "Sharing": "public"
+            },
+            {
+              "Name": "card_link",
+              "DataFormat": "links"
+            },
+            {
+              "Name": "lable",
+              "DataFormat": "string",
+              "Sharing": "public"
+            },
+            {
+              "Name": "lable_link",
+              "DataFormat": "links"
+            },
+            {
+              "Name": "comment",
+              "DataFormat": "string",
+              "Sharing": "public"
+            },
+            {
+              "Name": "comment_link",
+              "DataFormat": "links"
+            }
+          ],
+          "Functions": [{
+              "Name": "newLane",
+              "CallingType": "json",
+              "Exposure": "public"
+            },
+            {
+              "Name": "getLanes",
+              "CallingType": "string",
+              "Exposure": "public"
+            },
+            {
+              "Name": "newCard",
+              "CallingType": "json",
+              "Exposure": "public"
+            },
+            {
+              "Name": "getCards",
+              "CallingType": "json",
+              "Exposure": "public"
+            },
+            {
+              "Name": "moveCard",
+              "CallingType": "json",
+              "Exposure": "public"
+            },
+            {
+              "Name": "deleteCard",
+              "CallingType": "json",
+              "Exposure": "public"
+            },
+            {
+              "Name": "getBoardState",
+              "CallingType": "json",
+              "Exposure": "public"
+            }
+          ]
+        },
+        {
               "Name": "users",
               "Description": "Used to manage the directory of user identities",
               "RibosomeType": "js",

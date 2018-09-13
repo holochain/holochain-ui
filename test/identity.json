@@ -33,7 +33,7 @@
       "Zome": "users",
       "FnName": "getUsers",
       "Input": {},
-      "Output": [{"handle": "wollum", "avatar": "base64-str"}]
+      "Output": [{"avatar":"","handle":"Philip"},{"avatar":"","handle":"Willem"},{"avatar":"","handle":"Celestial"},{"avatar":"base64-str","handle":"wollum"},{"avatar":"","handle":"Jean"},{"avatar":"","handle":"Micah"}]
     }
   ]
 }
