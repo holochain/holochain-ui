@@ -365,52 +365,6 @@
           "Exposure": "public"
         }
       ]
-    },
-    {
-      "Name": "features",
-      "Description": "Does CRUD on Features",
-      "CodeFile": "features.js",
-      "RibosomeType": "js",
-      "BridgeFuncs": null,
-      "Config": {
-        "ErrorHandling": "throwErrors"
-      },
-      "Entries": [
-        {
-          "Name": "feature",
-          "DataFormat": "json",
-          "Schema": "",
-          "SchemaFile": "feature.json",
-          "Sharing": "public"
-        }
-      ],
-      "Functions": [
-        {
-          "Name": "featuresList",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "featureCreate",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "featureRead",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "featureUpdate",
-          "CallingType": "json",
-          "Exposure": "public"
-        },
-        {
-          "Name": "featureDelete",
-          "CallingType": "json",
-          "Exposure": "public"
-        }
-      ]
     }
   ]
 }
