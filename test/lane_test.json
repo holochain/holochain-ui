@@ -1,5 +1,6 @@
 {
-  "Tests": [{
+  "Tests": [
+    {
       "Convey": "Create New Lanes",
       "Zome": "boards",
       "FnName": "newLane",

@@ -1,5 +1,6 @@
 {
-  "Tests": [{
+  "Tests": [
+    {
       "Convey": "1. Create New Lane1",
       "Zome": "boards",
       "FnName": "newLane",
@@ -9,7 +10,8 @@
         "lable": ""
       },
       "Output": "%h1%"
-    },{
+    },
+    {
         "Convey": "2. Create New Lane2",
         "Zome": "boards",
         "FnName": "newLane",
