@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "id": "holo-vault-persona",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": ".+"
+    },
+    "personaFields": {
+      "default": [],
+      "items": {
+        "anyOf": [
+          {
+            "type": "object"
+          }
+        ]
+      },
+      "type": "array"
+    }
+  }
+}
