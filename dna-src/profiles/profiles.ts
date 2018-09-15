@@ -24,7 +24,7 @@ interface FieldSpec {
 
 interface Profile {
     sourceDNA: string,
-    mappings: Map<string, FieldMapping>
+    mappings: Array<FieldMapping>
 }
 
 interface FieldMapping {

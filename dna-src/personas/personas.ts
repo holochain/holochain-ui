@@ -6,10 +6,8 @@ let module = {}
 interface Persona {
     id: string,
     name: string,
-    fields: Map<string, any>
+    fields: Array<{name: string, data: any}>
 }
-
-
 
 /*=============================================
 =            Public Zome Functions            =

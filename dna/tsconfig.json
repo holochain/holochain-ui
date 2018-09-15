@@ -4,6 +4,7 @@
  	"rootDir": ".",
  	"allowJs": true,
     "target": "es5",
+    "lib" : ["es5", "es6"],
     "types": ["holochain-proto-types"],
     "newLine" : "lf"
   },

@@ -1,4 +1,4 @@
-import {ProfileMapping, Persona} from './types/profile'
+import {Profile, Persona} from './types/profile'
 
 
 export const PROFILEMAPPINGCREATE = 'profileMappingCreate'
@@ -28,7 +28,7 @@ export function cellsList() {
 }
 
 
-export function profileMappingCreate(profileMapping: ProfileMapping): VaultAction {
+export function profileMappingCreate(profileMapping: Profile & {channel: string}): VaultAction {
   profileMapping.channel = 'holo-vault'
   return {
     type: PROFILEMAPPINGCREATE,
@@ -40,7 +40,7 @@ export function profileMappingCreate(profileMapping: ProfileMapping): VaultActio
   }
 }
 
-export function personaCreate(persona: Persona) {
+export function personaCreate(persona: Persona & {channel: string}) {
   persona.channel = 'holo-vault'
   return {
     type: PERSONACREATE,
@@ -52,7 +52,7 @@ export function personaCreate(persona: Persona) {
   }
 }
 
-export function personaUpdate(persona: Persona) {
+export function personaUpdate(persona: Persona & {channel: string}) {
   persona.channel = 'holo-vault'
   return {
     type: PERSONAUPDATE,

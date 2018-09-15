@@ -1,5 +1,9 @@
 "use strict";
 var module = {};
+/*=====  End of Typedefs  ======*/
+/*=============================================
+=            Public Zome Functions            =
+=============================================*/
 function profileMappingCreate(profileMappingEntry) {
     var profileMappingHash = commit("profileMapping", profileMappingEntry);
     return profileMappingHash;
@@ -43,6 +47,7 @@ function profilesList() {
     debug(personasWithHash);
     return personasWithHash;
 }
+/*=====  End of Public Zome Functions  ======*/
 // -----------------------------------------------------------------
 //  The Genesis Function https://developer.holochain.org/genesis
 // -----------------------------------------------------------------
