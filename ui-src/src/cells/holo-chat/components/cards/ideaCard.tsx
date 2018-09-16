@@ -24,8 +24,8 @@ import * as React from 'react';
 const styles: StyleRulesCallback = (theme: Theme) => ({
   card: {
     display: 'block',
-    width: 362,
-    minWidth: 275,
+    maxWidth: 450,
+    minWidth: 200,
   },
   button: {
     minWidth: 25,

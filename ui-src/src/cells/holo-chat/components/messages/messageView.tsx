@@ -23,10 +23,10 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     width: 25
   },
   card: {
-    minWidth: 200,
+    minWidth: 150,
     maxWidth: 400,
     display: 'flex',
-    marginLeft: 100
+    marginLeft: 10
   },
   media: {
     height: 100
@@ -46,7 +46,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     margin: `0 ${theme.spacing.unit * 2}px`
   },
   message: {
-    marginLeft: 19,
+    marginLeft: 0,
     marginTop: -8,
 
   },

@@ -87,7 +87,7 @@ class Happs extends React.Component<HappsProps, {}> {
             <List id="hApps" component="nav">
               {
                 happs.installedHapps.map((group, index) => (
-                  <ListItem id={group.name} divider={true}>
+                  <ListItem key={group.name} id={group.name} divider={true}>
                     <List>
                       <ListItem >
                         <Typography variant="title" align="left" color="textSecondary" paragraph={true}>
