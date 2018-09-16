@@ -50,11 +50,11 @@ function addMembers(payload: {channelHash: holochain.Hash, members: Array<holoch
   members.forEach((member) => {
     try {
       commit("channel_to_member_link", { Links: [{ Base: channelHash, Link: member, Tag: "channel_members" }] });
+      commit("member_to_channel_link", { Links: [{ Base: member, Link: channelHash, Tag: "my_channels" }] });
     } catch (e) {
       debug(e)
       return e
     }
-    commit("member_to_channel_link", { Links: [{ Base: member, Link: channelHash, Tag: "my_channels" }] });
   });
   return true;
 }
@@ -223,7 +223,7 @@ function addTestData() {
 ==================================*/
 
 function genesis() {
-  addTestData();
+  // addTestData();
   return true;
 }
 

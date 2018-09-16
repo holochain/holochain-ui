@@ -30,13 +30,16 @@ function getIdentity(keyHash: holochain.Hash): Identity {
  * @param      {IdentitySpec}  identity  The identity
  * @return     {boolean}  Returns true if successful in setting identity
  */
-function setIdentity(identity: IdentitySpec): boolean {
+function setIdentity(identitySpec: IdentitySpec): boolean {
   // mark any old identites as deleted
+  const newIdentity = {...identitySpec, hash: App.Key.Hash}
   const currentIdentity = getIdentity(App.Key.Hash)
   if(currentIdentity) {
-    update('identity', identity, makeHash('identity', currentIdentity))
+    console.log('replacing identity with '+JSON.stringify(newIdentity))
+    const response = update('identity', newIdentity, makeHash('identity', currentIdentity))
+    console.log(response)
   } else {
-    const idHash = commit('identity', identity);
+    const idHash = commit('identity', newIdentity);
     commit('identity_links', { Links: [ { Base: App.Key.Hash, Link: idHash, Tag: 'identity' } ] })
   }
   return true;
@@ -50,10 +53,7 @@ function setIdentity(identity: IdentitySpec): boolean {
  */
 function getUsers(): Array<Identity> {
   return getLinks(App.DNA.Hash, 'directory').map((users) => {
-    debug(users)
-    return getLinks(users.Hash, 'identity', {Load: true}).map((elem) => {
-      return elem.Entry
-    })[0]
+    return getIdentity(users.Hash)
   })
 }
 
@@ -77,7 +77,7 @@ function generateTestData() {
 }
 
 function genesis() {
-  generateTestData()
+  // generateTestData()
   setIdentity({handle: App.Agent.String, avatar: ''});
   commit('identity_links', { Links: [ { Base: App.DNA.Hash, Link: App.Key.Hash, Tag: 'directory' } ] })
   return true;

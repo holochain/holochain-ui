@@ -44,12 +44,12 @@ function addMembers(payload) {
     members.forEach(function (member) {
         try {
             commit("channel_to_member_link", { Links: [{ Base: channelHash, Link: member, Tag: "channel_members" }] });
+            commit("member_to_channel_link", { Links: [{ Base: member, Link: channelHash, Tag: "my_channels" }] });
         }
         catch (e) {
             debug(e);
             return e;
         }
-        commit("member_to_channel_link", { Links: [{ Base: member, Link: channelHash, Tag: "my_channels" }] });
     });
     return true;
 }
@@ -184,7 +184,7 @@ function addTestData() {
 =            Validation            =
 ==================================*/
 function genesis() {
-    addTestData();
+    // addTestData();
     return true;
 }
 function bridgeGenesis(side, dna, appData) {
