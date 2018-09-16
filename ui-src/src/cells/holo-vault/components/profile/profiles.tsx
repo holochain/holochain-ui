@@ -42,7 +42,7 @@ class Profiles extends React.Component<ProfilesProps, {}> {
               <Route render={({ history }) => (
                 <ListItem key={index} button={true} onClick={() => { history.push(`/holo-vault/profile/${profile.name}`) }}>
                   <ListItemAvatar >
-                    <Avatar style={{marginTop: 10, borderRadius: 0 }}  src={profile.src} />
+                    <Avatar style={{marginTop: 10, borderRadius: 0 }}>profile.name[0]</Avatar>
                   </ListItemAvatar>
                   <ListItemText primary={profile.name} />
                 </ListItem>

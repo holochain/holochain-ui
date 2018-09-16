@@ -3,6 +3,8 @@ import { JSONSchema6 } from 'json-schema'
 
 export interface Profile {
     sourceDNA: string,
+    name: string,
+    fields: Array<{name: string, data: any}>,  // fields that are not mapped to a persona and relate to this profile only
     mappings: Array<FieldMapping>
 }
 

@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import  * as constants from './constants'
 import * as A from './actions'
 import { VaultAction } from './actions'
-import {Profile, ProfileSpec, ProfileMapping, Persona} from './types/profile'
+import {Profile, ProfileSpec, Persona} from './types/profile'
 
 
 // readonly keyword causes compiler to error if one attempts to mutate the state
@@ -11,7 +11,6 @@ export type VaultState = {
   readonly profileSpec: ProfileSpec,
   readonly profiles: Array<Profile>,
   readonly profile: Profile,
-  readonly profileMapping: ProfileMapping,
   readonly personas: Array<Persona>,
   readonly persona: Persona
 }
