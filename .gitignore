@@ -9,6 +9,7 @@ ui
 ui-automation/mochawesome-report
 ui-src/storybook-addons/sketch/node_modules
 
+dna-src/node_modules
 # testing
 /coverage
 
