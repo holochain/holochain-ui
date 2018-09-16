@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  holochain-ui1:
+    image: holochain-ui:test
+    ports:
+      - "3000:3000"
+    volumes:
+      - "${TARGETDIR}:/holochain-ui"
+    command: bash -c "cd /holochain-ui; hcdev -agentID=phil web 4141 & cd ui-src; npm run start"
+
+  holochain-ui2:
+    image: holochain-ui:test
+    ports:
+      - "3001:3000"
+    volumes:
+      - "${TARGETDIR}:/holochain-ui"
+    command: bash -c "cd /holochain-ui; hcdev -agentID=willem web 4141 & cd ui-src; npm run start"
