@@ -14,7 +14,18 @@ import {Identity} from '../../types/model/identity'
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     width: '100%',
+    minHeight: 300,
     backgroundColor: theme.palette.background.paper
+  },
+  button: {
+    float: 'right',
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit
+  },
+  filter: {
+    width: '100%',
+    marginLeft: theme.spacing.unit,
+    marginTop: theme.spacing.unit
   }
 });
 
@@ -51,7 +62,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
 
   onFilterStringChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      ...this.state, 
+      ...this.state,
       filterString: e.target.value
     })
   }
@@ -84,7 +95,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
       <div className={classes.root}>
         <Input
           id="filter-bar"
-          placeholder="filter"
+          placeholder="To:"
           value={this.state.filterString}
           onChange={this.onFilterStringChange}
         />

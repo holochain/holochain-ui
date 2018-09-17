@@ -9,31 +9,21 @@ services:
     command: bs
 
   holochain-ui1:
-    image: holochain/holochain-proto:develop
-    ports:
-      - "3141:3141"
-    depends_on:
+    depends_on: 
       - bootstrap
+    image: holochain_node:test
+    ports:
+      - "3000:3000"
     volumes:
       - "${TARGETDIR}:/holochain-ui"
-    command: bash -c "cd /holochain-ui; hcdev -agentID=lucy -bootstrapServer=bootstrap:3142 web 3141"
+    command: bash -c "cd /holochain-ui; hcdev -agentID=Phil -bootstrapServer=bootstrap:3142 web 4141 & cd ui-src; npm run start"
 
   holochain-ui2:
-    image: holochain/holochain-proto:develop
-    ports:
-      - "4141:4141"
-    depends_on:
+    depends_on: 
       - bootstrap
+    image: holochain_node:test
+    ports:
+      - "3001:3000"
     volumes:
       - "${TARGETDIR}:/holochain-ui"
-    command: bash -c "cd /holochain-ui; hcdev -agentID=phil -bootstrapServer=bootstrap:3142 web 4141"
-
-  holochain-ui3:
-    image: holochain/holochain-proto:develop
-    ports:
-      - "5141:5141"
-    depends_on:
-      - bootstrap
-    volumes:
-      - "${TARGETDIR}:/holochain-ui"
-    command: bash -c "cd /holochain-ui; hcdev -agentID=clarence -bootstrapServer=bootstrap:3142 web 5141"
+    command: bash -c "cd /holochain-ui; hcdev -agentID=Willem -bootstrapServer=bootstrap:3142 web 4141 & cd ui-src; npm run start"

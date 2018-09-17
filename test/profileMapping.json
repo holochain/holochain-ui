@@ -1,0 +1,25 @@
+{
+  "Tests": [
+    {
+      "Convey": "HoloVault saves the Profile Map",
+      "Details": "Apps can thenn use this to read your Private information",
+      "Zome": "profiles",
+      "FnName": "profileMappingCreate",
+      "Input": {
+        "id": "HoloChat",
+        "sourcedna": "QmZ4CP5unaghnmxbJkSBwobehgcF5VdcKLPimXEkwVTUYh",
+        "type": "object",
+        "expiry": "2018-12-12T01:01:10+00:00",
+        "profile":
+          {
+            "firstname": "Work.firstname",
+            "address": "Work.address",
+            "suburb": "Work.suburb",
+            "city": "Work.city"
+          }
+      },
+      "Output": "%h%",
+      "Err": ""
+    }
+  ]
+}
