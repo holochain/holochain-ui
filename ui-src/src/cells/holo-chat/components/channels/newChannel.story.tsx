@@ -6,7 +6,7 @@ import NewChannel from './newChannel'
 
 
 
-storiesOf('HoloChat/NewChannel', module)
+storiesOf('HoloChat/Channels', module)
   .addDecorator(story => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))

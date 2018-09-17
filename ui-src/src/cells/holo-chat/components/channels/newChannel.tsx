@@ -2,13 +2,15 @@ import * as React from 'react';
 import {withStyles, Theme, StyleRulesCallback} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import withRoot from '../../../../withRoot';
-
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
 import {Identity} from '../../types/model/identity'
 import {ChannelSpec} from '../../types/model/channel'
 import AgentList from './agentList'
+import Send from '@material-ui/icons/Send'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
@@ -16,19 +18,27 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     backgroundColor: theme.palette.background.paper
   },
   button: {
-    margin: theme.spacing.unit,
+    margin: 0,
   },
+  appBar: {
+    position: 'relative',
+  },
+  flex: {
+    flex: 1,
+  }
 });
 
 interface NewChannelProps {
   classes: any,
   open: boolean,
   users: Array<Identity>,
-  onSubmit: (spec: ChannelSpec) => void
+  onSubmit: (spec: ChannelSpec) => void,
+  onHandleClose: () => void
 }
 
 interface NewChannelState {
-  selectedUsers: Array<Identity>
+  selectedUsers: Array<Identity>,
+  open: boolean
 }
 
 class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
@@ -36,7 +46,8 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
   constructor(props: NewChannelProps) {
     super(props)
     this.state = {
-      selectedUsers: []
+      selectedUsers: [],
+      open: true
     }
   }
 
@@ -46,6 +57,7 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
 
   onSelectionChanged = (selectedUsers: Array<Identity>) => {
     console.log("selected users changed")
+    console.log(selectedUsers)
     this.setState({selectedUsers})
   }
 
@@ -66,20 +78,25 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
     this.props.onSubmit(channelSpec)
   }
 
-
   render() {
     const { classes } = this.props;
 
     return (
-      <Dialog open={this.props.open} aria-labelledby="simple-dialog-title">
-        <DialogTitle id="simple-dialog-title">Create Channel</DialogTitle>
-
-        <Button color="primary" className={classes.button} onClick={this.onCreateChannelButtonClick}>
-          Create
-        </Button>
-      
+      <Dialog fullWidth={true} open={this.props.open} aria-labelledby="simple-dialog-title">
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <Button onClick={this.props.onHandleClose} color="inherit" aria-label="Close">
+              <CloseIcon />
+            </Button>
+            <Typography variant="title" color="inherit" className={classes.flex}>
+              Members
+            </Typography>
+            <Button variant="fab" mini={true} onClick={this.onCreateChannelButtonClick} className={classes.button}>
+              <Send />
+            </Button>
+          </Toolbar>
+        </AppBar>
         <AgentList users={this.props.users} selectionChanged={this.onSelectionChanged}/>
-
       </Dialog>
     );
   }

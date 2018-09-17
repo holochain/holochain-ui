@@ -1,15 +1,6 @@
 {
   "Tests": [
     {
-      "Convey": "All HC functions are accessed through the one function that bridges to the appropriate DHT.",
-      "Details": "This method lets you easily access any bridged app",
-      "Zome": "holochain",
-      "Input": "callBridgedFunction({'channel': 'Aussie_DJs','zome': 'messages','func': 'createMessage','data': {'message': 'Posting to the group'}}).indexOf('Qm') === 0",
-      "Output": true,
-      "Err": "",
-      "Raw": true
-    },
-    {
       "Convey": "Check we can bridge to the Vault",
       "Details": "Create a Persona",
       "Zome": "holochain",
