@@ -5,7 +5,7 @@
       "Zome": "users",
       "FnName": "getIdentity",
       "Input": "%key%",
-      "Output": {"handle": "%agentstr%", "avatar": ""}
+      "Output": {"handle": "%agentstr%", "avatar": "", "hash": "%key%"}
     },
     {
       "Convey": "1. Can retrieve own key hash using whoami",
@@ -26,14 +26,14 @@
       "Zome": "users",
       "FnName": "getIdentity",
       "Input": "%key%",
-      "Output": {"handle": "wollum", "avatar": "base64-str"}
+      "Output": {"handle": "wollum", "avatar": "base64-str", "hash": "%key%"}
     },
     {
       "Convey": "4. Can get the list of identities",
       "Zome": "users",
       "FnName": "getUsers",
       "Input": {},
-      "Output": [{"avatar":"","handle":"Philip"},{"avatar":"","handle":"Willem"},{"avatar":"","handle":"Celestial"},{"avatar":"base64-str","handle":"wollum"},{"avatar":"","handle":"Jean"},{"avatar":"","handle":"Micah"}]
+      "Output": [{"handle": "wollum", "avatar": "base64-str", "hash": "%key%"}]
     }
   ]
 }
