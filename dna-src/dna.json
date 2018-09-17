@@ -306,6 +306,56 @@
           "Exposure": "public"
         }
       ]
+    },
+    {
+      "Name": "profiles",
+      "Description": "Does CRUD on profiles",
+      "CodeFile": "profiles.js",
+      "RibosomeType": "js",
+      "Config": {
+        "ErrorHandling": "throwErrors"
+      },
+      "Entries": [
+        {
+          "Name": "profile",
+          "DataFormat": "json",
+          "SchemaFile": "profile.json",
+          "Sharing": "public"
+        },
+        {
+          "Name": "field_mapping",
+          "DataFormat": "json",
+          "SchemaFile": "field.json",
+          "Sharing": "public"
+        },
+        {
+          "Name": "profile_links",
+          "DataFormat": "links",
+          "Sharing": "public"
+        },
+        {
+          "Name": "field_mapping_links",
+          "DataFormat": "links",
+          "Sharing": "public"
+        }
+      ],
+      "Functions": [
+        {
+          "Name": "registerApp",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "getProfileSpecs",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "createMapping",
+          "CallingType": "json",
+          "Exposure": "public"
+        }
+      ]
     }
   ]
 }

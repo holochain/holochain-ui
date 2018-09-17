@@ -49,12 +49,15 @@ function addField(payload: {personaHash: string, field: Field}): boolean {
   }
 }
 
-// TODO add the other CRUD methods as needed
+// TODO: add the other CRUD methods as needed
 
 
 /*============================================
 =            Validation Callbacks            =
 ============================================*/
+
+// TODO: add actual validation
+
 
 function bridgeGenesis(side, dna, appData) {
   return true

@@ -1,0 +1,11 @@
+{
+  "Tests": [
+    {
+      "Convey": "0. Initial call to getProfileSpecs produces empty array",
+      "Zome": "profiles",
+      "FnName": "getProfileSpecs",
+      "Input": {},
+      "Output": []
+    }
+  ]
+}

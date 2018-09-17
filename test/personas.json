@@ -1,7 +1,7 @@
 {
   "Tests": [
     {
-      "Convey": "0. Initial call to getPersonas produces empty array",
+      "Convey": "0. Initial call to getProfileSpecs produces empty array",
       "Zome": "personas",
       "FnName": "getPersonas",
       "Input": {},

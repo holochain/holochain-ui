@@ -1,34 +1,30 @@
 import { JSONSchema6 } from 'json-schema'
 
 
-export interface Profile {
-    sourceDNA: string,
-    name: string,
-    fields: Array<{name: string, data: any}>,  // fields that are not mapped to a persona and relate to this profile only
-    mappings: Array<FieldMapping>
-}
-
-export interface FieldMapping {
-    name: string,
-    personaId: string, // ID of the persona to retrieve this from
-    targetFieldName: string // field to retrieve from this persona
-    spec: FieldSpec // specification for the field. Used to revalidate if changed
-}
-
-export interface Persona {
-    id: string,
-    name: string,
-    fields: Array<{name: string, data: any}>
-}
-
 export interface ProfileSpec {
     sourceDNA: string, // the DNA of the hApp requesting data
     fields: Array<FieldSpec>, // array of fields this app requires
 }
 
 export interface FieldSpec {
-    name: string,
+    name: string, // How the app will ask for this data
+    displayName: string, // How it will be displayed in user forms
     required: boolean,
     description: string, // describes what the app will do with this data
+    usage: UsageType, // how the app will use the data.
     schema: JSONSchema6 // field must pass this validator to be accepted
+}
+
+export enum UsageType {
+    STORE,    // The app will store the data in its own DHT
+    DISPLAY, // The app will always bridge to vault when it needs to retreive the data
+}
+
+export interface Profile extends ProfileSpec {
+    fields: Array<ProfileField>
+}
+
+export interface ProfileField extends FieldSpec {
+    personaId?: string, // id of the persona to map to. If not provided then an error will be thrown on access
+    personaFieldName?: string // field of persona to map to
 }
