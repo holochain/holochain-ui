@@ -3,23 +3,8 @@
   "id": "holo-vault-persona",
   "type": "object",
   "properties": {
-    "name": {
-      "type": "string",
-      "pattern": ".+"
-    },
-    "id": {
-      "type": "string"
-    },
-    "fields": {
-      "default": [],
-      "items": {
-        "anyOf": [
-          {
-            "type": "object"
-          }
-        ]
-      },
-      "type": "array"
-    }
-  }
+    "id": { "type": "string" },
+    "name": { "type": "string" }
+  },
+  "required": ["id", "name"]
 }
