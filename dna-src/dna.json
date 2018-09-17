@@ -354,6 +354,11 @@
           "Name": "createMapping",
           "CallingType": "json",
           "Exposure": "public"
+        },
+        {
+          "Name": "retrieve",
+          "CallingType": "json",
+          "Exposure": "public"
         }
       ]
     }

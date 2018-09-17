@@ -6,6 +6,61 @@
       "FnName": "getProfileSpecs",
       "Input": {},
       "Output": []
+    },
+    {
+      "Convey": "1. Calling register with an invalid profileSpec causes an error",
+      "Zome": "profiles",
+      "FnName": "registerApp",
+      "Input": {},
+      "RegExp": "Validation Failed"
+    },
+    {
+      "Convey": "2. Can register an app with a valid profileSpec",
+      "Zome": "profiles",
+      "FnName": "registerApp",
+      "Input": {
+        "sourceDNA": "abc",
+        "fields": [
+          {
+            "name": "firstName",
+            "displayName": "First Name",
+            "required": true,
+            "description": "Displayed to all users of the app",
+            "usage": "store",
+            "schema": {}
+          }
+        ]
+      },
+      "Output": true
+    },
+    {
+      "Convey": "3. Can retrieve spec from getProfileSpecs",
+      "Zome": "profiles",
+      "FnName": "getProfileSpecs",
+      "Input": {},
+      "Output": [{"fields":[{"description":"Displayed to all users of the app","displayName":"First Name","name":"firstName","required":true,"schema":{},"usage":"store"}],"sourceDNA":"abc"}]
+    },
+    {
+      "Convey": "4. Can create a mapping to a non-existent persona",
+      "Zome": "profiles",
+      "FnName": "createMapping",
+      "Input": {
+        "appDNA": "abc",
+        "profileField": "firstName",
+        "personaId": "xyz",
+        "personaField": "firstname"
+      },
+      "Output": 1
+    },
+    {
+      "Convey": "5. Trying to retrieve this will throw an error",
+      "Zome": "profiles",
+      "FnName": "retrieve",
+      "Input": {
+        "appDNA": "abc",
+        "profileField": "firstName"
+      },
+      "Output": "willem"
     }
   ]
 }

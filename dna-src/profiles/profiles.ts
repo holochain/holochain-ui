@@ -35,7 +35,8 @@ function getProfileSpecs(): Array<ProfileSpec> {
 
 
 
-function createMapping(appDNA: holochain.Hash, profileField: string, personaId: string, personaField: string): number | holochain.HolochainError {
+function createMapping(payload: {appDNA: holochain.Hash, profileField: string, personaId: string, personaField: string}): number | holochain.HolochainError {
+   const {appDNA, profileField, personaId, personaField} = payload
   let mapsCreated = 0
   // Filter only specs that are for the correct dna and have the specified profileField
   getProfileSpecs().filter(spec => spec.sourceDNA === appDNA).forEach(spec => {
@@ -61,8 +62,23 @@ function createMapping(appDNA: holochain.Hash, profileField: string, personaId: 
   return mapsCreated
 }
 
-function retrieve(appDNA: string, field: string): any {
 
+// TODO: rewrite. This is totally unreadable
+
+function retrieve(payload: {appDNA: string, profileField: string}): any {
+  const {appDNA, profileField} = payload
+
+  getProfileSpecs().filter(spec => spec.sourceDNA === appDNA).forEach(spec => {
+    spec.fields.filter((field: ProfileField) => field.name === profileField).forEach((field: ProfileField) => {
+      JSON.parse(call('personas', 'getPersonas', {})).filter((persona: Persona) => persona.id === field.personaId).forEach((persona: Persona) => {
+        persona.fields.forEach((pField: PersonaField) => {
+          if(pField.name === field.name) {
+            return pField.data
+          }
+        })
+      })
+    })
+  })
 }
 
 // TODO: add the other CRUD methods as needed

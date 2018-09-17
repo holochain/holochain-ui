@@ -16,8 +16,8 @@ export interface FieldSpec {
 }
 
 export enum UsageType {
-    STORE,    // The app will store the data in its own DHT
-    DISPLAY, // The app will always bridge to vault when it needs to retreive the data
+    STORE="store",    // The app will store the data in its own DHT
+    DISPLAY="display", // The app will always bridge to vault when it needs to retreive the data
 }
 
 export interface Profile extends ProfileSpec {
