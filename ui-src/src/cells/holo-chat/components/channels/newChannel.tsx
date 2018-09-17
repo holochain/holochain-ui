@@ -34,6 +34,7 @@ interface NewChannelProps {
   users: Array<Identity>,
   onSubmit: (spec: ChannelSpec) => void,
   onHandleClose: () => void
+  
 }
 
 interface NewChannelState {
@@ -52,6 +53,7 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
   }
 
   componentDidMount() {
+    this.props.getUsers()
   }
 
 
