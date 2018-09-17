@@ -40,7 +40,8 @@ function createMapping(payload: {appDNA: holochain.Hash, profileField: string, p
   let mapsCreated = 0
   // Filter only specs that are for the correct dna and have the specified profileField
   getProfileSpecs().filter(spec => spec.sourceDNA === appDNA).forEach(spec => {
-    spec.fields.filter(field => field.name === profileField).forEach(specField => {
+    spec.fields.filter(fieldSpec => fieldSpec.name === profileField).forEach(specField => {
+      
       const field: ProfileField = {
         ...specField,
         personaId,
@@ -49,7 +50,8 @@ function createMapping(payload: {appDNA: holochain.Hash, profileField: string, p
 
       try {
         const fieldHash = commit('field_mapping', field)
-        commit('field_mapping_links', { Links: [ { Base: App.Key.Hash, Link: fieldHash, Tag: 'field_mappings' } ] })
+        const profileHash = makeHash('profile', spec)
+        commit('field_mapping_links', { Links: [ { Base: profileHash, Link: fieldHash, Tag: 'field_mappings' } ] })
         mapsCreated += 1
       } catch (e) {
         debug(e)
@@ -62,23 +64,43 @@ function createMapping(payload: {appDNA: holochain.Hash, profileField: string, p
   return mapsCreated
 }
 
+function getProfileFields(profileSpecHash: holochain.Hash): Array<ProfileField> {
+  try {
+    return getLinks(profileSpecHash, 'field_mappings', {Load: true}).map(elem => elem.Entry)
+  } catch (e) {
+    debug(e)
+    return e
+  }
+}
 
 // TODO: rewrite. This is totally unreadable
+// TODO: add detailed error response. Did it fail validation or was it missing from the persona etc
 
 function retrieve(payload: {appDNA: string, profileField: string}): any {
   const {appDNA, profileField} = payload
+  const profiles = getProfileSpecs().filter(spec => spec.sourceDNA === appDNA)
+  let result: any
 
-  getProfileSpecs().filter(spec => spec.sourceDNA === appDNA).forEach(spec => {
-    spec.fields.filter((field: ProfileField) => field.name === profileField).forEach((field: ProfileField) => {
+  profiles.forEach(spec => {
+    const fields = getProfileFields(makeHash('profile', spec)).filter((field: ProfileField) => field.name === profileField)
+    fields.forEach((field: ProfileField) => {
       JSON.parse(call('personas', 'getPersonas', {})).filter((persona: Persona) => persona.id === field.personaId).forEach((persona: Persona) => {
         persona.fields.forEach((pField: PersonaField) => {
-          if(pField.name === field.name) {
-            return pField.data
+          if(pField.name === field.personaFieldName) {
+            result = pField.data
           }
         })
       })
     })
   })
+
+  // Do json schema checking here
+  if(result) {
+    return result
+  } else {
+      return Error("No valid mapping found")
+  }
+
 }
 
 // TODO: add the other CRUD methods as needed

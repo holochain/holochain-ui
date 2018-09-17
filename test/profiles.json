@@ -60,7 +60,31 @@
         "appDNA": "abc",
         "profileField": "firstName"
       },
-      "Output": "willem"
+      "Output": {"message":"No valid mapping found","name":"Error"}
+    },
+    {
+      "Convey": "6. Create a persona to meet the spec",
+      "Zome": "personas",
+      "FnName": "createPersona",
+      "Input": {"name": "testPersona", "id": "xyz"},
+      "Output": "%h1%"
+    },
+    {
+      "Convey": "7. Can add a field to the persona that meets the spec",
+      "Zome": "personas",
+      "FnName": "addField",
+      "Input": {"personaHash" : "%h1%", "field": {"name" : "firstname", "data": "Willem"}},
+      "Output": true
+    },
+    {
+      "Convey": "5. Trying to retrieve this will throw an error",
+      "Zome": "profiles",
+      "FnName": "retrieve",
+      "Input": {
+        "appDNA": "abc",
+        "profileField": "firstName"
+      },
+      "Output": "Willem"
     }
   ]
 }
