@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p . && cpx \"./**/*.json\" ../dna/ && npx typescript-json-schema ./tsconfig.json PersonaSpec --required -o ../dna/personas/persona.json && npx typescript-json-schema ./tsconfig.json Field --required -o ../dna/personas/field.json"
+    "build": "tsc -p . && cpx \"./**/*.json\" ../dna/ && rm -r ../dna/node_modules && npx typescript-json-schema ./tsconfig.json PersonaSpec --required -o ../dna/personas/persona.json && npx typescript-json-schema ./tsconfig.json Field --required -o ../dna/personas/field.json"
   },
   "author": "",
   "license": "ISC",
