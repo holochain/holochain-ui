@@ -35,9 +35,7 @@ function setIdentity(identitySpec: IdentitySpec): boolean {
   const newIdentity = {...identitySpec, hash: App.Key.Hash}
   const currentIdentity = getIdentity(App.Key.Hash)
   if(currentIdentity) {
-    console.log('replacing identity with '+JSON.stringify(newIdentity))
     const response = update('identity', newIdentity, makeHash('identity', currentIdentity))
-    console.log(response)
   } else {
     const idHash = commit('identity', newIdentity);
     commit('identity_links', { Links: [ { Base: App.Key.Hash, Link: idHash, Tag: 'identity' } ] })

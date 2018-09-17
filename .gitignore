@@ -1,6 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 .DS_Store
 # dependencies
+dna-src/node_modules
+
 ui-src/node_modules
 ui-automation/cypress/screenshots
 ui-automation/cypress/videos
@@ -9,6 +11,7 @@ ui
 ui-automation/mochawesome-report
 ui-src/storybook-addons/sketch/node_modules
 
+dna-src/node_modules
 # testing
 /coverage
 

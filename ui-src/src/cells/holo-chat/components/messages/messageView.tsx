@@ -205,13 +205,13 @@ class MessageView extends Component<MessageProps, MessageState> {
         dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
         <ListItem key={'1'} dense={true} >
           <ListItemAvatar >
-            <Avatar style={{marginTop: 10}} alt={this.state.message.author.handle} src={this.state.message.author.avatar} />
+            <Avatar style={{marginTop: 10}} alt={message.author.handle} src={message.author.avatar} />
           </ListItemAvatar>
-          <ListItemText  className={classes.messageAuthor} primary={this.state.message.author.handle} />
-          <VoteControls isHovered={this.state.isHovered} message={this.state.message} handleIdea={() => this.onHandleIdea(message)} />
+          <ListItemText  className={classes.messageAuthor} primary={message.author.handle} />
+          <VoteControls isHovered={this.state.isHovered} message={message} handleIdea={() => this.onHandleIdea(message)} />
         </ListItem>
         <ListItem dense={true} className={classes.message}>
-          <MessageComponent message={this.state.message} classes={classes} />
+          <MessageComponent message={message} classes={classes} />
         </ListItem>
       </List>
     )

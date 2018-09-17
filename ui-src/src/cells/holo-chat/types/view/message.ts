@@ -18,7 +18,7 @@ export function modelMessagesToViewMessages(messages: Array<ModelMessage>, membe
   	const fromMe = m.author! === myHash
   	return {
   		...m, 
-  		author: memberMap[m.author!],
+  		author: memberMap[m.author!] || {handle: '?', avatar: ''},
   		type: MessageType.CHAT,
   		replies: [],
   		fromMe
