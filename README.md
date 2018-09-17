@@ -1,4 +1,4 @@
-# Holochian UI
+# Holochain UI
 A Holochain app (hApp) that you can add your own hApps to.
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/holochain/holochain-ui.svg)
