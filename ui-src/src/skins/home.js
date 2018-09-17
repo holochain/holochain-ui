@@ -26,7 +26,7 @@ import ErrandContainer from '../cells/errand/containers/errandContainer'
 import ArcsOfPresenceContainer from '../cells/holo-chat/containers/arcsOfPresenceContainer'
 import Desktop from './desktop'
 import Mobile from './mobile'
-import { mainNav } from './navData';
+import { MainNav } from './navData';
 import HoloVaultNav from './holoVaultNavData';
 import StorybookSkin from './storybook'
 import HoloChatNav from './holoChatNavData'
@@ -165,10 +165,12 @@ class MiniDrawer extends React.Component {
               </IconButton>
             </div>
             <Divider />
-            <List>{mainNav}</List>
+            <List><MainNav handleDrawerClose={this.handleDrawerClose}/></List>
             <Divider />
             <List>
-              <Route path='/holo-vault' component={HoloVaultNav} />
+              <Route path='/holo-vault' render={props =>
+                <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
+              } />
               <Route path='/holo-chat' component={HoloChatNav} />
               <Route path='/errand' component={ErrandNav} />
             </List>
