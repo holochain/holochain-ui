@@ -79,9 +79,6 @@ class Channels extends React.Component<ChannelsProps, ChannelsState> {
       <Typography variant='display1'>
         Channels
       </Typography>
-      <Typography variant='body1' gutterBottom={true}>
-        Here's your Channels
-      </Typography>
       <List id="channels" component="nav">
         {
           channels.map((channel: ChannelType, index: number) => (
