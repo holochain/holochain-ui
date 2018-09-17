@@ -3,15 +3,15 @@ version: '2'
 services:
 
   bootstrap:
-    image: holochain/holochain-proto:develop
+    image: holochain-proto-node:latest
     ports:
       - "3142:3142"
     command: bs
 
   holochain-ui1:
-    depends_on: 
+    depends_on:
       - bootstrap
-    image: holochain_node:test
+    image: holochain-proto-node:latest
     ports:
       - "3000:3000"
     volumes:
@@ -19,9 +19,9 @@ services:
     command: bash -c "cd /holochain-ui; hcdev -agentID=Phil -bootstrapServer=bootstrap:3142 web 4141 & cd ui-src; npm run start"
 
   holochain-ui2:
-    depends_on: 
+    depends_on:
       - bootstrap
-    image: holochain_node:test
+    image: holochain-proto-node:latest
     ports:
       - "3001:3000"
     volumes:

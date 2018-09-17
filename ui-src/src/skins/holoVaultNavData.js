@@ -26,13 +26,17 @@ class HoloVaultNav extends React.Component {
     return (<Route render={({history}) => (
       <List>
         <div>
-          <ListItem key="personas" button onClick={() => { history.push('/holo-vault/personas')}}>
+          <ListItem key="personas" button onClick={() => { history.push('/holo-vault/personas');
+            this.props.handleDrawerClose();
+          }}>
             <ListItemIcon>
               <Person/>
             </ListItemIcon>
             <ListItemText primary='Personas'/>
           </ListItem>
-          <ListItem key="profiles" button onClick={() => { history.push('/holo-vault/profiles')}}>
+          <ListItem key="profiles" button onClick={() => { history.push('/holo-vault/profiles');
+            this.props.handleDrawerClose();
+          }}>
             <ListItemIcon>
               <Person/>
             </ListItemIcon>

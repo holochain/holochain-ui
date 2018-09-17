@@ -28,13 +28,17 @@ class HoloChatNav extends React.Component {
     return (<Route render={({history}) => (
       <List>
         <div>
-          <ListItem key="messages" button onClick={() => { history.push('/holo-chat/messages')}}>
+          <ListItem key="messages" button onClick={() => { history.push('/holo-chat/messages');
+            this.props.handleDrawerClose();
+          }}>
             <ListItemIcon>
               <Message/>
             </ListItemIcon>
             <ListItemText primary='Messages'/>
           </ListItem>
-          <ListItem key="channels" button onClick={() => { history.push('/holo-chat/channels')}}>
+          <ListItem key="channels" button onClick={() => { history.push('/holo-chat/channels');
+            this.props.handleDrawerClose();
+          }}>
             <ListItemIcon>
               <Group/>
             </ListItemIcon>
