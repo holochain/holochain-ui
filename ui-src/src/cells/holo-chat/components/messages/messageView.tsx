@@ -152,7 +152,7 @@ class MessageView extends Component<MessageProps, MessageState> {
       isHovered: false,
       message: {
         type: 0,
-        author: 'Phil',
+        author: {handle: 'Phil', avatar: ''},
         channelId: 'holochain',
         timestamp: 10,
         content: {

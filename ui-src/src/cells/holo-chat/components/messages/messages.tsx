@@ -65,8 +65,8 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     if(this.props.channel) {
       this.getMessageInterval = setInterval(() => {
         this.props.whoami()
-        this.props.getMessages(this.props.channel.hash)
         this.props.getMembers(this.props.channel.hash)
+        this.props.getMessages(this.props.channel.hash)
       }, 200)
     }
   }
