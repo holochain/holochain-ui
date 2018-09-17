@@ -26,7 +26,7 @@ import ErrandContainer from '../cells/errand/containers/errandContainer'
 import ArcsOfPresenceContainer from '../cells/holo-chat/containers/arcsOfPresenceContainer'
 import Desktop from './desktop'
 import Mobile from './mobile'
-import { mainNav } from './navData';
+import { MainNav } from './navData';
 import HoloVaultNav from './holoVaultNavData';
 import StorybookSkin from './storybook'
 import HoloChatNav from './holoChatNavData'
@@ -120,15 +120,6 @@ class MiniDrawer extends React.Component {
     this.setState({ open: false });
   };
 
-  // componentWillMount() {
-  //    this.unlisten = this.props.history.listen((location, action) => {
-  //      this.setState({ open: false })
-  //    });
-  //  }
-  //  componentWillUnmount() {
-  //      this.unlisten();
-  //  }
-
   render() {
     const { classes, theme } = this.props;
 
@@ -152,6 +143,7 @@ class MiniDrawer extends React.Component {
             </Typography>
           </Toolbar>
         </AppBar>
+        <MediaQuery minDeviceWidth={1025}>
           <Drawer
             variant="permanent"
             classes={{
@@ -165,14 +157,46 @@ class MiniDrawer extends React.Component {
               </IconButton>
             </div>
             <Divider />
-            <List>{mainNav}</List>
+            <List><MainNav handleDrawerClose={this.handleDrawerClose}/></List>
             <Divider />
             <List>
-              <Route path='/holo-vault' component={HoloVaultNav} />
+              <Route path='/holo-vault' render={props =>
+                <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
+              } />
               <Route path='/holo-chat' component={HoloChatNav} />
               <Route path='/errand' component={ErrandNav} />
             </List>
           </Drawer>
+        </MediaQuery>
+        <MediaQuery maxDeviceWidth={767}>
+          <Drawer
+            variant="temporary"
+            classes={{
+              paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+            }}
+            open={this.state.open}
+          >
+            <div className={classes.toolbar}>
+              <IconButton onClick={this.handleDrawerClose}>
+                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              </IconButton>
+            </div>
+            <Divider />
+            <List><MainNav handleDrawerClose={this.handleDrawerClose}/></List>
+            <Divider />
+            <List>
+              <Route path='/holo-vault' render={props =>
+                <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
+              } />
+              <Route path='/holo-chat' render={props =>
+                <HoloChatNav handleDrawerClose={this.handleDrawerClose} />
+              } />
+              <Route path='/errand' render={props =>
+                <ErrandNav handleDrawerClose={this.handleDrawerClose} />
+              } />
+            </List>
+          </Drawer>
+        </MediaQuery>
         <main className={classes.content}>
           <Route path='/storybook' title='Storybook' component={StorybookSkin} />
           <Route path='/hacktogether' title='Hack Together' component={HackTogetherSkin} />
