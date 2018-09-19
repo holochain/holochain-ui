@@ -14,7 +14,7 @@ before_install:
 - cd ui-src
 - npm install
 - npm run build
-# - npm run start &
+- npm run start &
 - cd ..
 - sudo rm /usr/local/bin/docker-compose
 - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
@@ -24,8 +24,7 @@ before_install:
 - TARGETDIR=$(pwd) docker-compose up -d
 - docker-compose ps
 script:
-- docker run --rm -v "$(pwd):/holochain-ui" holochain/holochain-proto:develop bash -c
-  "cd /holochain-ui; hcdev test"
+- docker run --rm -v "$(pwd):/holochain-ui" holochain/holochain-proto-node:latest bash -c "cd /holochain-ui; hcdev test"
 - cd ui-automation
 - npm install
 - npm test

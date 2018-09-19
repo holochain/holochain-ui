@@ -175,10 +175,10 @@ class MessageView extends Component<MessageProps, MessageState> {
     this.setState({ message: this.props.message })
   }
 
-  onMessageHover (event: React.SyntheticEvent) {
+  onMessageHover () {
     this.setState({ isHovered: true })
   }
-  onMessageBlur (event: React.SyntheticEvent) {
+  onMessageBlur () {
     this.setState({ isHovered: false })
   }
 
