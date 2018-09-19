@@ -24,7 +24,7 @@ before_install:
 - TARGETDIR=$(pwd) docker-compose up -d
 - docker-compose ps
 script:
-- docker run --rm -v "$(pwd):/holochain-ui" holochain/holochain-proto-node:latest bash -c "cd /holochain-ui; hcdev test"
+# - docker run --rm  -v "$(pwd):/holochain-ui" holochain/holochain-proto-node:latest bash -c "cd /holochain-ui; hcdev test"
 - cd ui-automation
 - npm install
 - npm test
