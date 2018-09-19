@@ -75,13 +75,14 @@ export function personasList() {
   }
 }
 
-export function profilesList() {
+export function profilesList(then: Function) {
   return {
     type: PROFILESLIST,
     meta: {
       isHc: true,
       namespace: 'profiles',
       data: {'channel': 'holo-vault'}
-    }
+    },
+    then
   }
 }
