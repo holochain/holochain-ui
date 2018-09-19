@@ -35,7 +35,7 @@ interface ChannelsProps extends RouteComponentProps<{}> {
   newChannel: (channelSpec: ChannelSpec) => void,
   setActiveChannel: (channel: ChannelType) => void,
   getUsers: () => void,
-  personasList: () => void
+  personasList: (then?: Function) => void
 }
 
 interface ChannelsState {
@@ -54,27 +54,28 @@ class Channels extends React.Component<ChannelsProps, ChannelsState> {
   componentDidMount() {
     console.log("get channels")
     // here is where we should check that there is a valid profile
-    console.log(this.props.personas)
+    this.props.personasList((result: any) => {
+      console.log('personas received')
+      console.log(result)
 
+      const chatProfileExists = result.some((elem: {Hash: string, persona: Persona}) => {
+        console.log(elem)
+        return elem.persona.name === "HoloChat"
+      })
 
-    this.props.personasList()
-    // this.props.personasList(() => {
-    //   const chatProfileExists = this.props.personas.some((persona) => {
-    //     console.log(persona)
-    //     // return profile.name === "HoloChat"
-    //     return false
-    //   })
-
-    //   if(chatProfileExists) {
-    //     console.log("Chat profile found!")
-    //     // use the profile to update the user data in chat. A bit of a hack but it
-    //     // will work for now
+      if(chatProfileExists) {
+        console.log("Chat profile found!")
+        // use the profile to update the user data in chat. A bit of a hack but it
+        // will work for now
         
-    //   } else {
-    //     console.log("No Profile for chat. Redirecting...")
-    //     this.props.history.push("/holo-vault/profiles")
-    //   }
-    // })
+      } else {
+        console.log("No Profile for chat. Redirecting...")
+        this.props.history.push("/holo-vault/profiles")
+      }
+
+    })
+
+    
 
     
 

@@ -64,13 +64,14 @@ export function personaUpdate(persona: Persona) {
   }
 }
 
-export function personasList() {
+export function personasList(then?: Function) {
   return {
     type: PERSONASLIST,
     meta: {
       isHc: true,
       namespace: 'personas',
-      data: {'channel': 'holo-vault'}
+      data: {'channel': 'holo-vault'},
+      then,
     },
   }
 }

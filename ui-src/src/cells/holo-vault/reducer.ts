@@ -48,10 +48,10 @@ function vaultReducer (state: VaultState = initialState, action: {type: string, 
         }
     case A.PERSONASLIST:
       console.log('PERSONASLIST')
-        return {
-          ...state,
-          personas: payload
-        }
+      return {
+        ...state,
+        personas: payload
+      }
     default:
       return state
   }

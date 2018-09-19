@@ -19,7 +19,6 @@ import {Channel, ChannelSpec} from '../types/model/channel'
 
 
 
-// TODO: Add proper typing to the global state and figure out why holochat is two levels deep
 const mapStateToProps = (state: any) => {
   return {
     channels: state.holoChat.myChannels,
@@ -33,7 +32,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   	newChannel: (channelSpec: ChannelSpec) => { dispatch(createCustomChannel(channelSpec)) },
     setActiveChannel: (channel: Channel) => { dispatch(SetActiveChannel(channel))},
     getUsers: () => { dispatch(getUsers() ) },
-    personasList: () => { dispatch(personasList()) }
+    personasList: (then?: Function) => { dispatch(personasList(then)) }
   }
 }
 
