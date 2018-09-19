@@ -163,8 +163,12 @@ class MiniDrawer extends React.Component {
               <Route path='/holo-vault' render={props =>
                 <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
               } />
-              <Route path='/holo-chat' component={HoloChatNav} />
-              <Route path='/errand' component={ErrandNav} />
+              <Route path='/holo-chat' render={props =>
+                <HoloChatNav handleDrawerClose={this.handleDrawerClose} />
+              } />
+              <Route path='/errand' render={props =>
+                <ErrandNav handleDrawerClose={this.handleDrawerClose} />
+              } />
             </List>
           </Drawer>
         </MediaQuery>
