@@ -8,7 +8,8 @@ import {
 	getMyChannels,
 	createCustomChannel,
   SetActiveChannel,
-  getUsers
+  getUsers,
+  setIdentity
 } from '../actions'
 
 import {
@@ -16,13 +17,13 @@ import {
 } from '../../holo-vault/actions'
 
 import {Channel, ChannelSpec} from '../types/model/channel'
+import {IdentitySpec} from '../types/model/identity'
 
 
 
 const mapStateToProps = (state: any) => {
   return {
     channels: state.holoChat.myChannels,
-    personas: state.holoVault.profile.personas
   }
 }
 
@@ -32,7 +33,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   	newChannel: (channelSpec: ChannelSpec) => { dispatch(createCustomChannel(channelSpec)) },
     setActiveChannel: (channel: Channel) => { dispatch(SetActiveChannel(channel))},
     getUsers: () => { dispatch(getUsers() ) },
-    personasList: (then?: Function) => { dispatch(personasList(then)) }
+    personasList: (then?: Function) => { dispatch(personasList(then)) },
+    setIdentity: (identity: IdentitySpec) => { dispatch(setIdentity(identity)) }
   }
 }
 
