@@ -3,7 +3,7 @@ version: '2'
 services:
 
   bootstrap:
-    image: holochain-proto-node:latest
+    image: holochain/holochain-proto-node:latest
     ports:
       - "3142:3142"
     command: bs
@@ -11,7 +11,7 @@ services:
   holochain-ui1:
     depends_on:
       - bootstrap
-    image: holochain-proto-node:latest
+    image: holochain/holochain-proto-node:latest
     ports:
       - "3000:3000"
     volumes:
@@ -21,7 +21,7 @@ services:
   holochain-ui2:
     depends_on:
       - bootstrap
-    image: holochain-proto-node:latest
+    image: holochain/holochain-proto-node:latest
     ports:
       - "3001:3000"
     volumes:
