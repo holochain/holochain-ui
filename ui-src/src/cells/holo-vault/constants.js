@@ -1,11 +1,11 @@
 export const profile1 = {
-  name: 'Holo_Community',
+  name: 'HoloChat',
   profileSpec: {
-    "id": "Holo_Community",
+    "id": "HoloChat",
     "sourceDna": "QmZ4CP5unaghnmxbJkSBwobehgcF5VdcKLPimXEkwVTUYh",
     "type": "object",
     "expiry": "2018-12-12T01:01:10+00:00",
-    "requiredFields": ["firstname", "address", "suburb"],
+    "requiredFields": ["handle", "avatar"],
     "profile": [
       {
         "appLabel": "handle",
@@ -14,44 +14,20 @@ export const profile1 = {
         "type": "string",
         "usage": [
           {
-            "type": "index",
-            "reason": "So we can link to when you are mentioned and people request to follow you"
+            "type": "store",
+            "reason": "Name to display to other users of the app"
           }
         ]
       },
       {
-        "appLabel": "firstName",
-        "display": "First Name",
-        "required": true,
-        "type": "string",
-        "usage": [
-          {
-            "type": "index",
-            "reason": "So we can find you to collaborate"
-          }
-        ]
-      },
-      {
-        "appLabel": "lastName",
-        "display": "Last Name",
-        "required": true,
-        "type": "string",
-        "usage": [
-          {
-            "type": "index",
-            "reason": "So we can find you to collaborate"
-          }
-        ]
-      },
-      {
-        "appLabel": "timeZone",
-        "display": "Time Zone",
+        "appLabel": "avatar",
+        "display": "Avatar",
         "required": true,
         "type": "string",
         "usage": [
           {
             "type": "store",
-            "reason": "So you can organise the date time of multi time zone meetings with your peers"
+            "reason": "Picture displayed to other users of the app"
           }
         ]
       }

@@ -71,11 +71,11 @@ export function personasList() {
       isHc: true,
       namespace: 'personas',
       data: {'channel': 'holo-vault'}
-    }
+    },
   }
 }
 
-export function profilesList(then: Function) {
+export function profilesList() {
   return {
     type: PROFILESLIST,
     meta: {
@@ -83,6 +83,5 @@ export function profilesList(then: Function) {
       namespace: 'profiles',
       data: {'channel': 'holo-vault'}
     },
-    then
   }
 }
