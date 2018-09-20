@@ -50,7 +50,7 @@ function vaultReducer (state: VaultState = initialState, action: {type: string, 
       console.log('PERSONASLIST')
       return {
         ...state,
-        personas: payload
+        personas: payload || []
       }
     default:
       return state
