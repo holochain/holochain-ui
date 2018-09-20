@@ -26,7 +26,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     minWidth: 200,
     maxWidth: 400,
     display: 'flex',
-    marginLeft: 100
+    marginLeft: 20
   },
   media: {
     height: 100
@@ -46,12 +46,11 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     margin: `0 ${theme.spacing.unit * 2}px`
   },
   message: {
-    marginLeft: 19,
+    marginLeft: 1,
     marginTop: -8,
-
   },
   messageText: {
-    marginLeft: 19,
+    marginLeft: 1,
     marginTop: -8,
     fontSize: '16',
     margin: 0,
@@ -187,28 +186,28 @@ class MessageView extends Component<MessageProps, MessageState> {
     message.content = {
       upVotes: 33,
       downVotes: 0,
-      description: 'Just turned into an Idea.',
+      description: message.content.text,
       avatar: '',
-      productOwner: 'Phil',
-      title: 'New Idea'
+      productOwner: this.state.message.author.handle,
+      title: message.content.text
     }
     console.log(message.type)
     this.setState({ message: message })
   }
 
   render () {
-    const { classes, message } = this.props
+    const { classes } = this.props
 
     return (
       <List
-        style={{padding: 20,backgroundColor: (this.state.isHovered === true) ? 'white' : 'white', }}
+        style={{padding: 0,backgroundColor: (this.state.isHovered === true) ? 'white' : 'white', }}
         dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur} onTouchStart={this.onMessageHover}>
         <ListItem key={'1'} dense={true} >
           <ListItemAvatar >
             <MakeAvatar user={this.state.message.author}/>
           </ListItemAvatar>
           <ListItemText  className={classes.messageAuthor} primary={this.state.message.author.handle} />
-          <VoteControls isHovered={this.state.isHovered} message={this.state.message} handleIdea={() => this.onHandleIdea(message)} />
+          <VoteControls isHovered={this.state.isHovered} message={this.state.message} handleIdea={() => this.onHandleIdea(this.state.message)} />
         </ListItem>
         <ListItem dense={true} className={classes.message}>
           <MessageComponent message={this.state.message} classes={classes} />
