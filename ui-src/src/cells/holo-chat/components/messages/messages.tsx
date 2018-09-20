@@ -39,7 +39,6 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   chatHistory: {
     height: 470,
-    boxShadow: 'none',
     overflow: 'auto',
     marginBottom: 50
   }

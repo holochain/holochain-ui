@@ -21,7 +21,7 @@ export type State = VaultState
 const initialState: State = {
   userHash: 'empty',
   profileSpec: constants.profile1.profileSpec,
-  profiles: [constants.profile1, constants.profile6, constants.profile2, constants.profile3, constants.profile4, constants.profile5],
+  profiles: [constants.profile1],
   profile: constants.profile1,
   profileMapping: constants.mapping,
   personas: [], //constants.personas,

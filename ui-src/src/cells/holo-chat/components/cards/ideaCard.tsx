@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Info from '@material-ui/icons/Info';
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/List'
+import ListItemText from '@material-ui/core/List'
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import MessageView from '../messages/messageView'
 import  * as constants from '../../constants'
@@ -59,12 +60,19 @@ interface IdeaCardProps {
 class IdeaCard extends React.Component<IdeaCardProps & RouteComponentProps<{}>, {}> {
   state = {
     open: false,
+    openErrand: false
   };
   handleClickOpen = () => {
     this.setState({ open: true });
   };
   handleClose = () => {
     this.setState({ open: false });
+  };
+  handleClickErrandOpen = () => {
+    this.setState({ openErrand: true });
+  };
+  handleCloseErrand = () => {
+    this.setState({ openErrand: false });
   };
   handleThumbsUp = () => {
     console.log('up');
@@ -79,7 +87,7 @@ class IdeaCard extends React.Component<IdeaCardProps & RouteComponentProps<{}>, 
     this.props.addCard({id:'backlogid1111', title:this.props.idea.title, description: this.props.idea.description}, 'Inbox');
     this.props.addCard({id:'backlogid1112', title:'Describe how ' + this.props.idea.title + ' works', description: 'Write out the instructions for each state'}, 'Inbox');
     this.props.addCard({id:'backlogid1113', title:'Sketch of ' + this.props.idea.title, description: 'Sketch drawing'}, 'Inbox');
-    this.props.history.push("/errand")
+    this.setState({ openErrand: false });
   };
 
   render() {
@@ -126,8 +134,7 @@ class IdeaCard extends React.Component<IdeaCardProps & RouteComponentProps<{}>, 
             </Badge>
             <IconButton
               className={classes.button}
-              // href="http://localhost:3000/errand"
-              onClick={this.handleErrand}
+              onClick={this.handleClickErrandOpen}
               aria-label="Errand">
               <Publish />
             </IconButton>
@@ -154,6 +161,36 @@ class IdeaCard extends React.Component<IdeaCardProps & RouteComponentProps<{}>, 
             </Button>
             <Button onClick={this.handleClose} color="primary">
               Update
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={this.state.openErrand}
+          onClose={this.handleCloseErrand}
+          aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Integraste with Errand</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Select what you want to add to Errand
+            </DialogContentText>
+            <List>
+              <ListItem key={1} dense={true} className={classes.listItem}>
+                <ListItemText>Add a single item</ListItemText>
+              </ListItem>
+              <ListItem key={2} dense={true} className={classes.listItem}>
+                <ListItemText>Add a feature group of items</ListItemText>
+              </ListItem>
+              <ListItem key={2} dense={true} className={classes.listItem}>
+                <ListItemText>Add new process board</ListItemText>
+              </ListItem>
+            </List>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseErrand} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleErrand} color="primary">
+              Add
             </Button>
           </DialogActions>
         </Dialog>

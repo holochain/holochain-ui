@@ -75,22 +75,24 @@ class Channels extends React.Component<ChannelsProps, ChannelsState> {
         console.log("Chat profile found!")
         // use the profile to update the user data in chat. A bit of a hack but it
         // will work for now
-        
+
         // update the user info with the data from vault
         this.props.setIdentity({
-          ...chatPersona.personaFields[0], 
+          ...chatPersona.personaFields[0],
           ...chatPersona.personaFields[1]})
-        
+
       } else {
         console.log("No Profile for chat. Redirecting...")
         this.props.history.push("/holo-vault/profiles")
+        // this.props.history.push("/holo-vault/profile/HoloChat")
+
       }
 
     })
 
-    
 
-    
+
+
 
     this.getChannelsInterval = setInterval(this.props.getMyChannels, 200)
   }
