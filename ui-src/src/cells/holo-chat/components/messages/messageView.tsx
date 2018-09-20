@@ -202,7 +202,7 @@ class MessageView extends Component<MessageProps, MessageState> {
     return (
       <List
         style={{padding: 20,backgroundColor: (this.state.isHovered === true) ? 'white' : 'white', }}
-        dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
+        dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur} onTouchStart={this.onMessageHover}>
         <ListItem key={'1'} dense={true} >
           <ListItemAvatar >
             <MakeAvatar user={this.state.message.author}/>

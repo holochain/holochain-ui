@@ -15,6 +15,10 @@ import Send from '@material-ui/icons/Send'
 
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
+  root: {
+    width: '100%',
+    boxShadow: 'none'
+  },
   listItemMessage: {
     position: 'relative'
   },
@@ -23,20 +27,20 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     width: '70%'
   },
   button: {
-    marginRight: theme.spacing.unit,
     marginTop: theme.spacing.unit
   },
   send: {
     position: 'fixed',
     bottom: 0,
     width: '100%',
+    boxShadow: 'none',
     backgroundColor: '#fff',
     height: 70
   },
   chatHistory: {
-    maxHeight: window.innerHeight,
-    overflow: 'auto',
+    height: 470,
     boxShadow: 'none',
+    overflow: 'auto',
     marginBottom: 50
   }
 })
@@ -116,7 +120,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     })
 
     return (
-      <div>
+      <Paper className={classes.root}>
         <Paper className={classes.chatHistory}>
             <List>
             {
@@ -128,7 +132,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
             }
           </List>
         </Paper>
-        <div className={classes.send}>
+        <Paper className={classes.send}>
           <TextField
               id="message"
               label="Chat message"
@@ -141,8 +145,8 @@ class Messages extends React.Component<MessagesProps, MessageState> {
           <Button variant="fab" mini={true} className={classes.button} onClick={this.handleSendMessage}>
             <Send />
           </Button>
-        </div>
-      </div>
+        </Paper>
+      </Paper>
     )
   }
 }
