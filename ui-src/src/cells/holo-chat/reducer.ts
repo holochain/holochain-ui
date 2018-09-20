@@ -9,12 +9,12 @@ export type ChatAction = ActionType<typeof chatActions>;
 
 
 export interface HoloChatState {
-  myChannels: Array<Channel>,
-  currentMessages: Array<Message>
-  activeChannel: Channel | null,
-  activeChannelMembers: Array<Identity>,
-  myHash: string | null,
-  users: Array<Identity>
+  readonly myChannels: Array<Channel>,
+  readonly currentMessages: Array<Message>
+  readonly activeChannel: Channel | null,
+  readonly activeChannelMembers: Array<Identity>,
+  readonly myHash: string | null,
+  readonly users: Array<Identity>
 }
 
 

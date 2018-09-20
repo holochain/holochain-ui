@@ -16,6 +16,8 @@ import {Route, RouteComponentProps} from 'react-router-dom'
 
 import NewChannel from '../../containers/newChannelContainer'
 
+import {IdentitySpec} from '../../types/model/identity'
+
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     width: '100%',
@@ -29,13 +31,13 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 interface ChannelsProps extends RouteComponentProps<{}> {
   classes: any,
   channels: Array<ChannelType>,
-  personas: Array<Persona>,
 
   getMyChannels: () => void,
   newChannel: (channelSpec: ChannelSpec) => void,
   setActiveChannel: (channel: ChannelType) => void,
   getUsers: () => void,
-  personasList: () => void
+  personasList: (then?: Function) => void,
+  setIdentity: (identity: IdentitySpec) => void
 }
 
 interface ChannelsState {
@@ -54,27 +56,39 @@ class Channels extends React.Component<ChannelsProps, ChannelsState> {
   componentDidMount() {
     console.log("get channels")
     // here is where we should check that there is a valid profile
-    console.log(this.props.personas)
+    this.props.personasList((result: any) => {
+      console.log('personas received')
+      console.log(result)
 
+      let chatPersona: Persona
+      const chatProfileExists = result.some((elem: {Hash: string, persona: Persona}) => {
+        console.log(elem)
+        if(elem.persona.name === "HoloChat") {
+          chatPersona = elem.persona
+          return true
+        } else {
+          return false
+        }
+      })
 
-    this.props.personasList()
-    // this.props.personasList(() => {
-    //   const chatProfileExists = this.props.personas.some((persona) => {
-    //     console.log(persona)
-    //     // return profile.name === "HoloChat"
-    //     return false
-    //   })
-
-    //   if(chatProfileExists) {
-    //     console.log("Chat profile found!")
-    //     // use the profile to update the user data in chat. A bit of a hack but it
-    //     // will work for now
+      if(chatProfileExists) {
+        console.log("Chat profile found!")
+        // use the profile to update the user data in chat. A bit of a hack but it
+        // will work for now
         
-    //   } else {
-    //     console.log("No Profile for chat. Redirecting...")
-    //     this.props.history.push("/holo-vault/profiles")
-    //   }
-    // })
+        // update the user info with the data from vault
+        this.props.setIdentity({
+          ...chatPersona.personaFields[0], 
+          ...chatPersona.personaFields[1]})
+        
+      } else {
+        console.log("No Profile for chat. Redirecting...")
+        this.props.history.push("/holo-vault/profiles")
+      }
+
+    })
+
+    
 
     
 

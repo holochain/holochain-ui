@@ -110,6 +110,7 @@ class Profile extends React.Component {
   }
 
   componentDidMount(){
+
     this.props.personas.forEach(function(persona){
       persona.persona.personaFields.forEach(function(field){
         let key = Object.keys(field)[0]

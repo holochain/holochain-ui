@@ -2,7 +2,6 @@ import { Component } from 'react'
 import * as React from 'react'
 import withRoot from '../../../../withRoot'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar'
 import {List, ListItem, ListItemText, ListItemAvatar} from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Highlight from '@material-ui/icons/Highlight'
@@ -10,6 +9,7 @@ import ThumbUp from '@material-ui/icons/ThumbUp'
 import ThumbDown from '@material-ui/icons/ThumbDown'
 import IconButton from '@material-ui/core/IconButton'
 import IdeaContainer from '../../containers/ideaContainer'
+import {MakeAvatar} from '../misc/makeAvatar'
 
 import {Message as MessageType} from '../../types/view/message'
 
@@ -205,7 +205,7 @@ class MessageView extends Component<MessageProps, MessageState> {
         dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur}>
         <ListItem key={'1'} dense={true} >
           <ListItemAvatar >
-            <Avatar style={{marginTop: 10}} alt={this.state.message.author.handle} src={this.state.message.author.avatar} />
+            <MakeAvatar user={this.state.message.author}/>
           </ListItemAvatar>
           <ListItemText  className={classes.messageAuthor} primary={this.state.message.author.handle} />
           <VoteControls isHovered={this.state.isHovered} message={this.state.message} handleIdea={() => this.onHandleIdea(message)} />

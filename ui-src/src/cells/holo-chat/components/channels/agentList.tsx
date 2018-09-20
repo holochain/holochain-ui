@@ -2,11 +2,11 @@ import * as React from 'react';
 import {withStyles, Theme, StyleRulesCallback} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Avatar from '@material-ui/core/Avatar';
 import Input from '@material-ui/core/Input';
 import Checkbox from '@material-ui/core/Checkbox'
 import ListItemText from '@material-ui/core/ListItemText';
 import withRoot from '../../../../withRoot';
+import {MakeAvatar} from '../misc/makeAvatar'
 // import {Route} from 'react-router-dom'
 
 import {Identity} from '../../types/model/identity'
@@ -41,15 +41,6 @@ export interface AgentListState {
   selectedUsers: Array<Identity>
 }
 
-
-const MakeAvatar = (props: {user: Identity}) => {
-  const {user} = props
-  if(user.avatar && user.avatar.length > 0) {
-    return (<Avatar src={user.avatar}/>)
-  } else {
-    return (<Avatar>{user.handle[0]}</Avatar>)
-  }
-}
 
 class AgentList extends React.Component<AgentListProps, AgentListState> {
   constructor(props: AgentListProps) {
