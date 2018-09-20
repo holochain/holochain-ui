@@ -16,7 +16,7 @@ import {Message as MessageType} from '../../types/view/message'
 const styles: StyleRulesCallback = (theme: Theme) => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   button: {
     minWidth: 25,
@@ -26,7 +26,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     minWidth: 200,
     maxWidth: 400,
     display: 'flex',
-    marginLeft: 20
+    marginLeft: 100
   },
   media: {
     height: 100
@@ -46,11 +46,12 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     margin: `0 ${theme.spacing.unit * 2}px`
   },
   message: {
-    marginLeft: 1,
+    marginLeft: 19,
     marginTop: -8,
+
   },
   messageText: {
-    marginLeft: 1,
+    marginLeft: 19,
     marginTop: -8,
     fontSize: '16',
     margin: 0,
@@ -61,7 +62,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   messageAuthor:{
     fontSize:14,
-    color:'lightgrey'
+    color:'lightgrey',
   },
   messageImage:{
     maxWidth:200,
@@ -186,28 +187,28 @@ class MessageView extends Component<MessageProps, MessageState> {
     message.content = {
       upVotes: 33,
       downVotes: 0,
-      description: message.content.text,
+      description: 'Just turned into an Idea.',
       avatar: '',
-      productOwner: this.state.message.author.handle,
-      title: message.content.text
+      productOwner: 'Phil',
+      title: 'New Idea'
     }
     console.log(message.type)
     this.setState({ message: message })
   }
 
   render () {
-    const { classes } = this.props
+    const { classes, message } = this.props
 
     return (
       <List
-        style={{padding: 0,backgroundColor: (this.state.isHovered === true) ? 'white' : 'white', }}
+        style={{padding: 20,backgroundColor: (this.state.isHovered === true) ? 'white' : 'white', }}
         dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur} onTouchStart={this.onMessageHover}>
         <ListItem key={'1'} dense={true} >
           <ListItemAvatar >
             <MakeAvatar user={this.state.message.author}/>
           </ListItemAvatar>
-          <ListItemText  className={classes.messageAuthor} primary={this.state.message.author.handle} />
-          <VoteControls isHovered={this.state.isHovered} message={this.state.message} handleIdea={() => this.onHandleIdea(this.state.message)} />
+          <ListItemText className={classes.messageAuthor} primary={this.state.message.author.handle} />
+          <VoteControls isHovered={this.state.isHovered} message={this.state.message} handleIdea={() => this.onHandleIdea(message)} />
         </ListItem>
         <ListItem dense={true} className={classes.message}>
           <MessageComponent message={this.state.message} classes={classes} />

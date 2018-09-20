@@ -52,6 +52,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
+    backgroundSize: 'contain',
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -142,7 +143,7 @@ class Happs extends React.Component<HappsProps, {}> {
                         {group.hApps.map((app: App) => (
                           <Grid item={true} key={app.name}>
                             <Button href={app.url} size="small" color="primary">
-                              <img src={app.image} alt={app.name} width="75" height="75" />
+                              <img src={app.image} alt={app.name} width="100%" />
                             </Button>
                           </Grid>
                         ))}

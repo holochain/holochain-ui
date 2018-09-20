@@ -16,11 +16,14 @@ import Send from '@material-ui/icons/Send'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
-    width: '100%',
+    width: '95%',
     boxShadow: 'none'
   },
   listItemMessage: {
-    position: 'relative'
+    position: 'relative',
+    marginTop: '10px',
+    border: '2px solid #4255A9',
+    borderRadius: '45px',
   },
   textField: {
     float: 'left',
@@ -40,7 +43,8 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   chatHistory: {
     height: 470,
     overflow: 'auto',
-    marginBottom: 50
+    marginBottom: 50,
+    boxShadow: 'none'
   }
 })
 
