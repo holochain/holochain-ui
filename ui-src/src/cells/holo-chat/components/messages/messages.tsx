@@ -98,9 +98,15 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     this.setState({message: ''})
   }
 
-  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
      this.setState({message: e.target.value});
    }
+
+  handleKeyPress = (e: React.KeyboardEvent) => {
+    if(e.key === 'Enter') {
+      this.handleSendMessage()
+    }
+  }
 
   render () {
     const { classes, messages } = this.props
@@ -130,6 +136,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
               value={this.state.message}
               onChange={this.handleChange}
               margin="normal"
+              onKeyPress={this.handleKeyPress}
             />
           <Button variant="fab" mini={true} className={classes.button} onClick={this.handleSendMessage}>
             <Send />

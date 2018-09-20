@@ -58,9 +58,13 @@ const renderProfileField = ({
 // }
 
 class Profile extends React.Component {
+
+
   state = {
     newPersona: {}
   }
+
+
   handleCreateProfile = () => {
     console.log(this.state.newPersona)
     if(this.state.newPersona.personaFields.length > 0){

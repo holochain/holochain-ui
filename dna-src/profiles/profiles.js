@@ -9,6 +9,7 @@
 // -----------------------------------------------------------------
 
 function profileMappingCreate (profileMappingEntry) {
+  debug("profileMappingCreate" + JSON.stringify(profileMappingEntry))
   var profileMappingHash = commit("profileMapping", profileMappingEntry);
   return profileMappingHash;
 }
@@ -30,13 +31,14 @@ function profileMappingDelete () {
   return result;
 }
 
+
 function profileSpecCreate (profileSpecEntry) {
   var profileSpecHash = commit("profileSpec", profileSpecEntry);
   return profileSpecHash;
 }
 
 function profilesList () {
-  var personas = query({
+  var profiles = query({
     Return: {
       Hashes: true,
       Entries: true
@@ -47,7 +49,7 @@ function profilesList () {
   })
 
   var personasWithHash = []
-  personas.forEach(function(persona){
+  profiles.forEach(function(persona){
     var personaWithHash = {
       "hash": persona.Hash,
       "persona": persona.Entry

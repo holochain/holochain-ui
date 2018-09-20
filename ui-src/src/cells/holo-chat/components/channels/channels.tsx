@@ -4,12 +4,15 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
+import { withRouter } from 'react-router-dom'
+
 // import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddIcon from '@material-ui/icons/Add'
 import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
+import {Persona} from '../../../holo-vault/types/profile'
 import withRoot from '../../../../withRoot';
-import {Route} from 'react-router-dom'
+import {Route, RouteComponentProps} from 'react-router-dom'
 
 import NewChannel from '../../containers/newChannelContainer'
 
@@ -23,14 +26,16 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 });
 
-interface ChannelsProps {
+interface ChannelsProps extends RouteComponentProps<{}> {
   classes: any,
   channels: Array<ChannelType>,
+  personas: Array<Persona>,
 
   getMyChannels: () => void,
   newChannel: (channelSpec: ChannelSpec) => void,
   setActiveChannel: (channel: ChannelType) => void,
-  getUsers: () => void
+  getUsers: () => void,
+  personasList: () => void
 }
 
 interface ChannelsState {
@@ -48,6 +53,31 @@ class Channels extends React.Component<ChannelsProps, ChannelsState> {
 
   componentDidMount() {
     console.log("get channels")
+    // here is where we should check that there is a valid profile
+    console.log(this.props.personas)
+
+
+    this.props.personasList()
+    // this.props.personasList(() => {
+    //   const chatProfileExists = this.props.personas.some((persona) => {
+    //     console.log(persona)
+    //     // return profile.name === "HoloChat"
+    //     return false
+    //   })
+
+    //   if(chatProfileExists) {
+    //     console.log("Chat profile found!")
+    //     // use the profile to update the user data in chat. A bit of a hack but it
+    //     // will work for now
+        
+    //   } else {
+    //     console.log("No Profile for chat. Redirecting...")
+    //     this.props.history.push("/holo-vault/profiles")
+    //   }
+    // })
+
+    
+
     this.getChannelsInterval = setInterval(this.props.getMyChannels, 200)
   }
 
@@ -102,4 +132,4 @@ class Channels extends React.Component<ChannelsProps, ChannelsState> {
 }
 
 
-export default withRoot(withStyles(styles)(Channels));
+export default withRoot(withStyles(styles)(withRouter(Channels)));

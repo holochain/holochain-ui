@@ -71,7 +71,7 @@ export function personasList() {
       isHc: true,
       namespace: 'personas',
       data: {'channel': 'holo-vault'}
-    }
+    },
   }
 }
 
@@ -82,6 +82,6 @@ export function profilesList() {
       isHc: true,
       namespace: 'profiles',
       data: {'channel': 'holo-vault'}
-    }
+    },
   }
 }

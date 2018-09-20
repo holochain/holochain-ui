@@ -10,6 +10,11 @@ import {
   SetActiveChannel,
   getUsers
 } from '../actions'
+
+import {
+  personasList
+} from '../../holo-vault/actions'
+
 import {Channel, ChannelSpec} from '../types/model/channel'
 
 
@@ -17,7 +22,8 @@ import {Channel, ChannelSpec} from '../types/model/channel'
 // TODO: Add proper typing to the global state and figure out why holochat is two levels deep
 const mapStateToProps = (state: any) => {
   return {
-    channels: state.holoChat.myChannels
+    channels: state.holoChat.myChannels,
+    personas: state.holoVault.profile.personas
   }
 }
 
@@ -26,7 +32,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   	getMyChannels: () => { dispatch(getMyChannels()) },
   	newChannel: (channelSpec: ChannelSpec) => { dispatch(createCustomChannel(channelSpec)) },
     setActiveChannel: (channel: Channel) => { dispatch(SetActiveChannel(channel))},
-    getUsers: () => { dispatch(getUsers() ) }
+    getUsers: () => { dispatch(getUsers() ) },
+    personasList: () => { dispatch(personasList()) }
   }
 }
 
