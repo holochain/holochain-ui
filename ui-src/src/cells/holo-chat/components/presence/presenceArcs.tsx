@@ -14,7 +14,8 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'contain',
-    backgroundImage: `url(${"http://localhost:3000/24-hour-clock-face.jpg"})`
+    backgroundImage: `url(${"http://localhost:3000/24-hour-clock-face.jpg"})`,
+    margin: '0 auto'
     }
 });
 

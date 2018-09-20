@@ -102,9 +102,9 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: '#ffffff',
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
     marginTop: 50
-  },
+  }
 });
 
 class MiniDrawer extends React.Component {
