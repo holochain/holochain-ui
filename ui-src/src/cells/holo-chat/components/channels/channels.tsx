@@ -5,17 +5,13 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom'
-
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddIcon from '@material-ui/icons/Add'
 import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
 import {Persona} from '../../../holo-vault/types/profile'
 import withRoot from '../../../../withRoot';
 import {Route, RouteComponentProps} from 'react-router-dom'
-
 import NewChannel from '../../containers/newChannelContainer'
-
 import {IdentitySpec} from '../../types/model/identity'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -28,8 +24,8 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 });
 
-interface ChannelsProps extends RouteComponentProps<{}> {
-  classes: any,
+export interface ChannelsProps extends RouteComponentProps<{}> {
+  classes?: any,
   channels: Array<ChannelType>,
 
   getMyChannels: () => void,
@@ -40,7 +36,7 @@ interface ChannelsProps extends RouteComponentProps<{}> {
   setIdentity: (identity: IdentitySpec) => void
 }
 
-interface ChannelsState {
+export interface ChannelsState {
   modalOpen: boolean
 }
 
