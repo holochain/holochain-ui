@@ -4,13 +4,12 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
-import { withRouter } from 'react-router-dom'
 import ListItemText from '@material-ui/core/ListItemText';
 import AddIcon from '@material-ui/icons/Add'
 import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
 import {Persona} from '../../../holo-vault/types/profile'
 import withRoot from '../../../../withRoot';
-import {Route, RouteComponentProps} from 'react-router-dom'
+import {withRouter, Route, RouteComponentProps} from 'react-router-dom'
 import NewChannel from '../../containers/newChannelContainer'
 import {IdentitySpec} from '../../types/model/identity'
 
@@ -24,10 +23,17 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 });
 
-export interface ChannelsProps extends RouteComponentProps<{}> {
-  classes?: any,
-  channels: Array<ChannelType>,
 
+
+export interface OwnProps {
+  classes?: any
+}
+
+export interface StateProps {
+  channels: Array<ChannelType>
+}
+
+export interface DispatchProps {
   getMyChannels: () => void,
   newChannel: (channelSpec: ChannelSpec) => void,
   setActiveChannel: (channel: ChannelType) => void,
@@ -36,13 +42,22 @@ export interface ChannelsProps extends RouteComponentProps<{}> {
   setIdentity: (identity: IdentitySpec) => void
 }
 
-export interface ChannelsState {
+export interface RouterProps extends RouteComponentProps<{}> {}
+
+export type Props = OwnProps & StateProps & DispatchProps
+
+
+
+export interface State {
   modalOpen: boolean
 }
 
-class Channels extends React.Component<ChannelsProps, ChannelsState> {
+
+
+
+class Channels extends React.Component<Props & RouterProps, State> {
   getChannelsInterval: any
-  constructor(props: ChannelsProps) {
+  constructor(props: Props & RouterProps) {
     super(props)
     this.state = {
       modalOpen: false
@@ -116,7 +131,7 @@ class Channels extends React.Component<ChannelsProps, ChannelsState> {
     history.push(`/holo-chat/messages`)
   }
 
-  render() {
+  render(): JSX.Element {
     const {classes, channels} = this.props;
     return (<div className={classes.root}>
       <Button variant='fab' mini={true} onClick={this.handleNewChannelButtonClick} className={classes.addButton}>
@@ -143,5 +158,5 @@ class Channels extends React.Component<ChannelsProps, ChannelsState> {
   }
 }
 
-
-export default withRoot(withStyles(styles)(withRouter(Channels)));
+// typecase after withRouter exposes only non-router props to external use. This is because withRouter will add those props automatically
+export default withRoot(withStyles(styles)(withRouter(Channels) as React.ComponentType<Props>));

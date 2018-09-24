@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Channels, {ChannelsState, ChannelsProps} from './channels';
+import Channels, {State, Props} from './channels';
 import * as Enzyme from 'enzyme';
 import { mount, ReactWrapper } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
@@ -13,8 +13,8 @@ Enzyme.configure({ adapter: new Adapter() })
 
 export const channelsTests = describe('Listing your channels', () => {
 
-  let props: ChannelsProps
-  let mountedChannelsList: ReactWrapper<ChannelsProps, ChannelsState> | undefined
+  let props: Props
+  let mountedChannelsList: ReactWrapper<Props, State> | undefined
 
   const channelsList = () => {
     if (!mountedChannelsList) {
@@ -31,7 +31,6 @@ export const channelsTests = describe('Listing your channels', () => {
   describe('When there is a list of existing channels', () => {
     beforeEach(() => {
       props = {
-        history: [],
         getMyChannels: mockFn,
         newChannel: mockFn,
         setActiveChannel: mockFn,
