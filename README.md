@@ -14,7 +14,7 @@ This app also includes a feature that is part of the dogfooding approach being t
 
 We all struggle with the ability to schedule time to meet while being a fully distributed team in many timezones. We are proposing a new approach to "Finding Time."
 
-You can view our [brainstorming Realtimeboard](https://realtimeboard.com/app/board/o9J_kzK8i00=/) and provide feedback by submitting tickets to this repo.
+Provide feedback by submitting tickets to this repo.
 
 Check out our [Storybook](https://holochain.github.io/holochain-ui/index.html?selectedKind=HoloVault%2FPersona&selectedStory=New%20Persona&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Fnotes%2Fpanel) to test how the components of the app operate. By taking this approach we are sharing the ability for developers to apply these well documented concepts into other holochain apps.
 
