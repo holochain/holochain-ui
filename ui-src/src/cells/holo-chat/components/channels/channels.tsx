@@ -159,4 +159,4 @@ class Channels extends React.Component<Props & RouterProps, State> {
 }
 
 // typecase after withRouter exposes only non-router props to external use. This is because withRouter will add those props automatically
-export default withRoot(withStyles(styles)(withRouter(Channels) as React.ComponentType<Props>));
+export default withRoot(withStyles(styles)(withRouter(Channels)));

@@ -6,7 +6,7 @@ import * as Adapter from 'enzyme-adapter-react-16';
 import CreateStore from '../../../../store'
 import {Provider} from 'react-redux'
 import { MemoryRouter } from 'react-router'
-
+import {channelData} from './channelData'
 
 let store = CreateStore()
 Enzyme.configure({ adapter: new Adapter() })
@@ -37,8 +37,8 @@ export const channelsTests = describe('Listing your channels', () => {
         getUsers: mockFn,
         setIdentity: mockFn,
         personasList: mockFn,
-        channels: [
-        ]
+        channels: channelData
+
       };
     })
 
