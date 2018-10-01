@@ -77,4 +77,10 @@ describe('Chat Reducer', () => {
 		})
 	})
 
+	it('Should make no change on an unknown action', () => {
+		expect(holochatReducer(undefined, {
+			type: 'NOTANACTIONT'
+		})).toEqual(initialState)
+	})
+
 })
