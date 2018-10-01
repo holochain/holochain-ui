@@ -61,7 +61,7 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
 		'custom_channel',
 		'getMyChannels', 
 		chatActions.GetMyChannels.create, 
-		{}, 
+		null, 
 		[{name: 'channel1', members: ['member1']}]
 	],
 	//TODO: add test for getMembers
@@ -77,14 +77,14 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
 		'users',
 		'whoami', 
 		chatActions.Whoami.create, 
-		{}, 
+		null, 
 		'Qmmyagenthash'
 	],
 	[
 		'users',
 		'getIdentity', 
 		chatActions.GetIdentity.create, 
-		{}, 
+		null, 
 		{handle: 'wollum', hash: 'Qmmyagenthash', avatar: ''}
 	],
 	[
@@ -98,7 +98,7 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
 		'users',
 		'getUsers', 
 		chatActions.GetUsers.create, 
-		{}, 
+		null, 
 		[{handle: 'wollum', hash: 'Qmmyagenthash', avatar: ''}]
 	],
 ]
@@ -115,6 +115,7 @@ asyncActionTestTable.forEach(([zome, name, actionCreator, testInput, testRespons
 
 		it('should trigger middleware creating a request response that returns a promise with the response', () => {
 			mock.onPost('/').reply(200, testResponse)
+
 		    // @ts-ignore - minor error in the typings for redux/typesafe-actions
 		    return store.dispatch(actionCreator(testInput)).then((response) => {
 				const actions = store.getActions()

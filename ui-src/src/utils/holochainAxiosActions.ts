@@ -46,7 +46,10 @@ export function createHolochainAsyncAction<paramType, returnType>(channel: strin
 		`${channel}/${zome}/${func}_FAILURE`)
 	<BridgeCallPayload<paramType>, BridgeCallResponse<returnType>, AxiosError>()
 
-	const newAction = action as (typeof action & {create: (param: paramType) => any})
+	const newAction = action as (typeof action & {
+		create: (param: paramType) => any,
+		sig: (param: paramType) => Promise<{payload: BridgeCallResponse<returnType>}>
+	})
 	newAction.create = (param: paramType) => action.request(makeBridgeCallPayload(channel, zome, func, param));
 	return newAction
 }
