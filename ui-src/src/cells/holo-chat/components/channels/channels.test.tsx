@@ -1,20 +1,20 @@
 import * as React from 'react';
-import Channels, {ChannelsState, ChannelsProps} from './channels';
+import Channels, {State, Props} from './channels';
 import * as Enzyme from 'enzyme';
 import { mount, ReactWrapper } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import CreateStore from '../../../../store'
 import {Provider} from 'react-redux'
 import { MemoryRouter } from 'react-router'
-
+import {channelData} from './channelData'
 
 let store = CreateStore()
 Enzyme.configure({ adapter: new Adapter() })
 
 export const channelsTests = describe('Listing your channels', () => {
 
-  let props: ChannelsProps
-  let mountedChannelsList: ReactWrapper<ChannelsProps, ChannelsState> | undefined
+  let props: Props
+  let mountedChannelsList: ReactWrapper<Props, State> | undefined
 
   const channelsList = () => {
     if (!mountedChannelsList) {
@@ -31,15 +31,14 @@ export const channelsTests = describe('Listing your channels', () => {
   describe('When there is a list of existing channels', () => {
     beforeEach(() => {
       props = {
-        history: [],
         getMyChannels: mockFn,
         newChannel: mockFn,
         setActiveChannel: mockFn,
         getUsers: mockFn,
         setIdentity: mockFn,
         personasList: mockFn,
-        channels: [
-        ]
+        channels: channelData
+
       };
     })
 

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {Provider} from 'react-redux'
 import { storiesOf } from "@storybook/react";
-import { MemoryRouter } from 'react-router'
+import { MemoryRouter } from 'react-router-dom'
 import { withNotes } from '@storybook/addon-notes'
 import {configure} from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
@@ -20,7 +20,7 @@ import { filterAgentsTests } from './filterAgents.test'
 import { selectAgentTests } from './selectAgent.test'
 import { newChatTests } from './newChat.test'
 import { channelsTests } from './channels.test'
-import channelData from '../../data/channels.json'
+import { channelData } from './channelData'
 
 configure({adapter: new Adapter()})
 let store = CreateStore()
@@ -37,7 +37,7 @@ storiesOf('HoloChat/Channels', module)
   ))
   .add('List my Channels', withNotes(listChannels) (() => {
     specs(() => channelsTests)
-    return <Provider store={store}><MemoryRouter initialEntries={['/']}><Channels channels={channelData} /></MemoryRouter></Provider>
+    return <Provider store={store}><Channels channels={channelData} personasList={() => {}} /></Provider>
   }))
   .add('Start a new Channel', withNotes(newChannel) (() => {
     specs(() => newChannelTests)
