@@ -13,6 +13,7 @@ ui-src/storybook-addons/sketch/node_modules
 
 # testing
 /coverage
+ui-src/coverage
 
 # production
 /build
