@@ -5,11 +5,11 @@ import Channels from '../components/channels/channels'
 // import {HoloChatState} from '../reducer'
 import {Dispatch} from 'redux'
 import {
-	getMyChannels,
-	createCustomChannel,
+	GetMyChannels,
+	CreateCustomChannel,
   SetActiveChannel,
-  getUsers,
-  setIdentity
+  GetUsers,
+  SetIdentity
 } from '../actions'
 
 import {
@@ -29,12 +29,12 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-  	getMyChannels: () => { dispatch(getMyChannels()) },
-  	newChannel: (channelSpec: ChannelSpec) => { dispatch(createCustomChannel(channelSpec)) },
+  	getMyChannels: () => { dispatch(GetMyChannels.create({})) },
+  	newChannel: (channelSpec: ChannelSpec) => { dispatch(CreateCustomChannel.create(channelSpec)) },
     setActiveChannel: (channel: Channel) => { dispatch(SetActiveChannel(channel))},
-    getUsers: () => { dispatch(getUsers() ) },
+    getUsers: () => { dispatch(GetUsers.create({}) ) },
     personasList: (then?: Function) => { dispatch(personasList(then)) },
-    setIdentity: (identity: IdentitySpec) => { dispatch(setIdentity(identity)) }
+    setIdentity: (identity: IdentitySpec) => { dispatch(SetIdentity.create(identity)) }
   }
 }
 
