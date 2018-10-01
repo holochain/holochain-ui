@@ -64,7 +64,13 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
 		null, 
 		[{name: 'channel1', members: ['member1']}]
 	],
-	//TODO: add test for getMembers
+	[
+		'custom_channel',
+		'getMembers', 
+		chatActions.GetMembers.create, 
+		{channelHash: 'xxx'}, 
+		[{handle: 'wollum', hash: 'Qmmyagenthash', avatar: ''}]
+	],
 	[
 		'custom_channel',
 		'postMessage', 
@@ -72,7 +78,13 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
 		{channelHash: 'Qmchanelhash', message: {content:{text:'message body'}}}, 
 		'Qmmessagehash'
 	],
-	//TODO: add test for getMessages
+	[
+		'custom_channel',
+		'getMessages', 
+		chatActions.GetMessages.create, 
+		{channelHash: 'Qmchanelhash'}, 
+		{content:{text:'message body'}}
+	],	
 	[
 		'users',
 		'whoami', 
@@ -126,5 +138,26 @@ asyncActionTestTable.forEach(([zome, name, actionCreator, testInput, testRespons
 	})
 
 })
+
+
+// describe('getMessages action', () => {
+// 	const testInput = {channelHash: 'xxx'}
+// 	const expectedAction = genExpectedAction('custom_channel', 'getMessages', testInput)
+
+// 	it('should create an action that is correctly structured given parameters', () => {
+// 		expect(chatActions.GetMembers.create({channelHash: 'xxx'})).toEqual(expectedAction)
+// 	})
+
+// 	it('should trigger middleware creating a request response that returns a promise with the response', () => {
+// 		mock.onPost('/').reply(200, testResponse)
+
+// 	    // @ts-ignore - minor error in the typings for redux/typesafe-actions
+// 	    return store.dispatch(actionCreator(testInput)).then((response) => {
+// 			const actions = store.getActions()
+// 			expect(actions[0]).toEqual(expectedAction)
+// 			expect(response.payload.data).toEqual(testResponse)
+// 	    })
+// 	})
+// })
 
 
