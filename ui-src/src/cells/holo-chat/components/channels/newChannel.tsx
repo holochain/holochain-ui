@@ -56,7 +56,7 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
 
 
   onSelectionChanged = (selectedUsers: Array<Identity>) => {
-    console.log("selected users changed")
+    console.log('selected users changed')
     console.log(selectedUsers)
     this.setState({selectedUsers})
   }
@@ -82,16 +82,16 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
     const { classes } = this.props;
 
     return (
-      <Dialog fullWidth={true} open={this.props.open} aria-labelledby="simple-dialog-title">
+      <Dialog fullWidth={true} open={this.props.open} aria-labelledby='simple-dialog-title'>
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <Button onClick={this.props.onHandleClose} color="inherit" aria-label="Close">
+            <Button id='CloseDialog' onClick={this.props.onHandleClose} color='inherit' aria-label='Close'>
               <CloseIcon />
             </Button>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography variant='title' color='inherit' className={classes.flex}>
               Members
             </Typography>
-            <Button variant="fab" mini={true} onClick={this.onCreateChannelButtonClick} className={classes.button}>
+            <Button variant='fab' mini={true} onClick={this.onCreateChannelButtonClick} className={classes.button}>
               <Send />
             </Button>
           </Toolbar>
