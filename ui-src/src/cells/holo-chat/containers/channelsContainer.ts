@@ -5,11 +5,11 @@ import {  } from '../reducer'
 import {Dispatch} from 'redux'
 
 import {
-	getMyChannels,
-	createCustomChannel,
+	GetMyChannels,
+	CreateCustomChannel,
   SetActiveChannel,
-  getUsers,
-  setIdentity
+  GetUsers,
+  SetIdentity
 } from '../actions'
 
 import {
@@ -29,12 +29,12 @@ const mapStateToProps = (state: any, ownProps: OwnProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchProps => {
   return {
-  	getMyChannels: () => { dispatch(getMyChannels()) },
-  	newChannel: (channelSpec: ChannelSpec) => { dispatch(createCustomChannel(channelSpec)) },
-    setActiveChannel: (channel: Channel) => { dispatch(SetActiveChannel(channel))},
-    getUsers: () => { dispatch(getUsers() ) },
-    personasList: (then?: Function) => { dispatch(personasList(then)) },
-    setIdentity: (identity: IdentitySpec) => { dispatch(setIdentity(identity)) }
+  	getMyChannels: () => dispatch(GetMyChannels.create(undefined)), // can be written as  () => { return dispatch(...) }
+  	newChannel: (channelSpec: ChannelSpec) => dispatch(CreateCustomChannel.create(channelSpec)),
+    setActiveChannel: (channel: Channel) => dispatch(SetActiveChannel(channel)),
+    getUsers: () => dispatch(GetUsers.create(undefined) ),
+    personasList: (then?: Function) => dispatch(personasList(then)),
+    setIdentity: (identity: IdentitySpec) => dispatch(SetIdentity.create(identity))
   }
 }
 

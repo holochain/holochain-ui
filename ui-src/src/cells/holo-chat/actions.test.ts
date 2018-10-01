@@ -28,7 +28,7 @@ afterEach(() => {
 
 function genExpectedAction(zome: string, fname: string, data: any): any {
 	return {
-		type: 'holochat/'+fname,
+		type: `holo-chat/${zome}/${fname}`,
 		payload: {
 			request: {
 				data: {
@@ -46,59 +46,71 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
 	[
 		'custom_channel',
 		'createCustomChannel', 
-		chatActions.createCustomChannel, 
+		chatActions.CreateCustomChannel.create, 
 		{name: 'test channel', description: '', members: ['123abc']}, 
 		'channel-hash-12345'
 	],
 	[
 		'custom_channel',
 		'addMembers', 
-		chatActions.addMembers, 
+		chatActions.AddMembers.create, 
 		{channelHash: 'Qmchannelhash', members: ['123abc']}, 
 		true
 	],
 	[
 		'custom_channel',
 		'getMyChannels', 
-		chatActions.getMyChannels, 
-		{}, 
+		chatActions.GetMyChannels.create, 
+		null, 
 		[{name: 'channel1', members: ['member1']}]
 	],
-	//TODO: add test for getMembers
+	[
+		'custom_channel',
+		'getMembers', 
+		chatActions.GetMembers.create, 
+		{channelHash: 'xxx'}, 
+		[{handle: 'wollum', hash: 'Qmmyagenthash', avatar: ''}]
+	],
 	[
 		'custom_channel',
 		'postMessage', 
-		chatActions.postMessage, 
+		chatActions.PostMessage.create, 
 		{channelHash: 'Qmchanelhash', message: {content:{text:'message body'}}}, 
 		'Qmmessagehash'
 	],
-	//TODO: add test for getMessages
+	[
+		'custom_channel',
+		'getMessages', 
+		chatActions.GetMessages.create, 
+		{channelHash: 'Qmchanelhash'}, 
+		{content:{text:'message body'}}
+	],	
 	[
 		'users',
 		'whoami', 
-		chatActions.whoami, 
-		{}, 
+		chatActions.Whoami.create, 
+		null, 
 		'Qmmyagenthash'
 	],
 	[
 		'users',
 		'getIdentity', 
-		chatActions.getIdentity, 
-		{}, 
+		chatActions.GetIdentity.create, 
+		null, 
 		{handle: 'wollum', hash: 'Qmmyagenthash', avatar: ''}
 	],
 	[
 		'users',
 		'setIdentity', 
-		chatActions.setIdentity, 
+		chatActions.SetIdentity.create, 
 		{handle: 'newHandle', avatar: ''}, 
 		true
 	],
 	[
 		'users',
 		'getUsers', 
-		chatActions.getUsers, 
-		{}, 
+		chatActions.GetUsers.create, 
+		null, 
 		[{handle: 'wollum', hash: 'Qmmyagenthash', avatar: ''}]
 	],
 ]
@@ -113,18 +125,39 @@ asyncActionTestTable.forEach(([zome, name, actionCreator, testInput, testRespons
 			expect(actionCreator(testInput)).toEqual(expectedAction)
 		})
 
-		it('should trigger middleware creating a request response and correctly modify the state', () => {
+		it('should trigger middleware creating a request response that returns a promise with the response', () => {
 			mock.onPost('/').reply(200, testResponse)
+
 		    // @ts-ignore - minor error in the typings for redux/typesafe-actions
-		    return store.dispatch(actionCreator(testInput)).then(() => {
+		    return store.dispatch(actionCreator(testInput)).then((response) => {
 				const actions = store.getActions()
 				expect(actions[0]).toEqual(expectedAction)
-				expect(store.getActions()[1].payload.data).toEqual(testResponse)
+				expect(response.payload.data).toEqual(testResponse)
 		    })
 		})
-		
 	})
 
 })
+
+
+// describe('getMessages action', () => {
+// 	const testInput = {channelHash: 'xxx'}
+// 	const expectedAction = genExpectedAction('custom_channel', 'getMessages', testInput)
+
+// 	it('should create an action that is correctly structured given parameters', () => {
+// 		expect(chatActions.GetMembers.create({channelHash: 'xxx'})).toEqual(expectedAction)
+// 	})
+
+// 	it('should trigger middleware creating a request response that returns a promise with the response', () => {
+// 		mock.onPost('/').reply(200, testResponse)
+
+// 	    // @ts-ignore - minor error in the typings for redux/typesafe-actions
+// 	    return store.dispatch(actionCreator(testInput)).then((response) => {
+// 			const actions = store.getActions()
+// 			expect(actions[0]).toEqual(expectedAction)
+// 			expect(response.payload.data).toEqual(testResponse)
+// 	    })
+// 	})
+// })
 
 

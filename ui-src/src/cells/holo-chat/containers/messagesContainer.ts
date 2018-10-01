@@ -7,10 +7,10 @@ import {Dispatch} from 'redux'
 import {modelMessagesToViewMessages} from '../types/view/message'
 import {MessageSpec} from '../types/model/message'
 import {
-	getMessages,
-	getMembers,
-	whoami,
-	postMessage
+	GetMessages,
+	GetMembers,
+	Whoami,
+	PostMessage
 } from '../actions'
 
 const mapStateToProps = (state: any) => {
@@ -24,10 +24,10 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
 	return {
-		getMessages: (channelUUID: string) => dispatch(getMessages(channelUUID)),
-		getMembers:  (channelUUID: string) => dispatch(getMembers(channelUUID)),
-		whoami: () => dispatch(whoami()),
-		sendMessage: (payload: {message: MessageSpec, channelHash: string}) => dispatch(postMessage(payload))
+		getMessages: (channelUUID: string) => dispatch(GetMessages.create({channelHash: channelUUID})),
+		getMembers:  (channelUUID: string) => dispatch(GetMembers.create({channelHash: channelUUID})),
+		whoami: () => dispatch(Whoami.create(undefined)),
+		sendMessage: (payload: {message: MessageSpec, channelHash: string}) => dispatch(PostMessage.create(payload))
 	}
 }
 

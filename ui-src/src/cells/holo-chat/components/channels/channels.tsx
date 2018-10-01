@@ -13,6 +13,12 @@ import {withRouter, Route, RouteComponentProps} from 'react-router-dom'
 import NewChannel from '../../containers/newChannelContainer'
 import {IdentitySpec} from '../../types/model/identity'
 
+import {
+  GetMyChannels,
+  CreateCustomChannel,
+  GetUsers,
+} from '../../actions'
+
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     width: '100%',
@@ -23,8 +29,6 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 });
 
-
-
 export interface OwnProps {
   classes?: any
 }
@@ -34,10 +38,10 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-  getMyChannels: () => void,
-  newChannel: (channelSpec: ChannelSpec) => void,
+  getMyChannels: typeof GetMyChannels.sig,
+  newChannel: typeof CreateCustomChannel.sig,
+  getUsers: typeof GetUsers.sig,
   setActiveChannel: (channel: ChannelType) => void,
-  getUsers: () => void,
   personasList: (then?: Function) => void,
   setIdentity: (identity: IdentitySpec) => void
 }
@@ -45,8 +49,6 @@ export interface DispatchProps {
 export interface RouterProps extends RouteComponentProps<{}> {}
 
 export type Props = OwnProps & StateProps & DispatchProps
-
-
 
 export interface State {
   modalOpen: boolean
@@ -96,6 +98,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
         // this.props.history.push("/holo-vault/profile/HoloChat")
       }
     })
+
     this.getChannelsInterval = setInterval(this.props.getMyChannels, 200)
   }
 
@@ -104,7 +107,10 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   handleNewChannelButtonClick = () => {
-    this.props.getUsers()
+    // example promise from holochain call. Remove later
+    this.props.getUsers(null).then((response) => {
+      console.log(JSON.stringify(response.payload.data))
+    })
     this.setState({modalOpen: true})
   }
 

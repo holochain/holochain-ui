@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import NewChannel from '../components/channels/newChannel'
 import {Dispatch} from 'redux'
 import {
-	createCustomChannel,
+	CreateCustomChannel,
 } from '../actions'
 import {ChannelSpec} from '../types/model/channel'
 
@@ -15,7 +15,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    createChannel: (channelSpec: ChannelSpec) => { dispatch( createCustomChannel(channelSpec) )}
+    createChannel: (channelSpec: ChannelSpec) => { dispatch( CreateCustomChannel.create(channelSpec) )}
   }
 }
 
