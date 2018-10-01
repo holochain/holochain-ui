@@ -11,8 +11,6 @@ The type of the action will be automatically set
 */
 
 
-//TODO: Refactor to another file for reusability
-
 export interface BridgeCallPayload<PayloadType> {
 	request: AxiosRequestConfig & {
 		data: {

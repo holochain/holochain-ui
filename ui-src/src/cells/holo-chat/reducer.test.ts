@@ -43,4 +43,38 @@ describe('Chat Reducer', () => {
 		})
 	})
 
+	it('Should update the state in response to SetActiveChannel', () => {
+		expect(holochatReducer(undefined, {
+			type: getType(chatActions.SetActiveChannel),
+			payload: {hash: 'xxx'}
+		})).toEqual({
+			...initialState,
+			activeChannel: {hash: 'xxx'}
+		})
+	})
+
+	it('Should update the state in response to Whoami', () => {
+		expect(holochatReducer(undefined, {
+			type: getType(chatActions.Whoami.success),
+			payload: {
+				data: 'xxx'
+			} as AxiosResponse
+		})).toEqual({
+			...initialState,
+			myHash: 'xxx'
+		})
+	})
+
+	it('Should update the state in response to GetUsers', () => {
+		expect(holochatReducer(undefined, {
+			type: getType(chatActions.GetUsers.success),
+			payload: {
+				data: [{handle: 'a', avatar: ''}, {handle: 'b', avatar: ''}]
+			} as AxiosResponse
+		})).toEqual({
+			...initialState,
+			users: [{handle: 'a', avatar: ''}, {handle: 'b', avatar: ''}]
+		})
+	})
+
 })
