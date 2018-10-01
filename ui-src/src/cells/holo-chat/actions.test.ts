@@ -28,7 +28,7 @@ afterEach(() => {
 
 function genExpectedAction(zome: string, fname: string, data: any): any {
 	return {
-		type: 'holochat/'+fname,
+		type: `holo-chat/${zome}/${fname}`,
 		payload: {
 			request: {
 				data: {
@@ -46,21 +46,21 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
 	[
 		'custom_channel',
 		'createCustomChannel', 
-		chatActions.createCustomChannel, 
+		chatActions.CreateCustomChannel.create, 
 		{name: 'test channel', description: '', members: ['123abc']}, 
 		'channel-hash-12345'
 	],
 	[
 		'custom_channel',
 		'addMembers', 
-		chatActions.addMembers, 
+		chatActions.AddMembers.create, 
 		{channelHash: 'Qmchannelhash', members: ['123abc']}, 
 		true
 	],
 	[
 		'custom_channel',
 		'getMyChannels', 
-		chatActions.getMyChannels, 
+		chatActions.GetMyChannels.create, 
 		{}, 
 		[{name: 'channel1', members: ['member1']}]
 	],
@@ -68,7 +68,7 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
 	[
 		'custom_channel',
 		'postMessage', 
-		chatActions.postMessage, 
+		chatActions.PostMessage.create, 
 		{channelHash: 'Qmchanelhash', message: {content:{text:'message body'}}}, 
 		'Qmmessagehash'
 	],
@@ -76,28 +76,28 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
 	[
 		'users',
 		'whoami', 
-		chatActions.whoami, 
+		chatActions.Whoami.create, 
 		{}, 
 		'Qmmyagenthash'
 	],
 	[
 		'users',
 		'getIdentity', 
-		chatActions.getIdentity, 
+		chatActions.GetIdentity.create, 
 		{}, 
 		{handle: 'wollum', hash: 'Qmmyagenthash', avatar: ''}
 	],
 	[
 		'users',
 		'setIdentity', 
-		chatActions.setIdentity, 
+		chatActions.SetIdentity.create, 
 		{handle: 'newHandle', avatar: ''}, 
 		true
 	],
 	[
 		'users',
 		'getUsers', 
-		chatActions.getUsers, 
+		chatActions.GetUsers.create, 
 		{}, 
 		[{handle: 'wollum', hash: 'Qmmyagenthash', avatar: ''}]
 	],

@@ -1,4 +1,5 @@
 import { createAction, createAsyncAction } from 'typesafe-actions'
+
 // import { Channel } from './types/channel'
 import { Message, MessageSpec } from './types/model/message'
 import { Channel, ChannelSpec } from './types/model/channel'
@@ -43,72 +44,48 @@ function makeBridgeCallPayload<PayloadType>(channel: string, zome: string, func:
 	}
 }
 
+function createHolochainAsyncAction<paramType, returnType>(channel: string, zome: string, func: string) {
+	const action = createAsyncAction(
+		`${channel}/${zome}/${func}`,
+		`${channel}/${zome}/${func}_SUCCESS`,
+		`${channel}/${zome}/${func}_FAILURE`)
+	<BridgeCallPayload<paramType>, BridgeCallResponse<returnType>, AxiosError>()
+
+	const newAction = action as (typeof action & {create: (param: paramType) => any})
+	newAction.create = (param: paramType) => action.request(makeBridgeCallPayload(channel, zome, func, param));
+	return newAction
+}
+
 
 /*===============================================
 =            Action Type Definitions            =
 ===============================================*/
 
-export const CreateCustomChannel = createAsyncAction(
-	'holochat/createCustomChannel',
-	'holochat/createCustomChannel_SUCCESS',
-	'holochat/createCustomChannel_FAILURE')
-<BridgeCallPayload<ChannelSpec>, BridgeCallResponse<string>, AxiosError>()
-// <calling payload type, success response type, error response type>S
+/*----------  Holochain actions  ----------*/
 
-export const AddMembers = createAsyncAction(
-	'holochat/addMembers',
-	'holochat/addMembers_SUCCESS',
-	'holochat/addMembers_FAILURE')
-<BridgeCallPayload<{channelHash: string, members: Array<string>}>, BridgeCallResponse<boolean>, AxiosError>()
 
-export const GetMyChannels = createAsyncAction(
-	'holochat/getMyChannels', 
-	'holochat/getMyChannels_SUCCESS', 
-	'holochat/getMyChannels_FAILURE')
-<BridgeCallPayload<{}>, BridgeCallResponse<Array<Channel>>, AxiosError>()
+export const CreateCustomChannel = createHolochainAsyncAction<ChannelSpec, string>('holo-chat', 'custom_channel', 'createCustomChannel')
 
-export const GetMembers = createAsyncAction(
-	'holochat/getMembers', 
-	'holochat/getMembers_SUCCESS', 
-	'holochat/getMembers_FAILURE')
-<BridgeCallPayload<{channelHash: string}>, BridgeCallResponse<Array<Identity>>, AxiosError>()
+export const AddMembers = createHolochainAsyncAction<{channelHash: string, members: Array<string>}, boolean>('holo-chat', 'custom_channel', 'addMembers')
 
-export const PostMessage = createAsyncAction(
-	'holochat/postMessage', 
-	'holochat/postMessage_SUCCESS', 
-	'holochat/postMessage_FAILURE')
-<BridgeCallPayload<{channelHash: string, message: MessageSpec}>, BridgeCallResponse<string>, AxiosError>()
+export const GetMyChannels = createHolochainAsyncAction<{}, Array<Channel>>('holo-chat', 'custom_channel', 'getMyChannels')
 
-export const GetMessages = createAsyncAction(
-	'holochat/getMessages', 
-	'holochat/getMessages_SUCCESS', 
-	'holochat/getMessages_FAILURE')
-<BridgeCallPayload<{channelHash: string}>, BridgeCallResponse<Array<Message>>, AxiosError>()
+export const GetMembers = createHolochainAsyncAction<{channelHash: string}, Array<Identity>>('holo-chat', 'custom_channel', 'getMembers')
 
-export const Whoami = createAsyncAction(
-	'holochat/whoami', 
-	'holochat/whoami_SUCCESS', 
-	'holochat/whoami_FAILURE')
-<BridgeCallPayload<{}>, BridgeCallResponse<string>, AxiosError>()
+export const PostMessage = createHolochainAsyncAction<{channelHash: string, message: MessageSpec}, string>('holo-chat', 'custom_channel', 'postMessage')
 
-export const GetIdentity = createAsyncAction(
-	'holochat/getIdentity', 
-	'holochat/getIdentity_SUCCESS', 
-	'holochat/getIdentity_FAILURE')
-<BridgeCallPayload<string>, BridgeCallResponse<Identity>, AxiosError>()
+export const GetMessages = createHolochainAsyncAction<{channelHash: string}, Array<Message>>('holo-chat', 'custom_channel', 'getMessages')
 
-export const SetIdentity = createAsyncAction(
-	'holochat/setIdentity', 
-	'holochat/setIdentity_SUCCESS', 
-	'holochat/setIdentity_FAILURE')
-<BridgeCallPayload<IdentitySpec>, BridgeCallResponse<boolean>, AxiosError>()
+export const Whoami = createHolochainAsyncAction<{}, string>('holo-chat', 'users', 'whoami')
 
-export const GetUsers = createAsyncAction(
-	'holochat/getUsers', 
-	'holochat/getUsers_SUCCESS', 
-	'holochat/getUsers_FAILURE')
-<BridgeCallPayload<{}>, BridgeCallResponse<Array<Identity>>, AxiosError>()
+export const GetIdentity = createHolochainAsyncAction<string, Identity>('holo-chat', 'users', 'getIdentity')
 
+export const SetIdentity = createHolochainAsyncAction<IdentitySpec, boolean>('holo-chat', 'users', 'setIdentity')
+
+export const GetUsers = createHolochainAsyncAction<{}, Array<Identity>>('holo-chat', 'users', 'getUsers')
+
+
+/*----------  Non-holochain actions  ----------*/
 
 export const SetActiveChannel = createAction('holochat/setActiveChannel', resolve => {
   return (channel: Channel) => resolve(channel);
@@ -116,55 +93,3 @@ export const SetActiveChannel = createAction('holochat/setActiveChannel', resolv
 
 
 /*=====  End of Action Type Definitions  ======*/
-
-
-/*================================================
-=            Action Creator Functions            =
-================================================*/
-
-export const createCustomChannel = (channelSpec: ChannelSpec) => {
-	return CreateCustomChannel.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'createCustomChannel', channelSpec))
-}
-
-export const addMembers = (payload: {channelHash: string, members: Array<string>}) => {
-	return AddMembers.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'addMembers', payload))
-}
-
-export const getMyChannels = () => {
-	return GetMyChannels.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getMyChannels', {}))
-}
-
-export const getMembers = (channelHash: string) => {
-	return GetMembers.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getMembers', {channelHash}))
-}
-
-export const postMessage = (payload: {channelHash: string, message: Message}) => {
-	return PostMessage.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'postMessage', payload))
-}
-
-export const getMessages = (channelHash: string) => {
-	return GetMessages.request(makeBridgeCallPayload('holo-chat', 'custom_channel', 'getMessages', {channelHash}))
-}
-
-export const whoami = () => {
-	return Whoami.request(makeBridgeCallPayload('holo-chat', 'users', 'whoami', {}))
-}
-
-export const getIdentity = () => {
-	return GetIdentity.request(makeBridgeCallPayload('holo-chat', 'users', 'getIdentity', {}))
-}
-
-export const setIdentity = (identity: IdentitySpec) => {
-	return SetIdentity.request(makeBridgeCallPayload('holo-chat', 'users', 'setIdentity', identity))	
-}
-
-export const getUsers = () => {
-	return GetUsers.request(makeBridgeCallPayload('holo-chat', 'users', 'getUsers', {}))	
-}
-
-/*=====  End of Action Creator Functions  ======*/
-
-
-
-
-
