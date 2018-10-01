@@ -67,7 +67,6 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount() {
-    console.log("get channels")
     // here is where we should check that there is a valid profile
     this.props.personasList((result: any) => {
       console.log('personas received')
@@ -93,14 +92,11 @@ class Channels extends React.Component<Props & RouterProps, State> {
         this.props.setIdentity({
           ...chatPersona.personaFields[0],
           ...chatPersona.personaFields[1]})
-
       } else {
         console.log("No Profile for chat. Redirecting...")
         this.props.history.push("/holo-vault/profiles")
         // this.props.history.push("/holo-vault/profile/HoloChat")
-
       }
-
     })
 
     this.getChannelsInterval = setInterval(this.props.getMyChannels, 200)
@@ -135,7 +131,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
   render(): JSX.Element {
     const {classes, channels} = this.props;
     return (<div className={classes.root}>
-      <Button variant='fab' mini={true} onClick={this.handleNewChannelButtonClick} className={classes.addButton}>
+      <Button id='AddChannel' variant='fab' mini={true} onClick={this.handleNewChannelButtonClick} className={classes.addButton}>
         <AddIcon/>
       </Button>
       <Typography variant='display1'>

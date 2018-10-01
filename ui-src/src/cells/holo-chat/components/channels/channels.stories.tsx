@@ -20,7 +20,7 @@ import { filterAgentsTests } from './filterAgents.test'
 import { selectAgentTests } from './selectAgent.test'
 import { newChatTests } from './newChat.test'
 import { channelsTests } from './channels.test'
-import { channelData } from './channelData'
+import { channelData } from '../../data/channelData'
 
 configure({adapter: new Adapter()})
 let store = CreateStore()
