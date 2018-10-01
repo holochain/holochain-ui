@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {Provider} from 'react-redux'
 import { storiesOf } from "@storybook/react";
-import { MemoryRouter } from 'react-router'
+import { MemoryRouter } from 'react-router-dom'
 import { withNotes } from '@storybook/addon-notes'
 import {configure} from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
@@ -11,8 +11,6 @@ import filterAgents from './filterAgents.md'
 import selectAgent from './selectAgent.md'
 import newChat from './newChat.md'
 import CreateStore from '../../../../store'
-// import  * as constants from '../../constants'
-// import{Message as MessageType} from '../../types/message'
 import Channels from './channels'
 import NewChannel from './newChannel'
 
@@ -22,7 +20,7 @@ import { filterAgentsTests } from './filterAgents.test'
 import { selectAgentTests } from './selectAgent.test'
 import { newChatTests } from './newChat.test'
 import { channelsTests } from './channels.test'
-import channelData from '../../data/channels.json'
+import { channelData } from './channelData'
 
 configure({adapter: new Adapter()})
 let store = CreateStore()
@@ -37,10 +35,9 @@ storiesOf('HoloChat/Channels', module)
 .addDecorator(story => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
-  // .addDecorator(story => <Provider store={store}>{story()}</Provider>)
   .add('List my Channels', withNotes(listChannels) (() => {
     specs(() => channelsTests)
-    return <Provider store={store}><MemoryRouter initialEntries={['/']}><Channels channels={channelData} /></MemoryRouter></Provider>
+    return <Provider store={store}><Channels channels={channelData} personasList={() => {}} /></Provider>
   }))
   .add('Start a new Channel', withNotes(newChannel) (() => {
     specs(() => newChannelTests)
