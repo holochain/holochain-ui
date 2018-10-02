@@ -7,8 +7,8 @@ import {configure} from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import Personas from './personas'
 import listPersonasNotes from './listPersonas.md'
-import  * as constants from '../../constants.js'
-import {Persona} from '../../types/profile'
+import  * as constants from '../../constants'
+import {Persona} from '../../types/persona'
 
 configure({adapter: new Adapter()})
 

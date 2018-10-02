@@ -2,15 +2,15 @@
 
 export interface PersonaSpec {
 	name: string
-	id: string
+	id?: string
 }
 
 export interface Persona extends PersonaSpec {
 	hash: string
-	fields: Array<Field>
+	fields: Array<PersonaField>
 }
 
-export interface Field {
+export interface PersonaField {
     name: string,
     data: any
 }

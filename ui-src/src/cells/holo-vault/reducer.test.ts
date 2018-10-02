@@ -27,4 +27,4 @@ describe('Vault Reducer', () => {
 			} as AxiosResponse
 		})).toEqual(initialState)
 	})
-}
+})
