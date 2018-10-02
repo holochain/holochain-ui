@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:4141",
   "dependencies": {
+    "@types/json-schema": "^7.0.1",
     "@types/react-responsive": "^3.0.2",
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.18.0",

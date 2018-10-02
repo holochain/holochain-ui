@@ -1,21 +1,21 @@
 {
   "Tests": [
     {
-      "Convey": "0. Initial call to getProfileSpecs produces empty array",
+      "Convey": "Initial call to getProfileSpecs produces empty array",
       "Zome": "profiles",
       "FnName": "getProfileSpecs",
       "Input": {},
       "Output": []
     },
     {
-      "Convey": "1. Calling register with an invalid profileSpec causes an error",
+      "Convey": "Calling register with an invalid profileSpec causes an error",
       "Zome": "profiles",
       "FnName": "registerApp",
       "Input": {},
       "RegExp": "Validation Failed"
     },
     {
-      "Convey": "2. Can register an app with a valid profileSpec",
+      "Convey": "Can register an app with a valid profileSpec",
       "Zome": "profiles",
       "FnName": "registerApp",
       "Input": {
@@ -34,14 +34,14 @@
       "Output": true
     },
     {
-      "Convey": "3. Can retrieve spec from getProfileSpecs",
+      "Convey": "Can retrieve spec from getProfileSpecs",
       "Zome": "profiles",
       "FnName": "getProfileSpecs",
       "Input": {},
       "Output": [{"fields":[{"description":"Displayed to all users of the app","displayName":"First Name","name":"firstName","required":true,"schema":{},"usage":"store"}],"sourceDNA":"abc"}]
     },
     {
-      "Convey": "4. Can create a mapping to a non-existent persona",
+      "Convey": "Can create a mapping to a non-existent persona",
       "Zome": "profiles",
       "FnName": "createMapping",
       "Input": {
@@ -53,7 +53,7 @@
       "Output": 1
     },
     {
-      "Convey": "5. Trying to retrieve this will throw an error",
+      "Convey": "Trying to retrieve this will throw an error",
       "Zome": "profiles",
       "FnName": "retrieve",
       "Input": {
@@ -63,21 +63,21 @@
       "Output": {"message":"No valid mapping found","name":"Error"}
     },
     {
-      "Convey": "6. Create a persona to meet the spec",
+      "Convey": "Create a persona to meet the spec",
       "Zome": "personas",
       "FnName": "createPersona",
       "Input": {"name": "testPersona", "id": "xyz"},
       "Output": "%h1%"
     },
     {
-      "Convey": "7. Can add a field to the persona that meets the spec",
+      "Convey": "Can add a field to the persona that meets the spec",
       "Zome": "personas",
       "FnName": "addField",
       "Input": {"personaHash" : "%h1%", "field": {"name" : "firstname", "data": "Willem"}},
       "Output": true
     },
     {
-      "Convey": "8. This value can be retrieved through vault",
+      "Convey": "This value can be retrieved through vault",
       "Zome": "profiles",
       "FnName": "retrieve",
       "Input": {
@@ -87,14 +87,14 @@
       "Output": "Willem"
     },
     {
-      "Convey": "9. Delete the field from the persona (revoke)",
+      "Convey": "Delete the field from the persona (revoke)",
       "Zome": "personas",
       "FnName": "deleteField",
       "Input": {"personaHash": "%h3%", "fieldName": "firstname"},
       "Output": 1
     },
     {
-      "Convey": "10. Trying to retrieve this deleted field will throw an error",
+      "Convey": "1Trying to retrieve this deleted field will throw an error",
       "Zome": "profiles",
       "FnName": "retrieve",
       "Input": {

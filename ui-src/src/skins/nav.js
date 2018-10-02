@@ -16,10 +16,10 @@ import MediaQuery from 'react-responsive'
 import MenuIcon from '@material-ui/icons/Menu'
 import PersonasContainer from '../cells/holo-vault/containers/personasContainer'
 import PersonaContainer from '../cells/holo-vault/containers/personaContainer'
-import ProfileContainer from '../cells/holo-vault/containers/profileContainer'
-import ProfilesContainer from '../cells/holo-vault/containers/profilesContainer'
+// import ProfileContainer from '../cells/holo-vault/containers/profileContainer'
+// import ProfilesContainer from '../cells/holo-vault/containers/profilesContainer'
 import MessagesContainer from '../cells/holo-chat/containers/messagesContainer'
-import HappsContainer from '../cells/holo-vault/containers/happsContainer'
+// import HappsContainer from '../cells/holo-vault/containers/happsContainer'
 import SetupContainer from '../cells/holo-chat/containers/setupContainer'
 import ChannelsContainer from '../cells/holo-chat/containers/channelsContainer'
 import ErrandContainer from '../cells/errand/containers/errandContainer'
@@ -178,10 +178,10 @@ class MiniDrawer extends React.Component {
             <Route path='/fractal-wiki' title='Fractal Wiki' component={FractalWikiSkin} />
             <Route path='/holo-vault/personas' title='Personas' component={PersonasContainer} />
             <Route path='/holo-vault/persona/:name' component={PersonaContainer} />
-            <Route path='/holo-vault/profiles' component={ProfilesContainer} />
-            <Route path='/holo-vault/profile/:name' component={ProfileContainer} />
+            // <Route path='/holo-vault/profiles' component={ProfilesContainer} />
+            // <Route path='/holo-vault/profile/:name' component={ProfileContainer} />
             <Route path='/holo-vault/cell/:name' component={SetupContainer} />
-            <Route path='/holo-vault/happs' component={HappsContainer} />
+            // <Route path='/holo-vault/happs' component={HappsContainer} />
             <Route path='/holo-chat/messages' title='Holochain' render={props =>
               <div>
                 <ArcsOfPresenceContainer />
