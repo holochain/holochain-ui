@@ -4,7 +4,7 @@ export = 0;
 let module = {}
 
 import { ProfileSpec, Profile, ProfileField } from '../vault-types/profile'
-import { Persona, Field as PersonaField } from '../vault-types/persona'
+import { Persona, PersonaField } from '../vault-types/persona'
 
 
 /*=============================================

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {withStyles, Theme, StyleRulesCallback} from '@material-ui/core/styles';
 import withRoot from '../../../../withRoot';
-import { Field, reduxForm, InjectedFormProps } from 'redux-form'
 import {withRouter, RouteComponentProps} from 'react-router-dom'
 import { PersonaField, Persona as PersonaType, PersonaSpec } from '../../types/persona'
 import Button from '@material-ui/core/Button';
@@ -10,7 +9,7 @@ import TextField from '@material-ui/core/TextField'
 import PersonAdd from '@material-ui/icons/PersonAdd'
 import TextFields from '@material-ui/icons/TextFields'
 
-export interface RouterProps extends RouteComponentProps<{}> {}
+export interface RouterProps extends RouteComponentProps<{name: string}> {}
 
 export interface OwnProps {
   classes?: any
@@ -18,15 +17,19 @@ export interface OwnProps {
 
 export interface StateProps {
   currentPersona: PersonaType,
-  buttonText: string,
   title: string
 }
 
 export interface DispatchProps {
-  Create: Function
+  create: Function
 }
 
-export type Props = OwnProps & StateProps & DispatchProps
+export type Props = OwnProps & StateProps & DispatchProps & RouterProps
+
+export interface State {
+  persona: PersonaType
+}
+
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
@@ -39,111 +42,100 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 });
 
-//@ts-ignore
-const renderTextField = ({ label, required }) => (
-  <TextField label={label} required={required} />
-)
-//
-// const validate = values => {
-//   const errors = {}
-//   const requiredFields = [
-//     'userName',
-//     'firstName',
-//     'lastName',
-//     'email'
-//   ]
-//   requiredFields.forEach(field => {
-//     if (!values[field]) {
-//       errors[field] = true
-//     }
-//   })
-//   return errors
-// }
 
-function PersonaFields (props: {persona: PersonaType}) {
-  if(props.persona.fields !== undefined){
-    return (
-      <div>
-        {props.persona.fields.map((field: PersonaField, index) => (
-            <div key={index}>
-              <Field name={`fieldName${index}`} component={renderTextField} label="Field Name" required={true} />
-              <Field name={`fieldValue${index}`} component={renderTextField} label="Field Value" required={true} />
-            </div>
-          )
-        )}
-      </div>
-    )
-  } else {
-    return (
-      <div>
-        <Typography variant='subheading' />
-      </div>
-    )
+function PersonaField(props: {index: number, field: PersonaField, onChange: (updatedField: PersonaField) => void}) {
+  
+  const onChangeName = (newName: string): void => {
+    props.onChange({
+      ...props.field,
+      name: newName
+    });
   }
+
+  const onChangeData = (newData: string): void => {
+      props.onChange({
+      ...props.field,
+      data: newData
+    });
+  }
+
+  return (
+    <div key={props.index}>
+      <TextField name={`fieldName${props.index}`} label='Field Name' value={props.field.name} onChange={(e) => onChangeName(e.target.value)} />
+      <TextField name={`fieldValue${props.index}`} label='Field Value' value={props.field.data} onChange={(e) => onChangeData(e.target.value)} />
+    </div>
+  )
 }
 
-class Persona extends React.Component<Props & InjectedFormProps> {
-  state = {
-    persona: {}
+
+
+
+
+class Persona extends React.Component<Props, State> {
+
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      persona: {
+        name: "",
+        hash: "",
+        fields: []
+      }
+    }
   }
 
-  handlePersona = (values: any) => {
-    let fields: Array<PersonaField> = []
+  handleSubmit = () => {
 
-    Object.keys(values).forEach(function(field){
-      // if(field !== 'personaName'){
-      //   if(isFieldName){
-      //     currentField = values[field]
-      //     isFieldName = false
-      //   } else {
-      //     currentFieldValue = values[field]
-      //     fields.push(JSON.parse('{"' + currentField + '":"' + currentFieldValue + '"}'))
-      //     isFieldName = true
-      //   }
-      // }
-    })
-    let persona: PersonaType =
-      {
-        hash: "",
-        name: values.personaName,
-        fields: fields
-      }
-
-    if(persona.hash === ""){
-      const personaSpec: PersonaSpec = {"name": persona.name}
-      const personaFields: Array<PersonaField> = persona.fields
-      this.props.Create(personaSpec, personaFields)
+    if(this.state.persona.hash === ""){
+      const personaSpec: PersonaSpec = {"name": this.state.persona.name}
+      const personaFields: Array<PersonaField> = this.state.persona.fields
+      this.props.create(personaSpec, personaFields)
     } else {
-      // this.props.Update(persona)
+      // this.props.update(persona)
     }
     // this.props.history.push("/holo-vault/personas")
     // this.props.personasList()
   }
 
-  // handleAddPersonaField = () =>   {
-  //   let personaFields = this.state.persona.personaFields.slice()
-  //   this.setState(prevState => ({
-  //       persona: {
-  //           ...prevState.persona,
-  //           personaFields: [...prevState.persona.personaFields, personaFields]
-  //       }
-  //   }))
-  // }
+  handleAddPersonaField = () => {
+    this.setState({
+        persona: {
+            ...this.state.persona,
+            fields: [...this.state.persona.fields, {"name": "", "data": ""}]
+        }
+    })
+  }
+
 
   componentDidMount(){
-    // let initial = {
-    //   personaName: this.props.persona.name
-    // }
-    // this.props.persona.personaFields.map((field, index) => (
-    //   initial[`fieldName${index}`] = Object.keys(field)[0]
-    // ))
-    // this.props.persona.personaFields.map((field, index) => (
-    //   initial[`fieldValue${index}`] = field[Object.keys(field)]
-    // ))
-    // this.props.initialize(initial)
+    this.setState({
+      persona: this.props.currentPersona
+    })
   }
+
+
+  updateField(newField: PersonaField, index: number) {
+    const fields = this.state.persona.fields;
+    this.setState({
+      persona: {
+        ...this.state.persona,
+        fields: [...fields.slice(0, index), newField, ...fields.slice(index+1)]
+      }
+    })
+  }
+
+  updateName(newName: string) {
+    this.setState({
+      persona: {
+        ...this.state.persona,
+        name: newName
+      }
+    })
+  }
+
+
   render() {
-    const { classes, handleSubmit, currentPersona } = this.props;
+    const { classes } = this.props;
     return (
       <div className={classes.root}>
         <Typography variant='display1'>
@@ -152,24 +144,21 @@ class Persona extends React.Component<Props & InjectedFormProps> {
         <Typography variant='body1' gutterBottom={true}>
           You can add a new Persona and add as many fields to it as you like. You will probably have a *Personal*, *Work* and a *Friends* persona.
         </Typography>
-        <form onSubmit={handleSubmit}>
           <div>
-            <Field name="personaName" component={renderTextField} label="Persona Name" required={true} />
+            <TextField name="personaName" value={this.state.persona.name} onChange={e => this.updateName(e.target.value)} label="Persona Name"/>
           </div>
-          <PersonaFields persona={currentPersona}/>
-          <Button name='addField' variant='raised' className={classes.button}>
+          {this.state.persona.fields.map((field: PersonaField, index: number) =>(<PersonaField index={index} field={field} onChange={(newField: PersonaField) => this.updateField(newField, index)}/>))}
+          <Button name='addField' variant='raised' className={classes.button} onClick={this.handleAddPersonaField}>
             <TextFields/>
             Add Field
           </Button>
-          <Button name='createPersona' variant='raised' className={classes.button} onClick={handleSubmit(this.handlePersona)}>
+          <Button name='createPersona' variant='raised' className={classes.button} onClick={() => this.handleSubmit()}>
             <PersonAdd/>
-            {this.props.buttonText}
+            {this.state.persona.hash === "" ? 'Create Persona' : 'Update Persona'}
           </Button>
-        </form>
       </div>
     );
   }
 }
 
-const PersonaForm = reduxForm({form: 'Persona'})(Persona) as any
-export default withRoot(withStyles(styles)(withRouter(PersonaForm)));
+export default withRoot(withStyles(styles)(withRouter(Persona)));
