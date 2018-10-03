@@ -17,11 +17,14 @@ const mapStateToProps = (state: any, ownProps: Props): StateProps => {
     return personaName === persona.name
   })[0]
 
-  const persona: PersonaType = filteredPersona.persona || {
+  let persona: PersonaType = {
         name: "",
         hash: "",
         fields: []
       }
+  if (filteredPersona !== undefined){
+    persona = filteredPersona
+  }
 
   return {
     title: `Persona - ${personaName}`,

@@ -2,12 +2,12 @@ import * as React from 'react';
 import {withStyles, Theme, StyleRulesCallback} from '@material-ui/core/styles';
 import {withRouter, Route, RouteComponentProps} from 'react-router-dom'
 import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-// import Person from '@material-ui/icons/Person'
+import Person from '@material-ui/icons/Person'
 import PersonAdd from '@material-ui/icons/PersonAdd'
 import withRoot from '../../../../withRoot';
 import {Persona as PersonaType} from '../../types/persona'
@@ -38,12 +38,12 @@ export type Props = OwnProps & StateProps & DispatchProps
 class Personas extends React.Component<Props & RouterProps, {}> {
   componentDidMount() {
     console.log("get personas")
-    // this.props.personasList()
+    this.props.getPersonas()
   }
 
   // tslint:disable jsx-no-lambda
   render() {
-    const {classes} = this.props;
+    const {classes, personas} = this.props;
     return (<div className={classes.root}>
       <Typography variant='display1'>
         Personas
@@ -52,18 +52,17 @@ class Personas extends React.Component<Props & RouterProps, {}> {
         Look after your personal information here, click on a Persona to update or click Add Persona to create a new one.
       </Typography>
       <List id="personas" component="nav">
-{/*
         {
-          personas.map((persona: Persona, index: number) => (<Route render={({history}) => (
+          personas.map((persona: PersonaType, index: number) => (<Route render={({history}) => (
             <ListItem id={persona.hash} button={true} onClick={() => {
-                history.push(`/holo-vault/persona/${persona.persona.name}`)
+                history.push(`/holo-vault/persona/${persona.name}`)
               }}>
               <ListItemIcon>
                 <Person/>
               </ListItemIcon>
-              <ListItemText primary={persona.persona.name}/>
+              <ListItemText primary={persona.name}/>
             </ListItem>)}/>))
-        } */}
+        }
       </List>
       <Route render={({history}) => (<Button name='addPersona' variant='raised' className={classes.button} onClick={() => {
             history.push(`/holo-vault/persona/new`)
