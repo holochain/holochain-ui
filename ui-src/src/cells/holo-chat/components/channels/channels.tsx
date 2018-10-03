@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddIcon from '@material-ui/icons/Add'
 import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
-import {Persona} from '../../../holo-vault/types/profile'
+// import {Persona} from '../../../holo-vault/types/profile'
 import withRoot from '../../../../withRoot';
 import {withRouter, Route, RouteComponentProps} from 'react-router-dom'
 import NewChannel from '../../containers/newChannelContainer'
@@ -42,7 +42,7 @@ export interface DispatchProps {
   newChannel: typeof CreateCustomChannel.sig,
   getUsers: typeof GetUsers.sig,
   setActiveChannel: (channel: ChannelType) => void,
-  personasList: (then?: Function) => void,
+  // personasList: (then?: Function) => void,
   setIdentity: (identity: IdentitySpec) => void
 }
 
@@ -68,36 +68,36 @@ class Channels extends React.Component<Props & RouterProps, State> {
 
   componentDidMount() {
     // here is where we should check that there is a valid profile
-    this.props.personasList((result: any) => {
-      console.log('personas received')
-      console.log(result)
-
-      let chatPersona: Persona
-      const chatProfileExists = result.some((elem: {Hash: string, persona: Persona}) => {
-        console.log(elem)
-        if(elem.persona.name === "HoloChat") {
-          chatPersona = elem.persona
-          return true
-        } else {
-          return false
-        }
-      })
-
-      if(chatProfileExists) {
-        console.log("Chat profile found!")
-        // use the profile to update the user data in chat. A bit of a hack but it
-        // will work for now
-
-        // update the user info with the data from vault
-        this.props.setIdentity({
-          ...chatPersona.personaFields[0],
-          ...chatPersona.personaFields[1]})
-      } else {
-        console.log("No Profile for chat. Redirecting...")
-        this.props.history.push("/holo-vault/profiles")
-        // this.props.history.push("/holo-vault/profile/HoloChat")
-      }
-    })
+    // this.props.personasList((result: any) => {
+    //   console.log('personas received')
+    //   console.log(result)
+    //
+    //   let chatPersona: Persona
+    //   const chatProfileExists = result.some((elem: {Hash: string, persona: Persona}) => {
+    //     console.log(elem)
+    //     if(elem.persona.name === "HoloChat") {
+    //       chatPersona = elem.persona
+    //       return true
+    //     } else {
+    //       return false
+    //     }
+    //   })
+    //
+    //   if(chatProfileExists) {
+    //     console.log("Chat profile found!")
+    //     // use the profile to update the user data in chat. A bit of a hack but it
+    //     // will work for now
+    //
+    //     // update the user info with the data from vault
+    //     this.props.setIdentity({
+    //       ...chatPersona.personaFields[0],
+    //       ...chatPersona.personaFields[1]})
+    //   } else {
+    //     console.log("No Profile for chat. Redirecting...")
+    //     this.props.history.push("/holo-vault/profiles")
+    //     // this.props.history.push("/holo-vault/profile/HoloChat")
+    //   }
+    // })
 
     this.getChannelsInterval = setInterval(this.props.getMyChannels, 200)
   }
