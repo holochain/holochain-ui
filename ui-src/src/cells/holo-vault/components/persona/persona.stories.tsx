@@ -5,7 +5,7 @@ import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
 import {specs} from 'storybook-addon-specifications'
 import { withNotes } from '@storybook/addon-notes'
-import PersonaForm from './persona'
+import Persona from './persona'
 import newPersonaNotes from './newPersona.md'
 import editPersonaNotes from './threePersonas.md'
 import { personaTests } from './persona.test'
@@ -14,14 +14,14 @@ import { Persona as PersonaType } from '../../types/persona'
 
 let store = CreateStore()
 
-let newPersona = {
-    "name": "dddd",
+let newPersona: PersonaType = {
+    "name": "",
     "hash": "",
     "fields": [
     ]
 }
-let newButtonText = "Create Persona"
-let editPersona =
+
+let editPersona: PersonaType =
 {
   "hash": "QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7",
   "name": "Personal",
@@ -33,18 +33,23 @@ let editPersona =
       {"name": "city", "data": "Melbourne"}
   ]
 }
-let updateButtonText = "Update Persona"
+
 
 storiesOf('HoloVault/Persona', module)
   .add('New Persona', withNotes(newPersonaNotes) (() => {
     specs(() => personaTests)
-    return getPersona(newPersona, newButtonText)
+    return getPersona(newPersona)
   }))
   .add('Edit Existing Persona', withNotes(editPersonaNotes) (() => {
-    return getPersona(editPersona, updateButtonText)
+    return getPersona(editPersona)
   })
 )
 
-function getPersona(persona: PersonaType, buttonText:string) {
-  return (<Provider store={store}><MemoryRouter initialEntries={['/']}><PersonaForm personaCreate={action('Click Create Persona')} personaUpdate={action('Click Update Persona')} personasList={action('Refresh Persona List')} currentPersona={persona} buttonText ={buttonText} /></MemoryRouter></Provider>)
+function getPersona(persona: PersonaType) {
+  return (
+    <Provider store={store}>
+      <MemoryRouter initialEntries={['/']}>
+        <Persona create={action('Click Create Persona')} update={action('Click Update Persona')} personasList={action('Refresh Persona List')} currentPersona={persona}/>
+      </MemoryRouter>
+    </Provider>)
 }
