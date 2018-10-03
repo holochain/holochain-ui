@@ -2,9 +2,9 @@
 import { connect } from 'react-redux'
 import IdeaCard from '../components/cards/ideaCard'
 import  * as constants from '../constants'
-import {HoloChatState} from '../reducer'
-import {Dispatch} from 'redux'
-import {addCard} from '../../errand/actions'
+import { HoloChatState } from '../reducer'
+import { Dispatch } from 'redux'
+import { addCard } from '../../errand/actions'
 import {
 } from '../actions'
 

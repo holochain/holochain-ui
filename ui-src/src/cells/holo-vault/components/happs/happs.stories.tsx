@@ -1,12 +1,12 @@
-import * as React from "react";
+import * as React from 'react'
 
-import { storiesOf } from "@storybook/react";
-import { wInfo } from "../../../../utils";
+import { storiesOf } from '@storybook/react'
+import { wInfo } from '../../../../utils'
 import Happs from './happs'
-import {installedHapps} from '../../../../happs/installed'
+import { installedHapps } from '../../../../happs/installed'
 
-(storiesOf("HoloVault/hApps", module) as any).addWithJSX(
-  "List of hApps",
+(storiesOf('HoloVault/hApps', module) as any).addWithJSX(
+  'List of hApps',
   wInfo(`
 
   ### Notes
@@ -17,6 +17,6 @@ import {installedHapps} from '../../../../happs/installed'
   ~~~js
   <Happs happs={{installedHapps}}/>
   ~~~`)(() => (
-    <Happs happs={{installedHapps}}/>
+    <Happs happs={{ installedHapps }}/>
   ))
-);
+)

@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { Arc } from 'react-konva';
-import * as Konva from 'konva';
+import { Arc } from 'react-konva'
+import * as Konva from 'konva'
 import { Arc as ArcType } from '../../types/arc'
 
 type AppState = {
-    color: string;
+  color: string;
 }
 
 interface PresenceArcProps {
@@ -17,32 +17,32 @@ interface PresenceArcProps {
 }
 
 export class PresenceArc extends React.Component<PresenceArcProps, AppState> {
-  constructor(props : PresenceArcProps) {
-      super(props);
+  constructor (props: PresenceArcProps) {
+    super(props)
 
-      this.state = {
-          color: 'green'
-      };
+    this.state = {
+      color: 'green'
+    }
 
-      setTimeout(() => {
-          this.setState({ color: Konva.Util.getRandomColor() });
-      }, 1000);
+    setTimeout(() => {
+      this.setState({ color: Konva.Util.getRandomColor() })
+    }, 1000)
   }
 
-  public render() {
-    const { arc, x, y, radius, strokeWidth } = this.props;
+  public render () {
+    const { arc, x, y, radius, strokeWidth } = this.props
     return (
       <Arc
         x={x}
         y={y}
-        innerRadius = {radius}
-        outerRadius = {radius}
-        rotation = {arc.begin}
-        angle = {arc.duration}
-        fill = 'green'
-        stroke = {arc.type === 1 ? 'green' : 'red'}
-        strokeWidth = {strokeWidth}
+        innerRadius={radius}
+        outerRadius={radius}
+        rotation={arc.begin}
+        angle={arc.duration}
+        fill='green'
+        stroke={arc.type === 1 ? 'green' : 'red'}
+        strokeWidth={strokeWidth}
       />
-    );
+    )
   }
 }

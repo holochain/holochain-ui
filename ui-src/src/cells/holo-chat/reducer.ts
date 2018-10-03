@@ -1,12 +1,11 @@
-import { ActionType, getType } from 'typesafe-actions';
+import { ActionType, getType } from 'typesafe-actions'
 import * as chatActions from './actions'
-import {Channel} from './types/model/channel'
-import {Message} from './types/model/message'
-import {Identity} from './types/model/identity'
+import { Channel } from './types/model/channel'
+import { Message } from './types/model/message'
+import { Identity } from './types/model/identity'
 
 // create a union type that is all possible chat actions
-export type ChatAction = ActionType<typeof chatActions>;
-
+export type ChatAction = ActionType<typeof chatActions>
 
 export interface HoloChatState {
   readonly myChannels: Array<Channel>,
@@ -17,7 +16,6 @@ export interface HoloChatState {
   readonly users: Array<Identity>
 }
 
-
 export const initialState: HoloChatState = {
   myChannels: [],
   currentMessages: [],
@@ -27,16 +25,15 @@ export const initialState: HoloChatState = {
   users: []
 }
 
-
 export function holochatReducer (state = initialState, action: ChatAction) {
   // console.log('Current state: ', state)
   // console.log('processing action: ', action)
   switch (action.type) {
     case getType(chatActions.GetMyChannels.success):
     	return {
-        ...state,
-        myChannels: action.payload.data
-      }
+      ...state,
+      myChannels: action.payload.data
+    }
     case getType(chatActions.GetMessages.success):
       return {
         ...state,
@@ -66,7 +63,5 @@ export function holochatReducer (state = initialState, action: ChatAction) {
       return state
   }
 }
-
-
 
 export default holochatReducer

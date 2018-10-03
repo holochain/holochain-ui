@@ -39,7 +39,8 @@
     "coverage": "react-scripts-ts test --env=jsdom --coverage --collectCoverageFrom=!src/**/*.d.ts --collectCoverageFrom=!src/**/*.stories.tsx --collectCoverageFrom=!src/**/data/*.ts --collectCoverageFrom=src/**/*.ts --collectCoverageFrom=src/**/*.tsx",
     "release:files": "node copy-release.js",
     "storybook": "start-storybook -p 6006 -c .storybook",
-    "storybook:deploy": "storybook-to-ghpages"
+    "storybook:deploy": "storybook-to-ghpages",
+    "tslint:fix": "tslint --project ./tsconfig.json --fix"
   },
   "devDependencies": {
     "@material-ui/core": "latest",
@@ -78,6 +79,7 @@
     "redux-mock-store": "^1.5.3",
     "storybook-addon-jsx": "^5.3.0",
     "storybook-addon-specifications": "^2.1.2",
+    "tslint": "^5.11.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "3.0.1"
   }

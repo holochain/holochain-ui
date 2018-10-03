@@ -1,15 +1,15 @@
-import * as React from 'react';
-import {withStyles, Theme, StyleRulesCallback} from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Input from '@material-ui/core/Input';
+import * as React from 'react'
+import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import Input from '@material-ui/core/Input'
 import Checkbox from '@material-ui/core/Checkbox'
-import ListItemText from '@material-ui/core/ListItemText';
-import withRoot from '../../../../withRoot';
-import {MakeAvatar} from '../misc/makeAvatar'
+import ListItemText from '@material-ui/core/ListItemText'
+import withRoot from '../../../../withRoot'
+import { MakeAvatar } from '../misc/makeAvatar'
 // import {Route} from 'react-router-dom'
 
-import {Identity} from '../../types/model/identity'
+import { Identity } from '../../types/model/identity'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
@@ -27,8 +27,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     marginLeft: theme.spacing.unit,
     marginTop: theme.spacing.unit
   }
-});
-
+})
 
 export interface AgentListProps {
   classes?: any,
@@ -41,9 +40,8 @@ export interface AgentListState {
   selectedUsers: Array<Identity>
 }
 
-
 class AgentList extends React.Component<AgentListProps, AgentListState> {
-  constructor(props: AgentListProps) {
+  constructor (props: AgentListProps) {
     super(props)
     this.state = {
       filterString: '',
@@ -59,38 +57,37 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
   }
 
   onRowClick = (value: Identity) => () => {
-    const checked = this.state.selectedUsers;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    const checked = this.state.selectedUsers
+    const currentIndex = checked.indexOf(value)
+    const newChecked = [...checked]
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newChecked.push(value)
     } else {
-      newChecked.splice(currentIndex, 1);
+      newChecked.splice(currentIndex, 1)
     }
 
     this.setState({
       ...this.state,
-      selectedUsers: newChecked,
-    });
+      selectedUsers: newChecked
+    })
 
-    if(this.props.selectionChanged) {
+    if (this.props.selectionChanged) {
       this.props.selectionChanged(newChecked)
     }
-  };
+  }
 
-
-  render() {
-    const {classes, users} = this.props
+  render () {
+    const { classes, users } = this.props
     return (
       <div className={classes.root}>
         <Input
-          id="filter-bar"
-          placeholder="To:"
+          id='filter-bar'
+          placeholder='To:'
           value={this.state.filterString}
           onChange={this.onFilterStringChange}
         />
-        <List id="users" component="nav">
+        <List id='users' component='nav'>
           {
             users
             .filter((user) => {return user.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1})
@@ -111,5 +108,4 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
 
 }
 
-
-export default withRoot(withStyles(styles)(AgentList));
+export default withRoot(withStyles(styles)(AgentList))

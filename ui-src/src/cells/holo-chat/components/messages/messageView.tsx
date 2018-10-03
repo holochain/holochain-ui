@@ -1,22 +1,22 @@
 import { Component } from 'react'
 import * as React from 'react'
 import withRoot from '../../../../withRoot'
-import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
-import {List, ListItem, ListItemText, ListItemAvatar} from '@material-ui/core'
+import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
+import { List, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Highlight from '@material-ui/icons/Highlight'
 import ThumbUp from '@material-ui/icons/ThumbUp'
 import ThumbDown from '@material-ui/icons/ThumbDown'
 import IconButton from '@material-ui/core/IconButton'
 import IdeaContainer from '../../containers/ideaContainer'
-import {MakeAvatar} from '../misc/makeAvatar'
+import { MakeAvatar } from '../misc/makeAvatar'
 
-import {Message as MessageType} from '../../types/view/message'
+import { Message as MessageType } from '../../types/view/message'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   button: {
     minWidth: 25,
@@ -47,7 +47,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   message: {
     marginLeft: 19,
-    marginTop: -8,
+    marginTop: -8
 
   },
   messageText: {
@@ -58,24 +58,24 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     whiteSpace: 'pre-wrap',
     width: '100%',
     wordBreak: 'break-word',
-    color: 'rgb(61, 60, 64)',
+    color: 'rgb(61, 60, 64)'
   },
-  messageAuthor:{
-    fontSize:14,
-    color:'lightgrey',
+  messageAuthor: {
+    fontSize: 14,
+    color: 'lightgrey'
   },
-  messageImage:{
-    maxWidth:200,
+  messageImage: {
+    maxWidth: 200,
     display: 'inline',
     marginLeft: 19,
     marginTop:  5,
-    borderRadius:10
+    borderRadius: 10
   },
-  messageNoImage:{
+  messageNoImage: {
     display: 'none'
   },
-  votingIcon:{
-    color:'blue'
+  votingIcon: {
+    color: 'blue'
   }
 })
 
@@ -90,14 +90,14 @@ function VoteControls (props: MessageState & {handleIdea: Function}) {
 
   if (props.isHovered) {
     return (
-      <div style={{position: 'absolute',top: -16,right: -9, width: 'auto', height:'auto', marginHorizontal:10, paddingHorizontal:10, marginVertical:0, backgroundColor:'white', border: 'thin solid lightgrey'} as React.CSSProperties}>
-        <IconButton style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} onClick={handleThumbsUp} aria-label='ThumbUp'>
+      <div style={{ position: 'absolute',top: -16,right: -9, width: 'auto', height: 'auto', marginHorizontal: 10, paddingHorizontal: 10, marginVertical: 0, backgroundColor: 'white', border: 'thin solid lightgrey' } as React.CSSProperties}>
+        <IconButton style={{ minWidth: 25, width: 25, marginLeft: 10,  marginRight: 10 }} onClick={handleThumbsUp} aria-label='ThumbUp'>
           <ThumbUp />
         </IconButton>
-        <IconButton onClick={handleThumbsDown} style={{minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='ThumbDown'>
+        <IconButton onClick={handleThumbsDown} style={{ minWidth: 25, width: 25, marginLeft: 10,  marginRight: 10 }} aria-label='ThumbDown'>
           <ThumbDown />
         </IconButton>
-        <IconButton onClick={() => props.handleIdea(props.message)} style={{display: (props.message.type === 0) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft:10,  marginRight:10}} aria-label='Idea' >
+        <IconButton onClick={() => props.handleIdea(props.message)} style={{ display: (props.message.type === 0) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft: 10,  marginRight: 10 }} aria-label='Idea' >
           <Highlight />
         </IconButton>
       </div>
@@ -156,17 +156,17 @@ class MessageView extends Component<MessageProps, MessageState> {
         channelId: 'holochain',
         timestamp: 10,
         content: {
-          text: 'Hey Micah, how are you doing?',
+          text: 'Hey Micah, how are you doing?'
         },
         replies: []
-      },
+      }
     }
     this.onMessageBlur = this.onMessageBlur.bind(this)
     this.onMessageHover = this.onMessageHover.bind(this)
   }
 
-  componentDidMount() {
-    if(!this.props.message.author) {
+  componentDidMount () {
+    if (!this.props.message.author) {
       this.props.message.author = {
         handle: '?',
         avatar: ''
@@ -201,7 +201,7 @@ class MessageView extends Component<MessageProps, MessageState> {
 
     return (
       <List
-        style={{padding: 20,backgroundColor: (this.state.isHovered === true) ? 'white' : 'white', }}
+        style={{ padding: 20,backgroundColor: (this.state.isHovered === true) ? 'white' : 'white' }}
         dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur} onTouchStart={this.onMessageHover}>
         <ListItem key={'1'} dense={true} >
           <ListItemAvatar >
@@ -217,6 +217,5 @@ class MessageView extends Component<MessageProps, MessageState> {
     )
   }
 }
-
 
 export default withRoot(withStyles(styles)(MessageView))

@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import Personas, { OwnProps, StateProps, DispatchProps } from '../components/persona/personas'
-import {Dispatch} from 'redux'
+import { Dispatch } from 'redux'
 
 import {
   GetPersonas
@@ -15,7 +15,7 @@ const mapStateToProps = (state: any): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchProps => {
   return {
-    getPersonas: () => dispatch(GetPersonas.create(undefined)), // can be written as  () => { return dispatch(...) }
+    getPersonas: () => dispatch(GetPersonas.create(undefined)) // can be written as  () => { return dispatch(...) }
   }
 }
 

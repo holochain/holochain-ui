@@ -39,7 +39,7 @@ export const channelsTests = describe('Listing your channels', () => {
   //   channels: channelData
   // }
   it('has a test', () => {
-    expect(true);
+    expect(true)
   })
 
   // it('When there is a list of existing channels the channel view shows the list of existing channels', () => {
