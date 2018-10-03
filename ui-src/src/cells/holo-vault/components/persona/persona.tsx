@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField'
 import PersonAdd from '@material-ui/icons/PersonAdd'
 import TextFields from '@material-ui/icons/TextFields'
 
-export interface RouterProps extends RouteComponentProps<{}> {}
+export interface RouterProps extends RouteComponentProps<{name: string}> {}
 
 export interface OwnProps {
   classes?: any
@@ -17,7 +17,6 @@ export interface OwnProps {
 
 export interface StateProps {
   currentPersona: PersonaType,
-  buttonText: string,
   title: string
 }
 
@@ -73,6 +72,17 @@ function PersonaField(props: {index: number, field: PersonaField, onChange: (upd
 
 
 class Persona extends React.Component<Props, State> {
+
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      persona: {
+        name: "",
+        hash: "",
+        fields: []
+      }
+    }
+  }
 
   handleSubmit = () => {
 
@@ -144,7 +154,7 @@ class Persona extends React.Component<Props, State> {
           </Button>
           <Button name='createPersona' variant='raised' className={classes.button} onClick={() => this.handleSubmit()}>
             <PersonAdd/>
-            {this.props.buttonText}
+            {this.state.persona.hash === "" ? 'Create Persona' : 'Update Persona'}
           </Button>
       </div>
     );
