@@ -125,9 +125,23 @@ class Channels extends React.Component<Props & RouterProps, State> {
     history.push(`/holo-chat/messages`)
   }
 
+  renderChannels = (channels: Array<ChannelType>) => {
+    return channels.map((channel: ChannelType, index: number) => (
+      <Route
+        key={index}
+        render={ ({ history }) => (
+        <ListItem id={channel.hash} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
+          <ListItemText primary={channel.name}/>
+        </ListItem>
+        )}
+      />
+    ))
+  }
+
   render (): JSX.Element {
     const { classes, channels } = this.props
-    return (<div className={classes.root}>
+    return (
+    <div className={classes.root}>
       <Button id='AddChannel' variant='fab' mini={true} onClick={this.handleNewChannelButtonClick} className={classes.addButton}>
         <AddIcon/>
       </Button>
@@ -135,19 +149,11 @@ class Channels extends React.Component<Props & RouterProps, State> {
         Channels
       </Typography>
       <List id='channels' component='nav'>
-        {
-          channels.map((channel: ChannelType, index: number) => (
-                <Route key={index} render={({ history }) => (
-                  <ListItem id={channel.hash} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
-                    <ListItemText primary={channel.name}/>
-                  </ListItem>
-                )}
-            />
-          ))
-        }
+        {this.renderChannels(channels)}
       </List>
       <NewChannel open={this.state.modalOpen} onSubmit={this.addNewChannel} onHandleClose={this.onHandleClose}/>
-    </div>)
+    </div>
+    )
   }
 }
 

@@ -27,7 +27,7 @@ afterEach(() => {
 })
 
 function genExpectedAction (zome: string, fname: string, data: any): any {
-  eturn {
+  return {
   type: `holo-vault/${zome}/${fname}`,
   payload: {
   request: {

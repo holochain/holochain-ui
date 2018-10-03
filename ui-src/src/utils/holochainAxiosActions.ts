@@ -1,4 +1,4 @@
-import {  createAsyncAction } from 'typesafe-actions'
+import { createAsyncAction } from 'typesafe-actions'
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 /*
 Typed action creators. See (https://github.com/piotrwitek/typesafe-actions#createaction) for details
@@ -24,14 +24,14 @@ export interface BridgeCallPayload<PayloadType> {
 export type BridgeCallResponse<ResponseType> = AxiosResponse<ResponseType>
 
 function makeBridgeCallPayload<PayloadType> (channel: string, zome: string, func: string, data: PayloadType): BridgeCallPayload<PayloadType> {
-  eturn {
+  return {
     request: {
       data: {
-      channel,
-  zome,
-  func,
-  data
-    }
+        channel,
+        zome,
+        func,
+        data
+      }
     }
   }
 }

@@ -27,18 +27,18 @@ afterEach(() => {
 })
 
 function genExpectedAction (zome: string, fname: string, data: any): any {
-  eturn {
+  return {
     type: `holo-chat/${zome}/${fname}`,
-  payload: {
-    request: {
-    data: {
-    channel: 'holo-chat',
-  zome: zome,
-  func: fname,
-  data: data
-  }
-  }
-  }
+    payload: {
+      request: {
+        data: {
+          channel: 'holo-chat',
+          zome: zome,
+          func: fname,
+          data: data
+        }
+      }
+    }
   }
 }
 
