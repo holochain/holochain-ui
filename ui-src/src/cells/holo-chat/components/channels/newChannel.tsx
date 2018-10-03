@@ -91,7 +91,7 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
             <Typography variant='title' color='inherit' className={classes.flex}>
               Members
             </Typography>
-            <Button variant='fab' mini={true} onClick={this.onCreateChannelButtonClick} className={classes.button}>
+            <Button id='CreateChannel' variant='fab' mini={true} onClick={this.onCreateChannelButtonClick} className={classes.button}>
               <Send />
             </Button>
           </Toolbar>
