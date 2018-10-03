@@ -28,6 +28,9 @@ export interface DispatchProps {
 
 export type Props = OwnProps & StateProps & DispatchProps
 
+export interface State {
+  persona: PersonaType
+}
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     textAlign: 'left',
@@ -40,8 +43,8 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 });
 
 //@ts-ignore
-const renderTextField = ({ label, required }) => (
-  <TextField label={label} required={required} />
+const renderTextField = ({label, content, required }) => (
+  <TextField label={label} required={required} value={content} />
 )
 //
 // const validate = values => {
@@ -60,14 +63,14 @@ const renderTextField = ({ label, required }) => (
 //   return errors
 // }
 
-function PersonaFields (props: {persona: PersonaType}) {
+function PersonaFields (props: {persona: PersonaType, onChangeName:(personaField: PersonaField) => void, onChangeData:(personaField: PersonaField) => void}) {
   if(props.persona.fields !== undefined){
     return (
       <div>
         {props.persona.fields.map((field: PersonaField, index) => (
             <div key={index}>
-              <Field name={`fieldName${index}`} component={renderTextField} label="Field Name" required={true} />
-              <Field name={`fieldValue${index}`} component={renderTextField} label="Field Value" required={true} />
+              <TextField name={`fieldName${index}`} label='Field Name' value={field.name} onChange={() => props.onChangeName(field)} />
+              <TextField name={`fieldValue${index}`} label='Field Value' value={field.data} onChange={() => props.onChangeData(field)} />
             </div>
           )
         )}
@@ -82,9 +85,14 @@ function PersonaFields (props: {persona: PersonaType}) {
   }
 }
 
-class Persona extends React.Component<Props & InjectedFormProps> {
+class Persona extends React.Component<Props & InjectedFormProps, State> {
   state = {
-    persona: {}
+    persona: {
+        "name": "",
+        "hash": "",
+        "fields": [
+        ]
+    }
   }
 
   handlePersona = (values: any) => {
@@ -102,16 +110,10 @@ class Persona extends React.Component<Props & InjectedFormProps> {
       //   }
       // }
     })
-    let persona: PersonaType =
-      {
-        hash: "",
-        name: values.personaName,
-        fields: fields
-      }
 
-    if(persona.hash === ""){
-      const personaSpec: PersonaSpec = {"name": persona.name}
-      const personaFields: Array<PersonaField> = persona.fields
+    if(this.state.persona.hash === ""){
+      const personaSpec: PersonaSpec = {"name": this.state.persona.name}
+      const personaFields: Array<PersonaField> = this.state.persona.fields
       this.props.Create(personaSpec, personaFields)
     } else {
       // this.props.Update(persona)
@@ -120,30 +122,40 @@ class Persona extends React.Component<Props & InjectedFormProps> {
     // this.props.personasList()
   }
 
-  // handleAddPersonaField = () =>   {
-  //   let personaFields = this.state.persona.personaFields.slice()
-  //   this.setState(prevState => ({
-  //       persona: {
-  //           ...prevState.persona,
-  //           personaFields: [...prevState.persona.personaFields, personaFields]
-  //       }
-  //   }))
-  // }
+  handleAddPersonaField = () =>   {
+    this.setState(prevState => ({
+        persona: {
+            ...prevState.persona,
+            personaFields: [prevState.persona.fields.push({"name": "", "data": ""})]
+        }
+    }))
+    process.nextTick(() => {
+      console.log(this.state.persona)
+    })
+  }
+
+  onChangeData = (field: PersonaField) => {
+
+  }
 
   componentDidMount(){
-    // let initial = {
-    //   personaName: this.props.persona.name
-    // }
+    this.setState({
+      persona: this.props.currentPersona
+    })
+    let initial = {
+      personaName: this.props.currentPersona.name
+    }
     // this.props.persona.personaFields.map((field, index) => (
     //   initial[`fieldName${index}`] = Object.keys(field)[0]
     // ))
     // this.props.persona.personaFields.map((field, index) => (
     //   initial[`fieldValue${index}`] = field[Object.keys(field)]
     // ))
-    // this.props.initialize(initial)
+    this.props.initialize(initial)
   }
+
   render() {
-    const { classes, handleSubmit, currentPersona } = this.props;
+    const { classes, handleSubmit } = this.props;
     return (
       <div className={classes.root}>
         <Typography variant='display1'>
@@ -154,10 +166,10 @@ class Persona extends React.Component<Props & InjectedFormProps> {
         </Typography>
         <form onSubmit={handleSubmit}>
           <div>
-            <Field name="personaName" component={renderTextField} label="Persona Name" required={true} />
+            <Field name="personaName" content={this.state.persona.name} component={renderTextField} label="Persona Name" required={true} />
           </div>
-          <PersonaFields persona={currentPersona}/>
-          <Button name='addField' variant='raised' className={classes.button}>
+          <PersonaFields persona={this.state.persona}/>
+          <Button name='addField' variant='raised' className={classes.button} onClick={this.handleAddPersonaField}>
             <TextFields/>
             Add Field
           </Button>

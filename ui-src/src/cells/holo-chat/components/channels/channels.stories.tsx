@@ -3,8 +3,6 @@ import {Provider} from 'react-redux'
 import { storiesOf } from "@storybook/react";
 import { MemoryRouter } from 'react-router-dom'
 import { withNotes } from '@storybook/addon-notes'
-import {configure} from 'enzyme'
-import * as Adapter from 'enzyme-adapter-react-16'
 import listChannels from './listChannels.md'
 import newChannel from './newChannel.md'
 import filterAgents from './filterAgents.md'
@@ -13,7 +11,6 @@ import newChat from './newChat.md'
 import CreateStore from '../../../../store'
 import Channels from './channels'
 import NewChannel from './newChannel'
-
 import {specs} from 'storybook-addon-specifications'
 import { newChannelTests } from './newChannel.test'
 import { filterAgentsTests } from './filterAgents.test'
@@ -22,7 +19,6 @@ import { newChatTests } from './newChat.test'
 import { channelsTests } from './channels.test'
 import { channelData } from '../../data/channelData'
 
-configure({adapter: new Adapter()})
 let store = CreateStore()
 
 function StartComponent () {
