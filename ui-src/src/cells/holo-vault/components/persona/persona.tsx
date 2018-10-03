@@ -30,6 +30,8 @@ export type Props = OwnProps & StateProps & DispatchProps & RouterProps
 export interface State {
   persona: PersonaType
 }
+
+
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     textAlign: 'left',
@@ -40,7 +42,6 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     marginTop: theme.spacing.unit
   }
 });
-
 
 
 function PersonaField(props: {index: number, field: PersonaField, onChange: (updatedField: PersonaField) => void}) {
@@ -67,15 +68,11 @@ function PersonaField(props: {index: number, field: PersonaField, onChange: (upd
   )
 }
 
+
+
+
+
 class Persona extends React.Component<Props, State> {
-  state = {
-    persona: {
-        "name": "",
-        "hash": "",
-        "fields": [
-        ]
-    }
-  }
 
   handleSubmit = () => {
 
@@ -84,7 +81,7 @@ class Persona extends React.Component<Props, State> {
       const personaFields: Array<PersonaField> = this.state.persona.fields
       this.props.create(personaSpec, personaFields)
     } else {
-      // this.props.Update(persona)
+      // this.props.update(persona)
     }
     // this.props.history.push("/holo-vault/personas")
     // this.props.personasList()
