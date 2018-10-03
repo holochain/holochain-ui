@@ -78,6 +78,7 @@
     "redux-mock-store": "^1.5.3",
     "storybook-addon-jsx": "^5.3.0",
     "storybook-addon-specifications": "^2.1.2",
+    "tslint-config-standard": "^8.0.1",
     "typescript": "3.0.1"
   }
 }
