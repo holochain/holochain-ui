@@ -1,6 +1,6 @@
 
 import { connect } from 'react-redux'
-import PersonaForm, { OwnProps, StateProps, DispatchProps } from '../components/persona/persona'
+import Persona, { Props, StateProps, DispatchProps } from '../components/persona/persona'
 import {Dispatch} from 'redux'
 import { PersonaField, Persona as PersonaType, PersonaSpec } from "../types/persona"
 import {
@@ -8,37 +8,32 @@ import {
   AddField
 } from '../actions'
 
-const mapStateToProps = (state: any, ownProps: OwnProps): StateProps => {
-  let buttonText = ''
-  let persona: PersonaType = {
-      "name": "",
-      "hash": "",
-      "fields": [
-      ]
-  }
+const mapStateToProps = (state: any, ownProps: Props): StateProps => {
 
-  const personaName = '' // ownProps.match.params.name
+  const personaName = ownProps.match.params.name
   console.log(personaName)
+
   let filteredPersona = state.holoVault.profile.personas.filter(function (persona: PersonaType){
     return personaName === persona.name
   })[0]
-  if (filteredPersona === undefined){
-    buttonText = "Create Persona"
-  } else {
-    persona = filteredPersona.persona
-    buttonText = 'Update Persona'
-  }
+
+  const persona: PersonaType = filteredPersona.persona || {
+        name: "",
+        hash: "",
+        fields: []
+      }
 
   return {
-    buttonText: buttonText,
     title: `Persona - ${personaName}`,
     currentPersona: persona
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchProps => {
+
+
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props): DispatchProps => {
   return {
-    Create: (personaSpec: PersonaSpec, personaFields: Array<PersonaField>) => {
+    create: (personaSpec: PersonaSpec, personaFields: Array<PersonaField>) => {
       dispatch(CreatePersona.create(personaSpec)).then((response: any) => {
         const personaHash: string = response.payload.data
         return Promise.all(
@@ -54,4 +49,4 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchPro
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PersonaForm)
+)(Persona)

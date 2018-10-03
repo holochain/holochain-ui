@@ -3,7 +3,7 @@
 export = 0;
 let module = {}
 
-import { Persona, PersonaSpec, Field } from '../vault-types/persona'
+import { Persona, PersonaSpec, PersonaField } from '../vault-types/persona'
 
 /*=============================================
 =            Public Zome Functions            =
@@ -38,7 +38,7 @@ function getPersonas(): Array<Persona> | holochain.HolochainError {
   }
 }
 
-function addField(payload: {personaHash: string, field: Field}): boolean {
+function addField(payload: {personaHash: string, field: PersonaField}): boolean {
   const {personaHash, field} = payload
   try {
     const fieldHash = commit('field', field)
