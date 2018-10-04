@@ -1,6 +1,6 @@
 # Holochain UI
 A Holochain app (hApp) that you can add your own hApps to.
-
+[![Build Status](https://travis-ci.org/holochain/holochain-ui.svg?branch=develop)](https://travis-ci.org/holochain/holochain-ui)
 ![GitHub last commit](https://img.shields.io/github/last-commit/holochain/holochain-ui.svg)
 ![GitHub](https://img.shields.io/github/license/holochain/holochain-ui.svg)
 
