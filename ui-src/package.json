@@ -40,6 +40,7 @@
     "release:files": "node copy-release.js",
     "storybook": "start-storybook -p 6006 -c .storybook",
     "storybook:deploy": "storybook-to-ghpages",
+    "tslint": "tslint --project ./tsconfig.json",
     "tslint:fix": "tslint --project ./tsconfig.json --fix"
   },
   "devDependencies": {
