@@ -1,8 +1,8 @@
 
 import { connect } from 'react-redux'
 import PresenceArcs from '../components/presence/presenceArcs'
-import {HoloChatState} from '../reducer'
-import {Dispatch} from 'redux'
+import { HoloChatState } from '../reducer'
+import { Dispatch } from 'redux'
 import presenceData from '../data/presence_philip_micah.json'
 import {
 } from '../actions'

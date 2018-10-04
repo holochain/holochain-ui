@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import Setp from '../components/setup/setup'
 import { Dispatch } from 'redux'
-import {HoloChatState} from '../reducer'
+import { HoloChatState } from '../reducer'
 
 // import  * as constants from '../constants'
 // import {

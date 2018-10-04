@@ -1,4 +1,4 @@
-// 
+//
 // let newPersona = {
 //     "name": "",
 //     "fields": [
@@ -38,8 +38,6 @@
 // ])
 
 export const personaTests = describe('Looking after your Personas', () => {
-
-  
 
   it('Creating a Persona by adding new fields and values, this will send a Persona to Holochain', () => {
     // const wrapper = mount(getPersona(newPersona, newHash, newButtonText))

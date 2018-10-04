@@ -6,21 +6,19 @@ export enum MessageType {
     IDEA
 }
 
-
 export interface IdeaMessageContent {
-    upVotes: number,
-    downVotes: number,
-    description: string,
-    avatar: string,
-    productOwner: string,
-    title: string
+  upVotes: number,
+  downVotes: number,
+  description: string,
+  avatar: string,
+  productOwner: string,
+  title: string
 }
 
 export interface ChatMessageContent {
-    text: string,
-    image?: string
+  text: string,
+  image?: string
 }
-
 
 export type IdeaMessage
     = {type: MessageType.IDEA, content: IdeaMessageContent}
@@ -32,12 +30,11 @@ type MessageUnion
     = IdeaMessage
     | ChatMessage
 
-
 export type Message
     = MessageUnion & {
-        author: Hash,
-        timestamp: number,
-        content: any,
-        replies: Array<Message>,
-        channelId: string
+      author: Hash,
+      timestamp: number,
+      content: any,
+      replies: Array<Message>,
+      channelId: string
     }

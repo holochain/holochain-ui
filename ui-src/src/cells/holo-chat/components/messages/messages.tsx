@@ -1,18 +1,17 @@
 import * as React from 'react'
 import withRoot from '../../../../withRoot'
-import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
-import {List, ListItem } from '@material-ui/core'
+import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
+import { List, ListItem } from '@material-ui/core'
 import MessageView from './messageView'
-import {Message as MessageType} from '../../types/view/message'
-import {MessageSpec} from '../../types/model/message'
-import {Channel as ChannelType} from '../../types/model/channel'
+import { Message as MessageType } from '../../types/view/message'
+import { MessageSpec } from '../../types/model/message'
+import { Channel as ChannelType } from '../../types/model/channel'
 import { Identity } from '../../types/model/identity'
 // import {Message as MessageType} from '../../types/message'
 import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Send from '@material-ui/icons/Send'
-
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
@@ -23,7 +22,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     position: 'relative',
     marginTop: '10px',
     border: '2px solid #4255A9',
-    borderRadius: '45px',
+    borderRadius: '45px'
   },
   textField: {
     float: 'left',
@@ -60,16 +59,15 @@ interface MessagesProps {
   sendMessage: (payload: {channelHash: string, message: MessageSpec}) => void
 }
 
-
 interface MessageState {
-   message: string;
+  message: string
 }
 
 class Messages extends React.Component<MessagesProps, MessageState> {
   getMessageInterval: any
 
-  componentDidMount() {
-    if(this.props.channel) {
+  componentDidMount () {
+    if (this.props.channel) {
       this.getMessageInterval = setInterval(() => {
         this.props.whoami()
         this.props.getMessages(this.props.channel.hash)
@@ -78,20 +76,19 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     clearInterval(this.getMessageInterval)
   }
 
-  constructor(props: MessagesProps) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
+  constructor (props: MessagesProps) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
     this.state = {
       message: ''
     }
   }
 
-
-  handleSendMessage = () =>   {
+  handleSendMessage = () => {
     console.log(this.state.message)
     // call holochain here.
     this.props.sendMessage({
@@ -102,15 +99,15 @@ class Messages extends React.Component<MessagesProps, MessageState> {
         }
       }
     })
-    this.setState({message: ''})
+    this.setState({ message: '' })
   }
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-     this.setState({message: e.target.value});
-   }
+    this.setState({ message: e.target.value })
+  }
 
   handleKeyPress = (e: React.KeyboardEvent) => {
-    if(e.key === 'Enter') {
+    if (e.key === 'Enter') {
       this.handleSendMessage()
     }
   }
@@ -137,15 +134,15 @@ class Messages extends React.Component<MessagesProps, MessageState> {
         </Paper>
         <Paper className={classes.send}>
           <TextField
-              id="message"
-              label="Chat message"
+              id='message'
+              label='Chat message'
               className={classes.textField}
               value={this.state.message}
               onChange={this.handleChange}
-              margin="normal"
+              margin='normal'
               onKeyPress={this.handleKeyPress}
-            />
-          <Button variant="fab" mini={true} className={classes.button} onClick={this.handleSendMessage}>
+          />
+          <Button variant='fab' mini={true} className={classes.button} onClick={this.handleSendMessage}>
             <Send />
           </Button>
         </Paper>
@@ -153,6 +150,5 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     )
   }
 }
-
 
 export default withRoot(withStyles(styles)(Messages))

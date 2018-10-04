@@ -1,15 +1,13 @@
-import { ActionType, getType } from 'typesafe-actions';
+import { ActionType, getType } from 'typesafe-actions'
 
 import { combineReducers } from 'redux'
 
 import * as vaultActions from './actions'
 
-import {Profile} from './types/profile'
-import {Persona} from './types/persona'
+import { Profile } from './types/profile'
+import { Persona } from './types/persona'
 
-
-export type VaultAction = ActionType<typeof vaultActions>;
-
+export type VaultAction = ActionType<typeof vaultActions>
 
 // readonly keyword causes compiler to error if one attempts to mutate the state
 export type VaultState = {
@@ -32,7 +30,7 @@ export const initialState: State = {
 }
 
 export function vaultReducer (state: VaultState = initialState, action: VaultAction) {
-  switch(action.type) {
+  switch (action.type) {
     case getType(vaultActions.GetPersonas.success):
       return {
         ...state,

@@ -5,13 +5,11 @@ import { Message, MessageSpec } from './types/model/message'
 import { Channel, ChannelSpec } from './types/model/channel'
 import { Identity, IdentitySpec } from './types/model/identity'
 
-
 /*===============================================
 =            Action Type Definitions            =
 ===============================================*/
 
 /*----------  Holochain actions  ----------*/
-
 
 export const CreateCustomChannel = createHolochainAsyncAction<ChannelSpec, string>('holo-chat', 'custom_channel', 'createCustomChannel')
 
@@ -33,12 +31,10 @@ export const SetIdentity = createHolochainAsyncAction<IdentitySpec, boolean>('ho
 
 export const GetUsers = createHolochainAsyncAction<any, Array<Identity>>('holo-chat', 'users', 'getUsers')
 
-
 /*----------  Non-holochain actions  ----------*/
 
 export const SetActiveChannel = createAction('holochat/setActiveChannel', resolve => {
-  return (channel: Channel) => resolve(channel);
-});
-
+  return (channel: Channel) => resolve(channel)
+})
 
 /*=====  End of Action Type Definitions  ======*/
