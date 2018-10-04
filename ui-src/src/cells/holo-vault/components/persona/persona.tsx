@@ -22,7 +22,7 @@ export interface StateProps {
 
 export interface DispatchProps {
   create: Function,
-  // getPersonas: Function
+  update: Function
 }
 
 export type Props = OwnProps & StateProps & DispatchProps
@@ -86,7 +86,7 @@ class Persona extends React.Component<Props & RouterProps, State> {
       const personaFields: Array<PersonaField> = this.state.persona.fields
       this.props.create(personaSpec, personaFields)
     } else {
-      // this.props.update(persona)
+      this.props.update(this.state.persona)
     }
     this.props.history.push('/holo-vault/personas')
     // this.props.getPersonas()
@@ -144,7 +144,7 @@ class Persona extends React.Component<Props & RouterProps, State> {
             <TextFields/>
             Add Field
           </Button>
-          <Button name='createPersona' variant='raised' className={classes.button} onClick={() => this.handleSubmit()}>
+          <Button name='submitPersona' variant='raised' className={classes.button} onClick={() => this.handleSubmit()}>
             <PersonAdd/>
             {this.state.persona.hash === '' ? 'Create Persona' : 'Update Persona'}
           </Button>
