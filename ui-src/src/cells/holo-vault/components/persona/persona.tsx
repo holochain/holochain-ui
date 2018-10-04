@@ -21,10 +21,11 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-  create: Function
+  create: Function,
+  // getPersonas: Function
 }
 
-export type Props = OwnProps & StateProps & DispatchProps & RouterProps
+export type Props = OwnProps & StateProps & DispatchProps
 
 export interface State {
   persona: PersonaType
@@ -58,16 +59,16 @@ function PersonaField (props: {index: number, field: PersonaField, onChange: (up
   }
 
   return (
-    <div key={props.index}>
+    <div>
       <TextField name={`fieldName${props.index}`} label='Field Name' value={props.field.name} onChange={(e) => onChangeName(e.target.value)} />
       <TextField name={`fieldValue${props.index}`} label='Field Value' value={props.field.data} onChange={(e) => onChangeData(e.target.value)} />
     </div>
   )
 }
 
-class Persona extends React.Component<Props, State> {
+class Persona extends React.Component<Props & RouterProps, State> {
 
-  constructor (props: Props) {
+  constructor (props: Props & RouterProps) {
     super(props)
     this.state = {
       persona: {
@@ -87,8 +88,8 @@ class Persona extends React.Component<Props, State> {
     } else {
       // this.props.update(persona)
     }
-    // this.props.history.push("/holo-vault/personas")
-    // this.props.personasList()
+    this.props.history.push('/holo-vault/personas')
+    // this.props.getPersonas()
   }
 
   handleAddPersonaField = () => {
@@ -138,7 +139,7 @@ class Persona extends React.Component<Props, State> {
           <div>
             <TextField name='personaName' value={this.state.persona.name} onChange={e => this.updateName(e.target.value)} label='Persona Name'/>
           </div>
-          {this.state.persona.fields.map((field: PersonaField, index: number) => (<PersonaField index={index} field={field} onChange={(newField: PersonaField) => this.updateField(newField, index)}/>))}
+          {this.state.persona.fields.map((field: PersonaField, index: number) => (<PersonaField key={index} index={index} field={field} onChange={(newField: PersonaField) => this.updateField(newField, index)}/>))}
           <Button name='addField' variant='raised' className={classes.button} onClick={this.handleAddPersonaField}>
             <TextFields/>
             Add Field

@@ -1,6 +1,6 @@
 
 import { connect } from 'react-redux'
-import Persona, { Props, StateProps, DispatchProps } from '../components/persona/persona'
+import Persona, { Props, StateProps, DispatchProps, RouterProps } from '../components/persona/persona'
 import { Dispatch } from 'redux'
 import { PersonaField, Persona as PersonaType, PersonaSpec } from '../types/persona'
 import {
@@ -8,7 +8,7 @@ import {
   AddField
 } from '../actions'
 
-const mapStateToProps = (state: any, ownProps: Props): StateProps => {
+const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps => {
 
   const personaName = ownProps.match.params.name
   let filteredPersona = state.holoVault.profile.personas.filter(function (persona: PersonaType) {
