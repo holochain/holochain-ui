@@ -11,8 +11,6 @@ import {
 const mapStateToProps = (state: any, ownProps: Props): StateProps => {
 
   const personaName = ownProps.match.params.name
-  console.log(personaName)
-
   let filteredPersona = state.holoVault.profile.personas.filter(function (persona: PersonaType){
     return personaName === persona.name
   })[0]

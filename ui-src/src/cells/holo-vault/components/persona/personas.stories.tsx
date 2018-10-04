@@ -23,5 +23,5 @@ storiesOf('HoloVault/Persona', module)
 
 function getPersonas(personas: Array<Persona>) {
   // tslint:disable jsx-no-lambda
-  return (<Provider store={store}><MemoryRouter initialEntries={['/']}><Personas personas={personas} personaList={()=> {}} /></MemoryRouter></Provider>)
+  return (<Provider store={store}><MemoryRouter initialEntries={['/']}><Personas personas={personas} getPersonas={()=> {}} /></MemoryRouter></Provider>)
 }
