@@ -42,7 +42,6 @@ export interface DispatchProps {
   newChannel: typeof CreateCustomChannel.sig,
   getUsers: typeof GetUsers.sig,
   setActiveChannel: (channel: ChannelType) => void,
-  // personasList: (then?: Function) => void,
   setIdentity: (identity: IdentitySpec) => void
 }
 
@@ -54,9 +53,6 @@ export interface State {
   modalOpen: boolean
 }
 
-
-
-
 class Channels extends React.Component<Props & RouterProps, State> {
   getChannelsInterval: any
   constructor(props: Props & RouterProps) {
@@ -67,38 +63,6 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount() {
-    // here is where we should check that there is a valid profile
-    // this.props.personasList((result: any) => {
-    //   console.log('personas received')
-    //   console.log(result)
-    //
-    //   let chatPersona: Persona
-    //   const chatProfileExists = result.some((elem: {Hash: string, persona: Persona}) => {
-    //     console.log(elem)
-    //     if(elem.persona.name === "HoloChat") {
-    //       chatPersona = elem.persona
-    //       return true
-    //     } else {
-    //       return false
-    //     }
-    //   })
-    //
-    //   if(chatProfileExists) {
-    //     console.log("Chat profile found!")
-    //     // use the profile to update the user data in chat. A bit of a hack but it
-    //     // will work for now
-    //
-    //     // update the user info with the data from vault
-    //     this.props.setIdentity({
-    //       ...chatPersona.personaFields[0],
-    //       ...chatPersona.personaFields[1]})
-    //   } else {
-    //     console.log("No Profile for chat. Redirecting...")
-    //     this.props.history.push("/holo-vault/profiles")
-    //     // this.props.history.push("/holo-vault/profile/HoloChat")
-    //   }
-    // })
-
     this.getChannelsInterval = setInterval(this.props.getMyChannels, 200)
   }
 
@@ -107,10 +71,6 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   handleNewChannelButtonClick = () => {
-    // example promise from holochain call. Remove later
-    this.props.getUsers(null).then((response) => {
-      console.log(JSON.stringify(response.payload.data))
-    })
     this.setState({modalOpen: true})
   }
 
