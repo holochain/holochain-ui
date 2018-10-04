@@ -1,5 +1,4 @@
 
-
 export const presenceArcsTests = describe('Feeling present', () => {
 
   it('A green arc shows for each persons availablity to be present with the channel', () => {

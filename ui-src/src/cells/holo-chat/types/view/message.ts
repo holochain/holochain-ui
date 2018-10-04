@@ -1,23 +1,23 @@
-import {Message as ModelMessage} from '../model/message'
-import {Identity} from '../model/identity'
+import { Message as ModelMessage } from '../model/message'
+import { Identity } from '../model/identity'
 
 export type Message = ModelMessage & { type: MessageType } | any
 
-export function modelMessagesToViewMessages(messages: Array<ModelMessage>, members: Array<Identity>, myHash: string): Array<Message> {
-	
-	if(!Array.isArray(messages)) {
-		return [] //TODO: find out why this is happening and make a better fix
-	}
+export function modelMessagesToViewMessages (messages: Array<ModelMessage>, members: Array<Identity>, myHash: string): Array<Message> {
 
-	const memberMap = members.reduce((obj, item) => {
-     obj[item.hash] = item
-     return obj
+  if (!Array.isArray(messages)) {
+    return [] // TODO: find out why this is happening and make a better fix
+  }
+
+  const memberMap = members.reduce((obj, item) => {
+    obj[item.hash] = item
+    return obj
   }, {})
 
   return messages.map((m) => {
   	const fromMe = m.author! === myHash
   	return {
-  		...m, 
+  		...m,
   		author: memberMap[m.author!],
   		type: MessageType.CHAT,
   		replies: [],
@@ -25,7 +25,6 @@ export function modelMessagesToViewMessages(messages: Array<ModelMessage>, membe
   	}
   	}) as Array<Message>
 }
-
 
 export enum MessageType {
 	CHAT,

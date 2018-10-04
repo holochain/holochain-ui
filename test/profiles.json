@@ -20,6 +20,7 @@
       "FnName": "registerApp",
       "Input": {
         "sourceDNA": "abc",
+        "name": "test",
         "fields": [
           {
             "name": "firstName",
@@ -38,7 +39,7 @@
       "Zome": "profiles",
       "FnName": "getProfileSpecs",
       "Input": {},
-      "Output": [{"fields":[{"description":"Displayed to all users of the app","displayName":"First Name","name":"firstName","required":true,"schema":{},"usage":"store"}],"sourceDNA":"abc"}]
+      "Output": [{"fields":[{"description":"Displayed to all users of the app","displayName":"First Name","name":"firstName","required":true,"schema":{},"usage":"store"}],"sourceDNA":"abc", "name":"test"}]
     },
     {
       "Convey": "Can create a mapping to a non-existent persona",

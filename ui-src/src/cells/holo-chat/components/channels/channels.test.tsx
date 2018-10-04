@@ -1,8 +1,7 @@
-import * as React from 'react';
-import Channels, {State, Props} from './channels';
-import * as Enzyme from 'enzyme';
-import { mount, ReactWrapper } from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
+import * as React from 'react'
+import Channels, { State, Props } from './channels'
+import * as Enzyme from 'enzyme'
+import * as Adapter from 'enzyme-adapter-react-16'
 import CreateStore from '../../../../store'
 import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
@@ -14,24 +13,23 @@ Enzyme.configure({ adapter: new Adapter() })
 export const channelsTests = describe('Listing your channels', () => {
 
   let props: Props
-  let mountedChannelsList: ReactWrapper<Props, State> | undefined
+  let mountedChannelsList: Enzyme.ReactWrapper<Props, State> | undefined
 
   const channelsList = () => {
     if (!mountedChannelsList) {
-      mountedChannelsList = mount(<Provider store={store}><MemoryRouter initialEntries={['/']}><Channels {...props}/></MemoryRouter></Provider>);
+      mountedChannelsList = Enzyme.mount(<Provider store={store}><MemoryRouter initialEntries={['/']}><Channels {...props}/></MemoryRouter></Provider>)
     }
-    return mountedChannelsList;
+    return mountedChannelsList
   }
 
   beforeEach(() => {
-    mountedChannelsList = undefined;
+    mountedChannelsList = undefined
   })
-  const mockFn = jest.fn();
-
+  const mockFn = jest.fn()
 
   props = {
     getMyChannels: mockFn,
-    newChannel: mockFn,
+    newChannel: jest.fn(() => Promise.reject('newChannel not implemented')),
     setActiveChannel: mockFn,
     getUsers: mockFn,
     setIdentity: mockFn,
@@ -39,13 +37,13 @@ export const channelsTests = describe('Listing your channels', () => {
   }
 
   it('When there is a list of existing channels the channel view shows the list of existing channels', () => {
-    const items = channelsList().find("ListItem")
+    const items = channelsList().find('ListItem')
     expect(items.length).toEqual(props.channels.length)
   })
 
   it('Clicking a Channel in the list will set the active channel and show the messages', () => {
-    channelsList().find("ListItem").get(0).props.onClick()
-    expect(props.setActiveChannel).toBeCalled();
+    channelsList().find('ListItem').get(0).props.onClick()
+    expect(props.setActiveChannel).toBeCalled()
   })
 
   it('Clicking the Add Channel button sets the modalOpen state to true', () => {
@@ -66,7 +64,7 @@ export const channelsTests = describe('Listing your channels', () => {
     channelsList().find('button[id="AddChannel"]').simulate('click')
     process.nextTick(() => {
       channelsList().find('NewChannel').find('button[id="CreateChannel"]').simulate('click')
-      expect(props.newChannel).toBeCalled();
+      expect(props.newChannel).toBeCalled()
       done()
     })
   })
