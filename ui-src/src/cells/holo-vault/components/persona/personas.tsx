@@ -55,16 +55,16 @@ class Personas extends React.Component<Props & RouterProps, {}> {
       <List id='personas' component='nav'>
 {/*
         {
-          personas.map((persona: Persona, index: number) => (<Route render={({history}) => (
+          personas.map((persona: PersonaType, index: number) => (<Route render={({history}) => (
             <ListItem id={persona.hash} button={true} onClick={() => {
-                history.push(`/holo-vault/persona/${persona.persona.name}`)
+                history.push(`/holo-vault/persona/${persona.name}`)
               }}>
               <ListItemIcon>
                 <Person/>
               </ListItemIcon>
-              <ListItemText primary={persona.persona.name}/>
+              <ListItemText primary={persona.name}/>
             </ListItem>)}/>))
-        } */}
+        }
       </List>
       <Route
         render={({ history }) => (

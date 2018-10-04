@@ -1,6 +1,7 @@
 import { JSONSchema6 } from 'json-schema'
 
 export interface ProfileSpec {
+  name: string,
   sourceDNA: string, // the DNA of the hApp requesting data
   fields: Array<FieldSpec>, // array of fields this app requires
 }

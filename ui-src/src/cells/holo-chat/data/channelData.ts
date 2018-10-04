@@ -1,17 +1,17 @@
 export const channelData = [
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
-    'name': 'dev hApps',
-    'description': 'dev-happs'
+  "hash": "hashChannel1",
+  "name": "dev hApps",
+  "description": "dev-happs"
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
-    'name': 'dev Core',
-    'description': 'dev-core'
+    "hash": "hashChannel2",
+    "name": "dev Core",
+    "description": "dev-core"
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
-    'name': 'Town Central',
-    'description': 'Town Central'
+    "hash": "hashChannel3",
+    "name": "Town Central",
+    "description": "Town Central"
   }
 ]

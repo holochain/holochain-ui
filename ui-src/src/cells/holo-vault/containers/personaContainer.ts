@@ -21,6 +21,7 @@ const mapStateToProps = (state: any, ownProps: Props): StateProps => {
     name: '',
     hash: '',
     fields: []
+
   }
 
   return {
