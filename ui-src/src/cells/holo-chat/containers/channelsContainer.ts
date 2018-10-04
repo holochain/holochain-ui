@@ -1,7 +1,6 @@
 
 import { connect } from 'react-redux'
 import Channels, { OwnProps, StateProps, DispatchProps } from '../components/channels/channels'
-import {  } from '../reducer'
 import { Dispatch } from 'redux'
 
 import {

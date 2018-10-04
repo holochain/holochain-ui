@@ -3,10 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { RouteComponentProps } from 'react-router'
 import withRoot from '../../../../withRoot'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
-import { Card, CardActions, CardContent } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
-import { Typography } from '@material-ui/core'
-// import Avatar from '@material-ui/core/Avatar';
 import Share from '@material-ui/icons/Share'
 import Badge from '@material-ui/core/Badge'
 import ThumbUp from '@material-ui/icons/ThumbUp'
@@ -15,11 +12,20 @@ import Publish from '@material-ui/icons/Publish'
 import IconButton from '@material-ui/core/IconButton'
 import Info from '@material-ui/icons/Info'
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/List'
-import ListItemText from '@material-ui/core/List'
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  ListItem,
+  ListItemText } from '@material-ui/core'
 import MessageView from '../messages/messageView'
-import  * as constants from '../../constants'
+import * as constants from '../../constants'
 import * as React from 'react'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -105,7 +111,8 @@ class IdeaCard extends React.Component<IdeaCardProps & RouteComponentProps<{}>, 
             <IconButton
               className={classes.button}
               onClick={this.handleClickOpen}
-              aria-label='ThumbDown'>
+              aria-label='ThumbDown'
+            >
               <Info />
             </IconButton>
             <Share />
@@ -113,29 +120,34 @@ class IdeaCard extends React.Component<IdeaCardProps & RouteComponentProps<{}>, 
               id='thumbsUpBadge'
               className={classes.badge}
               badgeContent={idea.upVotes}
-              color='secondary'>
+              color='secondary'
+            >
               <IconButton
                 className={classes.button}
                 onClick={this.handleThumbsUp}
-                aria-label='ThumbUp'>
+                aria-label='ThumbUp'
+              >
                 <ThumbUp />
               </IconButton>
             </Badge>
             <Badge
               className={classes.badge}
               badgeContent={idea.downVotes}
-              color='secondary'>
+              color='secondary'
+            >
               <IconButton
                 className={classes.button}
                 onClick={this.handleThumbsDown}
-                aria-label='ThumbDown'>
+                aria-label='ThumbDown'
+              >
                 <ThumbDown />
               </IconButton>
             </Badge>
             <IconButton
               className={classes.button}
               onClick={this.handleClickErrandOpen}
-              aria-label='Errand'>
+              aria-label='Errand'
+            >
               <Publish />
             </IconButton>
           </CardActions>
@@ -143,7 +155,8 @@ class IdeaCard extends React.Component<IdeaCardProps & RouteComponentProps<{}>, 
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
-          aria-labelledby='form-dialog-title'>
+          aria-labelledby='form-dialog-title'
+        >
           <DialogTitle id='form-dialog-title'>New Idea</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -167,7 +180,8 @@ class IdeaCard extends React.Component<IdeaCardProps & RouteComponentProps<{}>, 
         <Dialog
           open={this.state.openErrand}
           onClose={this.handleCloseErrand}
-          aria-labelledby='form-dialog-title'>
+          aria-labelledby='form-dialog-title'
+        >
           <DialogTitle id='form-dialog-title'>Integraste with Errand</DialogTitle>
           <DialogContent>
             <DialogContentText>

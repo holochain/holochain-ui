@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 import IdeaCard from '../components/cards/ideaCard'
-import  * as constants from '../constants'
+import * as constants from '../constants'
 import { HoloChatState } from '../reducer'
 import { Dispatch } from 'redux'
 import { addCard } from '../../errand/actions'
@@ -18,8 +18,8 @@ const mapStateToProps = (state: HoloChatState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    addCard: (card_info: any, lane_id: string) => {
-      dispatch(addCard(card_info, lane_id))
+    addCard: (cardInfo: any, laneId: string) => {
+      dispatch(addCard(cardInfo, laneId))
     }
   }
 }

@@ -90,8 +90,8 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
         <List id='users' component='nav'>
           {
             users
-            .filter((user) => { return user.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1})
-            .map((user, i) => { 
+            .filter((user) => user.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1)
+            .map((user, i) => {
               return (
               <ListItem key={i} button={true} value={user.hash} className={classes.listItem} onClick={this.onRowClick(user)}>
                 <MakeAvatar user={user}/>
@@ -100,7 +100,8 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
                   checked={this.state.selectedUsers.indexOf(user) !== -1}
                 />
               </ListItem>
-            )})
+              )
+            })
           }
         </List>
       </div>

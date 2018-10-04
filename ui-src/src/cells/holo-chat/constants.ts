@@ -60,8 +60,8 @@ export const messages: Array<Message> = [
       channelId: 'holochain',
       timestamp: 11,
       content: {
-          text: 'Buenas dias! good u?'
-        },
+        text: 'Buenas dias! good u?'
+      },
       replies: []
     }]
   },

@@ -88,7 +88,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     }
   }
 
-  handleSendMessage = () =>   {
+  handleSendMessage = () => {
     console.log(this.state.message)
     // call holochain here.
     this.props.sendMessage({
@@ -141,7 +141,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
               onChange={this.handleChange}
               margin='normal'
               onKeyPress={this.handleKeyPress}
-            />
+          />
           <Button variant='fab' mini={true} className={classes.button} onClick={this.handleSendMessage}>
             <Send />
           </Button>

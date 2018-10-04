@@ -57,24 +57,25 @@ class PresenceArcs extends React.Component<PresenceArcsProps, {}> {
   // tslint:disable jsx-no-lambda
   render () {
     const { classes, arcs, strokeWidth } = this.props
-    return (<div className={classes.root} id='stage-parent'>
-      <Stage width={window.innerWidth} height={this.getSize('h')}>
-        <Layer>
-          {
-            this.filterArcs(1, arcs).map((arc: ArcType, index: number) => (
-              <PresenceArc key={index} classes={classes} arc={arc} radius={this.calculateRadius(arc.index, this.numberMembers(), window.innerWidth, this.getSize('h'))} strokeWidth={strokeWidth} x={window.innerWidth / 2} y={this.getSize('h') / 2} />
-            ))
-          }
-        </Layer>
-        <Layer>
-          {
-            this.filterArcs(0, arcs).map((arc: ArcType, index: number) => (
-              <PresenceArc key={index} classes={classes} arc={arc} radius={this.calculateRadius(arc.index, this.numberMembers(), window.innerWidth, this.getSize('h'))} strokeWidth={strokeWidth} x={window.innerWidth / 2} y={this.getSize('h') / 2} />
-            ))
-          }
-        </Layer>
-      </Stage>
-    </div>)
+    return (
+      <div className={classes.root} id='stage-parent'>
+        <Stage width={window.innerWidth} height={this.getSize('h')}>
+          <Layer>
+            {
+              this.filterArcs(1, arcs).map((arc: ArcType, index: number) => (
+                <PresenceArc key={index} classes={classes} arc={arc} radius={this.calculateRadius(arc.index, this.numberMembers(), window.innerWidth, this.getSize('h'))} strokeWidth={strokeWidth} x={window.innerWidth / 2} y={this.getSize('h') / 2} />
+              ))
+            }
+          </Layer>
+          <Layer>
+            {
+              this.filterArcs(0, arcs).map((arc: ArcType, index: number) => (
+                <PresenceArc key={index} classes={classes} arc={arc} radius={this.calculateRadius(arc.index, this.numberMembers(), window.innerWidth, this.getSize('h'))} strokeWidth={strokeWidth} x={window.innerWidth / 2} y={this.getSize('h') / 2} />
+              ))
+            }
+          </Layer>
+        </Stage>
+      </div>)
   }
 }
 

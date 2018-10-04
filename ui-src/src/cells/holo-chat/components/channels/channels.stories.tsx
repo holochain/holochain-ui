@@ -33,7 +33,7 @@ storiesOf('HoloChat/Channels', module)
   ))
   .add('List my Channels', withNotes(listChannels)(() => {
     specs(() => channelsTests)
-    return <Provider store={store}><Channels channels={channelData} personasList={() => {}} /></Provider>
+    return <Provider store={store}><Channels channels={channelData} /></Provider>
   }))
   .add('Start a new Channel', withNotes(newChannel)(() => {
     specs(() => newChannelTests)

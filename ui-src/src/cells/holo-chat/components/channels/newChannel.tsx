@@ -51,9 +51,6 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
     }
   }
 
-  componentDidMount () {
-  }
-
   onSelectionChanged = (selectedUsers: Array<Identity>) => {
     console.log('selected users changed')
     console.log(selectedUsers)

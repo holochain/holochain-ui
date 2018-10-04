@@ -122,21 +122,20 @@ asyncActionTestTable.forEach(([zome, name, actionCreator, testInput, testRespons
     const expectedAction = genExpectedAction(zome, name, testInput)
 
     it('should create an action that is correctly structured given parameters', () => {
-    expect(actionCreator(testInput)).toEqual(expectedAction)
-  })
+      expect(actionCreator(testInput)).toEqual(expectedAction)
+    })
 
     it('should trigger middleware creating a request response that returns a promise with the response', () => {
-    mock.onPost('/').reply(200, testResponse)
+      mock.onPost('/').reply(200, testResponse)
 
-		    // @ts-ignore - minor error in the typings for redux/typesafe-actions
-		    return store.dispatch(actionCreator(testInput)).then((response) => {
+	    // @ts-ignore - minor error in the typings for redux/typesafe-actions
+	    return store.dispatch(actionCreator(testInput)).then((response) => {
       const actions = store.getActions()
       expect(actions[0]).toEqual(expectedAction)
       expect(response.payload.data).toEqual(testResponse)
-		    })
+	    })
+    })
   })
-  })
-
 })
 
 // describe('getMessages action', () => {

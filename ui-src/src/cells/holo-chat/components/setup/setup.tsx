@@ -26,9 +26,11 @@ class Setup extends React.Component<SetupProps, {}> {
         </Typography>
         <Typography variant='body1'>
           Please click
-          <Route render={({ history }) => (
-            <Button onClick={() => { history.push('/profile/HoloChat - Holo Team') }}>Profile</Button>
-          )} />
+          <Route
+            render={({ history }) => (
+              <Button onClick={() => { history.push('/profile/HoloChat - Holo Team') }}>Profile</Button>
+            )}
+          />
           and join the fun.
           **Note** The first person (initiator) to use the cell will configure the ProfileSpec for this cell.
           ProfileSpec creator is a HoloVault feature that bridges to HoloChat to save the ProfileSpec for that cell

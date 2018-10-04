@@ -1,4 +1,3 @@
-import { Component } from 'react'
 import * as React from 'react'
 import withRoot from '../../../../withRoot'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
@@ -91,13 +90,13 @@ function VoteControls (props: MessageState & {handleIdea: Function}) {
   if (props.isHovered) {
     return (
       <div style={{ position: 'absolute',top: -16,right: -9, width: 'auto', height: 'auto', marginHorizontal: 10, paddingHorizontal: 10, marginVertical: 0, backgroundColor: 'white', border: 'thin solid lightgrey' } as React.CSSProperties}>
-        <IconButton style={{ minWidth: 25, width: 25, marginLeft: 10,  marginRight: 10 }} onClick={handleThumbsUp} aria-label='ThumbUp'>
+        <IconButton style={{ minWidth: 25, width: 25, marginLeft: 10, marginRight: 10 }} onClick={handleThumbsUp} aria-label='ThumbUp'>
           <ThumbUp />
         </IconButton>
-        <IconButton onClick={handleThumbsDown} style={{ minWidth: 25, width: 25, marginLeft: 10,  marginRight: 10 }} aria-label='ThumbDown'>
+        <IconButton onClick={handleThumbsDown} style={{ minWidth: 25, width: 25, marginLeft: 10, marginRight: 10 }} aria-label='ThumbDown'>
           <ThumbDown />
         </IconButton>
-        <IconButton onClick={() => props.handleIdea(props.message)} style={{ display: (props.message.type === 0) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft: 10,  marginRight: 10 }} aria-label='Idea' >
+        <IconButton onClick={() => props.handleIdea(props.message)} style={{ display: (props.message.type === 0) ? 'inline' : 'none', minWidth: 25, width: 25, marginLeft: 10, marginRight: 10 }} aria-label='Idea' >
           <Highlight />
         </IconButton>
       </div>
@@ -114,7 +113,7 @@ function MessageComponent (props: any) {
       return (
         <div className={props.classes.message}>
           <Typography className={props.classes.messageText}>{props.message.content.text}</Typography>
-          <img alt={props.message.content.image} className={(props.message.content.image !== '') ?  props.classes.messageImage : props.classes.messageNoImage}  src={props.message.content.image} />
+          <img alt={props.message.content.image} className={(props.message.content.image !== '') ? props.classes.messageImage : props.classes.messageNoImage} src={props.message.content.image} />
           <List>
             {
               props.message.replies.map((message: any, index: number) => (
@@ -145,7 +144,7 @@ interface MessageState {
   message: MessageType & {avatar: string}
 }
 
-class MessageView extends Component<MessageProps, MessageState> {
+class MessageView extends React.Component<MessageProps, MessageState> {
   constructor (props: MessageProps) {
     super(props)
     this.state = {
@@ -202,7 +201,11 @@ class MessageView extends Component<MessageProps, MessageState> {
     return (
       <List
         style={{ padding: 20,backgroundColor: (this.state.isHovered === true) ? 'white' : 'white' }}
-        dense={true} onMouseOver={this.onMessageHover} onMouseLeave={this.onMessageBlur} onTouchStart={this.onMessageHover}>
+        dense={true}
+        onMouseOver={this.onMessageHover}
+        onMouseLeave={this.onMessageBlur}
+        onTouchStart={this.onMessageHover}
+      >
         <ListItem key={'1'} dense={true} >
           <ListItemAvatar >
             <MakeAvatar user={this.state.message.author}/>

@@ -9,7 +9,7 @@ import Messages from './messages'
 import listMessages from './listMessages.md'
 import reply from './reply.md'
 import CreateStore from '../../../../store'
-import  * as constants from '../../constants'
+import * as constants from '../../constants'
 import { Message as MessageType } from '../../types/view/message'
 
 configure({ adapter: new Adapter() })
