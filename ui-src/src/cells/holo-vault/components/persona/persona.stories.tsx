@@ -17,21 +17,20 @@ let store = CreateStore()
 let newPersona: PersonaType = {
   'name': '',
   'hash': '',
-  'fields': [
-    ]
+  'fields': []
 }
 
 let editPersona: PersonaType = {
-    'hash': 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7',
-    'name': 'Personal',
-    'fields': [
-      { 'name': 'firstName', 'data': 'Phil' },
-      { 'name': 'lastName', 'data': 'Beadle' },
-      { 'name': 'address', 'data': '123 Holochain Road' },
-      { 'name': 'suburb', 'data': 'Burwood' },
-      { 'name': 'city', 'data': 'Melbourne' }
+  'hash': 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7',
+  'name': 'Personal',
+  'fields': [
+    { 'name': 'firstName', 'data': 'Phil' },
+    { 'name': 'lastName', 'data': 'Beadle' },
+    { 'name': 'address', 'data': '123 Holochain Road' },
+    { 'name': 'suburb', 'data': 'Burwood' },
+    { 'name': 'city', 'data': 'Melbourne' }
   ]
-  }
+}
 
 storiesOf('HoloVault/Persona', module)
   .add('New Persona', withNotes(newPersonaNotes)(() => {

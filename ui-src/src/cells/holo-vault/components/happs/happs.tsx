@@ -128,7 +128,7 @@ class Happs extends React.Component<HappsProps, {}> {
               }
             </List>
           </MediaQuery>
-          <MediaQuery  maxDeviceWidth={767}>
+          <MediaQuery maxDeviceWidth={767}>
             <List id='hApps' component='nav'>
               {
                 happs.installedHapps.map((group, index) => (

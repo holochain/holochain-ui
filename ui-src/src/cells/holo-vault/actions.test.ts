@@ -28,18 +28,18 @@ afterEach(() => {
 
 function genExpectedAction (zome: string, fname: string, data: any): any {
   return {
-  type: `holo-vault/${zome}/${fname}`,
-  payload: {
-  request: {
-  data: {
-  channel: 'holo-vault',
-  zome: zome,
-  func: fname,
-  data: data
-}
-}
-}
-}
+    type: `holo-vault/${zome}/${fname}`,
+    payload: {
+      request: {
+        data: {
+          channel: 'holo-vault',
+          zome: zome,
+          func: fname,
+          data: data
+        }
+      }
+    }
+  }
 }
 
 const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, any, any]> = [
@@ -77,22 +77,22 @@ asyncActionTestTable.forEach(([zome, name, actionCreator, testInput, testRespons
 
   describe(`${name} action`, () => {
 
-  const expectedAction = genExpectedAction(zome, name, testInput)
+    const expectedAction = genExpectedAction(zome, name, testInput)
 
-  it('should create an action that is correctly structured given parameters', () => {
-  expect(actionCreator(testInput)).toEqual(expectedAction)
-})
+    it('should create an action that is correctly structured given parameters', () => {
+      expect(actionCreator(testInput)).toEqual(expectedAction)
+    })
 
-  it('should trigger middleware creating a request response that returns a promise with the response', () => {
-  mock.onPost('/').reply(200, testResponse)
+    it('should trigger middleware creating a request response that returns a promise with the response', () => {
+      mock.onPost('/').reply(200, testResponse)
 
-		    // @ts-ignore - minor error in the typings for redux/typesafe-actions
-		    return store.dispatch(actionCreator(testInput)).then((response) => {
-      const actions = store.getActions()
-      expect(actions[0]).toEqual(expectedAction)
-      expect(response.payload.data).toEqual(testResponse)
-		    })
-})
-})
+  		    // @ts-ignore - minor error in the typings for redux/typesafe-actions
+  		return store.dispatch(actionCreator(testInput)).then((response) => {
+    const actions = store.getActions()
+    expect(actions[0]).toEqual(expectedAction)
+    expect(response.payload.data).toEqual(testResponse)
+  		})
+    })
+  })
 
 })

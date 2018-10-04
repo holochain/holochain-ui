@@ -7,7 +7,7 @@ import { configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import Personas from './personas'
 import listPersonasNotes from './listPersonas.md'
-import  * as constants from '../../constants'
+import * as constants from '../../constants'
 import { Persona } from '../../types/persona'
 
 configure({ adapter: new Adapter() })
@@ -23,5 +23,5 @@ storiesOf('HoloVault/Persona', module)
 
 function getPersonas (personas: Array<Persona>) {
   // tslint:disable jsx-no-lambda
-  return (<Provider store={store}><MemoryRouter initialEntries={['/']}><Personas personas={personas} personaList={() => {}} /></MemoryRouter></Provider>)
+  return (<Provider store={store}><MemoryRouter initialEntries={['/']}><Personas personas={personas} /></MemoryRouter></Provider>)
 }

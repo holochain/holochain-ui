@@ -44,7 +44,8 @@ class Personas extends React.Component<Props & RouterProps, {}> {
   // tslint:disable jsx-no-lambda
   render () {
     const { classes } = this.props
-    return (<div className={classes.root}>
+    return (
+      <div className={classes.root}>
       <Typography variant='display1'>
         Personas
       </Typography>
@@ -65,12 +66,20 @@ class Personas extends React.Component<Props & RouterProps, {}> {
             </ListItem>)}/>))
         } */}
       </List>
-      <Route render={({ history }) => (<Button name='addPersona' variant='raised' className={classes.button} onClick={() => {
-        history.push(`/holo-vault/persona/new`)
-      }}>
+      <Route
+        render={({ history }) => (
+          <Button
+            name='addPersona'
+            variant='raised'
+            className={classes.button}
+            onClick={() => {
+              history.push(`/holo-vault/persona/new`)
+            }}
+          >
           <PersonAdd/>
           Add Persona
-        </Button>)}/>
+          </Button>)}
+      />
     </div>)
   }
 }

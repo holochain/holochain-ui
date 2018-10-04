@@ -104,15 +104,14 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   handleNewChannelButtonClick = () => {
-    // example promise from holochain call. Remove later
-    this.props.getUsers(null).then((response) => {
-      console.log(JSON.stringify(response.payload.data))
-    })
     this.setState({ modalOpen: true })
   }
 
   addNewChannel = (channelSpec: ChannelSpec) => {
     this.props.newChannel(channelSpec)
+      .catch((err: Error) => {
+        console.error(err)
+      })
     this.setState({ modalOpen: false })
   }
 
