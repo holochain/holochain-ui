@@ -60,8 +60,7 @@ export const personaTests = describe('Looking after your Personas', () => {
     personaView().find('input[name="fieldName1"]').simulate('change', {target: {value: 'lastName'}})
     personaView().find('input[name="fieldValue1"]').simulate('change', {target: {value: 'Beadle'}})
     personaView().find('button[name="createPersona"]').simulate('click')
-    // @ts-ignore - not sure how to type this yet
-    let createdPersona: PersonaType = personaView().find('Persona').instance().state.persona
+    let createdPersona: PersonaType = (personaView().find('Persona').instance().state as State).persona
     expect(createdPersona).toEqual(testPersona)
     expect(3).toEqual(3)
   })
