@@ -36,6 +36,11 @@ export function vaultReducer (state: VaultState = initialState, action: VaultAct
         ...state,
         personas: action.payload.data
       }
+    case getType(vaultActions.GetProfiles.success):
+      return {
+        ...state,
+        profiles: action.payload.data
+      }
     default:
       return state
   }

@@ -5,6 +5,7 @@ import { AnyAction } from 'redux'
 import axiosMiddleware from 'redux-axios-middleware'
 import MockAdapter from 'axios-mock-adapter'
 import * as vaultActions from './actions'
+import { UsageType } from './types/profile'
 // import {initialState} from './reducer'
 
 const mockHolochainClient = axios.create({
@@ -70,6 +71,53 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
     vaultActions.DeleteField.create,
 		{ personaHash: 'xxx', fieldName: 'fieldName' },
     1
+  ],
+  [
+    'profiles',
+    'getProfiles',
+    vaultActions.GetProfiles.create,
+    {},
+    [{ name: 'profile1' }, { name: 'profile2' }]
+  ],
+  [
+    'profiles',
+    'createMapping',
+    vaultActions.CreateMapping.create,
+    {
+      retrieverDNA: 'XYZ',
+      profileFieldName: 'handle',
+      personaHash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
+      personaFieldName: 'nickName'
+    },
+    1
+  ],
+  [
+    'profiles',
+    'getProfileFields',
+    vaultActions.GetProfileFields.create,
+    'ABCXYZ', // profile hash
+    [
+      {
+        name: 'handle',
+        displayName: 'Handle',
+        required: true,
+        description: 'How other users will see you',
+        usage: UsageType.STORE,
+        schema: { 'type': 'string' },
+        mapping: {
+          personaHash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
+          personaFieldName: 'nickName'
+        }
+      },
+      {
+        name: 'first_name',
+        displayName: 'First Name',
+        required: false,
+        description: 'Your actual first name shared with contacts',  // unmapped field
+        usage: UsageType.DISPLAY,
+        schema: { 'type': 'string' }
+      }
+    ]
   ]
 ]
 
