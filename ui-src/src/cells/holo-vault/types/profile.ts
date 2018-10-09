@@ -38,6 +38,5 @@ export interface Profile extends ProfileSpec {
 }
 
 export interface ProfileField extends ProfileFieldSpec {
-  personaHash?: string, // id of the persona to map to. If not provided then an error will be thrown on access
-  personaFieldName?: string, // field of persona to map to
+  mapping?: {personaHash: string,personaFieldName: string} // id of the persona to map to. If not provided then an error will be thrown on access
 }
