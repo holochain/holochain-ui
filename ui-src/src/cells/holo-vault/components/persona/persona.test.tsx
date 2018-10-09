@@ -40,7 +40,8 @@ export const personaTests = describe('Looking after your Personas', () => {
       currentPersona: newPersona,
       title: 'New - Persona',
       create: mockFn,
-      update: mockFn
+      update: mockFn,
+      delete: mockFn
     }
 
     const testPersona = {
@@ -79,7 +80,8 @@ export const personaTests = describe('Looking after your Personas', () => {
       currentPersona: editPersona,
       title: 'Edit - Persona',
       create: mockFn,
-      update: mockFn
+      update: mockFn,
+      delete: mockFn
     }
 
     const testPersona: PersonaType = {
@@ -103,5 +105,32 @@ export const personaTests = describe('Looking after your Personas', () => {
     personaView().find('button[name="submitPersona"]').simulate('click')
     let editedPersona: PersonaType = (personaView().find('Persona').instance().state as State).persona
     expect(editedPersona).toEqual(testPersona)
+    expect(props.update).toBeCalled()
+  })
+
+  it('Delete a Persona by clicking Delete, this will open a confirm dialog and then send a delete Persona to Holochain', (done) => {
+    let editPersona: PersonaType = {
+      hash: 'hash11111',
+      name: 'Personal',
+      fields: [
+          { name: 'firstName', data: 'Phil' },
+          { name: 'lastName', data: 'Beadle' }
+      ]
+    }
+
+    props = {
+      currentPersona: editPersona,
+      title: 'Edit - Persona',
+      create: mockFn,
+      update: mockFn,
+      delete: mockFn
+    }
+
+    personaView().find('button[name="deletePersona"]').simulate('click')
+    process.nextTick(() => {
+      personaView().find('Dialog').find('button[id="Agree"]').simulate('click')
+      expect(props.delete).toBeCalled()
+      done()
+    })
   })
 })

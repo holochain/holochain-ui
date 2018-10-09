@@ -8,6 +8,11 @@ import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import PersonAdd from '@material-ui/icons/PersonAdd'
 import TextFields from '@material-ui/icons/TextFields'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
 
 export interface RouterProps extends RouteComponentProps<{name: string}> {}
 
@@ -22,13 +27,15 @@ export interface StateProps {
 
 export interface DispatchProps {
   create: Function,
-  update: Function
+  update: Function,
+  delete: Function
 }
 
 export type Props = OwnProps & StateProps & DispatchProps
 
 export interface State {
-  persona: PersonaType
+  persona: PersonaType,
+  open: boolean
 }
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -71,6 +78,7 @@ class Persona extends React.Component<Props & RouterProps, State> {
   constructor (props: Props & RouterProps) {
     super(props)
     this.state = {
+      open: false,
       persona: {
         name: '',
         hash: '',
@@ -89,7 +97,23 @@ class Persona extends React.Component<Props & RouterProps, State> {
       this.props.update(this.state.persona)
     }
     this.props.history.push('/holo-vault/personas')
-    // this.props.getPersonas()
+  }
+
+  handleConfirmDelete = () => {
+    this.setState({
+      open: true
+    })
+  }
+
+  handleDelete = () => {
+    this.props.delete(this.state.persona)
+    this.props.history.push('/holo-vault/personas')
+  }
+
+  handleCloseDialog = () => {
+    this.setState({
+      open: false
+    })
   }
 
   handleAddPersonaField = () => {
@@ -103,6 +127,7 @@ class Persona extends React.Component<Props & RouterProps, State> {
 
   componentDidMount () {
     this.setState({
+      open: false,
       persona: this.props.currentPersona
     })
   }
@@ -148,6 +173,28 @@ class Persona extends React.Component<Props & RouterProps, State> {
             <PersonAdd/>
             {this.state.persona.hash === '' ? 'Create Persona' : 'Update Persona'}
           </Button>
+          <Button name='deletePersona' variant='raised' className={classes.button} onClick={() => this.handleConfirmDelete()}>
+            <PersonAdd/>
+            Delete Persona
+          </Button>
+          <Dialog open={this.state.open} onClose={this.handleCloseDialog}>
+            <DialogTitle id='alert-dialog-slide-title'>
+              Delete {this.state.persona.name} Persona?
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Agreeing will delete this Persona.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCloseDialog} color='primary'>
+                Cancel
+              </Button>
+              <Button id='Agree' onClick={this.handleDelete} color='primary'>
+                Delete
+              </Button>
+            </DialogActions>
+          </Dialog>
       </div>
     )
   }

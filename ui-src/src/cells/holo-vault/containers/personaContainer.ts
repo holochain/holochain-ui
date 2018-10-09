@@ -30,7 +30,7 @@ const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps 
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     create: (personaSpec: PersonaSpec, personaFields: Array<PersonaField>) => {
       dispatch(CreatePersona.create(personaSpec)).then((response: any) => {
@@ -43,7 +43,8 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props): DispatchProps 
       })
     },
     /* tslint:disable */
-    update: (() => { })
+    update: (() => { }),
+    delete: (() => { })
     /* tslint:enable */
   }
 }
