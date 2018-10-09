@@ -1,12 +1,14 @@
 import { JSONSchema6 } from 'json-schema'
 
+/*----------  Created by the hApp  ----------*/
+
 export interface ProfileSpec {
   name: string,
   sourceDNA: string, // the DNA of the hApp requesting data
-  fields: Array<FieldSpec>, // array of fields this app requires
+  fields: Array<ProfileFieldSpec>, // array of fields this app requires
 }
 
-export interface FieldSpec {
+export interface ProfileFieldSpec {
   name: string, // How the app will ask for this data
   displayName: string, // How it will be displayed in user forms
   required: boolean,
@@ -20,12 +22,21 @@ export enum UsageType {
   DISPLAY= 'display' // The app will always bridge to vault when it needs to retreive the data
 }
 
+/*-------------------------------------------*/
+
+export interface ProfileMapping {
+  retrieverDNA: string,
+  profileField: string,
+  personaHash: string,
+  personaField: string
+}
+
 export interface Profile extends ProfileSpec {
   fields: Array<ProfileField>,
   expiry: Number, // expiry date as a unix timestamp
 }
 
-export interface ProfileField extends FieldSpec {
-  personaId?: string, // id of the persona to map to. If not provided then an error will be thrown on access
-  personaFieldName?: string // field of persona to map to
+export interface ProfileField extends ProfileFieldSpec {
+  personaHash?: string, // id of the persona to map to. If not provided then an error will be thrown on access
+  personaFieldName?: string, // field of persona to map to
 }

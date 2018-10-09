@@ -3,7 +3,7 @@
 export = 0;
 let module = {}
 
-import { ProfileSpec, Profile, ProfileField } from '../vault-types/profile'
+import { ProfileSpec, Profile, ProfileField, ProfileMapping } from '../vault-types/profile'
 import { Persona, PersonaField } from '../vault-types/persona'
 
 
@@ -23,7 +23,7 @@ function registerApp(profileSpec: ProfileSpec): boolean | holochain.HolochainErr
 }
 
 
-function getProfileSpecs(): Array<ProfileSpec> {
+function getProfiles(): Array<Profile> {
   try {
     return getLinks(App.Key.Hash, 'profiles', {Load:true}).map((elem) => {
       const profileSpec = elem.Entry as ProfileSpec
@@ -37,8 +37,8 @@ function getProfileSpecs(): Array<ProfileSpec> {
 
 
 
-function createMapping(payload: {appDNA: holochain.Hash, profileField: string, personaId: string, personaField: string}): number | holochain.HolochainError {
-   const {appDNA, profileField, personaId, personaField} = payload
+function createMapping(payload: ProfileMapping): number | holochain.HolochainError {
+   const {appDNA, profileField, personaHash, personaField} = payload
   let mapsCreated = 0
   // Filter only specs that are for the correct dna and have the specified profileField
   getProfileSpecs().filter(spec => spec.sourceDNA === appDNA).forEach(spec => {
@@ -68,9 +68,9 @@ function createMapping(payload: {appDNA: holochain.Hash, profileField: string, p
 
 
 
-function getProfileFields(profileSpecHash: holochain.Hash): Array<ProfileField> {
+function getProfileFields(profileHash: holochain.Hash): Array<ProfileField> {
   try {
-    return getLinks(profileSpecHash, 'field_mappings', {Load: true}).map(elem => elem.Entry)
+    return getLinks(profileHash, 'field_mappings', {Load: true}).map(elem => elem.Entry)
   } catch (e) {
     debug(e)
     return e
@@ -79,10 +79,10 @@ function getProfileFields(profileSpecHash: holochain.Hash): Array<ProfileField> 
 
 // TODO: rewrite to make more readable
 // TODO: add detailed error response. Did it fail validation or was it missing from the persona etc
-
-function retrieve(payload: {appDNA: string, profileField: string}): any {
-  const {appDNA, profileField} = payload
-  const profiles = getProfileSpecs().filter(spec => spec.sourceDNA === appDNA)
+// called by the hApp not by the user
+function retrieve(payload: {retrieverDNA: string, profileField: string}): any {
+  const {retrieverDNA, profileField} = payload
+  const profiles = getProfileSpecs().filter(spec => spec.sourceDNA === retrieverDNA)
   let result: any
 
   profiles.forEach(spec => {

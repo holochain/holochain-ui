@@ -2,6 +2,7 @@
 
 function genesis() {
   return true
+  // apps send their profile spec to vault
 }
 
 function callBridgedFunction(bridgeCall){
