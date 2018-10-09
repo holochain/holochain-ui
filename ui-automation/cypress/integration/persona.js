@@ -25,7 +25,7 @@ describe('How to work with Personas', function () {
     cy.get('button[name="addField"]').click()
     cy.get('input[name="fieldName1"]').type('hobby', { delay: 25 })
     cy.get('input[name="fieldValue1"]').type('DJ', { delay: 25 })
-    cy.get('button[name="createPersona"]').click()
+    cy.get('button[name="submitPersona"]').click()
     cy.log('Click the Create Persona button to save into your private data.')
   })
   it('Add a new Personal persona by clicking the Add button', function () {
@@ -53,7 +53,7 @@ describe('How to work with Personas', function () {
     cy.get('button[name="addField"]').click()
     cy.get('input[name="fieldName4"]').type('city', { delay: 25 })
     cy.get('input[name="fieldValue4"]').type('Melbourne', { delay: 25 })
-    cy.get('button[name="createPersona"]').click()
+    cy.get('button[name="submitPersona"]').click()
     cy.log('Click the Create Persona button to save into your private data.')
   })
   it('Add a new Work persona by clicking the Add button', function () {
@@ -78,7 +78,7 @@ describe('How to work with Personas', function () {
     cy.get('button[name="addField"]').click()
     cy.get('input[name="fieldName3"]').type('location', { delay: 25 })
     cy.get('input[name="fieldValue3"]').type('Melbourne', { delay: 25 })
-    cy.get('button[name="createPersona"]').click()
+    cy.get('button[name="submitPersona"]').click()
     cy.log('Click the Create Persona button to save into your private data.')
   })
 })

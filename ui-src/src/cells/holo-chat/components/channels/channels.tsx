@@ -144,7 +144,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
         <AddIcon/>
       </Button>
       <Typography variant='display1'>
-        Channels
+        Channels for Robert
       </Typography>
       <List id='channels' component='nav'>
         {this.renderChannels(channels)}
