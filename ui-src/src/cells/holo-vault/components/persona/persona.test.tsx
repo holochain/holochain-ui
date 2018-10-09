@@ -65,7 +65,7 @@ export const personaTests = describe('Looking after your Personas', () => {
     expect(props.create).toBeCalled()
   })
 
-  it('Creating a Persona by adding new fields and values, this will send a Persona to Holochain', () => {
+  it('Edit a Persona by changing the name and adding new fields and values, this will send an updated Persona to Holochain', () => {
     let editPersona: PersonaType = {
       hash: 'hash11111',
       name: 'Personal',
@@ -101,7 +101,7 @@ export const personaTests = describe('Looking after your Personas', () => {
     personaView().find('input[name="fieldName2"]').simulate('change', { target: { value: 'extra' } })
     personaView().find('input[name="fieldValue2"]').simulate('change', { target: { value: 'row' } })
     personaView().find('button[name="submitPersona"]').simulate('click')
-    let createdPersona: PersonaType = (personaView().find('Persona').instance().state as State).persona
-    expect(createdPersona).toEqual(testPersona)
+    let editedPersona: PersonaType = (personaView().find('Persona').instance().state as State).persona
+    expect(editedPersona).toEqual(testPersona)
   })
 })
