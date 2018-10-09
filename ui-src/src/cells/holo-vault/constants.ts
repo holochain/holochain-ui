@@ -1,5 +1,8 @@
 import { Persona as PersonaType } from './types/persona'
-import { ProfileSpec, UsageType, ProfileMapping } from './types/profile'
+import { Profile, UsageType, ProfileMapping } from './types/profile'
+
+/*----------  Personas  ----------*/
+
 export const personas: Array<PersonaType> = [
   {
     'hash': 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7',
@@ -32,8 +35,12 @@ export const personas: Array<PersonaType> = [
   }
 ]
 
-export const exampleProfileSpec: ProfileSpec = {
+/*----------  Profiles  ----------*/
+
+export const exampleProfile: Profile = {
   name:  'Holo-Chat',
+  hash: 'QQQ',
+  expiry: 10,
   sourceDNA:  'DNAXYZ',
   fields: [
     {
@@ -42,13 +49,15 @@ export const exampleProfileSpec: ProfileSpec = {
       required: true,
       description: 'How other users will see you',
       usage: UsageType.STORE,
-      schema: { 'type': 'string' }
+      schema: { 'type': 'string' },
+      personaHash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
+      personaFieldName: 'nickName'
     },
     {
       name: 'first_name',
       displayName: 'First Name',
       required: false,
-      description: 'Your actual first name shared with contacts',
+      description: 'Your actual first name shared with contacts',  // unmapped field
       usage: UsageType.DISPLAY,
       schema: { 'type': 'string' }
     }
@@ -57,14 +66,14 @@ export const exampleProfileSpec: ProfileSpec = {
 
 export const exampleHandleMapping: ProfileMapping = {
   retrieverDNA:  'DNAXYZ',
-  profileField: 'handle',
+  profileFieldName: 'handle',
   personaHash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr',
-  personaField: 'nickName'
+  personaFieldName: 'nickName'
 }
 
 export const exampleFirstNameMapping: ProfileMapping = {
   retrieverDNA:  'DNAXYZ',
-  profileField: 'first_name',
+  profileFieldName: 'first_name',
   personaHash: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7',
-  personaField: 'firstName'
+  personaFieldName: 'firstName'
 }

@@ -26,12 +26,13 @@ export enum UsageType {
 
 export interface ProfileMapping {
   retrieverDNA: string,
-  profileField: string,
+  profileFieldName: string,
   personaHash: string,
-  personaField: string
+  personaFieldName: string
 }
 
 export interface Profile extends ProfileSpec {
+  hash: string
   fields: Array<ProfileField>,
   expiry: Number, // expiry date as a unix timestamp
 }
