@@ -28,7 +28,7 @@ export const personaTests = describe('Looking after your Personas', () => {
 
   const mockFn = jest.fn()
 
-  it('Creating a Persona by adding new fields and values, this will send a Persona to Holochain', () => {
+  it('Create a Persona by adding new fields and values, this will send a Persona to Holochain', () => {
     let newPersona: PersonaType = {
       name: '',
       hash: '',
@@ -39,7 +39,8 @@ export const personaTests = describe('Looking after your Personas', () => {
     props = {
       currentPersona: newPersona,
       title: 'New - Persona',
-      create: mockFn
+      create: mockFn,
+      update: mockFn
     }
 
     const testPersona = {
@@ -58,9 +59,49 @@ export const personaTests = describe('Looking after your Personas', () => {
     personaView().find('button[name="addField"]').simulate('click')
     personaView().find('input[name="fieldName1"]').simulate('change', { target: { value: 'lastName' } })
     personaView().find('input[name="fieldValue1"]').simulate('change', { target: { value: 'Beadle' } })
-    personaView().find('button[name="createPersona"]').simulate('click')
+    personaView().find('button[name="submitPersona"]').simulate('click')
     let createdPersona: PersonaType = (personaView().find('Persona').instance().state as State).persona
     expect(createdPersona).toEqual(testPersona)
-    expect(3).toEqual(3)
+    expect(props.create).toBeCalled()
+  })
+
+  it('Edit a Persona by changing the name and adding new fields and values, this will send an updated Persona to Holochain', () => {
+    let editPersona: PersonaType = {
+      hash: 'hash11111',
+      name: 'Personal',
+      fields: [
+          { name: 'firstName', data: 'Phil' },
+          { name: 'lastName', data: 'Beadle' }
+      ]
+    }
+
+    props = {
+      currentPersona: editPersona,
+      title: 'Edit - Persona',
+      create: mockFn,
+      update: mockFn
+    }
+
+    const testPersona: PersonaType = {
+      hash: 'hash11111',
+      name: 'Edited Persona Name',
+      fields: [
+          { name: 'editfirstName', data: 'Philip' },
+          { name: 'editlastName', data: 'Holo' },
+          { name: 'extra', data: 'row' }
+      ]
+    }
+
+    personaView().find('input[name="personaName"]').simulate('change', { target: { value: 'Edited Persona Name' } })
+    personaView().find('input[name="fieldName0"]').simulate('change', { target: { value: 'editfirstName' } })
+    personaView().find('input[name="fieldValue0"]').simulate('change', { target: { value: 'Philip' } })
+    personaView().find('input[name="fieldName1"]').simulate('change', { target: { value: 'editlastName' } })
+    personaView().find('input[name="fieldValue1"]').simulate('change', { target: { value: 'Holo' } })
+    personaView().find('button[name="addField"]').simulate('click')
+    personaView().find('input[name="fieldName2"]').simulate('change', { target: { value: 'extra' } })
+    personaView().find('input[name="fieldValue2"]').simulate('change', { target: { value: 'row' } })
+    personaView().find('button[name="submitPersona"]').simulate('click')
+    let editedPersona: PersonaType = (personaView().find('Persona').instance().state as State).persona
+    expect(editedPersona).toEqual(testPersona)
   })
 })

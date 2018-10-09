@@ -41,7 +41,10 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props): DispatchProps 
           })
         )
       })
-    }
+    },
+    /* tslint:disable */
+    update: (() => { })
+    /* tslint:enable */
   }
 }
 

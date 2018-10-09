@@ -124,5 +124,3 @@ function validateLinkPkg (entryName) {
 
 
 /*=====  End of Validation Callbacks  ======*/
-
-
