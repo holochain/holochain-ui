@@ -2,7 +2,7 @@
 import { createHolochainAsyncAction } from '../../utils/holochainAxiosActions'
 
 import { Persona, PersonaSpec, PersonaField } from './types/persona'
-import { ProfileSpec, ProfileField } from './types/profile'
+import { ProfileSpec, ProfileField, ProfileMapping, Profile } from './types/profile'
 
 type Hash = string
 
@@ -20,10 +20,10 @@ export const DeleteField = createHolochainAsyncAction< {personaHash: string, fie
 
 export const RegisterApp = createHolochainAsyncAction<ProfileSpec, boolean>('holo-vault', 'profiles', 'registerApp')
 
-export const GetProfileSpecs = createHolochainAsyncAction<any, Array<ProfileSpec>>('holo-vault', 'profiles', 'getProfileSpec')
+export const GetProfiles = createHolochainAsyncAction<any, Array<Profile>>('holo-vault', 'profiles', 'getProfiles')
 
-export const CreateMapping = createHolochainAsyncAction<{appDNA: Hash, profileField: string, personaId: string, personaField: string}, number>('holo-vault', 'profiles', 'createMapping')
+export const CreateMapping = createHolochainAsyncAction<ProfileMapping, number>('holo-vault', 'profiles', 'createMapping')
 
 export const GetProfileFields = createHolochainAsyncAction<Hash, Array<ProfileField>>('holo-vault', 'profiles', 'getProfileFields')
 
-export const Retrieve = createHolochainAsyncAction<{appDNA: string, profileField: string}, any>('holo-vault', 'profiles', 'retrieve')
+export const Retrieve = createHolochainAsyncAction<{retrieverDNA: string, profileField: string}, any>('holo-vault', 'profiles', 'retrieve')
