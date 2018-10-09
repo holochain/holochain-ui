@@ -58,6 +58,7 @@ class Personas extends React.Component<Props & RouterProps, {}> {
             <Route
               render={({ history }) => (
                 <ListItem
+                  key={index}
                   id={persona.hash}
                   button={true}
                   onClick={() => {
