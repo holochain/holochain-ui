@@ -3,7 +3,7 @@
     {
       "Convey": "Initial call to getProfileSpecs produces empty array",
       "Zome": "profiles",
-      "FnName": "getProfileSpecs",
+      "FnName": "getProfiles",
       "Input": {},
       "Output": []
     },
@@ -29,27 +29,36 @@
             "description": "Displayed to all users of the app",
             "usage": "store",
             "schema": {}
+          },
+          {
+            "name": "email",
+            "displayName": "Email Address",
+            "required": true,
+            "description": "Displayed to all users of the app",
+            "usage": "store",
+            "schema": {}
           }
         ]
       },
       "Output": true
     },
     {
-      "Convey": "Can retrieve spec from getProfileSpecs",
+      "Convey": "Can retrieve spec from getProfiles",
       "Zome": "profiles",
-      "FnName": "getProfileSpecs",
+      "FnName": "getProfiles",
       "Input": {},
-      "Output": [{"fields":[{"description":"Displayed to all users of the app","displayName":"First Name","name":"firstName","required":true,"schema":{},"usage":"store"}],"sourceDNA":"abc", "name":"test"}]
+      "Output": [{"expiry":0,"fields":[{"description":"Displayed to all users of the app","displayName":"First Name","name":"firstName","required":true,"schema":{},"usage":"store"},{"description":"Displayed to all users of the app","displayName":"Email Address","name":"email","required":true,"schema":{},"usage":"store"}],"hash":"Qmd4rtYYbTDC6y4nXsDXHYDeFj4KSYw8fFwPbG2j8T2mEp","name":"test","sourceDNA":"abc"}]
+
     },
     {
       "Convey": "Can create a mapping to a non-existent persona",
       "Zome": "profiles",
       "FnName": "createMapping",
       "Input": {
-        "appDNA": "abc",
-        "profileField": "firstName",
-        "personaId": "xyz",
-        "personaField": "firstname"
+        "retrieverDNA": "abc",
+        "profileFieldName": "email",
+        "personaHash": "aaa",
+        "personaFieldName": "email"
       },
       "Output": 1
     },
@@ -58,8 +67,8 @@
       "Zome": "profiles",
       "FnName": "retrieve",
       "Input": {
-        "appDNA": "abc",
-        "profileField": "firstName"
+        "retrieverDNA": "abc",
+        "profileField": "email"
       },
       "Output": {"message":"No valid mapping found","name":"Error"}
     },
@@ -78,11 +87,23 @@
       "Output": true
     },
     {
+      "Convey": "Can create a mapping to a the new persona",
+      "Zome": "profiles",
+      "FnName": "createMapping",
+      "Input": {
+        "retrieverDNA": "abc",
+        "profileFieldName": "firstName",
+        "personaHash": "%r2%",
+        "personaFieldName": "firstname"
+      },
+      "Output": 1
+    },
+    {
       "Convey": "This value can be retrieved through vault",
       "Zome": "profiles",
       "FnName": "retrieve",
       "Input": {
-        "appDNA": "abc",
+        "retrieverDNA": "abc",
         "profileField": "firstName"
       },
       "Output": "Willem"
@@ -91,11 +112,11 @@
       "Convey": "Delete the field from the persona (revoke)",
       "Zome": "personas",
       "FnName": "deleteField",
-      "Input": {"personaHash": "%h3%", "fieldName": "firstname"},
+      "Input": {"personaHash": "%h5%", "fieldName": "firstname"},
       "Output": 1
     },
     {
-      "Convey": "1Trying to retrieve this deleted field will throw an error",
+      "Convey": "Trying to retrieve this deleted field will throw an error",
       "Zome": "profiles",
       "FnName": "retrieve",
       "Input": {

@@ -27,7 +27,24 @@ function getProfiles(): Array<Profile> {
   try {
     return getLinks(App.Key.Hash, 'profiles', {Load:true}).map((elem) => {
       const profileSpec = elem.Entry as ProfileSpec
-      return profileSpec
+
+      // merge the fields and include a mapping where one has been created
+      const mappedFields = getProfileFields(elem.Hash)
+      const fields: Array<ProfileField> = profileSpec.fields.map((specField) => {
+        for(let i=0; i<mappedFields.length; ++i) {
+          if(mappedFields[i].name === specField.name) {
+            return mappedFields[i]
+          }
+        }
+        return specField;
+      });
+
+      return {
+        ...profileSpec,
+        hash: elem.Hash,
+        fields,
+        expiry: 0
+      }
     })
   } catch(e) {
     debug(e)
@@ -38,22 +55,20 @@ function getProfiles(): Array<Profile> {
 
 
 function createMapping(payload: ProfileMapping): number | holochain.HolochainError {
-   const {appDNA, profileField, personaHash, personaField} = payload
+   const {retrieverDNA, profileFieldName, personaHash, personaFieldName} = payload
   let mapsCreated = 0
   // Filter only specs that are for the correct dna and have the specified profileField
-  getProfileSpecs().filter(spec => spec.sourceDNA === appDNA).forEach(spec => {
-    spec.fields.filter(fieldSpec => fieldSpec.name === profileField).forEach(specField => {
-      
+  getProfiles().filter(profile => profile.sourceDNA === retrieverDNA).forEach(profile => {
+    profile.fields.filter(fieldSpec => fieldSpec.name === profileFieldName).forEach(specField => {
+
       const field: ProfileField = {
         ...specField,
-        personaId,
-        personaFieldName: personaField
+        mapping: {personaHash, personaFieldName}
       }
 
       try {
         const fieldHash = commit('field_mapping', field)
-        const profileHash = makeHash('profile', spec)
-        commit('field_mapping_links', { Links: [ { Base: profileHash, Link: fieldHash, Tag: 'field_mappings' } ] })
+        commit('field_mapping_links', { Links: [ { Base: profile.hash, Link: fieldHash, Tag: 'field_mappings' } ] })
         mapsCreated += 1
       } catch (e) {
         debug(e)
@@ -77,24 +92,27 @@ function getProfileFields(profileHash: holochain.Hash): Array<ProfileField> {
   }
 }
 
-// TODO: rewrite to make more readable
-// TODO: add detailed error response. Did it fail validation or was it missing from the persona etc
+
 // called by the hApp not by the user
 function retrieve(payload: {retrieverDNA: string, profileField: string}): any {
   const {retrieverDNA, profileField} = payload
-  const profiles = getProfileSpecs().filter(spec => spec.sourceDNA === retrieverDNA)
+  const profiles = getProfiles().filter(spec => spec.sourceDNA === retrieverDNA)
   let result: any
 
-  profiles.forEach(spec => {
-    const fields = getProfileFields(makeHash('profile', spec)).filter((field: ProfileField) => field.name === profileField)
-    debug(fields)
+  profiles.forEach(profile => {
+    const fields = profile.fields.filter((field: ProfileField) => field.name === profileField)
     fields.forEach((field: ProfileField) => {
-      JSON.parse(call('personas', 'getPersonas', {})).filter((persona: Persona) => persona.id === field.personaId).forEach((persona: Persona) => {
-        persona.fields.forEach((pField: PersonaField) => {
-          if(pField.name === field.personaFieldName) {
-            result = pField.data
-          }
-        })
+      JSON.parse(call('personas', 'getPersonas', {}))
+        .filter((persona: Persona) => {
+          debug(field.mapping.personaHash)
+          debug(persona.hash) 
+          return persona.hash === field.mapping.personaHash})
+        .forEach((persona: Persona) => {
+          persona.fields.forEach((pField: PersonaField) => {
+            if(pField.name === field.mapping.personaFieldName) {
+              result = pField.data
+            }
+          })
       })
     })
   })
