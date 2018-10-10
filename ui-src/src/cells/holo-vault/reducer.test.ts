@@ -19,6 +19,18 @@ describe('Vault Reducer', () => {
     })
   })
 
+  it('adds retrieved profiles to the state in response to GetProfiles.success', () => {
+    expect(vaultReducer(undefined, {
+      type: getType(vaultActions.GetProfiles.success),
+      payload: {
+        data: [{ name: 'profile1', id: '1' }, { name: 'profile1', id: '2' }] // not real profile data
+      } as AxiosResponse
+    })).toEqual({
+      ...initialState,
+      profiles: [{ name: 'profile1', id: '1' }, { name: 'profile1', id: '2' }]
+    })
+  })
+
   it('does not mutate the state on unknown action', () => {
     expect(vaultReducer(undefined, {
       type: 'NOTACTION',
