@@ -2,7 +2,7 @@
 import { createHolochainAsyncAction } from '../../utils/holochainAxiosActions'
 
 import { Persona, PersonaSpec, PersonaField } from './types/persona'
-import { ProfileSpec, ProfileField, ProfileMapping, Profile } from './types/profile'
+import { ProfileField, ProfileMapping, Profile } from './types/profile'
 
 type Hash = string
 
