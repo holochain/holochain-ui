@@ -26,7 +26,6 @@ export const channelsTests = describe('Listing your channels', () => {
     mountedChannelsList = undefined
   })
   const mockFn = jest.fn()
-
   props = {
     getMyChannels: mockFn,
     newChannel: jest.fn(() => Promise.reject('newChannel not implemented')),
@@ -46,12 +45,7 @@ export const channelsTests = describe('Listing your channels', () => {
     expect(props.setActiveChannel).toBeCalled()
   })
 
-  it('Clicking the Add Channel button sets the modalOpen state to true', () => {
-    channelsList().find('button[id="AddChannel"]').simulate('click')
-    expect(channelsList().find('NewChannel').props().open).toEqual(true)
-  })
-
-  it('Clicking the Close button sets the modalOpen state to false', (done) => {
+  it('Clicking the Add Channel button shows the New Channel dialog and clicking the Close button closes it', (done) => {
     channelsList().find('button[id="AddChannel"]').simulate('click')
     process.nextTick(() => {
       channelsList().find('NewChannel').find('button[id="CloseDialog"]').simulate('click')
@@ -64,6 +58,7 @@ export const channelsTests = describe('Listing your channels', () => {
     channelsList().find('button[id="AddChannel"]').simulate('click')
     process.nextTick(() => {
       channelsList().find('NewChannel').find('button[id="CreateChannel"]').simulate('click')
+      expect(channelsList().find('NewChannel').props().open).toEqual(false)
       expect(props.newChannel).toBeCalled()
       done()
     })
