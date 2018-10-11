@@ -106,6 +106,9 @@ class Persona extends React.Component<Props & RouterProps, State> {
   }
 
   handleDelete = () => {
+    this.setState({
+      open: false
+    })
     this.props.delete(this.state.persona)
     this.props.history.push('/holo-vault/personas')
   }
