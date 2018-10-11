@@ -2,8 +2,8 @@
 import { connect } from 'react-redux'
 import ProfileForm from '../components/profile/profile'
 import {
-  personaCreate,
-  profileMappingCreate
+  CreatePersona,
+  CreateMapping
 } from '../actions'
 
 
