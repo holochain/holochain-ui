@@ -26,11 +26,9 @@ export const channelsTests = describe('Listing your channels', () => {
     mountedChannelsList = undefined
   })
   const mockFn = jest.fn()
-
-  //     newChannel: jest.fn(() => Promise.reject('newChannel not implemented')),
   props = {
     getMyChannels: mockFn,
-    newChannel: mockFn,
+    newChannel: jest.fn(() => Promise.reject('newChannel not implemented')),
     setActiveChannel: mockFn,
     getUsers: mockFn,
     setIdentity: mockFn,

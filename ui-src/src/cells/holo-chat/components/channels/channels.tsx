@@ -109,9 +109,9 @@ class Channels extends React.Component<Props & RouterProps, State> {
   addNewChannel = (channelSpec: ChannelSpec) => {
     this.setState({ modalOpen: false })
     this.props.newChannel(channelSpec)
-      // .catch((err: Error) => {
-      //   console.log(err)
-      // })
+      .catch((err: Error) => {
+        console.log(err)
+      })
   }
 
   onHandleClose = () => {
