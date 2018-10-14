@@ -2,7 +2,8 @@ import * as React from 'react'
 import AutoCompleteProfileField, { State, Props } from './autoCompleteProfileField'
 import { mount, ReactWrapper, configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
-// import { Suggestion as SuggestionType } from '../../types/suggestion'
+import * as constants from '../../constants'
+import { Suggestion as SuggestionType } from '../../types/suggestion'
 
 configure({ adapter: new Adapter() })
 
@@ -24,33 +25,59 @@ export const autoCompleteProfileFieldTests = describe('Auto selecting Persona va
 
   const mockFn = jest.fn()
 
-  it('Selecting a Persona value ', () => {
+  it('Display the Profile Field for an unmapped field that stores your data in the hApp DHT', () => {
 
     props = {
-      suggestions: [
-        { label: 'Alpha Go' },
-        { label: 'Boris Johnson' },
-        { label: 'Carl Marks' },
-        { label: 'Delphi' },
-        { label: 'Estonia' },
-        { label: 'Estonia' },
-        { label: 'Estonia' },
-        { label: 'Franklin, VA' },
-        { label: 'Gomez' },
-        { label: 'Homer' },
-        { label: 'Inglewood, CO' },
-        { label: 'Jefferies LTD' }
-      ],
-      handleSelectionChange: mockFn
+      personas: constants.personas,
+      profile: constants.exampleProfile,
+      field: constants.exampleProfile.fields[1],
+      handleMappingChange: mockFn
     }
-    autoCompleteProfileField().find('input[name="name"]').simulate('change', { target: { value: 'e' } })
-    autoCompleteProfileField().find('input[name="name"]').simulate('focus')
-    autoCompleteProfileField().find('MenuItem').first().simulate('click')
-    autoCompleteProfileField().find('input[name="name"]').first().simulate('blur')
-    expect(props.handleSelectionChange).toBeCalled()
+    expect(autoCompleteProfileField().find('TextField').props().label).toEqual('First Name')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Holo-Chat - first_name')
   })
 
-  it('Typing an @ filters the drop down to 1 value', () => {
-    expect(3).toEqual(3)
+  it('Display the Profile Field for an unmapped field that displays your data from your Vault', () => {
+
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleProfile,
+      field: constants.exampleProfile.fields[2],
+      handleMappingChange: mockFn
+    }
+    expect(autoCompleteProfileField().find('TextField').props().label).toEqual('Last Name')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Holo-Chat - last_name')
+  })
+
+  it('Selecting a Persona value for an unmapped field sets the mapping', () => {
+
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleProfile,
+      field: constants.exampleProfile.fields[1],
+      handleMappingChange: mockFn
+    }
+    autoCompleteProfileField().find('input[name="name"]').simulate('change', { target: { value: 'P' } })
+    autoCompleteProfileField().find('input[name="name"]').simulate('focus')
+    autoCompleteProfileField().find('MenuItem').first().simulate('click')
+    autoCompleteProfileField().find('input[name="name"]').simulate('blur')
+    expect(props.handleMappingChange).toBeCalled()
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Personal - firstName')
+  })
+
+  it('Deleting all the text in the field shows no suggestions and sets the mapping back to default', () => {
+
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleProfile,
+      field: constants.exampleProfile.fields[2],
+      handleMappingChange: mockFn
+    }
+    // autoCompleteProfileField().find('input[name="name"]').simulate('change', { target: { value: 'P' } })
+    // autoCompleteProfileField().find('input[name="name"]').simulate('change', { target: { value: '' } })
+    // autoCompleteProfileField().find('input[name="name"]').simulate('focus')
+    let suggestions: Array<SuggestionType> = (autoCompleteProfileField().find('AutoCompleteProfileField').instance().state as State).suggestions
+    expect(suggestions.length).toEqual(0)
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Holo-Chat - last_name')
   })
 })

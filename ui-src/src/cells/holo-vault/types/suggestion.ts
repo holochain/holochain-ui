@@ -1,5 +1,7 @@
+import { Persona as PersonaType, PersonaField as PersonaFieldType } from './persona'
+
 export interface Suggestion {
-  // persona: string,
-  // field: string,
+  persona: PersonaType
+  field: PersonaFieldType,
   label: string
 }

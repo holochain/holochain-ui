@@ -62,6 +62,14 @@ export const exampleProfile: Profile = {
       description: 'Your actual first name shared with contacts',  // unmapped field
       usage: UsageType.DISPLAY,
       schema: { 'type': 'string' }
+    },
+    {
+      name: 'last_name',
+      displayName: 'Last Name',
+      required: false,
+      description: 'Your actual last name shared with contacts',  // unmapped field
+      usage: UsageType.STORE,
+      schema: { 'type': 'string' }
     }
   ]
 }
