@@ -140,11 +140,11 @@ class Channels extends React.Component<Props & RouterProps, State> {
     const { classes, channels } = this.props
     return (
     <div className={classes.root}>
-      <Button id='AddChannel' variant='fab' mini={true} onClick={this.handleNewChannelButtonClick} className={classes.addButton}>
+      <Button id='AddChannel' mini={true} onClick={this.handleNewChannelButtonClick} className={classes.addButton}>
         <AddIcon/>
       </Button>
-      <Typography variant='display1'>
-        Channels for Robert
+      <Typography>
+        Channels
       </Typography>
       <List id='channels' component='nav'>
         {this.renderChannels(channels)}

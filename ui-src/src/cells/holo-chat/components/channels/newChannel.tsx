@@ -84,10 +84,10 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
             <Button id='CloseDialog' onClick={this.props.onHandleClose} color='inherit' aria-label='Close'>
               <CloseIcon />
             </Button>
-            <Typography variant='title' color='inherit' className={classes.flex}>
+            <Typography color='inherit' className={classes.flex}>
               Members
             </Typography>
-            <Button id='CreateChannel' variant='fab' mini={true} onClick={this.onCreateChannelButtonClick} className={classes.button}>
+            <Button id='CreateChannel' mini={true} onClick={this.onCreateChannelButtonClick} className={classes.button}>
               <Send />
             </Button>
           </Toolbar>

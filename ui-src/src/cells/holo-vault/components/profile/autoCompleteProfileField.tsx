@@ -8,6 +8,12 @@ const match = require('autosuggest-highlight/match')
 const parse = require('autosuggest-highlight/parse')
 import { Part as PartType } from '../../types/part'
 import { Suggestion as SuggestionType } from '../../types/suggestion'
+import { Persona as PersonaType, PersonaField as PersonaFieldType } from '../../types/persona'
+import { ProfileField, Profile as ProfileType, UsageType } from '../../types/profile'
+import Typography from '@material-ui/core/Typography'
+import Tooltip from '@material-ui/core/Tooltip'
+import Save from '@material-ui/icons/Save'
+import Dvr from '@material-ui/icons/Dvr'
 
 const styles: StyleRulesCallback = theme => ({
   container: {
@@ -49,6 +55,9 @@ const styles: StyleRulesCallback = theme => ({
     listStyleType: 'none',
     margin: 0,
     padding: 0
+  },
+  persona: {
+    float: 'right'
   }
 })
 
@@ -94,7 +103,6 @@ function getSuggestions (value: string) {
   const inputValue = value.trim().toLowerCase()
   const inputLength = inputValue.length
   let count = 0
-
   return inputLength === 0
     ? []
     : allSuggestions.filter(suggestion => {
@@ -111,18 +119,38 @@ export interface OwnProps {
 }
 
 export interface StateProps {
-  suggestions: Array<SuggestionType>
-  handleSelectionChange: any
+  personas: Array<PersonaType>
+  profile: ProfileType
+  field: ProfileField
+  handleMappingChange: any
 }
 
-// export interface DispatchProps {
-//   select: Function
-// }
 export type Props = OwnProps & StateProps
 
 export interface State {
   suggestions: Array<SuggestionType>
+  field: ProfileField
   value: string
+}
+
+function UsageIcon (props: any) {
+  switch (props.type) {
+    case UsageType.STORE:
+      return (<Tooltip title={props.reason}><Save/></Tooltip>)
+    default:
+      return (<Tooltip title={props.reason}><Dvr/></Tooltip>)
+  }
+}
+
+function Mapping (props: any) {
+  if (props.field.mapping !== undefined) {
+    let persona = props.personas.filter(function (persona: PersonaType) {
+      return props.field.mapping.personaHash === persona.hash
+    })[0]
+    return (<Typography className={props.classes.persona}>{persona.name + ' - ' + props.field.mapping.personaFieldName}</Typography>)
+  } else {
+    return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
+  }
 }
 
 class AutoCompleteProfileField extends React.Component<Props, State> {
@@ -130,11 +158,17 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
     super(props)
     this.state = {
       suggestions: [],
-      value: ''
+      value: '',
+      field: props.field
     }
   }
   componentDidMount () {
-    allSuggestions = this.props.suggestions
+    allSuggestions = []
+    this.props.personas.map((persona: PersonaType) => (
+      persona.fields.map((field: PersonaFieldType) => (
+        allSuggestions.push({ persona: persona, field: field, label: field.data + ' (' + persona.name + ' - ' + field.name + ')' })
+      ))
+    ))
   }
   public renderInput = (inputProps: any) => {
     const { classes, ref, ...other } = inputProps
@@ -145,8 +179,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
           fullWidth={true}
           id='name'
           name='name'
-          onChange={this.props.handleSelectionChange}
-          label='Search'
+          label={this.props.field.displayName}
           InputProps={{
             classes: {
               input: classes.textfield
@@ -161,10 +194,28 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
   }
 
   public handleChange = (event: any, newVal: any) => {
-    const newValue = newVal.newValue
-    this.setState({
-      value: newValue
+    let newValue = newVal.newValue
+    let field = this.state.field
+    let selectedSuggestion = allSuggestions.filter(function (suggestion: SuggestionType) {
+      return newValue === suggestion.label
     })
+    if (selectedSuggestion.length === 0) {
+      field.mapping = undefined
+      this.setState({
+        value: newValue,
+        field: field
+      })
+    } else {
+      newValue = selectedSuggestion[0].field.data
+      field.mapping = {
+        personaHash: selectedSuggestion[0].persona.hash,
+        personaFieldName: selectedSuggestion[0].field.name
+      }
+      this.setState({
+        value: newValue,
+        field: field
+      })
+    }
   }
 
   public handleSuggestionsFetchRequested = ({ value }: { value: any }) => {
@@ -179,32 +230,40 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
     })
   }
 
+  public handleMappingChange = () => {
+    this.props.handleMappingChange(this.state.field)
+  }
+
   public render () {
-    const { classes } = this.props
+    const { classes, field, profile, personas } = this.props
 
     return (
-      <Autosuggest
-        id='selectedPersonaFieldValue'
-        theme={{
-          container: classes.container,
-          suggestion: classes.suggestion,
-          suggestionsContainerOpen: classes.suggestionsContainerOpen,
-          suggestionsList: classes.suggestionsList
-        }}
-        renderInputComponent={this.renderInput}
-        suggestions={this.state.suggestions}
-        onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
-        renderSuggestionsContainer={renderSuggestionsContainer}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={{
-          classes,
-          onBlur: this.props.handleSelectionChange,
-          onChange: this.handleChange,
-          value: this.state.value
-        }}
-      />
+      <div>
+        <Autosuggest
+          id='selectedPersonaFieldValue'
+          theme={{
+            container: classes.container,
+            suggestion: classes.suggestion,
+            suggestionsContainerOpen: classes.suggestionsContainerOpen,
+            suggestionsList: classes.suggestionsList
+          }}
+          renderInputComponent={this.renderInput}
+          suggestions={this.state.suggestions}
+          onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
+          renderSuggestionsContainer={renderSuggestionsContainer}
+          getSuggestionValue={getSuggestionValue}
+          renderSuggestion={renderSuggestion}
+          inputProps={{
+            classes,
+            onBlur: this.handleMappingChange,
+            onChange: this.handleChange,
+            value: this.state.value
+          }}
+        />
+        <UsageIcon type={field.usage} reason={field.description} className={classes.icon}/>
+        <Mapping classes={classes} profile={profile} field={this.state.field} personas={personas} />
+      </div>
     )
   }
 }
