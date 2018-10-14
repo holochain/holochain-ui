@@ -199,7 +199,6 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
     let selectedSuggestion = allSuggestions.filter(function (suggestion: SuggestionType) {
       return newValue === suggestion.label
     })
-    console.log(selectedSuggestion)
     if (selectedSuggestion.length === 0) {
       field.mapping = undefined
       this.setState({
