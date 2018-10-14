@@ -198,18 +198,19 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
     let field = this.state.field
     let selectedSuggestion = allSuggestions.filter(function (suggestion: SuggestionType) {
       return newValue === suggestion.label
-    })[0]
-    if (selectedSuggestion === undefined) {
+    })
+    console.log(selectedSuggestion)
+    if (selectedSuggestion.length === 0) {
       field.mapping = undefined
       this.setState({
         value: newValue,
         field: field
       })
     } else {
-      newValue = selectedSuggestion.field.data
+      newValue = selectedSuggestion[0].field.data
       field.mapping = {
-        personaHash: selectedSuggestion.persona.hash,
-        personaFieldName: selectedSuggestion.field.name
+        personaHash: selectedSuggestion[0].persona.hash,
+        personaFieldName: selectedSuggestion[0].field.name
       }
       this.setState({
         value: newValue,
