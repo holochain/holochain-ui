@@ -144,10 +144,22 @@ function UsageIcon (props: any) {
 
 function Mapping (props: any) {
   if (props.field.mapping !== undefined) {
-    let persona = props.personas.filter(function (persona: PersonaType) {
-      return props.field.mapping.personaHash === persona.hash
-    })[0]
-    return (<Typography className={props.classes.persona}>{persona.name + ' - ' + props.field.mapping.personaFieldName}</Typography>)
+    let mapping = props.field.mapping
+    let filteredPersonas = props.personas.filter(function (persona: PersonaType) {
+      return mapping.personaHash === persona.hash
+    })
+    if (filteredPersonas.length > 0) {
+      let filteredData = filteredPersonas[0].fields.filter(function (field: ProfileField) {
+        return field.name === mapping.personaFieldName
+      })
+      if (filteredData.length > 0) {
+        return (<Typography className={props.classes.persona}>{filteredPersonas[0].name + ' - ' + mapping.personaFieldName}</Typography>)
+      } else {
+        return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
+      }
+    } else {
+      return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
+    }
   } else {
     return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
   }
@@ -169,6 +181,22 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
         allSuggestions.push({ persona: persona, field: field, label: field.data + ' (' + persona.name + ' - ' + field.name + ')' })
       ))
     ))
+    if (this.props.field.mapping !== undefined) {
+      let mapping = this.props.field.mapping
+      let filteredPersonas = this.props.personas.filter(function (persona: PersonaType) {
+        return mapping.personaHash === persona.hash
+      })
+      if (filteredPersonas.length > 0) {
+        let filteredData = filteredPersonas[0].fields.filter(function (field) {
+          return field.name === mapping.personaFieldName
+        })
+        if (filteredData.length > 0) {
+          this.setState({
+            value: filteredData[0].data
+          })
+        }
+      }
+    }
   }
   public renderInput = (inputProps: any) => {
     const { classes, ref, ...other } = inputProps
@@ -267,5 +295,5 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
     )
   }
 }
-// export withStyles
+
 export default withStyles(styles)(AutoCompleteProfileField)
