@@ -5,6 +5,9 @@ import {Channel, ChannelSpec} from '../types/channel'
 import {Message, MessageSpec} from '../types/message'
 import {Identity, IdentitySpec} from '../types/identity'
 
+import { ProfileSpec, UsageType } from '../vault-types/profile'
+
+
 export = 0;
 let module = {}
 
@@ -153,6 +156,20 @@ function getMessages(payload: {channelHash: holochain.Hash}): Array<Message> | h
 
 /*=====  End of Public Zome Functions  ======*/
 
+
+const profileSpec: ProfileSpec = {
+  name: "holo-chat",
+  sourceDNA: App.DNA.Hash,
+  fields: [
+    {
+      name: 'handle',
+      displayName: 'Handle',
+      required: true,
+      description: 'How other users will see you',
+      usage: UsageType.STORE,
+      schema: { 'type': 'string' }
+    }
+}
 
 
 
