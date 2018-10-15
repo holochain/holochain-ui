@@ -87,3 +87,44 @@ export const exampleFirstNameMapping: ProfileMapping = {
   personaHash: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7',
   personaFieldName: 'firstName'
 }
+
+export const exampleFaultyProfile: Profile = {
+  name:  'Holo-Chat',
+  hash: 'QQQ',
+  expiry: 10,
+  sourceDNA:  'DNAXYZ2',
+  fields: [
+    {
+      name: 'handle',
+      displayName: 'Handle',
+      required: true,
+      description: 'How other users will see you',
+      usage: UsageType.STORE,
+      schema: { 'type': 'string' },
+      mapping: {
+        personaHash: 'doiesnotexist', // implies field is already mapped
+        personaFieldName: 'nickName'
+      }
+    },
+    {
+      name: 'first_name',
+      displayName: 'First Name',
+      required: false,
+      description: 'Your actual first name shared with contacts',  // unmapped field
+      usage: UsageType.DISPLAY,
+      schema: { 'type': 'string' },
+      mapping: {
+        personaHash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
+        personaFieldName: 'doesnotexist'
+      }
+    },
+    {
+      name: 'last_name',
+      displayName: 'Last Name',
+      required: false,
+      description: 'Your actual last name shared with contacts',  // unmapped field
+      usage: UsageType.STORE,
+      schema: { 'type': 'string' }
+    }
+  ]
+}

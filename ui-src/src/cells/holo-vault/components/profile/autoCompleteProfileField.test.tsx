@@ -49,6 +49,45 @@ export const autoCompleteProfileFieldTests = describe('Auto selecting Persona va
     expect(autoCompleteProfileField().find('Typography').text()).toEqual('Holo-Chat - last_name')
   })
 
+  it('Display the Profile Field for a mapped field that stores your data in the hApp DHT', () => {
+
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleProfile,
+      field: constants.exampleProfile.fields[0],
+      handleMappingChange: mockFn
+    }
+    expect(autoCompleteProfileField().find('TextField').props().label).toEqual('Handle')
+    expect(autoCompleteProfileField().find('input[name="name"]').props().value).toEqual('@philt3r')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Friends - nickName')
+  })
+
+  it('Does not try to map the field if the Persona cannot be found', () => {
+
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleFaultyProfile,
+      field: constants.exampleFaultyProfile.fields[0],
+      handleMappingChange: mockFn
+    }
+    expect(autoCompleteProfileField().find('TextField').props().label).toEqual('Handle')
+    expect(autoCompleteProfileField().find('input[name="name"]').props().value).toEqual('')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Holo-Chat - handle')
+  })
+
+  it('Does not try to map the field if the Persona field cannot be found', () => {
+
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleFaultyProfile,
+      field: constants.exampleFaultyProfile.fields[1],
+      handleMappingChange: mockFn
+    }
+    expect(autoCompleteProfileField().find('TextField').props().label).toEqual('First Name')
+    expect(autoCompleteProfileField().find('input[name="name"]').props().value).toEqual('')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Holo-Chat - first_name')
+  })
+
   it('Selecting a Persona value for an unmapped field sets the mapping', () => {
 
     props = {

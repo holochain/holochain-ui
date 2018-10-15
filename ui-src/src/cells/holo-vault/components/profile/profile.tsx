@@ -1,21 +1,26 @@
 import * as React from 'react'
-import { StyleRulesCallback, Theme } from '@material-ui/core/'
+import { StyleRulesCallback } from '@material-ui/core/'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import withRoot from '../../../../withRoot'
-
 import { Profile as ProfileType, ProfileField } from '../../types/profile'
-import { Suggestion as SuggestionType } from '../../types/suggestion'
+import { Persona as PersonaType } from '../../types/persona'
 
 import AutoCompleteProfileField from './autoCompleteProfileField'
 
-const styles: StyleRulesCallback = (theme: Theme) => ({
+const styles: StyleRulesCallback = theme => ({
+  container: {
+    flexGrow: 1,
+    position: 'relative',
+    marginTop: theme.spacing.unit * 2
+  }
 })
 
 export interface RouterProps extends RouteComponentProps<{name: string}> {}
 
 interface OwnProps {
-  suggestions: Array<SuggestionType>
+  personas: Array<PersonaType>
+  profile: ProfileType
 }
 
 interface DispatchProps {
@@ -33,24 +38,23 @@ export type Props = OwnProps & DispatchProps & StateProps
 
 class Profile extends React.Component<Props & RouterProps, State> {
 
-  handleProfileFieldChange = (i: number) => {
-    this.state.profile.fields[i]
-  }
-
-  renderProfileField = (field: ProfileField, i: number) => {
-    return (
-      <AutoCompleteProfileField
-        suggestions={this.props.suggestions}
-        handleSelectionChange={() => this.handleProfileFieldChange(i)}
-      />
-    )
+  handleMappingChange = (updatedField: ProfileField) => {
+    let fields = this.state.profile.fields.filter(function (field) {
+      return field.name === updatedField.name
+    })
+    if (fields.length !== 0) {
+      fields[0] = updatedField
+    }
+    this.setState({
+      profile: this.state.profile
+    })
   }
 
   render () {
-    const { profile } = this.props
+    const { profile, personas } = this.props
     return (
       <div>
-        {profile.fields.map((elem, i) => this.renderProfileField(elem, i))}
+        {profile.fields.map((field, i) => <AutoCompleteProfileField key={i} personas={personas} profile={profile} field={field} handleMappingChange={() => this.handleMappingChange(field)} />)}
       </div>
     )
   }

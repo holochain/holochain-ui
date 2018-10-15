@@ -1,8 +1,12 @@
 import * as React from 'react'
 import { mount, ReactWrapper, configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
+import * as constants from '../../constants'
 import Profile, { Props } from './profile'
-
+import CreateStore from '../../../../store'
+import { Provider } from 'react-redux'
+import { MemoryRouter } from 'react-router-dom'
+let store = CreateStore()
 configure({ adapter: new Adapter() })
 
 export const profileTests = describe('', () => {
@@ -12,7 +16,7 @@ export const profileTests = describe('', () => {
 
   const profileField = () => {
     if (!mountedProfile) {
-      mountedProfile = mount(<Profile {...props}/>)
+      mountedProfile = mount(<Provider store={store}><MemoryRouter initialEntries={['/']}><Profile {...props}/></MemoryRouter></Provider>)
     }
     return mountedProfile
   }
@@ -24,9 +28,14 @@ export const profileTests = describe('', () => {
   // const mockFn = jest.fn()
 
   it('Selecting a Persona value ', () => {
-    profileField().find('').equals(null)
-    props = {}
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleProfile
+    }
 
+    profileField().find('AutoCompleteProfileField')
+
+    expect(3).toEqual(3)
   })
 
 })
