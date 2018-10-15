@@ -13,6 +13,7 @@ import * as constants from '../../constants'
 // import CreateStore from '../../../../store'
 
 // let store = CreateStore()
+const mockFn = jest.fn()
 
 storiesOf('HoloVault/Profile', module)
   .add('Profile form not mapped to Persona info', withNotes(profileNotes)(() => {
@@ -20,7 +21,8 @@ storiesOf('HoloVault/Profile', module)
     let props: Props
     props = {
       personas: constants.personas,
-      profile: constants.exampleProfileNotMapped
+      profile: constants.exampleProfileNotMapped,
+      save: mockFn
     }
     return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
   }))
@@ -29,7 +31,8 @@ storiesOf('HoloVault/Profile', module)
     let props: Props
     props = {
       personas: constants.personas,
-      profile: constants.exampleProfileMappedCorrectly
+      profile: constants.exampleProfileMappedCorrectly,
+      save: mockFn
     }
     return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
   }))

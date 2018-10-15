@@ -5,6 +5,8 @@ import { withRouter, RouteComponentProps } from 'react-router-dom'
 import withRoot from '../../../../withRoot'
 import { Profile as ProfileType, ProfileField } from '../../types/profile'
 import { Persona as PersonaType } from '../../types/persona'
+import Save from '@material-ui/icons/Save'
+import Button from '@material-ui/core/Button'
 
 import AutoCompleteProfileField from './autoCompleteProfileField'
 
@@ -13,6 +15,10 @@ const styles: StyleRulesCallback = theme => ({
     flexGrow: 1,
     position: 'relative',
     marginTop: theme.spacing.unit * 2
+  },
+  button: {
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit
   }
 })
 
@@ -23,6 +29,7 @@ interface OwnProps {
 }
 
 interface DispatchProps {
+  save: Function
 }
 
 interface StateProps {
@@ -45,22 +52,27 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   handleMappingChange = (updatedField: ProfileField) => {
-    let fields = this.state.profile.fields.filter(function (field) {
+    this.state.profile.fields.filter(function (field) {
       return field.name === updatedField.name
-    })
-    if (fields.length !== 0) {
-      fields[0] = updatedField
-    }
+    })[0] = updatedField
     this.setState({
       profile: this.state.profile
     })
   }
 
+  handleSaveProfile = () => {
+    this.props.save(this.state.profile)
+  }
+
   render () {
-    const { profile, personas } = this.props
+    const { profile, personas, classes } = this.props
     return (
       <div>
         {this.state.profile.fields.map((field, i) => <AutoCompleteProfileField key={i} personas={personas} profile={profile} field={field} handleMappingChange={() => this.handleMappingChange(field)} />)}
+        <Button name='addField' variant='raised' className={classes.button} onClick={this.handleSaveProfile}>
+          <Save/>
+          Save Profile
+        </Button>
       </div>
     )
   }
