@@ -19,14 +19,14 @@ const styles: StyleRulesCallback = theme => ({
 export interface RouterProps extends RouteComponentProps<{name: string}> {}
 
 interface OwnProps {
-  personas: Array<PersonaType>
-  profile: ProfileType
+  classes?: any
 }
 
 interface DispatchProps {
 }
 
 interface StateProps {
+  personas: Array<PersonaType>
   profile: ProfileType
 }
 
@@ -37,6 +37,12 @@ interface State {
 export type Props = OwnProps & DispatchProps & StateProps
 
 class Profile extends React.Component<Props & RouterProps, State> {
+  constructor (props: Props & RouterProps) {
+    super(props)
+    this.state = {
+      profile: props.profile
+    }
+  }
 
   handleMappingChange = (updatedField: ProfileField) => {
     let fields = this.state.profile.fields.filter(function (field) {
@@ -54,10 +60,10 @@ class Profile extends React.Component<Props & RouterProps, State> {
     const { profile, personas } = this.props
     return (
       <div>
-        {profile.fields.map((field, i) => <AutoCompleteProfileField key={i} personas={personas} profile={profile} field={field} handleMappingChange={() => this.handleMappingChange(field)} />)}
+        {this.state.profile.fields.map((field, i) => <AutoCompleteProfileField key={i} personas={personas} profile={profile} field={field} handleMappingChange={() => this.handleMappingChange(field)} />)}
       </div>
     )
   }
 }
 
-export default withRoot(withStyles(styles)(withRouter(Profile)))
+export const ProfileForm = withRoot(withStyles(styles)(withRouter(Profile)))

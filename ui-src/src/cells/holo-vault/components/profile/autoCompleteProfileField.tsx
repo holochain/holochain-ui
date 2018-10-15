@@ -295,5 +295,5 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
     )
   }
 }
-// export withStyles
+
 export default withStyles(styles)(AutoCompleteProfileField)
