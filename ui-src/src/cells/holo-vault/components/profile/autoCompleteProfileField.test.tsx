@@ -112,9 +112,10 @@ export const autoCompleteProfileFieldTests = describe('Auto selecting Persona va
       field: constants.exampleProfile.fields[2],
       handleMappingChange: mockFn
     }
-    // autoCompleteProfileField().find('input[name="name"]').simulate('change', { target: { value: 'P' } })
-    // autoCompleteProfileField().find('input[name="name"]').simulate('change', { target: { value: '' } })
-    // autoCompleteProfileField().find('input[name="name"]').simulate('focus')
+    autoCompleteProfileField().find('input[name="name"]').simulate('change', { target: { value: 'P' } })
+    autoCompleteProfileField().find('input[name="name"]').simulate('focus')
+    autoCompleteProfileField().find('input[name="name"]').simulate('change', { target: { value: '' } })
+    autoCompleteProfileField().find('input[name="name"]').simulate('focus')
     let suggestions: Array<SuggestionType> = (autoCompleteProfileField().find('AutoCompleteProfileField').instance().state as State).suggestions
     expect(suggestions.length).toEqual(0)
     expect(autoCompleteProfileField().find('Typography').text()).toEqual('Holo-Chat - last_name')

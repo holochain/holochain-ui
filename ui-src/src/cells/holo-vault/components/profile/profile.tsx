@@ -30,7 +30,7 @@ interface StateProps {
   profile: ProfileType
 }
 
-interface State {
+export interface State {
   profile: ProfileType
 }
 

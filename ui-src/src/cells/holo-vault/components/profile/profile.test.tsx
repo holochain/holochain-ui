@@ -2,7 +2,8 @@ import * as React from 'react'
 import { mount, ReactWrapper, configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import * as constants from '../../constants'
-import Profile, { Props } from './profile'
+import Profile, { Props, State } from './profile'
+import { Profile as ProfileType } from '../../types/profile'
 // import CreateStore from '../../../../store'
 // import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
@@ -59,5 +60,20 @@ export const profileTests = describe('', () => {
       expect(field.props().value).not.toEqual(undefined)
       expect(field.props().value).not.toEqual('')
     })
+  })
+
+  it('Mapping or entering new info into a field updates the Profile state', () => {
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleProfileNotMapped
+    }
+    let profile: ProfileType = (profileField().find('Profile').instance().state as State).profile
+    expect(profile.fields[0].mapping).toEqual(undefined)
+    profileField().find('input[name="name"]').first().simulate('change', { target: { value: 'P' } })
+    profileField().find('input[name="name"]').first().simulate('focus')
+    profileField().find('MenuItem').first().simulate('click')
+    profileField().find('input[name="name"]').first().simulate('blur')
+    profile = (profileField().find('Profile').instance().state as State).profile
+    expect(profile.fields[0].mapping).not.toEqual(undefined)
   })
 })
