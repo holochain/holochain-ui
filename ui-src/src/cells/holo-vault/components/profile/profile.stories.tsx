@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react'
 import { MemoryRouter } from 'react-router-dom'
 import { specs } from 'storybook-addon-specifications'
 import { withNotes } from '@storybook/addon-notes'
-import { ProfileForm, Props } from './profile'
+import Profile, { Props } from './profile'
 // import { Profile as ProfileType } from '../../types/profile'
 import profileNotes from './profileNotes.md'
 import { profileTests } from './profile.test'
@@ -15,12 +15,21 @@ import * as constants from '../../constants'
 // let store = CreateStore()
 
 storiesOf('HoloVault/Profile', module)
-  .add('Profile form not mapped', withNotes(profileNotes)(() => {
+  .add('Profile form not mapped to Persona info', withNotes(profileNotes)(() => {
     specs(() => profileTests)
     let props: Props
     props = {
       personas: constants.personas,
-      profile: constants.exampleProfile
+      profile: constants.exampleProfileNotMapped
     }
-    return <MemoryRouter initialEntries={['/']}><ProfileForm {...props} /></MemoryRouter>
+    return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
+  }))
+  .add('Profile form mapped to Persona info', withNotes(profileNotes)(() => {
+    // specs(() => profileTests)
+    let props: Props
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleProfileMappedCorrectly
+    }
+    return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
   }))

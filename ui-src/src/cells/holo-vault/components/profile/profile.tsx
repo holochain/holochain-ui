@@ -66,4 +66,4 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 }
 
-export const ProfileForm = withRoot(withStyles(styles)(withRouter(Profile)))
+export default withRoot(withStyles(styles)(withRouter(Profile)))
