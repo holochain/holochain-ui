@@ -6,23 +6,22 @@ import { withNotes } from '@storybook/addon-notes'
 import AutoCompleteProfileField from './autoCompleteProfileField'
 import autoCompleteProfileFieldNotes from './autoCompleteProfileFieldNotes.md'
 import { autoCompleteProfileFieldTests } from './autoCompleteProfileField.test'
+import * as constants from '../../constants'
 
-storiesOf('HoloVault/Profile', module)
-  .add('Autocomplete Profile Field', withNotes(autoCompleteProfileFieldNotes)(() => {
+storiesOf('HoloVault/Profile/AutoComplete', module)
+  .add('Autocomplete Profile Field not mapped', withNotes(autoCompleteProfileFieldNotes)(() => {
     specs(() => autoCompleteProfileFieldTests)
-    let suggestions = [
-      { label: 'Alpha Go' },
-      { label: 'Boris Johnson' },
-      { label: 'Carl Marks' },
-      { label: 'Delphi' },
-      { label: 'Estonia' },
-      { label: 'Estonia' },
-      { label: 'Estonia' },
-      { label: 'Franklin, VA' },
-      { label: 'Gomez' },
-      { label: 'Homer' },
-      { label: 'Inglewood, CO' },
-      { label: 'Jefferies LTD' }
-    ]
-    return <AutoCompleteProfileField handleSelectionChange={action('Select a Persona Field')} suggestions={suggestions}/>
+    let personas = constants.personas
+    let profile = constants.exampleProfile
+    let field = constants.exampleProfile.fields[1]
+
+    return <AutoCompleteProfileField handleMappingChange={action('Select a Persona Field')} personas={personas} profile={profile} field={field} />
+  }))
+  .add('Autocomplete Profile Field mapped to Persona data', withNotes(autoCompleteProfileFieldNotes)(() => {
+    // specs(() => autoCompleteProfileFieldTests)
+    let personas = constants.personas
+    let profile = constants.exampleProfile
+    let field = constants.exampleProfile.fields[0]
+
+    return <AutoCompleteProfileField handleMappingChange={action('Select a Persona Field')} personas={personas} profile={profile} field={field} />
   }))

@@ -1,8 +1,13 @@
 import * as React from 'react'
 import { mount, ReactWrapper, configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
-import Profile, { Props } from './profile'
-
+import * as constants from '../../constants'
+import Profile, { Props, State } from './profile'
+import { Profile as ProfileType } from '../../types/profile'
+// import CreateStore from '../../../../store'
+// import { Provider } from 'react-redux'
+import { MemoryRouter } from 'react-router-dom'
+// let store = CreateStore()
 configure({ adapter: new Adapter() })
 
 export const profileTests = describe('', () => {
@@ -12,7 +17,7 @@ export const profileTests = describe('', () => {
 
   const profileField = () => {
     if (!mountedProfile) {
-      mountedProfile = mount(<Profile {...props}/>)
+      mountedProfile = mount(<MemoryRouter initialEntries={['/']}><Profile {...props}/></MemoryRouter>)
     }
     return mountedProfile
   }
@@ -21,12 +26,69 @@ export const profileTests = describe('', () => {
     mountedProfile = undefined
   })
 
-  // const mockFn = jest.fn()
+  const mockFn = jest.fn()
 
-  it('Selecting a Persona value ', () => {
-    profileField().find('').equals(null)
-    props = {}
-
+  it('A new Profile has an empty AutoCompleteProfileField for each field in the Profile request', () => {
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleProfileNotMapped,
+      save: mockFn
+    }
+    expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfile.fields.length)
+    profileField().find('input[name="name"]').map(function (field) {
+      expect(field.props().value).toEqual('')
+    })
   })
 
+  it('When an invalid mapping is used, the Profile has an empty AutoCompleteProfileField for each field in the Profile request', () => {
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleFaultyProfile,
+      save: mockFn
+    }
+    expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfile.fields.length)
+    profileField().find('input[name="name"]').map(function (field) {
+      expect(field.props().value).toEqual('')
+    })
+  })
+
+  it('When an valid mapping is used, the Profile form has a populated AutoCompleteProfileField for each field in the Profile request', () => {
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleProfileMappedCorrectly,
+      save: mockFn
+    }
+    expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfile.fields.length)
+    profileField().find('input[name="name"]').map(function (field) {
+      expect(field.props().value).not.toEqual(undefined)
+      expect(field.props().value).not.toEqual('')
+    })
+  })
+
+  it('Mapping or entering new info into a field updates the Profile state', () => {
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleProfileNotMapped,
+      save: mockFn
+    }
+    let profile: ProfileType = (profileField().find('Profile').instance().state as State).profile
+    expect(profile.fields[0].mapping).toEqual(undefined)
+    profileField().find('input[name="name"]').first().simulate('change', { target: { value: 'P' } })
+    profileField().find('input[name="name"]').first().simulate('focus')
+    profileField().find('MenuItem').first().simulate('click')
+    profileField().find('input[name="name"]').first().simulate('blur')
+    profile = (profileField().find('Profile').instance().state as State).profile
+    expect(profile.fields[0].mapping).not.toEqual(undefined)
+  })
+
+  it('Clicking Save Profile fires the event', () => {
+    props = {
+      personas: constants.personas,
+      profile: constants.exampleProfileMappedCorrectly,
+      save: mockFn
+    }
+
+    profileField().find('Button').simulate('click')
+    expect(props.save).toBeCalled()
+  })
 })

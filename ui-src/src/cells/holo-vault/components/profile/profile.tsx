@@ -1,56 +1,78 @@
 import * as React from 'react'
-import { StyleRulesCallback, Theme } from '@material-ui/core/'
+import { StyleRulesCallback } from '@material-ui/core/'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import withRoot from '../../../../withRoot'
-
 import { Profile as ProfileType, ProfileField } from '../../types/profile'
-import { Suggestion as SuggestionType } from '../../types/suggestion'
+import { Persona as PersonaType } from '../../types/persona'
+import Save from '@material-ui/icons/Save'
+import Button from '@material-ui/core/Button'
 
 import AutoCompleteProfileField from './autoCompleteProfileField'
 
-const styles: StyleRulesCallback = (theme: Theme) => ({
+const styles: StyleRulesCallback = theme => ({
+  container: {
+    flexGrow: 1,
+    position: 'relative',
+    marginTop: theme.spacing.unit * 2
+  },
+  button: {
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit
+  }
 })
 
 export interface RouterProps extends RouteComponentProps<{name: string}> {}
 
 interface OwnProps {
-  suggestions: Array<SuggestionType>
+  classes?: any
 }
 
 interface DispatchProps {
+  save: Function
 }
 
 interface StateProps {
+  personas: Array<PersonaType>
   profile: ProfileType
 }
 
-interface State {
+export interface State {
   profile: ProfileType
 }
 
 export type Props = OwnProps & DispatchProps & StateProps
 
 class Profile extends React.Component<Props & RouterProps, State> {
-
-  handleProfileFieldChange = (i: number) => {
-    this.state.profile.fields[i]
+  constructor (props: Props & RouterProps) {
+    super(props)
+    this.state = {
+      profile: props.profile
+    }
   }
 
-  renderProfileField = (field: ProfileField, i: number) => {
-    return (
-      <AutoCompleteProfileField
-        suggestions={this.props.suggestions}
-        handleSelectionChange={() => this.handleProfileFieldChange(i)}
-      />
-    )
+  handleMappingChange = (updatedField: ProfileField) => {
+    this.state.profile.fields.filter(function (field) {
+      return field.name === updatedField.name
+    })[0] = updatedField
+    this.setState({
+      profile: this.state.profile
+    })
+  }
+
+  handleSaveProfile = () => {
+    this.props.save(this.state.profile)
   }
 
   render () {
-    const { profile } = this.props
+    const { profile, personas, classes } = this.props
     return (
       <div>
-        {profile.fields.map((elem, i) => this.renderProfileField(elem, i))}
+        {this.state.profile.fields.map((field, i) => <AutoCompleteProfileField key={i} personas={personas} profile={profile} field={field} handleMappingChange={() => this.handleMappingChange(field)} />)}
+        <Button name='addField' variant='raised' className={classes.button} onClick={this.handleSaveProfile}>
+          <Save/>
+          Save Profile
+        </Button>
       </div>
     )
   }
