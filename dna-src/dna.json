@@ -6,7 +6,8 @@
     "Properties": {
         "name": "My Chat",
         "purpose": "chatting up a storm",
-        "language": "en"
+        "language": "en",
+        "profileSpec": "{\"name\":\"holo-chat\",\"fields\":[{\"name\":\"handle\",\"displayName\":\"Handle\",\"required\":true,\"description\":\"How other users will see you\",\"usage\":\"store\",\"schema\":{\"type\":\"string\",\"minLength\":3,\"maxLength\":15}}]}"
     },
     "PropertiesSchemaFile": "properties_schema.json",
     "DHTConfig": {

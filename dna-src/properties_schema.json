@@ -13,6 +13,9 @@
 		},
 		"initial_admin": {
 			"type": "string"
+		},
+		"profileSpec": {
+			"type": "object"
 		}
 	}
 }

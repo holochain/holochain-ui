@@ -216,32 +216,6 @@ function addTestData() {
 
 /*=====  End of Private Functions  ======*/
 
-// This apps profile spec
-
-enum UsageType {
-  STORE= 'store',    // The app will store the data in its own DHT
-  DISPLAY= 'display' // The app will always bridge to vault when it needs to retreive the data
-}
-
-const profileSpec: ProfileSpec = {
-  name: "holo-chat",
-  sourceDNA: App.DNA.Hash,
-  fields: [
-    {
-      name: 'handle',
-      displayName: 'Handle',
-      required: true,
-      description: 'How other users will see you',
-      usage: UsageType.STORE,
-      schema: { 
-        'type': 'string',  
-        'minLength': 3,
-        'maxLength': 15
-       }
-    }
-  ]
-}
-
 
 /*==================================
 =            Validation            =
@@ -250,7 +224,7 @@ const profileSpec: ProfileSpec = {
 function genesis() {
   // Register with holo-vault
   debug('custom_channel: Registering with vault')
-  const result = call('profiles', 'registerApp', profileSpec);
+  const result = call('profiles', 'registerApp', {...JSON.parse(property('profileSpec')), sourceDNA: App.DNA.Hash});
   debug('success: ' + JSON.stringify(result))
   return true;
 }
