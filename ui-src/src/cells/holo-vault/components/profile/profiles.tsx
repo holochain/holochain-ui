@@ -55,7 +55,7 @@ class Profiles extends React.Component<Props, {}> {
               // tslint:disable-next-line jsx-no-lambda
               <Route
                 render={({ history }) => (
-                  <ListItem key={index} button={true} onClick={() => { history.push(`/holo-vault/profile/${profile.name}`) }}>
+                  <ListItem key={index} button={true} onClick={() => { history.push(`/holo-vault/profile/${profile.sourceDNA}`) }}>
                     <ListItemText primary={profile.name} />
                   </ListItem>
                 )}
