@@ -4,7 +4,7 @@ import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import withRoot from '../../../../withRoot'
 import Typography from '@material-ui/core/Typography'
 import { List, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core'
-
+import { GetProfiles } from '../../actions'
 // import Avatar from '@material-ui/core/Avatar'
 // import Markdown from 'react-markdown'
 
@@ -17,12 +17,27 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 })
 
-interface ProfilesProps {
+export interface OwnProps {
   classes: any,
+}
+
+export interface StateProps {
   profiles: Array<Profile>
 }
 
-class Profiles extends React.Component<ProfilesProps, {}> {
+export interface DispatchProps {
+  getProfiles: typeof GetProfiles.sig
+}
+
+export type Props = OwnProps & StateProps & DispatchProps
+
+class Profiles extends React.Component<Props, {}> {
+
+  componentDidMount () {
+    this.props.getProfiles(null)
+    .catch(reason => { console.log(reason) }))
+  }
+
   render () {
     const { classes, profiles } = this.props
     return (
