@@ -1,11 +1,11 @@
 {
   "Tests": [
     {
-      "Convey": "Initial call to getProfileSpecs produces empty array",
+      "Convey": "Initial call to getProfileSpecs produces vault profile array",
       "Zome": "profiles",
       "FnName": "getProfiles",
       "Input": {},
-      "Output": []
+      "Output": [{"expiry":0,"fields":[{"description":"How other users will see you","displayName":"Handle","name":"handle","required":true,"schema":{"maxLength":15,"minLength":3,"type":"string"},"usage":"store"}],"hash":"QmdgHsdD81wBwXVJKzWDMdGhNuX7VAoV8bwSaUaaHATtVc","name":"holo-chat","sourceDNA":"QmVECbKJnYSuCRkq1atmGMBiit1CVXYiW7VDGb89CDnDHx"}]
     },
     {
       "Convey": "Calling register with an invalid profileSpec causes an error",
@@ -47,7 +47,7 @@
       "Zome": "profiles",
       "FnName": "getProfiles",
       "Input": {},
-      "Output": [{"expiry":0,"fields":[{"description":"Displayed to all users of the app","displayName":"First Name","name":"firstName","required":true,"schema":{},"usage":"store"},{"description":"Displayed to all users of the app","displayName":"Email Address","name":"email","required":true,"schema":{},"usage":"store"}],"hash":"Qmd4rtYYbTDC6y4nXsDXHYDeFj4KSYw8fFwPbG2j8T2mEp","name":"test","sourceDNA":"abc"}]
+      "Output": [{"expiry":0,"fields":[{"description":"Displayed to all users of the app","displayName":"First Name","name":"firstName","required":true,"schema":{},"usage":"store"},{"description":"Displayed to all users of the app","displayName":"Email Address","name":"email","required":true,"schema":{},"usage":"store"}],"hash":"Qmd4rtYYbTDC6y4nXsDXHYDeFj4KSYw8fFwPbG2j8T2mEp","name":"test","sourceDNA":"abc"},{"expiry":0,"fields":[{"description":"How other users will see you","displayName":"Handle","name":"handle","required":true,"schema":{"maxLength":15,"minLength":3,"type":"string"},"usage":"store"}],"hash":"QmdgHsdD81wBwXVJKzWDMdGhNuX7VAoV8bwSaUaaHATtVc","name":"holo-chat","sourceDNA":"QmVECbKJnYSuCRkq1atmGMBiit1CVXYiW7VDGb89CDnDHx"}]
 
     },
     {
