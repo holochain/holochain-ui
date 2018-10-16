@@ -149,7 +149,6 @@ class Persona extends React.Component<Props & RouterProps, State> {
     } else {
       return null
     }
-
   }
 
   updateField (newField: PersonaField, index: number) {

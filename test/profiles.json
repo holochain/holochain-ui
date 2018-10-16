@@ -2,10 +2,11 @@
   "Tests": [
     {
       "Convey": "Initial call to getProfileSpecs produces vault profile array",
+      "Raw": true,
       "Zome": "profiles",
       "FnName": "getProfiles",
-      "Input": {},
-      "Output": [{"expiry":0,"fields":[{"description":"How other users will see you","displayName":"Handle","name":"handle","required":true,"schema":{"maxLength":15,"minLength":3,"type":"string"},"usage":"store"}],"hash":"QmdgHsdD81wBwXVJKzWDMdGhNuX7VAoV8bwSaUaaHATtVc","name":"holo-chat","sourceDNA":"QmVECbKJnYSuCRkq1atmGMBiit1CVXYiW7VDGb89CDnDHx"}]
+      "Input": "getProfiles().length === 1",
+      "Output": true
     },
     {
       "Convey": "Calling register with an invalid profileSpec causes an error",
@@ -44,10 +45,11 @@
     },
     {
       "Convey": "Can retrieve spec from getProfiles",
+      "Raw": true,
       "Zome": "profiles",
       "FnName": "getProfiles",
-      "Input": {},
-      "Output": [{"expiry":0,"fields":[{"description":"Displayed to all users of the app","displayName":"First Name","name":"firstName","required":true,"schema":{},"usage":"store"},{"description":"Displayed to all users of the app","displayName":"Email Address","name":"email","required":true,"schema":{},"usage":"store"}],"hash":"Qmd4rtYYbTDC6y4nXsDXHYDeFj4KSYw8fFwPbG2j8T2mEp","name":"test","sourceDNA":"abc"},{"expiry":0,"fields":[{"description":"How other users will see you","displayName":"Handle","name":"handle","required":true,"schema":{"maxLength":15,"minLength":3,"type":"string"},"usage":"store"}],"hash":"QmdgHsdD81wBwXVJKzWDMdGhNuX7VAoV8bwSaUaaHATtVc","name":"holo-chat","sourceDNA":"QmVECbKJnYSuCRkq1atmGMBiit1CVXYiW7VDGb89CDnDHx"}]
+      "Input": "getProfiles().some(function(spec) { return spec.name === 'test' }) === true",
+      "Output": true
 
     },
     {
