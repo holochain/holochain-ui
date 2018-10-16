@@ -41,9 +41,9 @@ export const personaTests = describe('Looking after your Personas', () => {
       currentPersona: newPersona,
       title: 'New - Persona',
       personas: [],
-      create: mockFn,
-      update: mockFn,
-      delete: mockFn,
+      create: mockPromise,
+      update: mockPromise,
+      delete: mockPromise,
       getPersonas: mockPromise
     }
 

@@ -31,7 +31,7 @@ export interface OwnProps {
 }
 
 export interface DispatchProps {
-  save: Function
+  save: (profile: ProfileType) => Promise<any>
   getProfiles: typeof GetProfiles.sig
   getPersonas: typeof GetPersonas.sig
 }
@@ -79,6 +79,10 @@ class Profile extends React.Component<Props & RouterProps, State> {
 
   handleSaveProfile = () => {
     this.props.save(this.state.profile)
+      .then(this.props.getProfiles)
+      .catch(err => console.error(err))
+
+    this.props.history.push('/holo-vault/profiles')
   }
 
   render () {

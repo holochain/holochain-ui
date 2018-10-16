@@ -29,9 +29,9 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-  create: Function,
-  update: Function,
-  delete: Function,
+  create: (personaSpec: PersonaSpec, personaFields: Array<PersonaField>) => Promise<any>,
+  update: (persona: PersonaType) => void,
+  delete: (persona: PersonaType) => void,
   getPersonas: typeof GetPersonas.sig
 }
 
@@ -97,8 +97,12 @@ class Persona extends React.Component<Props & RouterProps, State> {
       const personaSpec: PersonaSpec = { 'name': this.state.persona.name }
       const personaFields: Array<PersonaField> = this.state.persona.fields
       this.props.create(personaSpec, personaFields)
+        .then(this.props.getPersonas)
+        .catch(err => console.error(err))
     } else {
       this.props.update(this.state.persona)
+        // .then(this.props.getPersonas)
+        // .catch(err => console.error(err))
     }
     this.props.history.push('/holo-vault/personas')
   }
