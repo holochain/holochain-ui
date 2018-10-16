@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import withRoot from '../../../../withRoot'
 import Typography from '@material-ui/core/Typography'
-import { List, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core'
+import { List, ListItem, ListItemText } from '@material-ui/core'
 import { GetProfiles } from '../../actions'
 // import Avatar from '@material-ui/core/Avatar'
 // import Markdown from 'react-markdown'
@@ -34,6 +34,7 @@ export type Props = OwnProps & StateProps & DispatchProps
 class Profiles extends React.Component<Props, {}> {
 
   componentDidMount () {
+
     this.props.getProfiles(null)
     .catch(reason => { console.log(reason) })
   }
@@ -55,9 +56,6 @@ class Profiles extends React.Component<Props, {}> {
               <Route
                 render={({ history }) => (
                   <ListItem key={index} button={true} onClick={() => { history.push(`/holo-vault/profile/${profile.name}`) }}>
-                    <ListItemAvatar >
-                      {/* <Avatar style={{marginTop: 10, borderRadius: 0 }}  src={profile.src} /> */}
-                    </ListItemAvatar>
                     <ListItemText primary={profile.name} />
                   </ListItem>
                 )}

@@ -26,13 +26,17 @@ export const profileTests = describe('', () => {
     mountedProfile = undefined
   })
 
-  const mockFn = jest.fn()
+  // const mockFn = jest.fn()
+  const mockPromise = jest.fn(() => Promise.reject(''))
 
   it('A new Profile has an empty AutoCompleteProfileField for each field in the Profile request', () => {
     props = {
       personas: constants.personas,
       profile: constants.exampleProfileNotMapped,
-      save: mockFn
+      profiles: [],
+      save: mockPromise,
+      getProfiles: mockPromise,
+      getPersonas: mockPromise
     }
     expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfile.fields.length)
     profileField().find('input[name="name"]').map(function (field) {
@@ -44,7 +48,10 @@ export const profileTests = describe('', () => {
     props = {
       personas: constants.personas,
       profile: constants.exampleFaultyProfile,
-      save: mockFn
+      profiles: [],
+      save: mockPromise,
+      getProfiles: mockPromise,
+      getPersonas: mockPromise
     }
     expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfile.fields.length)
     profileField().find('input[name="name"]').map(function (field) {
@@ -56,7 +63,10 @@ export const profileTests = describe('', () => {
     props = {
       personas: constants.personas,
       profile: constants.exampleProfileMappedCorrectly,
-      save: mockFn
+      profiles: [],
+      save: mockPromise,
+      getProfiles: mockPromise,
+      getPersonas: mockPromise
     }
     expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfile.fields.length)
     profileField().find('input[name="name"]').map(function (field) {
@@ -69,7 +79,10 @@ export const profileTests = describe('', () => {
     props = {
       personas: constants.personas,
       profile: constants.exampleProfileNotMapped,
-      save: mockFn
+      profiles: [],
+      save: mockPromise,
+      getProfiles: mockPromise,
+      getPersonas: mockPromise
     }
     let profile: ProfileType = (profileField().find('Profile').instance().state as State).profile
     expect(profile.fields[0].mapping).toEqual(undefined)
@@ -85,7 +98,10 @@ export const profileTests = describe('', () => {
     props = {
       personas: constants.personas,
       profile: constants.exampleProfileMappedCorrectly,
-      save: mockFn
+      profiles: [],
+      save: mockPromise,
+      getProfiles: mockPromise,
+      getPersonas: mockPromise
     }
 
     profileField().find('Button').simulate('click')

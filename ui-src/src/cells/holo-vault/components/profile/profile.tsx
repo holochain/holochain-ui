@@ -7,6 +7,7 @@ import { Profile as ProfileType, ProfileField } from '../../types/profile'
 import { Persona as PersonaType } from '../../types/persona'
 import Save from '@material-ui/icons/Save'
 import Button from '@material-ui/core/Button'
+import { GetProfiles, GetPersonas } from '../../actions'
 
 import AutoCompleteProfileField from './autoCompleteProfileField'
 
@@ -30,11 +31,14 @@ export interface OwnProps {
 
 export interface DispatchProps {
   save: Function
+  getProfiles: typeof GetProfiles.sig
+  getPersonas: typeof GetPersonas.sig
 }
 
 export interface StateProps {
   personas: Array<PersonaType>
-  profile: ProfileType
+  profile: ProfileType,
+  profiles: Array<ProfileType>
 }
 
 export interface State {
@@ -49,6 +53,13 @@ class Profile extends React.Component<Props & RouterProps, State> {
     this.state = {
       profile: props.profile
     }
+  }
+
+  componentDidMount () {
+    this.props.getProfiles(undefined)
+      .catch((err) => console.log(err))
+    this.props.getPersonas(undefined)
+      .catch((err) => console.log(err))
   }
 
   handleMappingChange = (updatedField: ProfileField) => {
