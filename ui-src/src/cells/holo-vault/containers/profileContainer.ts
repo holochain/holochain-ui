@@ -1,30 +1,39 @@
 
 import { connect } from 'react-redux'
-import Personas, { OwnProps, StateProps, DispatchProps } from '../components/profile/profile'
 import { Dispatch } from 'redux'
-import { Profile, ProfileField } from '../types/profile'
+import { Profile as ProfileType, ProfileField } from '../types/profile'
+import Profile, { Props, RouterProps, StateProps, DispatchProps, OwnProps } from '../components/profile/profile'
 
 import {
   CreateMapping
 } from '../actions'
 
-const mapStateToProps = (state: any): StateProps => {
+const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps => {
 
   // use the route to filter profiles to get the selected profile
+  // will return undefined if non-existent
+  const hash = ownProps.match.params.hash
+  let profile: ProfileType = state.holoVault.profile.profiles.filter((profile: ProfileType) => {
+    return profile.sourceDNA === hash
+  })[0]
 
   return {
     personas: state.holoVault.profile.personas,
-    profile: null
+    profile: profile
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    save: (profile: Profile) => {
-      Promise.all(
-        profile.fields.map((field: ProfileField) => {
-          //
-          dispatch(CreateMapping.create(field.mapping))
+    save: (profile: ProfileType) => {
+      // call createMapping on all of the fields with a mapping
+      return Promise.all(
+        profile.fields.filter(field => field.mapping).map((field: ProfileField) => {
+          return dispatch(CreateMapping.create({
+            ...field.mapping!,
+            retrieverDNA: profile.hash,
+            profileFieldName: profile.name
+          }))
         })
       )
     }
@@ -34,4 +43,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
 export default connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps
-)(Personas)
+)(Profile)
