@@ -24,15 +24,15 @@ const styles: StyleRulesCallback = theme => ({
 
 export interface RouterProps extends RouteComponentProps<{name: string}> {}
 
-interface OwnProps {
+export interface OwnProps {
   classes?: any
 }
 
-interface DispatchProps {
+export interface DispatchProps {
   save: Function
 }
 
-interface StateProps {
+export interface StateProps {
   personas: Array<PersonaType>
   profile: ProfileType
 }
