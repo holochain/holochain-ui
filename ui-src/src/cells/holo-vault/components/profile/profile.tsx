@@ -80,9 +80,8 @@ class Profile extends React.Component<Props & RouterProps, State> {
   handleSaveProfile = () => {
     this.props.save(this.state.profile)
       .then(this.props.getProfiles)
+      .then(() => this.props.history.push('/holo-vault/profiles'))
       .catch(err => console.error(err))
-
-    this.props.history.push('/holo-vault/profiles')
   }
 
   render () {

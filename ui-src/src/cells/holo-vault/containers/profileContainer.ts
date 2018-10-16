@@ -35,6 +35,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
       // call createMapping on all of the fields with a mapping
       return Promise.all(
         profile.fields.filter(field => field.mapping).map((field: ProfileField) => {
+          console.log('creating map for ', field)
           return dispatch(CreateMapping.create({
             ...field.mapping!,
             retrieverDNA: profile.sourceDNA,
