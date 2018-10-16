@@ -5,7 +5,8 @@ import { Dispatch } from 'redux'
 import { PersonaField, Persona as PersonaType, PersonaSpec } from '../types/persona'
 import {
   CreatePersona,
-  AddField
+  AddField,
+  GetPersonas
 } from '../actions'
 
 const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps => {
@@ -15,23 +16,16 @@ const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps 
     return personaName === persona.name
   })[0]
 
-  let persona: PersonaType = {
-    name: '',
-    hash: '',
-    fields: []
-  }
-  if (filteredPersona !== undefined) {
-    persona = filteredPersona
-  }
-
   return {
     title: `Persona - ${personaName}`,
-    currentPersona: persona
+    currentPersona: filteredPersona,
+    personas: state.holoVault.profile.personas
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
+    getPersonas: () => dispatch(GetPersonas.create(undefined)),
     create: (personaSpec: PersonaSpec, personaFields: Array<PersonaField>) => {
       dispatch(CreatePersona.create(personaSpec)).then((response: any) => {
         const personaHash: string = response.payload.data

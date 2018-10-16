@@ -27,6 +27,7 @@ export const personaTests = describe('Looking after your Personas', () => {
   })
 
   const mockFn = jest.fn()
+  const mockPromise = jest.fn(() => Promise.reject(''))
 
   it('Create a Persona by adding new fields and values, this will send a Persona to Holochain', () => {
     let newPersona: PersonaType = {
@@ -39,9 +40,11 @@ export const personaTests = describe('Looking after your Personas', () => {
     props = {
       currentPersona: newPersona,
       title: 'New - Persona',
+      personas: [],
       create: mockFn,
       update: mockFn,
-      delete: mockFn
+      delete: mockFn,
+      getPersonas: mockPromise
     }
 
     const testPersona = {
@@ -79,9 +82,11 @@ export const personaTests = describe('Looking after your Personas', () => {
     props = {
       currentPersona: editPersona,
       title: 'Edit - Persona',
+      personas: [],
       create: mockFn,
       update: mockFn,
-      delete: mockFn
+      delete: mockFn,
+      getPersonas: mockPromise
     }
 
     const testPersona: PersonaType = {
@@ -121,9 +126,11 @@ export const personaTests = describe('Looking after your Personas', () => {
     props = {
       currentPersona: editPersona,
       title: 'Edit - Persona',
+      personas: [],
       create: mockFn,
       update: mockFn,
-      delete: mockFn
+      delete: mockFn,
+      getPersonas: mockPromise
     }
 
     personaView().find('button[name="deletePersona"]').simulate('click')

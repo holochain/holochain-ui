@@ -63,7 +63,6 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   static getDerivedStateFromProps (props: Props & RouterProps, state: State) {
-    console.log('getDerivedState from props:', props)
     return {
       profile: props.profile
     }
