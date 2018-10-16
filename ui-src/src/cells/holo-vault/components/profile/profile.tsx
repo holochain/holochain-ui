@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { StyleRulesCallback } from '@material-ui/core/'
 import { withStyles } from '@material-ui/core/styles'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import withRoot from '../../../../withRoot'
 import { Profile as ProfileType, ProfileField } from '../../types/profile'
@@ -56,10 +57,16 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount () {
-    this.props.getProfiles(undefined)
-      .catch((err) => console.log(err))
     this.props.getPersonas(undefined)
+      .then(this.props.getProfiles)
       .catch((err) => console.log(err))
+  }
+
+  static getDerivedStateFromProps (props: Props & RouterProps, state: State) {
+    console.log('getDerivedState from props:', props)
+    return {
+      profile: props.profile
+    }
   }
 
   handleMappingChange = (updatedField: ProfileField) => {
@@ -76,6 +83,15 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   render () {
+
+    if (!this.state.profile) {
+      return (
+        <div>
+          <CircularProgress/>
+        </div>
+      )
+    }
+
     const { profile, personas, classes } = this.props
     return (
       <div>
