@@ -37,8 +37,8 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
         profile.fields.filter(field => field.mapping).map((field: ProfileField) => {
           return dispatch(CreateMapping.create({
             ...field.mapping!,
-            retrieverDNA: profile.hash,
-            profileFieldName: profile.name
+            retrieverDNA: profile.sourceDNA,
+            profileFieldName: field.name
           }))
         })
       )
