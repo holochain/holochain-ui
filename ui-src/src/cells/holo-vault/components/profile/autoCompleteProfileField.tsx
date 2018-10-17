@@ -174,16 +174,18 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
       field: props.field
     }
   }
-  componentDidMount () {
+
+  static getDerivedStateFromProps (props: Props, state: State): any | null {
     allSuggestions = []
-    this.props.personas.map((persona: PersonaType) => (
+    props.personas.map((persona: PersonaType) => (
       persona.fields.map((field: PersonaFieldType) => (
         allSuggestions.push({ persona: persona, field: field, label: field.data + ' (' + persona.name + ' - ' + field.name + ')' })
       ))
     ))
-    if (this.props.field.mapping !== undefined) {
-      let mapping = this.props.field.mapping
-      let filteredPersonas = this.props.personas.filter(function (persona: PersonaType) {
+
+    if (props.field.mapping !== undefined) {
+      let mapping = props.field.mapping
+      let filteredPersonas = props.personas.filter(function (persona: PersonaType) {
         return mapping.personaHash === persona.hash
       })
       if (filteredPersonas.length > 0) {
@@ -191,13 +193,15 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
           return field.name === mapping.personaFieldName
         })
         if (filteredData.length > 0) {
-          this.setState({
+          return {
             value: filteredData[0].data
-          })
+          }
         }
       }
     }
+    return null
   }
+
   public renderInput = (inputProps: any) => {
     const { classes, ref, ...other } = inputProps
 
