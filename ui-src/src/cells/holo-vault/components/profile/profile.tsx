@@ -63,9 +63,14 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   static getDerivedStateFromProps (props: Props & RouterProps, state: State) {
-    return {
-      profile: props.profile
+    if (!state.profile) {
+      return {
+        profile: props.profile
+      }
+    } else {
+      return null
     }
+
   }
 
   handleMappingChange = (updatedField: ProfileField) => {

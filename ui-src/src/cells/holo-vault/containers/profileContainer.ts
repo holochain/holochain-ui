@@ -33,6 +33,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
     getPersonas: () => dispatch(GetPersonas.create(undefined)),
     save: (profile: ProfileType) => {
       // call createMapping on all of the fields with a mapping
+      console.log('About to map ', profile)
       return Promise.all(
         profile.fields.filter(field => field.mapping).map((field: ProfileField) => {
           console.log('creating map for ', field)
