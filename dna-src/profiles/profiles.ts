@@ -57,6 +57,7 @@ function getProfiles(): Array<Profile> {
 function createMapping(payload: ProfileMapping): number | holochain.HolochainError {
    const {retrieverDNA, profileFieldName, personaHash, personaFieldName} = payload
   let mapsCreated = 0
+  debug("Creating mapping: "+JSON.stringify(payload))
   // Filter only specs that are for the correct dna and have the specified profileField
   getProfiles().filter(profile => profile.sourceDNA === retrieverDNA).forEach(profile => {
     profile.fields.filter(fieldSpec => fieldSpec.name === profileFieldName).forEach(specField => {

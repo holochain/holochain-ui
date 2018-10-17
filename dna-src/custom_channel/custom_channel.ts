@@ -4,6 +4,8 @@
 import {Channel, ChannelSpec} from '../types/channel'
 import {Message, MessageSpec} from '../types/message'
 import {Identity, IdentitySpec} from '../types/identity'
+import { ProfileSpec } from '../vault-types/profile'
+
 
 export = 0;
 let module = {}
@@ -155,7 +157,6 @@ function getMessages(payload: {channelHash: holochain.Hash}): Array<Message> | h
 
 
 
-
 /*=========================================
 =            Private Functions            =
 =========================================*/
@@ -216,14 +217,15 @@ function addTestData() {
 /*=====  End of Private Functions  ======*/
 
 
-
-
 /*==================================
 =            Validation            =
 ==================================*/
 
 function genesis() {
-  // addTestData();
+  // Register with holo-vault
+  debug('custom_channel: Registering with vault')
+  const result = call('profiles', 'registerApp', {...JSON.parse(property('profileSpec')), sourceDNA: App.DNA.Hash});
+  debug('success: ' + JSON.stringify(result))
   return true;
 }
 

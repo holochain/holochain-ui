@@ -8,11 +8,13 @@ import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import PersonAdd from '@material-ui/icons/PersonAdd'
 import TextFields from '@material-ui/icons/TextFields'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import { GetPersonas } from '../../actions'
 
 export interface RouterProps extends RouteComponentProps<{name: string}> {}
 
@@ -22,13 +24,15 @@ export interface OwnProps {
 
 export interface StateProps {
   currentPersona: PersonaType,
-  title: string
+  title: string,
+  personas: Array<PersonaType>
 }
 
 export interface DispatchProps {
-  create: Function,
-  update: Function,
-  delete: Function
+  create: (personaSpec: PersonaSpec, personaFields: Array<PersonaField>) => Promise<any>,
+  update: (persona: PersonaType) => void,
+  delete: (persona: PersonaType) => void,
+  getPersonas: typeof GetPersonas.sig
 }
 
 export type Props = OwnProps & StateProps & DispatchProps
@@ -93,8 +97,12 @@ class Persona extends React.Component<Props & RouterProps, State> {
       const personaSpec: PersonaSpec = { 'name': this.state.persona.name }
       const personaFields: Array<PersonaField> = this.state.persona.fields
       this.props.create(personaSpec, personaFields)
+        .then(this.props.getPersonas)
+        .catch(err => console.error(err))
     } else {
       this.props.update(this.state.persona)
+        // .then(this.props.getPersonas)
+        // .catch(err => console.error(err))
     }
     this.props.history.push('/holo-vault/personas')
   }
@@ -129,10 +137,22 @@ class Persona extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount () {
+    this.props.getPersonas(undefined)
+      .catch((err) => console.log(err))
     this.setState({
       open: false,
       persona: this.props.currentPersona
     })
+  }
+
+  static getDerivedStateFromProps (props: Props & RouterProps, state: State) {
+    if (!state.persona) {
+      return {
+        persona: props.currentPersona
+      }
+    } else {
+      return null
+    }
   }
 
   updateField (newField: PersonaField, index: number) {
@@ -156,6 +176,15 @@ class Persona extends React.Component<Props & RouterProps, State> {
 
   render () {
     const { classes } = this.props
+
+    if (!this.state.persona) {
+      return (
+        <div>
+          <CircularProgress/>
+        </div>
+      )
+    }
+
     return (
       <div className={classes.root}>
         <Typography variant='display1'>

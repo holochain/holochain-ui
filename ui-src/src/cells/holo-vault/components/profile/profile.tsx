@@ -1,10 +1,14 @@
 import * as React from 'react'
 import { StyleRulesCallback } from '@material-ui/core/'
 import { withStyles } from '@material-ui/core/styles'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import withRoot from '../../../../withRoot'
 import { Profile as ProfileType, ProfileField } from '../../types/profile'
 import { Persona as PersonaType } from '../../types/persona'
+import Save from '@material-ui/icons/Save'
+import Button from '@material-ui/core/Button'
+import { GetProfiles, GetPersonas } from '../../actions'
 
 import AutoCompleteProfileField from './autoCompleteProfileField'
 
@@ -13,21 +17,29 @@ const styles: StyleRulesCallback = theme => ({
     flexGrow: 1,
     position: 'relative',
     marginTop: theme.spacing.unit * 2
+  },
+  button: {
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit
   }
 })
 
-export interface RouterProps extends RouteComponentProps<{name: string}> {}
+export interface RouterProps extends RouteComponentProps<{hash: string}> {}
 
-interface OwnProps {
+export interface OwnProps {
   classes?: any
 }
 
-interface DispatchProps {
+export interface DispatchProps {
+  save: (profile: ProfileType) => Promise<any>
+  getProfiles: typeof GetProfiles.sig
+  getPersonas: typeof GetPersonas.sig
 }
 
-interface StateProps {
+export interface StateProps {
   personas: Array<PersonaType>
-  profile: ProfileType
+  profile: ProfileType,
+  profiles: Array<ProfileType>
 }
 
 export interface State {
@@ -44,23 +56,57 @@ class Profile extends React.Component<Props & RouterProps, State> {
     }
   }
 
-  handleMappingChange = (updatedField: ProfileField) => {
-    let fields = this.state.profile.fields.filter(function (field) {
-      return field.name === updatedField.name
-    })
-    if (fields.length !== 0) {
-      fields[0] = updatedField
+  componentDidMount () {
+    this.props.getPersonas(undefined)
+      .then(this.props.getProfiles)
+      .catch((err) => console.log(err))
+  }
+
+  static getDerivedStateFromProps (props: Props & RouterProps, state: State) {
+    if (!state.profile) {
+      return {
+        profile: props.profile
+      }
+    } else {
+      return null
     }
+
+  }
+
+  handleMappingChange = (updatedField: ProfileField) => {
+    this.state.profile.fields.filter(function (field) {
+      return field.name === updatedField.name
+    })[0] = updatedField
     this.setState({
       profile: this.state.profile
     })
   }
 
+  handleSaveProfile = () => {
+    this.props.save(this.state.profile)
+      .then(this.props.getProfiles)
+      .then(() => this.props.history.push('/holo-vault/profiles'))
+      .catch(err => console.error(err))
+  }
+
   render () {
-    const { profile, personas } = this.props
+
+    if (!this.state.profile) {
+      return (
+        <div>
+          <CircularProgress/>
+        </div>
+      )
+    }
+
+    const { profile, personas, classes } = this.props
     return (
       <div>
         {this.state.profile.fields.map((field, i) => <AutoCompleteProfileField key={i} personas={personas} profile={profile} field={field} handleMappingChange={() => this.handleMappingChange(field)} />)}
+        <Button name='addField' variant='raised' className={classes.button} onClick={this.handleSaveProfile}>
+          <Save/>
+          Save Profile
+        </Button>
       </div>
     )
   }
