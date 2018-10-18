@@ -8,8 +8,8 @@ export const personas: Array<PersonaType> = [
     hash: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7',
     name: 'Personal',
     fields: [
-        { name: 'firstName', data: 'Phil' },
-        { name: 'lastName', data: 'Beadle' },
+        { name: 'first_name', data: 'Phil' },
+        { name: 'last_name', data: 'Beadle' },
         { name: 'address', data: '123 Holochain Road' },
         { name: 'suburb', data: 'Burwood' },
         { name: 'city', data: 'Melbourne' }
@@ -19,8 +19,8 @@ export const personas: Array<PersonaType> = [
     hash: 'QmYQLnffCXXrYVdmFqKhryV4XBULunhGNoRzvrywyJen5C',
     name: 'Work',
     fields: [
-        { name: 'firstName', data: 'Philip' },
-        { name: 'lastName', data: 'Beadle' },
+        { name: 'first_name', data: 'Philip' },
+        { name: 'last_name', data: 'Beadle' },
         { name: 'role', data: 'Engineer' },
         { name: 'location', data: 'Melbourne' }
     ]
@@ -29,7 +29,7 @@ export const personas: Array<PersonaType> = [
     hash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr',
     name: 'Friends',
     fields: [
-        { name: 'nickName', data: '@philt3r' },
+        { name: 'nickname', data: '@philt3r' },
         { name: 'hobby', data: 'DJ' }
     ]
   }

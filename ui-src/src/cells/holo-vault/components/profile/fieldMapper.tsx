@@ -54,7 +54,7 @@ class FieldMapper extends React.Component<Props, {}> {
   	return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography> {profileField.displayName} </Typography>
+          <Typography>{profileField.displayName}</Typography>
           <AutoCompleteProfileField
             personas={personas}
             profile={profile}
@@ -64,9 +64,11 @@ class FieldMapper extends React.Component<Props, {}> {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
             <TextField
+              name='persona'
               label='Persona'
             />
             <TextField
+              name='field'
               label='Field'
             />
         </ExpansionPanelDetails>
