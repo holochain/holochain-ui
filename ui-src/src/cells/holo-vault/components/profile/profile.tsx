@@ -1,5 +1,9 @@
 import * as React from 'react'
-import { StyleRulesCallback } from '@material-ui/core/'
+import { StyleRulesCallback, TextField, MenuItem, Typography } from '@material-ui/core/'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { withStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
@@ -47,8 +51,6 @@ export interface State {
 }
 
 export type Props = OwnProps & DispatchProps & StateProps
-
-// make changes
 
 class Profile extends React.Component<Props & RouterProps, State> {
   constructor (props: Props & RouterProps) {
@@ -104,11 +106,65 @@ class Profile extends React.Component<Props & RouterProps, State> {
     const { profile, personas, classes } = this.props
     return (
       <div>
-        {this.state.profile.fields.map((field, i) => <AutoCompleteProfileField key={i} personas={personas} profile={profile} field={field} handleMappingChange={() => this.handleMappingChange(field)} />)}
-        <Button name='addField' variant='raised' className={classes.button} onClick={this.handleSaveProfile}>
-          <Save/>
-          Save Profile
-        </Button>
+        <Typography
+          variant='display3'
+          gutterBottom={true}
+        >
+        Select a persona for {profile.name}
+        </Typography>
+        <div>
+          <TextField
+            select={true}
+            value={this.props.personas[0].hash}
+          >
+          {this.props.personas.map((persona) => {
+            return (
+              <MenuItem
+                key={persona.hash}
+                value={persona.hash}
+              >
+                {persona.name}
+              </MenuItem>
+            )
+          })}
+          </TextField>
+        </div>
+
+        <Typography
+          variant='title'
+          gutterBottom={true}
+        >
+        {profile.name} is requesting access to the following:
+        </Typography>
+
+        <div>
+          {this.state.profile.fields.map((field, i) => {
+            return (
+              <ExpansionPanel key={i}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  <AutoCompleteProfileField
+                    key={i}
+                    personas={personas}
+                    profile={profile}
+                    field={field}
+                    handleMappingChange={() => this.handleMappingChange(field)}
+                  />
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <Typography>
+                    Full customization over the mapping is done here...
+                  </Typography>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+
+            )
+          })}
+          <Button name='addField' variant='raised' className={classes.button} onClick={this.handleSaveProfile}>
+            <Save/>
+            Save Profile
+          </Button>
+        </div>
+
       </div>
     )
   }
