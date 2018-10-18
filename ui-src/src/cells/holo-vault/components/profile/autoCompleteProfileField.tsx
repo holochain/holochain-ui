@@ -23,11 +23,11 @@ const styles: StyleRulesCallback = theme => ({
   formControl: {
     background: 'red'
   },
-  input: {
-    fontSize: 14,
-    maxWidth: 368,
-    width: 112
-  },
+  // input: {
+  //   fontSize: 14,
+  //   maxWidth: 368,
+  //   width: 112
+  // },
   inputLabel: {
     color: '#8d97a5',
     fontSize: 12
@@ -211,7 +211,6 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
           fullWidth={true}
           id='name'
           name='name'
-          label={this.props.field.displayName}
           InputProps={{
             classes: {
               input: classes.textfield

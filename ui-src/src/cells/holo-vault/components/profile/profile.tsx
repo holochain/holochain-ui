@@ -1,9 +1,5 @@
 import * as React from 'react'
 import { StyleRulesCallback, TextField, MenuItem, Typography } from '@material-ui/core/'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { withStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
@@ -13,8 +9,7 @@ import { Persona as PersonaType } from '../../types/persona'
 import Save from '@material-ui/icons/Save'
 import Button from '@material-ui/core/Button'
 import { GetProfiles, GetPersonas } from '../../actions'
-
-import AutoCompleteProfileField from './autoCompleteProfileField'
+// import Warning from '@material-ui/icons/Warning'
 
 const styles: StyleRulesCallback = theme => ({
   container: {
@@ -115,9 +110,10 @@ class Profile extends React.Component<Props & RouterProps, State> {
         <div>
           <TextField
             select={true}
-            value={this.props.personas[0].hash}
+            value={personas[0].hash}
+            label='Persona'
           >
-          {this.props.personas.map((persona) => {
+          {personas.map((persona) => {
             return (
               <MenuItem
                 key={persona.hash}
@@ -140,23 +136,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
         <div>
           {this.state.profile.fields.map((field, i) => {
             return (
-              <ExpansionPanel key={i}>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                  <AutoCompleteProfileField
-                    key={i}
-                    personas={personas}
-                    profile={profile}
-                    field={field}
-                    handleMappingChange={() => this.handleMappingChange(field)}
-                  />
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <Typography>
-                    Full customization over the mapping is done here...
-                  </Typography>
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
-
+              <div key={i}/>
             )
           })}
           <Button name='addField' variant='raised' className={classes.button} onClick={this.handleSaveProfile}>
