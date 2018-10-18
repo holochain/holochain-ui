@@ -9,6 +9,7 @@ import { Persona as PersonaType } from '../../types/persona'
 import Save from '@material-ui/icons/Save'
 import Button from '@material-ui/core/Button'
 import { GetProfiles, GetPersonas } from '../../actions'
+import FieldMapper from './fieldMapper'
 // import Warning from '@material-ui/icons/Warning'
 
 const styles: StyleRulesCallback = theme => ({
@@ -136,7 +137,12 @@ class Profile extends React.Component<Props & RouterProps, State> {
         <div>
           {this.state.profile.fields.map((field, i) => {
             return (
-              <div key={i}/>
+              <FieldMapper
+                key={i}
+                personas={personas}
+                profile={profile}
+                profileField={field}
+              />
             )
           })}
           <Button name='addField' variant='raised' className={classes.button} onClick={this.handleSaveProfile}>

@@ -28,9 +28,9 @@ export interface OwnProps {
 }
 
 export interface DispatchProps {
-  updatePersona: (persona: Persona) => void
-  udateConflictFlag: (flag: boolean) => void
+  updateNewPersona: (persona: Persona) => void
   updateNewField: (field: PersonaField) => void
+  udateConflictFlag: (flag: boolean) => void
   updateData: (data: string) => void
   updateMapping: (mapping: ProfileMapping) => void
 }

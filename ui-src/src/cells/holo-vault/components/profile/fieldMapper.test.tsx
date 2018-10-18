@@ -24,7 +24,7 @@ export const fieldMapperTests = describe('FieldMapper', () => {
     mountedFieldMapper = undefined
   })
 
-  // const mockFn = jest.fn()
+  const mockFn = jest.fn()
 
   it('renders an error message on an invalid profile field', () => {
     props = {
@@ -58,6 +58,7 @@ export const fieldMapperTests = describe('FieldMapper', () => {
       personas: constants.personas,
       primaryPersona: constants.personas[0]
     }
+    // @ts-ignore
     expect(fieldMapper().find('AutoCompleteProfileField').instance().state.value).toEqual('')
   })
 
@@ -70,11 +71,102 @@ export const fieldMapperTests = describe('FieldMapper', () => {
       personas: constants.personas,
       primaryPersona
     }
+    expect(fieldMapper().find('TextField[name="persona"]').props().value).toEqual(primaryPersona.name)
+    expect(fieldMapper().find('TextField[name="field"]').props().value).toEqual(primaryPersona.fields[0].name)
+    // @ts-ignore
+    expect(fieldMapper().find('AutoCompleteProfileField').instance().state.value).toEqual(primaryPersona.fields[0].data)
+  })
+
+  it('has the correct autocomplete values in data, persona and field fields if no match found', () => {
+    const primaryPersona = constants.personas[0]
+    const profileField = constants.exampleProfile.fields[1] // first_name
+    props = {
+      profileField, // first_name
+      profile: constants.exampleProfile,
+      personas: constants.personas,
+      primaryPersona
+    }
+    expect(true)
+    // not sure how to test this yet
+  })
+
+  it('populates the persona and field fields when selecting an autocomplete in the data field', () => {
+    const primaryPersona = constants.personas[0]
+    const profileField = constants.exampleProfile.fields[1] // first_name
+    props = {
+      profileField, // first_name
+      profile: constants.exampleProfile,
+      personas: constants.personas,
+      primaryPersona
+    }
+
+    const autoCompleteProfileField = fieldMapper().find('AutoCompleteProfileField')
+    autoCompleteProfileField.find('input[name="name"]').simulate('change', { target: { value: 'P' } })
+    autoCompleteProfileField.find('input[name="name"]').simulate('focus')
+    autoCompleteProfileField.find('MenuItem').first().simulate('click')
+    autoCompleteProfileField.find('input[name="name"]').simulate('blur')
 
     expect(fieldMapper().find('TextField[name="persona"]').props().value).toEqual(primaryPersona.name)
     expect(fieldMapper().find('TextField[name="field"]').props().value).toEqual(primaryPersona.fields[0].name)
-    expect(fieldMapper().find('AutoCompleteProfileField').instance().state.value).toEqual(primaryPersona.fields[0].data)
+  })
 
+  // ---------------------------------------------------------------
+
+  it('calls displays new badge and calls updateNewField if unmapped data is input to autocomplete', () => {
+    const primaryPersona = constants.personas[0]
+    props = {
+      profileField: {
+        name: 'not_a_match',
+        displayName: 'Not Match',
+        required: false,
+        description: 'A profileField with a weird name that wont match',
+        usage: UsageType.DISPLAY,
+        schema: { 'type': 'string' }
+      },
+      profile: constants.exampleProfile,
+      personas: constants.personas,
+      primaryPersona,
+      updateNewField: mockFn
+    }
+
+    const newData = 'newDataString'
+    const autoCompleteProfileField = fieldMapper().find('AutoCompleteProfileField')
+    autoCompleteProfileField.find('input[name="name"]').simulate('change', { target: { value: newData } })
+
+    expect(props.updateNewField).toBeCalled()
+    expect(true) // new badge to be set on data field
+    expect(true) // new badge to be set on field field
+    expect(fieldMapper().find('TextField[name="persona"]').props().value).toEqual(primaryPersona.name)
+    expect(fieldMapper().find('TextField[name="field"]').props().value).toEqual(props.profileField.name)
+  })
+
+  it('Detects a field naming collision and sets conflict badge and calls udateConflictFlag', () => {
+    const primaryPersona = constants.personas[0]
+    const profileField = constants.exampleProfile.fields[1] // first_name
+
+    const newData = 'newDataString'
+    const autoCompleteProfileField = fieldMapper().find('AutoCompleteProfileField')
+    autoCompleteProfileField.find('input[name="name"]').simulate('change', { target: { value: newData } })
+
+    props = {
+      profileField, // first_name
+      profile: constants.exampleProfile,
+      personas: constants.personas,
+      primaryPersona,
+      udateConflictFlag: mockFn
+    }
+
+    expect(true) // conflict badge to be visible
+    expect(true) // sets a useful error message
+    expect(props.udateConflictFlag).toBeCalled()
+  })
+
+  it('detects a resolved conflict by creating a new persona', () => {
+    expect(true)
+  })
+
+  it('detects a resolved conflict by changing the field name', () => {
+    expect(true)
   })
 
 })
