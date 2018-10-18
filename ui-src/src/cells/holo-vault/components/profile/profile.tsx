@@ -48,6 +48,8 @@ export interface State {
 
 export type Props = OwnProps & DispatchProps & StateProps
 
+// make changes
+
 class Profile extends React.Component<Props & RouterProps, State> {
   constructor (props: Props & RouterProps) {
     super(props)
