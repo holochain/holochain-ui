@@ -1,14 +1,11 @@
 
 import * as React from 'react'
 import { StyleRulesCallback, TextField } from '@material-ui/core/'
-
 import { withStyles } from '@material-ui/core/styles'
-import {Typography } from '@material-ui/core/'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-
 import withRoot from '../../../../withRoot'
 import { Profile, ProfileField, ProfileMapping } from '../../types/profile'
 import { Persona, PersonaField } from '../../types/persona'
@@ -18,9 +15,14 @@ import { Persona, PersonaField } from '../../types/persona'
 import AutoCompleteProfileField from './autoCompleteProfileField'
 
 const styles: StyleRulesCallback = theme => ({
+  container: {
+    flexGrow: 1,
+    position: 'relative'
+  }
 })
 
 export interface OwnProps {
+  classes?: any
   personas: Array<Persona>
   profile: Profile
   primaryPersona: Persona
@@ -50,11 +52,10 @@ class FieldMapper extends React.Component<Props, {}> {
   }
 
   render () {
-    const { profileField, personas, profile } = this.props
+    const { classes, profileField, personas, profile } = this.props
   	return (
-      <ExpansionPanel>
+      <ExpansionPanel classes={classes.container}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>{profileField.displayName}</Typography>
           <AutoCompleteProfileField
             personas={personas}
             profile={profile}
