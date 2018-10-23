@@ -29,7 +29,7 @@ export const personas: Array<PersonaType> = [
     hash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr',
     name: 'Friends',
     fields: [
-        { name: 'nickname', data: '@philt3r' },
+        { name: 'nick_name', data: '@philt3r' },
         { name: 'hobby', data: 'DJ' }
     ]
   }
@@ -52,7 +52,7 @@ export const exampleProfile: Profile = {
       schema: { 'type': 'string' },
       mapping: {
         personaHash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
-        personaFieldName: 'nickName'
+        personaFieldName: 'nick_name'
       }
     },
     {
@@ -177,7 +177,7 @@ export const exampleProfileMappedCorrectly: Profile = {
       schema: { 'type': 'string' },
       mapping: {
         personaHash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
-        personaFieldName: 'nickName'
+        personaFieldName: 'nick_name'
       }
     },
     {
@@ -189,7 +189,7 @@ export const exampleProfileMappedCorrectly: Profile = {
       schema: { 'type': 'string' },
       mapping: {
         personaHash: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7', // implies field is already mapped
-        personaFieldName: 'firstName'
+        personaFieldName: 'first_name'
       }
     },
     {
@@ -201,7 +201,7 @@ export const exampleProfileMappedCorrectly: Profile = {
       schema: { 'type': 'string' },
       mapping: {
         personaHash: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7', // implies field is already mapped
-        personaFieldName: 'lastName'
+        personaFieldName: 'last_name'
       }
     }
   ]

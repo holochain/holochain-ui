@@ -211,6 +211,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
           fullWidth={true}
           id='name'
           name='name'
+          label={this.props.field.displayName}
           InputProps={{
             classes: {
               input: classes.textfield

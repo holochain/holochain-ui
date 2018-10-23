@@ -7,7 +7,7 @@ import { Suggestion as SuggestionType } from '../../types/suggestion'
 
 configure({ adapter: new Adapter() })
 
-export const autoCompleteProfileFieldTests = describe('Auto selecting Persona values to create a Profile Mapping', () => {
+export const autoCompleteProfileFieldTests = describe('Selecting Persona values to create a Profile Mapping', () => {
 
   let props: Props
   let mountedAutoCompleteProfileField: ReactWrapper<Props, State> | undefined
@@ -59,7 +59,7 @@ export const autoCompleteProfileFieldTests = describe('Auto selecting Persona va
     }
     expect(autoCompleteProfileField().find('TextField').props().label).toEqual('Handle')
     expect(autoCompleteProfileField().find('input[name="name"]').props().value).toEqual('@philt3r')
-    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Friends - nickName')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Friends - nick_name')
   })
 
   it('Does not try to map the field if the Persona cannot be found', () => {
@@ -101,7 +101,7 @@ export const autoCompleteProfileFieldTests = describe('Auto selecting Persona va
     autoCompleteProfileField().find('MenuItem').first().simulate('click')
     autoCompleteProfileField().find('input[name="name"]').simulate('blur')
     expect(props.handleMappingChange).toBeCalled()
-    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Personal - firstName')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Personal - first_name')
   })
 
   it('Deleting all the text in the field shows no suggestions and sets the mapping back to default', () => {

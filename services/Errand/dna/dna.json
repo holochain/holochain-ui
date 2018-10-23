@@ -4,7 +4,8 @@
   "Name": "Errand",
   "Properties": {
     "description": "Trello now on Holochain",
-    "language": "en"
+    "language": "en",
+    "profileSpec": "{\"name\":\"errand\",\"fields\":[{\"name\":\"handle\",\"displayName\":\"Handle\",\"required\":true,\"description\":\"How other users will see you\",\"usage\":\"store\",\"schema\":{\"type\":\"string\",\"minLength\":3,\"maxLength\":15}},{\"name\":\"lastName\",\"displayName\":\"Last Name\",\"required\":true,\"description\":\"To avoid confusion as to who is doing the task\",\"usage\":\"store\",\"schema\":{\"type\":\"string\",\"minLength\":3,\"maxLength\":15}},{\"name\":\"firstName\",\"displayName\":\"First Name\",\"required\":true,\"description\":\"To avoid confusion as to who is doing the task\",\"usage\":\"store\",\"schema\":{\"type\":\"string\",\"minLength\":3,\"maxLength\":15}}]}"
   },
   "PropertiesSchemaFile": "properties_schema.json",
   "RequiresVersion": 26,
