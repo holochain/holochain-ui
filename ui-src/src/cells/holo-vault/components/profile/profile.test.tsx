@@ -32,13 +32,13 @@ export const profileTests = describe('', () => {
   it('A new Profile has an empty AutoCompleteProfileField for each field in the Profile request', () => {
     props = {
       personas: constants.personas,
-      profile: constants.exampleProfileNotMapped,
+      profile: constants.exampleProfileNotMappedNoDefaults,
       profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
       getPersonas: mockPromise
     }
-    expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfile.fields.length)
+    expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfileNotMappedNoDefaults.fields.length)
     profileField().find('input[name="name"]').map(function (field) {
       expect(field.props().value).toEqual('')
     })
@@ -54,9 +54,10 @@ export const profileTests = describe('', () => {
       getPersonas: mockPromise
     }
     expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfile.fields.length)
-    profileField().find('input[name="name"]').map(function (field) {
-      expect(field.props().value).toEqual('')
-    })
+    let fields = profileField().find('input[name="name"]')
+    expect(fields.first().props().value).toEqual('')
+    expect(fields.at(1).props().value).toEqual('')
+    expect(fields.last().props().value).toEqual('Beadle') // not mapped sop gets default
   })
 
   it('When an valid mapping is used, the Profile form has a populated AutoCompleteProfileField for each field in the Profile request', () => {

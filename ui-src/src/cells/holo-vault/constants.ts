@@ -5,6 +5,15 @@ import { Profile, UsageType, ProfileMapping } from './types/profile'
 
 export const personas: Array<PersonaType> = [
   {
+    hash: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtXXXXX',
+    name: 'Default',
+    fields: [
+        { name: 'handle', data: '@philt3r' },
+        { name: 'first_name', data: 'Phil' },
+        { name: 'last_name', data: 'Beadle' }
+    ]
+  },
+  {
     hash: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7',
     name: 'Personal',
     fields: [
@@ -103,7 +112,7 @@ export const exampleFaultyProfile: Profile = {
       schema: { 'type': 'string' },
       mapping: {
         personaHash: 'doiesnotexist', // implies field is already mapped
-        personaFieldName: 'nickName'
+        personaFieldName: 'nick_name'
       }
     },
     {
@@ -157,6 +166,31 @@ export const exampleProfileNotMapped: Profile = {
       required: false,
       description: 'Your actual last name shared with contacts',  // unmapped field
       usage: UsageType.STORE,
+      schema: { 'type': 'string' }
+    }
+  ]
+}
+
+export const exampleProfileNotMappedNoDefaults: Profile = {
+  name:  'Holo-Chat',
+  hash: 'QQQ',
+  expiry: 10,
+  sourceDNA:  'DNAXYZ',
+  fields: [
+    {
+      name: 'genre',
+      displayName: 'Genre',
+      required: true,
+      description: 'Your favourite music genre',
+      usage: UsageType.STORE,
+      schema: { 'type': 'string' }
+    },
+    {
+      name: 'no_default',
+      displayName: 'No Default Value',
+      required: false,
+      description: 'No default persona value',  // unmapped field
+      usage: UsageType.DISPLAY,
       schema: { 'type': 'string' }
     }
   ]

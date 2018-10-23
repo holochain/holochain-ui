@@ -161,7 +161,14 @@ function Mapping (props: any) {
       return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
     }
   } else {
-    return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
+    let filteredSuggestions = allSuggestions.filter(function (suggestion: SuggestionType) {
+      return suggestion.field.name === props.field.name
+    })
+    if (filteredSuggestions.length > 0) {
+      return (<Typography className={props.classes.persona}>{filteredSuggestions[0].persona.name + ' - ' + filteredSuggestions[0].field.name}</Typography>)
+    } else {
+      return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
+    }
   }
 }
 
@@ -200,6 +207,20 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
       }
     }
     return null
+  }
+
+  componentDidMount () {
+    if (this.props.field.mapping === undefined) {
+      let fieldName = this.props.field.name
+      let filteredSuggestions = allSuggestions.filter(function (suggestion: SuggestionType) {
+        return suggestion.field.name === fieldName
+      })
+      if (filteredSuggestions.length > 0) {
+        this.setState({
+          value: filteredSuggestions[0].field.data
+        })
+      }
+    }
   }
 
   public renderInput = (inputProps: any) => {
