@@ -25,7 +25,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
 
   const mockFn = jest.fn()
 
-  it('Display the Profile Field for an unmapped field that stores your data in the hApp DHT', () => {
+  it('Display the Profile Field for an unmapped field with no default that stores your data in the hApp DHT', () => {
 
     props = {
       personas: constants.personas,
@@ -35,10 +35,10 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
       handleMappingChange: mockFn
     }
     expect(autoCompleteProfileField().find('TextField').props().label).toEqual('Genre')
-    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Holo-Chat - genre')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Default - genre')
   })
 
-  it('Display the Profile Field for an unmapped field that displays your data from your Vault', () => {
+  it('Display the Profile Field for an unmapped field with no default that displays your data from your Vault', () => {
 
     props = {
       personas: constants.personas,
@@ -48,7 +48,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
       handleMappingChange: mockFn
     }
     expect(autoCompleteProfileField().find('TextField').props().label).toEqual('No Default Value')
-    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Holo-Chat - no_default')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Default - no_default')
   })
 
   it('Display the Profile Field for a mapped field that stores your data in the hApp DHT', () => {
@@ -76,7 +76,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
     }
     expect(autoCompleteProfileField().find('TextField').props().label).toEqual('Handle')
     expect(autoCompleteProfileField().find('input[name="name"]').props().value).toEqual('')
-    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Holo-Chat - handle')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Default - handle')
   })
 
   it('Does not try to map the field if the Persona field cannot be found', () => {
@@ -90,7 +90,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
     }
     expect(autoCompleteProfileField().find('TextField').props().label).toEqual('First Name')
     expect(autoCompleteProfileField().find('input[name="name"]').props().value).toEqual('')
-    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Holo-Chat - first_name')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Default - first_name')
   })
 
   it('Selecting a Persona value for an unmapped field sets the mapping', () => {

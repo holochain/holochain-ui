@@ -31,7 +31,8 @@ export interface OwnProps {
   personas: Array<Persona>
   profile: Profile
   selectedPersona: Persona
-  field: ProfileField
+  field: ProfileField,
+  handleMappingChange: any
 }
 
 export interface DispatchProps {
@@ -61,8 +62,9 @@ class FieldMapper extends React.Component<Props, State> {
       expansionPanelOpen: false
     }
   }
-  handleMappingChange () {
-    console.log('callback')
+  handleMappingChange = (updatedField: ProfileField) => {
+    this.props.handleMappingChange(updatedField)
+    console.log(updatedField)
   }
 
   render () {
@@ -76,7 +78,7 @@ class FieldMapper extends React.Component<Props, State> {
               selectedPersona={selectedPersona}
               profile={profile}
               field={field}
-              handleMappingChange={() => null}
+              handleMappingChange={() => this.handleMappingChange(this.props.field)}
             />
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
