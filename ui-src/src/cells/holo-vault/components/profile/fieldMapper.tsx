@@ -24,8 +24,8 @@ export interface OwnProps {
   classes?: any
   personas: Array<Persona>
   profile: Profile
-  primaryPersona: Persona
-  profileField: ProfileField
+  selectedPersona: Persona
+  field: ProfileField
 }
 
 export interface DispatchProps {
@@ -60,7 +60,7 @@ class FieldMapper extends React.Component<Props, State> {
   }
 
   render () {
-    const { classes, profileField, personas, profile } = this.props
+    const { classes, field, personas, profile } = this.props
   	return (
       <div className={classes.root}>
         <ExpansionPanel expanded={this.state.expansionPanelOpen}>
@@ -68,7 +68,7 @@ class FieldMapper extends React.Component<Props, State> {
             <AutoCompleteProfileField
               personas={personas}
               profile={profile}
-              field={profileField}
+              field={field}
               handleMappingChange={() => null}
             />
           </ExpansionPanelSummary>

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { StyleRulesCallback, TextField, MenuItem, Typography } from '@material-ui/core/'
 import { withStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import withRoot from '../../../../withRoot'
@@ -20,7 +21,17 @@ const styles: StyleRulesCallback = theme => ({
   },
   button: {
     marginRight: theme.spacing.unit,
-    marginTop: theme.spacing.unit
+    marginTop: theme.spacing.unit,
+    marginLeft: 25
+  },
+  selectContainer: {
+    paddingTop: 10,
+    paddingLeft: 25,
+    paddingRight: 25,
+    width: '100%'
+  },
+  select: {
+    width: '100%'
   }
 })
 
@@ -105,8 +116,8 @@ class Profile extends React.Component<Props & RouterProps, State> {
         <Typography variant='title' gutterBottom={true}>
         {profile.name} is requesting access to the following:
         </Typography>
-        <div>
-          <TextField select={true} value={personas[0].hash} label='Persona'>
+        <Paper className={classes.selectContainer}>
+          <TextField className={classes.select} select={true} value={personas[0].hash} label='Selected Persona'>
           {personas.map((persona) => {
             return (
               <MenuItem key={persona.hash} value={persona.hash} >
@@ -115,7 +126,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
             )
           })}
           </TextField>
-        </div>
+        </Paper>
         <div>
           {this.state.profile.fields.map((field, i) => {
             return (
@@ -123,7 +134,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
                 key={i}
                 personas={personas}
                 profile={profile}
-                profileField={field}
+                field={field}
               />
             )
           })}

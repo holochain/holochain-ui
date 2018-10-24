@@ -16,7 +16,7 @@ import * as constants from '../../constants'
 const mockPromise = jest.fn(() => Promise.reject(''))
 
 storiesOf('HoloVault/Profile', module)
-  .add('Profile form not mapped to Persona info and no defaults match', withNotes(profileNotes)(() => {
+  .add('Not mapped no defaults', withNotes(profileNotes)(() => {
     specs(() => profileTests)
     let props: Props
     props = {
@@ -29,7 +29,7 @@ storiesOf('HoloVault/Profile', module)
     }
     return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
   }))
-  .add('Profile form not mapped to Persona info has matching defaults', withNotes(profileNotes)(() => {
+  .add('Not mapped has matching defaults', withNotes(profileNotes)(() => {
     // specs(() => profileTests)
     let props: Props
     props = {
@@ -42,7 +42,7 @@ storiesOf('HoloVault/Profile', module)
     }
     return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
   }))
-  .add('Profile form mapped to Persona info', withNotes(profileNotes)(() => {
+  .add('Mapped to Persona info', withNotes(profileNotes)(() => {
     // specs(() => profileTests)
     let props: Props
     props = {
