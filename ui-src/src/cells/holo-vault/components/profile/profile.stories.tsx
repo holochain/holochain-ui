@@ -17,7 +17,7 @@ const mockPromise = jest.fn(() => Promise.reject('Save'))
 
 storiesOf('HoloVault/Profile', module)
   .add('Not mapped no defaults', withNotes(profileNotes)(() => {
-    specs(() => profileTests)
+    // specs(() => profileTests)
     let props: Props
     props = {
       personas: constants.personas,
@@ -31,7 +31,7 @@ storiesOf('HoloVault/Profile', module)
     return <MemoryRouter initialEntries={['/']}><Profile {...props} handleSaveProfile={action('Save')} /></MemoryRouter>
   }))
   .add('Not mapped has matching defaults', withNotes(profileNotes)(() => {
-    // specs(() => profileTests)
+    specs(() => profileTests)
     let props: Props
     props = {
       personas: constants.personas,

@@ -64,7 +64,6 @@ class FieldMapper extends React.Component<Props, State> {
   }
   handleMappingChange = (updatedField: ProfileField) => {
     this.props.handleMappingChange(updatedField)
-    console.log(updatedField)
   }
 
   render () {
@@ -72,7 +71,7 @@ class FieldMapper extends React.Component<Props, State> {
   	return (
       <div className={classes.root}>
         <ExpansionPanel expanded={this.state.expansionPanelOpen}>
-          <ExpansionPanelSummary expandIcon={<Person onClick={() => { this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen }) }}/>}>
+          <ExpansionPanelSummary expandIcon={<Person name='expandPersonaDetails' onClick={() => { this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen }) }}/>}>
             <AutoCompleteProfileField
               personas={personas}
               selectedPersona={selectedPersona}

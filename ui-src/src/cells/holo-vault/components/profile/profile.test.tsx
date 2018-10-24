@@ -83,7 +83,7 @@ export const profileTests = describe('', () => {
     props = {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
-      profile: constants.exampleProfileNotMapped,
+      profile: constants.exampleProfileNotMappedNoDefaults,
       profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,

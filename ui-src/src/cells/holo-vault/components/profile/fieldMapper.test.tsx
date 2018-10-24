@@ -3,7 +3,7 @@ import { mount, ReactWrapper, configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import * as constants from '../../constants'
 // import { Suggestion as SuggestionType } from '../../types/suggestion'
-import FieldMapper, { Props } from './fieldMapper'
+import FieldMapper, { Props, State } from './fieldMapper'
 import { UsageType } from '../../types/profile'
 
 configure({ adapter: new Adapter() })
@@ -11,7 +11,7 @@ configure({ adapter: new Adapter() })
 export const fieldMapperTests = describe('FieldMapper', () => {
 
   let props: any// : Props
-  let mountedFieldMapper: ReactWrapper<Props, {}> | undefined
+  let mountedFieldMapper: ReactWrapper<Props, State> | undefined
 
   const fieldMapper = () => {
     if (!mountedFieldMapper) {
@@ -25,6 +25,38 @@ export const fieldMapperTests = describe('FieldMapper', () => {
   })
 
   // const mockFn = jest.fn()
+
+  it('Clicking the Persona Icon opens the power user tools', () => {
+    const selectedPersona = constants.personas[0]
+    const field = constants.exampleProfile.fields[1] // first_name
+    props = {
+      field: field, // first_name
+      profile: constants.exampleProfile,
+      personas: constants.personas,
+      selectedPersona
+    }
+    fieldMapper().find('Person').simulate('click')
+    expect((fieldMapper().find('FieldMapper').instance().state as State).expansionPanelOpen).toEqual(true)
+  })
+
+  // it('Selecting a persona value fires the handleMapping change event', () => {
+  //   const selectedPersona = constants.personas[0]
+  //   const field = constants.exampleProfileNotMappedNoDefaults.fields[1] // first_name
+  //   props = {
+  //     field: field, // first_name
+  //     profile: constants.exampleProfileNotMappedNoDefaults,
+  //     personas: constants.personas,
+  //     selectedPersona
+  //   }
+  //   const autoCompleteProfileField = fieldMapper().find('AutoCompleteProfileField')
+  //   autoCompleteProfileField.find('input[name="name"]').simulate('change', { target: { value: '@' } })
+  //   autoCompleteProfileField.find('input[name="name"]').simulate('focus')
+  //   // @ts-ignore
+  //   console.log(fieldMapper().find('AutoCompleteProfileField').instance().state.suggestions)
+  //   autoCompleteProfileField.find('MenuItem').first().simulate('click')
+  //   autoCompleteProfileField.find('input[name="name"]').simulate('blur')
+  //   expect(props.handleMappingChange).toBeCalled()
+  // })
 
   it('Does nothing if primary persona contains no fields with name equal to profileField.name', () => {
     props = {
@@ -44,20 +76,20 @@ export const fieldMapperTests = describe('FieldMapper', () => {
     expect(fieldMapper().find('AutoCompleteProfileField').instance().state.value).toEqual('')
   })
 
-  it('Populates data field, persona field and field name field if a match is found in primary persona', () => {
-    const selectedPersona = constants.personas[0]
-    const field = constants.exampleProfile.fields[1] // first_name
-    props = {
-      field: field, // first_name
-      profile: constants.exampleProfile,
-      personas: constants.personas,
-      selectedPersona
-    }
-    expect(fieldMapper().find('TextField[name="persona"]').props().value).toEqual(selectedPersona.name)
-    expect(fieldMapper().find('TextField[name="field"]').props().value).toEqual(selectedPersona.fields[0].name)
-    // @ts-ignore
-    expect(fieldMapper().find('AutoCompleteProfileField').instance().state.value).toEqual(selectedPersona.fields[0].data)
-  })
+  // it('Populates data field, persona field and field name field if a match is found in primary persona', () => {
+  //   const selectedPersona = constants.personas[0]
+  //   const field = constants.exampleProfile.fields[1] // first_name
+  //   props = {
+  //     field: field, // first_name
+  //     profile: constants.exampleProfile,
+  //     personas: constants.personas,
+  //     selectedPersona
+  //   }
+  //   expect(fieldMapper().find('TextField[name="persona"]').props().value).toEqual(selectedPersona.name)
+  //   expect(fieldMapper().find('TextField[name="field"]').props().value).toEqual(selectedPersona.fields[0].name)
+  //   // @ts-ignore
+  //   expect(fieldMapper().find('AutoCompleteProfileField').instance().state.value).toEqual(selectedPersona.fields[0].data)
+  // })
   //
   // it('has the correct autocomplete values in data, persona and field fields if no match found', () => {
   //   const selectedPersona = constants.personas[0]

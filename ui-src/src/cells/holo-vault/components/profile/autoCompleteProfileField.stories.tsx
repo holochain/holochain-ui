@@ -21,7 +21,7 @@ storiesOf('HoloVault/Profile/AutoComplete', module)
     return <AutoCompleteProfileField {...props} />
   }))
   .add('Autocomplete Profile Field not mapped but has matching persona value', withNotes(autoCompleteProfileFieldNotes)(() => {
-    specs(() => autoCompleteProfileFieldTests)
+    // specs(() => autoCompleteProfileFieldTests)
     const props = {
       personas: constants.personas,
       selectedPersona: constants.personas[0],

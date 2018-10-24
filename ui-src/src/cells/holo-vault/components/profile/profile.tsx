@@ -86,7 +86,6 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   handleMappingChange = (updatedField: ProfileField) => {
-    console.log('handleMappingChange')
     this.state.profile.fields.filter(function (field) {
       return field.name === updatedField.name
     })[0] = updatedField
@@ -96,7 +95,6 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   handleSaveProfile = () => {
-    console.log(this.state.profile)
     this.props.save(this.state.profile)
       .then(this.props.getProfiles)
       .then(() => this.props.history.push('/holo-vault/profiles'))
