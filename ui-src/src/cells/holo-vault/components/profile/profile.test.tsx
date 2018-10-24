@@ -32,6 +32,7 @@ export const profileTests = describe('', () => {
   it('A new Profile has an empty AutoCompleteProfileField for each field in the Profile request', () => {
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
       profiles: [],
       save: mockPromise,
@@ -47,6 +48,7 @@ export const profileTests = describe('', () => {
   it('When an invalid mapping is used, the Profile has an empty AutoCompleteProfileField for each field in the Profile request', () => {
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleFaultyProfile,
       profiles: [],
       save: mockPromise,
@@ -63,6 +65,7 @@ export const profileTests = describe('', () => {
   it('When an valid mapping is used, the Profile form has a populated AutoCompleteProfileField for each field in the Profile request', () => {
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfileMappedCorrectly,
       profiles: [],
       save: mockPromise,
@@ -79,6 +82,7 @@ export const profileTests = describe('', () => {
   it('Mapping or entering new info into a field updates the Profile state', () => {
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMapped,
       profiles: [],
       save: mockPromise,
@@ -98,6 +102,7 @@ export const profileTests = describe('', () => {
   it('Clicking Save Profile fires the event', () => {
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfileMappedCorrectly,
       profiles: [],
       save: mockPromise,

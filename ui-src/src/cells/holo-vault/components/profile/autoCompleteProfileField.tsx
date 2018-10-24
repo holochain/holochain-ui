@@ -123,6 +123,7 @@ export interface OwnProps {
 
 export interface StateProps {
   personas: Array<PersonaType>
+  selectedPersona: PersonaType
   profile: ProfileType
   field: ProfileField
   handleMappingChange: any
@@ -158,10 +159,10 @@ function Mapping (props: any) {
       if (filteredData.length > 0) {
         return (<Typography className={props.classes.persona}>{filteredPersonas[0].name + ' - ' + mapping.personaFieldName}</Typography>)
       } else {
-        return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
+        return (<Typography className={props.classes.persona}>{props.selectedPersona.name + ' - ' + props.field.name}</Typography>)
       }
     } else {
-      return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
+      return (<Typography className={props.classes.persona}>{props.selectedPersona.name + ' - ' + props.field.name}</Typography>)
     }
   } else {
     let filteredSuggestions = allSuggestions.filter(function (suggestion: SuggestionType) {
@@ -170,7 +171,7 @@ function Mapping (props: any) {
     if (filteredSuggestions.length > 0) {
       return (<Typography className={props.classes.persona}>{filteredSuggestions[0].persona.name + ' - ' + filteredSuggestions[0].field.name}</Typography>)
     } else {
-      return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
+      return (<Typography className={props.classes.persona}>{props.selectedPersona.name + ' - ' + props.field.name}</Typography>)
     }
   }
 }
@@ -291,7 +292,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
   }
 
   public render () {
-    const { classes, field, profile, personas } = this.props
+    const { classes, field, profile, personas, selectedPersona } = this.props
 
     return (
       <div className={classes.root}>
@@ -318,7 +319,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
           }}
         />
         <UsageIcon type={field.usage} reason={field.description} className={classes.icon}/>
-        <Mapping classes={classes} profile={profile} field={this.state.field} personas={personas} />
+        <Mapping classes={classes} profile={profile} field={this.state.field} personas={personas} selectedPersona={selectedPersona} />
       </div>
     )
   }

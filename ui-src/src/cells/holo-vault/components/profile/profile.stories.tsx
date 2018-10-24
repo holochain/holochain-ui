@@ -21,6 +21,7 @@ storiesOf('HoloVault/Profile', module)
     let props: Props
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
       profiles: [],
       save: mockPromise,
@@ -34,6 +35,7 @@ storiesOf('HoloVault/Profile', module)
     let props: Props
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMapped,
       profiles: [],
       save: mockPromise,
@@ -47,6 +49,7 @@ storiesOf('HoloVault/Profile', module)
     let props: Props
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfileMappedCorrectly,
       profiles: [],
       save: mockPromise,

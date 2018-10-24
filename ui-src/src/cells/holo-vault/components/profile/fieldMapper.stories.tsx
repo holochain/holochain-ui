@@ -12,7 +12,8 @@ storiesOf('HoloVault/Profile/FieldMapper', module)
     const props = {
       field: constants.exampleProfile.fields[0],
       profile: constants.exampleProfile,
-      personas: constants.personas
+      personas: constants.personas,
+      selectedPersona: constants.personas[0]
     }
 
     return <FieldMapper {...props} />
@@ -23,7 +24,8 @@ storiesOf('HoloVault/Profile/FieldMapper', module)
     const props = {
       field: constants.exampleProfileNotMapped.fields[0],
       profile: constants.exampleProfileNotMapped,
-      personas: constants.personas
+      personas: constants.personas,
+      selectedPersona: constants.personas[0]
     }
 
     return <FieldMapper {...props} />
@@ -34,7 +36,8 @@ storiesOf('HoloVault/Profile/FieldMapper', module)
     const props = {
       field: constants.exampleProfileNotMappedNoDefaults.fields[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
-      personas: constants.personas
+      personas: constants.personas,
+      selectedPersona: constants.personas[0]
     }
 
     return <FieldMapper {...props} />

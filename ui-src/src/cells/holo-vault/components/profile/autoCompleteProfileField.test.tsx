@@ -29,6 +29,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
 
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
       field: constants.exampleProfileNotMappedNoDefaults.fields[0],
       handleMappingChange: mockFn
@@ -41,6 +42,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
 
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
       field: constants.exampleProfileNotMappedNoDefaults.fields[1],
       handleMappingChange: mockFn
@@ -53,6 +55,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
 
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfile,
       field: constants.exampleProfile.fields[0],
       handleMappingChange: mockFn
@@ -66,6 +69,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
 
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleFaultyProfile,
       field: constants.exampleFaultyProfile.fields[0],
       handleMappingChange: mockFn
@@ -79,6 +83,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
 
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleFaultyProfile,
       field: constants.exampleFaultyProfile.fields[1],
       handleMappingChange: mockFn
@@ -92,6 +97,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
 
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfile,
       field: constants.exampleProfile.fields[1],
       handleMappingChange: mockFn
@@ -108,6 +114,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
 
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfile,
       field: constants.exampleProfile.fields[2],
       handleMappingChange: mockFn
@@ -124,6 +131,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
   it('Populates data field, persona field and field name field if a match is found in any persona', () => {
     props = {
       personas: constants.personas,
+      selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMapped,
       field: constants.exampleProfileNotMapped.fields[1],
       handleMappingChange: mockFn

@@ -49,6 +49,7 @@ export interface DispatchProps {
 
 export interface StateProps {
   personas: Array<PersonaType>
+  selectedPersona: PersonaType
   profile: ProfileType,
   profiles: Array<ProfileType>
 }
@@ -110,7 +111,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
       )
     }
 
-    const { profile, personas, classes } = this.props
+    const { profile, personas, classes, selectedPersona } = this.props
     return (
       <div>
         <Typography variant='title' gutterBottom={true}>
@@ -133,6 +134,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
               <FieldMapper
                 key={i}
                 personas={personas}
+                selectedPersona={selectedPersona}
                 profile={profile}
                 field={field}
               />

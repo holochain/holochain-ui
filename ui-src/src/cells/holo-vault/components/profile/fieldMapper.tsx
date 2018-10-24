@@ -17,6 +17,12 @@ import AutoCompleteProfileField from './autoCompleteProfileField'
 const styles: StyleRulesCallback = theme => ({
   root: {
     width: '100%'
+  },
+  persona: {
+    width: '50%'
+  },
+  field: {
+    width: '50%'
   }
 })
 
@@ -60,27 +66,22 @@ class FieldMapper extends React.Component<Props, State> {
   }
 
   render () {
-    const { classes, field, personas, profile } = this.props
+    const { classes, field, personas, selectedPersona, profile } = this.props
   	return (
       <div className={classes.root}>
         <ExpansionPanel expanded={this.state.expansionPanelOpen}>
           <ExpansionPanelSummary expandIcon={<Person onClick={() => { this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen }) }}/>}>
             <AutoCompleteProfileField
               personas={personas}
+              selectedPersona={selectedPersona}
               profile={profile}
               field={field}
               handleMappingChange={() => null}
             />
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-              <TextField
-                name='persona'
-                label='Persona'
-              />
-              <TextField
-                name='field'
-                label='Field'
-              />
+              <TextField className={classes.persona} name='persona' label='Persona'/>
+              <TextField className={classes.field} name='field' label='Field'/>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
