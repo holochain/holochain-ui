@@ -16,6 +16,9 @@ import Save from '@material-ui/icons/Save'
 import Dvr from '@material-ui/icons/Dvr'
 
 const styles: StyleRulesCallback = theme => ({
+  root: {
+    width: '100%'
+  },
   container: {
     flexGrow: 1,
     position: 'relative'
@@ -291,7 +294,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
     const { classes, field, profile, personas } = this.props
 
     return (
-      <div>
+      <div className={classes.root}>
         <Autosuggest
           id='selectedPersonaFieldValue'
           theme={{

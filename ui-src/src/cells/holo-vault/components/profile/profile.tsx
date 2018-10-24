@@ -102,38 +102,20 @@ class Profile extends React.Component<Props & RouterProps, State> {
     const { profile, personas, classes } = this.props
     return (
       <div>
-        <Typography
-          variant='display3'
-          gutterBottom={true}
-        >
-        Select a persona for {profile.name}
+        <Typography variant='title' gutterBottom={true}>
+        {profile.name} is requesting access to the following:
         </Typography>
         <div>
-          <TextField
-            select={true}
-            value={personas[0].hash}
-            label='Persona'
-          >
+          <TextField select={true} value={personas[0].hash} label='Persona'>
           {personas.map((persona) => {
             return (
-              <MenuItem
-                key={persona.hash}
-                value={persona.hash}
-              >
+              <MenuItem key={persona.hash} value={persona.hash} >
                 {persona.name}
               </MenuItem>
             )
           })}
           </TextField>
         </div>
-
-        <Typography
-          variant='title'
-          gutterBottom={true}
-        >
-        {profile.name} is requesting access to the following:
-        </Typography>
-
         <div>
           {this.state.profile.fields.map((field, i) => {
             return (

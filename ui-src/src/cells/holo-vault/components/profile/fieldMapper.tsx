@@ -5,19 +5,18 @@ import { withStyles } from '@material-ui/core/styles'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import withRoot from '../../../../withRoot'
 import { Profile, ProfileField, ProfileMapping } from '../../types/profile'
 import { Persona, PersonaField } from '../../types/persona'
+import Person from '@material-ui/icons/Person'
 
 // import Warning from '@material-ui/icons/Warning'
 
 import AutoCompleteProfileField from './autoCompleteProfileField'
 
 const styles: StyleRulesCallback = theme => ({
-  container: {
-    flexGrow: 1,
-    position: 'relative'
+  root: {
+    width: '100%'
   }
 })
 
@@ -43,10 +42,19 @@ export interface StateProps {
   conflict: boolean
 }
 
+export interface State {
+  expansionPanelOpen: boolean
+}
+
 export type Props = OwnProps & DispatchProps & StateProps
 
-class FieldMapper extends React.Component<Props, {}> {
-
+class FieldMapper extends React.Component<Props, State> {
+  constructor (props: Props) {
+    super(props)
+    this.state = {
+      expansionPanelOpen: false
+    }
+  }
   handleMappingChange () {
     console.log('callback')
   }
@@ -54,26 +62,28 @@ class FieldMapper extends React.Component<Props, {}> {
   render () {
     const { classes, profileField, personas, profile } = this.props
   	return (
-      <ExpansionPanel classes={classes.container}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <AutoCompleteProfileField
-            personas={personas}
-            profile={profile}
-            field={profileField}
-            handleMappingChange={() => null}
-          />
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-            <TextField
-              name='persona'
-              label='Persona'
+      <div className={classes.root}>
+        <ExpansionPanel expanded={this.state.expansionPanelOpen}>
+          <ExpansionPanelSummary expandIcon={<Person onClick={() => { this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen }) }}/>}>
+            <AutoCompleteProfileField
+              personas={personas}
+              profile={profile}
+              field={profileField}
+              handleMappingChange={() => null}
             />
-            <TextField
-              name='field'
-              label='Field'
-            />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+              <TextField
+                name='persona'
+                label='Persona'
+              />
+              <TextField
+                name='field'
+                label='Field'
+              />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      </div>
   	)
   }
 }

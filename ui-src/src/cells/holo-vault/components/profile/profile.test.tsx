@@ -87,7 +87,7 @@ export const profileTests = describe('', () => {
     }
     let profile: ProfileType = (profileField().find('Profile').instance().state as State).profile
     expect(profile.fields[0].mapping).toEqual(undefined)
-    profileField().find('input[name="name"]').first().simulate('change', { target: { value: 'P' } })
+    profileField().find('input[name="name"]').first().simulate('change', { target: { value: '@' } })
     profileField().find('input[name="name"]').first().simulate('focus')
     profileField().find('MenuItem').first().simulate('click')
     profileField().find('input[name="name"]').first().simulate('blur')

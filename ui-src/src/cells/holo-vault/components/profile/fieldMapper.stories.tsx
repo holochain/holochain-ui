@@ -28,3 +28,14 @@ storiesOf('HoloVault/Profile/FieldMapper', module)
 
     return <FieldMapper {...props} />
   }))
+  .add('Sets the persona field to Default and field name to the field if a match is not found in any persona', (() => {
+    // specs(() => fieldMapperTests)
+
+    const props = {
+      profileField: constants.exampleProfileNotMappedNoDefaults.fields[0],
+      profile: constants.exampleProfileNotMappedNoDefaults,
+      personas: constants.personas
+    }
+
+    return <FieldMapper {...props} />
+  }))
