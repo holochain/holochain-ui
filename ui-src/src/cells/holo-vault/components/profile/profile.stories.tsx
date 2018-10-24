@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { storiesOf } from '@storybook/react'
-// import { action } from '@storybook/addon-actions'
+import { action } from '@storybook/addon-actions'
 // import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
 import { specs } from 'storybook-addon-specifications'
@@ -13,7 +13,7 @@ import * as constants from '../../constants'
 // import CreateStore from '../../../../store'
 
 // let store = CreateStore()
-const mockPromise = jest.fn(() => Promise.reject(''))
+const mockPromise = jest.fn(() => Promise.reject('Save'))
 
 storiesOf('HoloVault/Profile', module)
   .add('Not mapped no defaults', withNotes(profileNotes)(() => {
@@ -28,7 +28,7 @@ storiesOf('HoloVault/Profile', module)
       getProfiles: mockPromise,
       getPersonas: mockPromise
     }
-    return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
+    return <MemoryRouter initialEntries={['/']}><Profile {...props} handleSaveProfile={action('Save')} /></MemoryRouter>
   }))
   .add('Not mapped has matching defaults', withNotes(profileNotes)(() => {
     // specs(() => profileTests)
