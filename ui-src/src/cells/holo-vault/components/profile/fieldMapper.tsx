@@ -6,8 +6,8 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import withRoot from '../../../../withRoot'
-import { Profile, ProfileField, ProfileMapping } from '../../types/profile'
-import { Persona, PersonaField } from '../../types/persona'
+import { Profile, ProfileField } from '../../types/profile'
+import { Persona as PersonaType, PersonaField as PersonaFieldType } from '../../types/persona'
 import Person from '@material-ui/icons/Person'
 
 // import Warning from '@material-ui/icons/Warning'
@@ -28,44 +28,60 @@ const styles: StyleRulesCallback = theme => ({
 
 export interface OwnProps {
   classes?: any
-  personas: Array<Persona>
+  personas: Array<PersonaType>
   profile: Profile
-  selectedPersona: Persona
+  selectedPersona: PersonaType
   field: ProfileField,
   handleMappingChange: any
 }
 
-export interface DispatchProps {
-  updateNewPersona: (persona: Persona) => void
-  updateNewField: (field: PersonaField) => void
-  udateConflictFlag: (flag: boolean) => void
-  updateData: (data: string) => void
-  updateMapping: (mapping: ProfileMapping) => void
-}
-
 export interface StateProps {
-  newPersona: Persona
-  newField: PersonaField
+  newPersona: PersonaType
+  newField: PersonaFieldType
   conflict: boolean
 }
 
 export interface State {
   expansionPanelOpen: boolean
+  mappedPersona: PersonaType
+  mappedField: string
 }
 
-export type Props = OwnProps & DispatchProps & StateProps
+export type Props = OwnProps & StateProps
 
 class FieldMapper extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props)
     this.state = {
-      expansionPanelOpen: false
+      expansionPanelOpen: false,
+      mappedPersona: props.selectedPersona,
+      mappedField: props.field.name
     }
   }
-  handleMappingChange = (updatedField: ProfileField) => {
-    this.props.handleMappingChange(updatedField)
+
+  componentDidMount () {
+    if (this.props.field.mapping !== undefined) {
+      this.setPersonaAndFieldName(this.props.field)
+    }
   }
 
+  handleMappingChange = (updatedField: ProfileField) => {
+    this.props.handleMappingChange(updatedField)
+    this.setPersonaAndFieldName(updatedField)
+  }
+
+  setPersonaAndFieldName (field: ProfileField) {
+    if (field.mapping !== undefined) {
+      let mapping = field.mapping
+      let filteredPersonas = this.props.personas.filter(function (persona: PersonaType) {
+        return mapping.personaHash === persona.hash
+      })
+      this.setState({
+        mappedPersona: filteredPersonas[0],
+        mappedField: field.mapping.personaFieldName
+      })
+    }
+  }
   render () {
     const { classes, field, personas, selectedPersona, profile } = this.props
   	return (
@@ -81,8 +97,8 @@ class FieldMapper extends React.Component<Props, State> {
             />
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-              <TextField className={classes.persona} name='persona' label='Persona'/>
-              <TextField className={classes.field} name='field' label='Field'/>
+              <TextField className={classes.persona} name='persona' label='Persona' value={this.state.mappedPersona.name}/>
+              <TextField className={classes.field} name='field' label='Field' value={this.state.mappedField}/>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

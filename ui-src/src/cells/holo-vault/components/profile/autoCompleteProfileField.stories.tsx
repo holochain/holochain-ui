@@ -10,7 +10,7 @@ import * as constants from '../../constants'
 
 storiesOf('HoloVault/Profile/AutoComplete', module)
   .add('Autocomplete Profile Field not mapped', withNotes(autoCompleteProfileFieldNotes)(() => {
-    specs(() => autoCompleteProfileFieldTests)
+    // specs(() => autoCompleteProfileFieldTests)
     const props = {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
@@ -32,7 +32,7 @@ storiesOf('HoloVault/Profile/AutoComplete', module)
     return <AutoCompleteProfileField {...props} />
   }))
   .add('Autocomplete Profile Field mapped to Persona data', withNotes(autoCompleteProfileFieldNotes)(() => {
-    // specs(() => autoCompleteProfileFieldTests)
+    specs(() => autoCompleteProfileFieldTests)
     const props = {
       personas: constants.personas,
       selectedPersona: constants.personas[0],

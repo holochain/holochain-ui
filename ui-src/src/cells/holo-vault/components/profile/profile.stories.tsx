@@ -31,7 +31,7 @@ storiesOf('HoloVault/Profile', module)
     return <MemoryRouter initialEntries={['/']}><Profile {...props} handleSaveProfile={action('Save')} /></MemoryRouter>
   }))
   .add('Not mapped has matching defaults', withNotes(profileNotes)(() => {
-    specs(() => profileTests)
+    // specs(() => profileTests)
     let props: Props
     props = {
       personas: constants.personas,
@@ -45,7 +45,7 @@ storiesOf('HoloVault/Profile', module)
     return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
   }))
   .add('Mapped to Persona info', withNotes(profileNotes)(() => {
-    // specs(() => profileTests)
+    specs(() => profileTests)
     let props: Props
     props = {
       personas: constants.personas,

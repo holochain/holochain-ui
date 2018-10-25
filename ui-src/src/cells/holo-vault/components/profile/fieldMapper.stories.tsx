@@ -1,17 +1,17 @@
 import * as React from 'react'
 import { storiesOf } from '@storybook/react'
-// import { specs } from 'storybook-addon-specifications'
+import { specs } from 'storybook-addon-specifications'
 import FieldMapper from './fieldMapper'
-// import { fieldMapperTests } from './fieldMapper.test'
+import { fieldMapperTests } from './fieldMapper.test'
 import * as constants from '../../constants'
 
 storiesOf('HoloVault/Profile/FieldMapper', module)
   .add('Renders with a mapped profile field and personas', (() => {
-    // specs(() => fieldMapperTests)
+    specs(() => fieldMapperTests)
 
     const props = {
-      field: constants.exampleProfile.fields[0],
-      profile: constants.exampleProfile,
+      field: constants.exampleProfileMappedCorrectly.fields[0],
+      profile: constants.exampleProfileMappedCorrectly,
       personas: constants.personas,
       selectedPersona: constants.personas[0]
     }
