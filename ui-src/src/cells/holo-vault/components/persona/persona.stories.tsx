@@ -46,7 +46,7 @@ function getPersona (persona: PersonaType) {
   return (
     <Provider store={store}>
       <MemoryRouter initialEntries={['/']}>
-        <Persona create={action('Click Create Persona')} update={action('Click Update Persona')} getPersonas={action('Refresh Persona List')} currentPersona={persona}/>
+        <Persona create={action('Click Create Persona')} update={action('Click Update Persona')} getPersonas={jest.fn(() => Promise.resolve('Get Personas'))} currentPersona={persona}/>
       </MemoryRouter>
     </Provider>)
 }

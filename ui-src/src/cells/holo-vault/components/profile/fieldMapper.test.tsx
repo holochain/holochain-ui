@@ -76,20 +76,50 @@ export const fieldMapperTests = describe('FieldMapper', () => {
     expect(fieldMapper().find('AutoCompleteProfileField').instance().state.value).toEqual('')
   })
 
-  // it('Populates data field, persona field and field name field if a match is found in primary persona', () => {
-  //   const selectedPersona = constants.personas[0]
-  //   const field = constants.exampleProfile.fields[1] // first_name
-  //   props = {
-  //     field: field, // first_name
-  //     profile: constants.exampleProfile,
-  //     personas: constants.personas,
-  //     selectedPersona
-  //   }
-  //   expect(fieldMapper().find('TextField[name="persona"]').props().value).toEqual(selectedPersona.name)
-  //   expect(fieldMapper().find('TextField[name="field"]').props().value).toEqual(selectedPersona.fields[0].name)
-  //   // @ts-ignore
-  //   expect(fieldMapper().find('AutoCompleteProfileField').instance().state.value).toEqual(selectedPersona.fields[0].data)
-  // })
+  it('Populates data field, persona field and field name field with mapped field', () => {
+    const selectedPersona = constants.personas[0]
+    const field = constants.exampleProfileMappedCorrectly.fields[0] // nick_name in Friends persona
+    props = {
+      field: field,
+      profile: constants.exampleProfileMappedCorrectly,
+      personas: constants.personas,
+      selectedPersona
+    }
+    expect(fieldMapper().find('TextField[name="persona"]').props().value).toEqual(constants.personas[3].name)
+    expect(fieldMapper().find('TextField[name="field"]').props().value).toEqual(constants.personas[3].fields[0].name)
+    // @ts-ignore
+    expect(fieldMapper().find('AutoCompleteProfileField').instance().state.value).toEqual(constants.personas[3].fields[0].data)
+  })
+
+  it('Populates data field, persona field and field name field with matched data from a Persona when not mapped', () => {
+    const selectedPersona = constants.personas[0]
+    const field = constants.exampleProfileNotMapped.fields[0] // nick_name in Friends persona
+    props = {
+      field: field,
+      profile: constants.exampleProfileNotMapped,
+      personas: constants.personas,
+      selectedPersona
+    }
+    expect(fieldMapper().find('TextField[name="persona"]').props().value).toEqual(constants.personas[0].name)
+    expect(fieldMapper().find('TextField[name="field"]').props().value).toEqual(constants.personas[0].fields[0].name)
+    // @ts-ignore
+    expect(fieldMapper().find('AutoCompleteProfileField').instance().state.value).toEqual(constants.personas[0].fields[0].data)
+  })
+
+  it('Populates data field, persona field and field name field with Default and propfile field name when no match', () => {
+    const selectedPersona = constants.personas[0]
+    const field = constants.exampleProfileNotMappedNoDefaults.fields[0] // genre
+    props = {
+      field: field,
+      profile: constants.exampleProfileNotMappedNoDefaults,
+      personas: constants.personas,
+      selectedPersona
+    }
+    expect(fieldMapper().find('TextField[name="persona"]').props().value).toEqual(constants.personas[0].name)
+    expect(fieldMapper().find('TextField[name="field"]').props().value).toEqual(field.name)
+    // @ts-ignore
+    expect(fieldMapper().find('AutoCompleteProfileField').instance().state.value).toEqual('')
+  })
   //
   // it('has the correct autocomplete values in data, persona and field fields if no match found', () => {
   //   const selectedPersona = constants.personas[0]

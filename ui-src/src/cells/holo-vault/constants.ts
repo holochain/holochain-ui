@@ -196,6 +196,31 @@ export const exampleProfileNotMappedNoDefaults: Profile = {
   ]
 }
 
+export const exampleProfileNotMappedNoDefaultsManualMap: Profile = {
+  name:  'Holo-Chat',
+  hash: 'QQQ',
+  expiry: 10,
+  sourceDNA:  'DNAXYZ',
+  fields: [
+    {
+      name: 'locale',
+      displayName: 'Locale',
+      required: true,
+      description: 'Your preferred language',
+      usage: UsageType.DISPLAY,
+      schema: { 'type': 'string' }
+    },
+    {
+      name: 'no_default',
+      displayName: 'No Default Value',
+      required: false,
+      description: 'No default persona value',  // unmapped field
+      usage: UsageType.DISPLAY,
+      schema: { 'type': 'string' }
+    }
+  ]
+}
+
 export const exampleProfileMappedCorrectly: Profile = {
   name:  'Holo-Chat',
   hash: 'QQQ',

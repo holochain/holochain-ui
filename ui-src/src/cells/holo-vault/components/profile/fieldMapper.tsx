@@ -76,10 +76,12 @@ class FieldMapper extends React.Component<Props, State> {
       let filteredPersonas = this.props.personas.filter(function (persona: PersonaType) {
         return mapping.personaHash === persona.hash
       })
-      this.setState({
-        mappedPersona: filteredPersonas[0],
-        mappedField: field.mapping.personaFieldName
-      })
+      if (filteredPersonas.length !== 0) {
+        this.setState({
+          mappedPersona: filteredPersonas[0],
+          mappedField: field.mapping.personaFieldName
+        })
+      }
     }
   }
   render () {
