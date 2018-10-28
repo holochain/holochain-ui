@@ -197,10 +197,10 @@ export const exampleProfileNotMappedNoDefaults: Profile = {
 }
 
 export const exampleProfileNotMappedNoDefaultsManualMap: Profile = {
-  name:  'Holo-Chat',
+  name:  'Errand',
   hash: 'QQQ',
   expiry: 10,
-  sourceDNA:  'DNAXYZ',
+  sourceDNA:  'DNAXYZErrand',
   fields: [
     {
       name: 'locale',
@@ -222,10 +222,10 @@ export const exampleProfileNotMappedNoDefaultsManualMap: Profile = {
 }
 
 export const exampleProfileMappedCorrectly: Profile = {
-  name:  'Holo-Chat',
+  name:  'Holo-Git',
   hash: 'QQQ',
   expiry: 10,
-  sourceDNA:  'DNAXYZ',
+  sourceDNA:  'DNAXYZ123',
   fields: [
     {
       name: 'handle',

@@ -18,7 +18,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 })
 
 export interface OwnProps {
-  classes: any,
+  classes?: any,
 }
 
 export interface StateProps {
@@ -54,8 +54,9 @@ class Profiles extends React.Component<Props, {}> {
             profiles.map((profile: Profile, index: number) => (
               // tslint:disable-next-line jsx-no-lambda
               <Route
+                key={index}
                 render={({ history }) => (
-                  <ListItem key={index} button={true} onClick={() => { history.push(`/holo-vault/profile/${profile.sourceDNA}`) }}>
+                  <ListItem button={true} onClick={() => { history.push(`/holo-vault/profile/${profile.sourceDNA}`) }}>
                     <ListItemText primary={profile.name} />
                   </ListItem>
                 )}
