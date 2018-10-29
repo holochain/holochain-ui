@@ -16,6 +16,9 @@ import Save from '@material-ui/icons/Save'
 import Dvr from '@material-ui/icons/Dvr'
 
 const styles: StyleRulesCallback = theme => ({
+  root: {
+    width: '100%'
+  },
   container: {
     flexGrow: 1,
     position: 'relative'
@@ -23,11 +26,11 @@ const styles: StyleRulesCallback = theme => ({
   formControl: {
     background: 'red'
   },
-  input: {
-    fontSize: 14,
-    maxWidth: 368,
-    width: 112
-  },
+  // input: {
+  //   fontSize: 14,
+  //   maxWidth: 368,
+  //   width: 112
+  // },
   inputLabel: {
     color: '#8d97a5',
     fontSize: 12
@@ -120,6 +123,7 @@ export interface OwnProps {
 
 export interface StateProps {
   personas: Array<PersonaType>
+  selectedPersona: PersonaType
   profile: ProfileType
   field: ProfileField
   handleMappingChange: any
@@ -155,13 +159,20 @@ function Mapping (props: any) {
       if (filteredData.length > 0) {
         return (<Typography className={props.classes.persona}>{filteredPersonas[0].name + ' - ' + mapping.personaFieldName}</Typography>)
       } else {
-        return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
+        return (<Typography className={props.classes.persona}>{props.selectedPersona.name + ' - ' + props.field.name}</Typography>)
       }
     } else {
-      return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
+      return (<Typography className={props.classes.persona}>{props.selectedPersona.name + ' - ' + props.field.name}</Typography>)
     }
   } else {
-    return (<Typography className={props.classes.persona}>{props.profile.name + ' - ' + props.field.name}</Typography>)
+    let filteredSuggestions = allSuggestions.filter(function (suggestion: SuggestionType) {
+      return suggestion.field.name === props.field.name
+    })
+    if (filteredSuggestions.length > 0) {
+      return (<Typography className={props.classes.persona}>{filteredSuggestions[0].persona.name + ' - ' + filteredSuggestions[0].field.name}</Typography>)
+    } else {
+      return (<Typography className={props.classes.persona}>{props.selectedPersona.name + ' - ' + props.field.name}</Typography>)
+    }
   }
 }
 
@@ -200,6 +211,26 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
       }
     }
     return null
+  }
+
+  componentDidMount () {
+    if (this.props.field.mapping === undefined) {
+      let field = this.state.field
+      let fieldName = this.props.field.name
+      let filteredSuggestions = allSuggestions.filter(function (suggestion: SuggestionType) {
+        return suggestion.field.name === fieldName
+      })
+      if (filteredSuggestions.length > 0) {
+        field.mapping = {
+          personaHash: filteredSuggestions[0].persona.hash,
+          personaFieldName: filteredSuggestions[0].field.name
+        }
+        this.setState({
+          value: filteredSuggestions[0].field.data,
+          field: field
+        })
+      }
+    }
   }
 
   public renderInput = (inputProps: any) => {
@@ -267,10 +298,10 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
   }
 
   public render () {
-    const { classes, field, profile, personas } = this.props
+    const { classes, field, profile, personas, selectedPersona } = this.props
 
     return (
-      <div>
+      <div className={classes.root}>
         <Autosuggest
           id='selectedPersonaFieldValue'
           theme={{
@@ -294,7 +325,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
           }}
         />
         <UsageIcon type={field.usage} reason={field.description} className={classes.icon}/>
-        <Mapping classes={classes} profile={profile} field={this.state.field} personas={personas} />
+        <Mapping classes={classes} profile={profile} field={this.state.field} personas={personas} selectedPersona={selectedPersona} />
       </div>
     )
   }
