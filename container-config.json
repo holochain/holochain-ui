@@ -1,0 +1,6 @@
+{
+	"port": 3001,
+	"happs": {
+		"app-spec": "./holochain-nodejs/app-spec-rust.hcpkg"
+	}
+}
