@@ -29,26 +29,26 @@ export const profileTests = describe('', () => {
   // const mockFn = jest.fn()
   const mockPromise = jest.fn(() => Promise.reject(''))
 
-  it('The Profile form Personas select box shows Default', () => {
-    props = {
-      personas: [{
-        hash: '',
-        name: 'Default',
-        fields: []
-      }],
-      selectedPersona: {
-        hash: '',
-        name: 'Default',
-        fields: []
-      },
-      profile: constants.exampleProfileNotMappedNoDefaults,
-      profiles: [],
-      save: mockPromise,
-      getProfiles: mockPromise,
-      getPersonas: mockPromise
-    }
-    expect(profileField().find('TextField').first().props().value).toEqual('Default')
-  })
+  // it('The Profile form Personas select box shows Default', () => {
+  //   props = {
+  //     personas: [{
+  //       hash: '',
+  //       name: 'Default',
+  //       fields: []
+  //     }],
+  //     selectedPersona: {
+  //       hash: '',
+  //       name: 'Default',
+  //       fields: []
+  //     },
+  //     profile: constants.exampleProfileNotMappedNoDefaults,
+  //     profiles: [],
+  //     save: mockPromise,
+  //     getProfiles: mockPromise,
+  //     getPersonas: mockPromise
+  //   }
+  //   expect(profileField().find('TextField').first().props().value).toEqual('Default')
+  // })
 
   it('A new Profile has an empty AutoCompleteProfileField for each field in the Profile request', () => {
     props = {
