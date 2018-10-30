@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A Holochain app (hApp) that you can add your own hApps to.",
   "scripts": {
-    "hc:start": "node ../holochain-node-http-container ./container-config.json"
+    "hc:start": "node ../holochain-node-http-container ./container-config.json",
+    "hc:build": "cd dna-src/holovault-rust && hc package --output ../../dna/holo-vault.hcpkg --strip-meta"
   },
   "repository": {
     "type": "git",
