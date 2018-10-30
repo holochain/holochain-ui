@@ -1,0 +1,17 @@
+{
+  "name": "holochain-ui",
+  "version": "1.0.0",
+  "description": "A Holochain app (hApp) that you can add your own hApps to.",
+  "scripts": {
+    "hc:start": "node ../holochain-node-http-container ./container-config.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://willemolding@github.com/holochain/holochain-ui.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/holochain/holochain-ui/issues"
+  },
+  "homepage": "https://github.com/holochain/holochain-ui#readme"
+}
