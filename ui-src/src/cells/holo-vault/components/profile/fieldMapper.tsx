@@ -81,6 +81,10 @@ class FieldMapper extends React.Component<Props, State> {
           mappedPersona: filteredPersonas[0],
           mappedField: field.mapping.personaFieldName
         })
+      } else {
+        this.setState({
+          mappedPersona: this.props.personas[0]
+        })
       }
     }
   }
