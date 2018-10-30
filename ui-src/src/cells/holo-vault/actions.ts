@@ -10,7 +10,7 @@ type Hash = string
 
 export const CreatePersona = createHolochainAsyncAction<PersonaSpec, string>('holo-vault', 'personas', 'main', 'createPersona')
 
-export const GetPersonas = createHolochainAsyncAction<any, Array<Persona>>('holo-vault', 'personas', 'main', 'get_personas')
+export const GetPersonas = createHolochainAsyncAction<any, {persona_addresses: Array<Persona>}>('holo-vault', 'personas', 'main', 'get_personas')
 
 export const AddField = createHolochainAsyncAction<{personaHash: string, field: PersonaField}, boolean>('holo-vault', 'personas', 'main', 'addField')
 

@@ -34,7 +34,7 @@ export function vaultReducer (state: VaultState = initialState, action: VaultAct
     case getType(vaultActions.GetPersonas.success):
       return {
         ...state,
-        personas: action.payload.data
+        personas: action.payload.data.persona_addresses
       }
     case getType(vaultActions.GetProfiles.success):
       return {
