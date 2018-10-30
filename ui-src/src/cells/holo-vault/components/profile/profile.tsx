@@ -82,7 +82,6 @@ class Profile extends React.Component<Props & RouterProps, State> {
     } else {
       return null
     }
-
   }
 
   handleMappingChange = (updatedField: ProfileField) => {
@@ -104,7 +103,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
 
   render () {
 
-    if (!this.state.profile) {
+    if (!this.state.profile || this.props.personas.length === 0) {
       return (
         <div>
           <CircularProgress/>
@@ -119,7 +118,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
         {profile.name} is requesting access to the following:
         </Typography>
         <Paper className={classes.selectContainer}>
-          <TextField className={classes.select} select={true} value={personas[0].hash} label='Selected Persona'>
+          <TextField name='PersonasSelect' className={classes.select} select={true} value={personas[0].hash} label='Selected Persona'>
           {personas.map((persona) => {
             return (
               <MenuItem key={persona.hash} value={persona.hash} >
