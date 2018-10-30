@@ -1,5 +1,6 @@
 
 import { createHolochainAsyncAction } from '../../utils/holochainAxiosActions'
+import { createHolochainAsyncAction as createHolochainAsyncActionWs } from '../../utils/holochainWebsocketActions'
 
 import { Persona, PersonaSpec, PersonaField } from './types/persona'
 import { ProfileField, ProfileMapping, Profile } from './types/profile'
@@ -10,7 +11,7 @@ type Hash = string
 
 export const CreatePersona = createHolochainAsyncAction<PersonaSpec, string>('holo-vault', 'personas', 'createPersona')
 
-export const GetPersonas = createHolochainAsyncAction<any, Array<Persona>>('holo-vault', 'personas', 'getPersonas')
+export const GetPersonas = createHolochainAsyncActionWs<any, Array<Persona>>('XXXXXX', 'personas', 'main', 'get_personas')
 
 export const AddField = createHolochainAsyncAction<{personaHash: string, field: PersonaField}, boolean>('holo-vault', 'personas', 'addField')
 

@@ -29,7 +29,7 @@
     "redux": "latest",
     "redux-axios-middleware": "^4.0.0",
     "redux-form": "latest",
-    "redux-promise": "^0.6.0",
+    "redux-promise-middleware": "^5.1.1",
     "rpc-websockets": "^4.3.3",
     "typesafe-actions": "^2.0.4"
   },
@@ -68,6 +68,7 @@
     "@types/react-router-dom": "^4.3.0",
     "@types/redux-form": "^7.4.7",
     "@types/redux-mock-store": "^1.0.0",
+    "@types/redux-promise-middleware": "0.0.11",
     "@types/storybook__addon-actions": "^3.4.1",
     "@types/storybook__addon-info": "^3.2.3",
     "@types/storybook__addon-knobs": "^3.3.1",
