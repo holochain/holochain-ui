@@ -8,13 +8,13 @@ type Hash = string
 
 /*----------  Persona Actions  ----------*/
 
-export const CreatePersona = createHolochainAsyncAction<PersonaSpec, string>('holo-vault', 'personas', 'main', 'createPersona')
+export const CreatePersona = createHolochainAsyncAction<{spec: PersonaSpec}, string>('holo-vault', 'personas', 'main', 'create_persona')
 
-export const GetPersonas = createHolochainAsyncAction<any, {persona_addresses: Array<Persona>}>('holo-vault', 'personas', 'main', 'get_personas')
+export const GetPersonas = createHolochainAsyncAction<any, {personas: Array<Persona>}>('holo-vault', 'personas', 'main', 'get_personas')
 
-export const AddField = createHolochainAsyncAction<{personaHash: string, field: PersonaField}, boolean>('holo-vault', 'personas', 'main', 'addField')
+export const AddField = createHolochainAsyncAction<{personaHash: string, field: PersonaField}, boolean>('holo-vault', 'personas', 'main', 'add_field')
 
-export const DeleteField = createHolochainAsyncAction< {personaHash: string, fieldName: string}, number>('holo-vault', 'personas', 'main', 'deleteField')
+export const DeleteField = createHolochainAsyncAction<{personaHash: string, fieldName: string}, number>('holo-vault', 'personas', 'main', 'delete_field')
 
 /*----------  Profile Actions  ----------*/
 

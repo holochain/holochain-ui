@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     getPersonas: () => dispatch(GetPersonas.create(undefined)),
     create: (personaSpec: PersonaSpec, personaFields: Array<PersonaField>) => {
-      return dispatch(CreatePersona.create(personaSpec))
+      return dispatch(CreatePersona.create({ spec: personaSpec }))
         .then((response: any) => {
           const personaHash: string = response.payload.data
           return Promise.all(
