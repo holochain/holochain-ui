@@ -39,10 +39,10 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
     create: (personaSpec: PersonaSpec, personaFields: Array<PersonaField>) => {
       return dispatch(CreatePersona.create({ spec: personaSpec }))
         .then((response: any) => {
-          const personaHash: string = response.payload.data
+          const personaAddress: string = response.payload.data.address
           return Promise.all(
             personaFields.map((field: PersonaField) => {
-              return dispatch(AddField.create({ personaHash, field }))
+              return dispatch(AddField.create({ persona_address: personaAddress, field }))
             })
           )
         })
