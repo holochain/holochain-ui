@@ -229,6 +229,8 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
       let filteredSuggestions = allSuggestions.filter(function (suggestion: SuggestionType) {
         return suggestion.field.name === fieldName
       })
+      console.log(filteredSuggestions)
+      console.log(this.props.field.name)
       if (filteredSuggestions.length > 0) {
         field.mapping = {
           personaHash: filteredSuggestions[0].persona.hash,
@@ -236,6 +238,11 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
         }
         this.setState({
           value: filteredSuggestions[0].field.data,
+          field: field
+        })
+      } else {
+        field.mapping = undefined
+        this.setState({
           field: field
         })
       }
@@ -272,7 +279,14 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
       return newValue === suggestion.label
     })
     if (selectedSuggestion.length === 0) {
-      field.mapping = undefined
+      if (newVal.newValue.length > 0) {
+        field.mapping = {
+          personaHash: this.props.selectedPersona.hash,
+          personaFieldName: this.props.field.name
+        }
+      } else {
+        field.mapping = undefined
+      }
       this.setState({
         value: newValue,
         field: field
@@ -303,7 +317,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
   }
 
   public handleMappingChange = () => {
-    this.props.handleMappingChange(this.state.field)
+    this.props.handleMappingChange(this.state.field, this.state.value)
   }
 
   public render () {

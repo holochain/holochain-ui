@@ -202,8 +202,8 @@ class FieldMapper extends React.Component<Props, State> {
     ))
   }
 
-  handleMappingChange = (updatedField: ProfileField) => {
-    this.props.handleMappingChange(updatedField)
+  handleMappingChange = (updatedField: ProfileField, value: string) => {
+    this.props.handleMappingChange(updatedField, value)
     this.setPersonaAndFieldName(updatedField)
   }
 
@@ -285,7 +285,7 @@ class FieldMapper extends React.Component<Props, State> {
               selectedPersona={this.state.selectedPersona}
               profile={profile}
               field={field}
-              handleMappingChange={() => this.handleMappingChange(this.props.field)}
+              handleMappingChange={() => this.handleMappingChange}
             />
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>

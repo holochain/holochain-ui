@@ -90,7 +90,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
     }
   }
 
-  handleMappingChange = (updatedField: ProfileField) => {
+  handleMappingChange = (updatedField: ProfileField, value: string) => {
     this.state.profile.fields.filter(function (field) {
       return field.name === updatedField.name
     })[0] = updatedField
@@ -159,7 +159,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
                 selectedPersona={this.state.selectedPersona}
                 profile={profile}
                 field={field}
-                handleMappingChange={() => this.handleMappingChange(field)}
+                handleMappingChange={() => this.handleMappingChange}
               />
             )
           })}
