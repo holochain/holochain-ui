@@ -1,7 +1,6 @@
 
 use hdk::serde::de::DeserializeOwned;
 use hdk::error::ZomeApiResult;
-use hdk::error::ZomeApiError;
 use hdk::holochain_core_types::hash::HashString;
 use hdk::{
 	self, 
@@ -98,7 +97,7 @@ pub fn handle_get_personas() -> serde_json::Value {
 				Persona{
 					name: elem.entry.name.to_owned(),
 					hash: elem.address.to_owned(),
-					fields: get_fields(&elem.address).unwrap()
+					fields: get_fields(&elem.address).unwrap_or(Vec::new())
 				}
 			}).collect();
 			json!({"personas": personas})
