@@ -132,6 +132,7 @@ export interface StateProps {
 export type Props = OwnProps & StateProps
 
 export interface State {
+  selectedPersona: PersonaType
   suggestions: Array<SuggestionType>
   field: ProfileField
   value: string
@@ -180,23 +181,31 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props)
     this.state = {
+      selectedPersona: props.selectedPersona,
       suggestions: [],
       value: '',
       field: props.field
     }
   }
 
-  static getDerivedStateFromProps (props: Props, state: State): any | null {
+  static getDerivedStateFromProps (nextProps: Props, prevState: State): any | null {
     allSuggestions = []
-    props.personas.map((persona: PersonaType) => (
+    nextProps.personas.map((persona: PersonaType) => (
       persona.fields.map((field: PersonaFieldType) => (
         allSuggestions.push({ persona: persona, field: field, label: field.data + ' (' + persona.name + ' - ' + field.name + ')' })
       ))
     ))
-
-    if (props.field.mapping !== undefined) {
-      let mapping = props.field.mapping
-      let filteredPersonas = props.personas.filter(function (persona: PersonaType) {
+    if (nextProps.field.mapping !== undefined) {
+      let mapping = nextProps.field.mapping
+      if (nextProps.selectedPersona !== prevState.selectedPersona) {
+        let filteredField = nextProps.selectedPersona.fields.filter(function (field) {
+          return field.name === mapping.personaFieldName
+        })
+        if (filteredField.length > 0) {
+          mapping.personaHash = nextProps.selectedPersona.hash
+        }
+      }
+      let filteredPersonas = nextProps.personas.filter(function (persona: PersonaType) {
         return mapping.personaHash === persona.hash
       })
       if (filteredPersonas.length > 0) {

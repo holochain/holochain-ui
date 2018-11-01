@@ -13,7 +13,7 @@ import profileFaultyMapping from './profileFaultyMapping.md'
 import { profileTests } from './profile.test'
 import * as constants from '../../constants'
 
-const mockPromise = jest.fn(() => Promise.reject(''))
+const mockPromise = jest.fn(() => Promise.reject('Storybook mock function'))
 
 storiesOf('HoloVault/Profile', module)
   .add('Not mapped no defaults', withNotes(profileNotMappedNoDefaults)(() => {

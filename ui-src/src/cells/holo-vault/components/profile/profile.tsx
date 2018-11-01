@@ -56,6 +56,8 @@ export interface StateProps {
 
 export interface State {
   profile: ProfileType
+  selectedPersona: PersonaType
+  personas: Array<PersonaType>
 }
 
 export type Props = OwnProps & DispatchProps & StateProps
@@ -64,7 +66,9 @@ class Profile extends React.Component<Props & RouterProps, State> {
   constructor (props: Props & RouterProps) {
     super(props)
     this.state = {
-      profile: props.profile
+      profile: props.profile,
+      selectedPersona: props.selectedPersona,
+      personas: props.personas
     }
   }
 
@@ -77,7 +81,9 @@ class Profile extends React.Component<Props & RouterProps, State> {
   static getDerivedStateFromProps (props: Props & RouterProps, state: State) {
     if (!state.profile) {
       return {
-        profile: props.profile
+        profile: props.profile,
+        selectedPersona: props.selectedPersona,
+        personas: props.personas
       }
     } else {
       return null
@@ -101,8 +107,24 @@ class Profile extends React.Component<Props & RouterProps, State> {
       .catch(err => console.error(err))
   }
 
-  render () {
+  public handleChangeSelectedPersona = (event: any) => {
+    let personaHash = event.target.value
+    let selectedPersona = this.props.personas.filter(function (persona: PersonaType) {
+      return persona.hash === personaHash
+    })[0]
+    let personas = this.props.personas
+    let index: number = personas.map(function (persona: PersonaType) { return persona.hash }).indexOf(personaHash)
+    if (index > 0) {
+      let persona = personas.splice(index, 1)
+      personas.unshift(persona[0])
+    }
+    this.setState({
+      personas: personas,
+      selectedPersona: selectedPersona
+    })
+  }
 
+  render () {
     if (!this.state.profile || this.props.personas.length === 0) {
       return (
         <div>
@@ -111,15 +133,15 @@ class Profile extends React.Component<Props & RouterProps, State> {
       )
     }
 
-    const { profile, personas, classes, selectedPersona } = this.props
+    const { profile, classes } = this.props
     return (
       <div>
         <Typography variant='title' gutterBottom={true}>
         {profile.name} is requesting access to the following:
         </Typography>
         <Paper className={classes.selectContainer}>
-          <TextField name='PersonasSelect' className={classes.select} select={true} value={personas[0].hash} label='Selected Persona'>
-          {personas.map((persona) => {
+          <TextField name='PersonasSelect' className={classes.select} select={true} value={this.state.selectedPersona.hash} onChange={this.handleChangeSelectedPersona} label='Selected Persona'>
+          {this.state.personas.map((persona) => {
             return (
               <MenuItem key={persona.hash} value={persona.hash} >
                 {persona.name}
@@ -133,8 +155,8 @@ class Profile extends React.Component<Props & RouterProps, State> {
             return (
               <FieldMapper
                 key={i}
-                personas={personas}
-                selectedPersona={selectedPersona}
+                personas={this.state.personas}
+                selectedPersona={this.state.selectedPersona}
                 profile={profile}
                 field={field}
                 handleMappingChange={() => this.handleMappingChange(field)}

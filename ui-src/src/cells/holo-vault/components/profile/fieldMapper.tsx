@@ -136,6 +136,7 @@ export interface State {
   suggestions: Array<String>
   personaAutovalue: string
   fieldAutovalue: string
+  selectedPersona: PersonaType
 }
 
 export type Props = OwnProps & StateProps
@@ -146,6 +147,7 @@ class FieldMapper extends React.Component<Props, State> {
     this.state = {
       suggestions: [],
       personaAutovalue: props.selectedPersona.name,
+      selectedPersona: props.selectedPersona,
       fieldAutovalue: '',
       expansionPanelOpen: false,
       mappedPersona: props.selectedPersona,
@@ -153,15 +155,49 @@ class FieldMapper extends React.Component<Props, State> {
     }
   }
 
+  static getDerivedStateFromProps (nextProps: Props, prevState: State) {
+    if (nextProps.selectedPersona !== prevState.selectedPersona) {
+      if (nextProps.field.mapping !== undefined) {
+        let mapping = nextProps.field.mapping
+        let filteredField = nextProps.selectedPersona.fields.filter(function (field) {
+          return field.name === mapping.personaFieldName
+        })
+        if (filteredField.length > 0) {
+          mapping.personaHash = nextProps.selectedPersona.hash
+        }
+        let filteredPersonas = nextProps.personas.filter(function (persona: PersonaType) {
+          return mapping.personaHash === persona.hash
+        })
+        if (filteredPersonas.length !== 0) {
+          return {
+            selectedPersona: nextProps.selectedPersona,
+            mappedPersona: filteredPersonas[0],
+            mappedField: nextProps.field.mapping.personaFieldName,
+            personaAutovalue: filteredPersonas[0].name
+          }
+        } else {
+          return {
+            selectedPersona: nextProps.selectedPersona,
+            mappedPersona: nextProps.personas[0],
+            personaAutovalue: nextProps.personas[0].name
+          }
+        }
+      } else {
+        return {
+          selectedPersona: nextProps.selectedPersona,
+          personaAutovalue: nextProps.selectedPersona.name
+        }
+      }
+    }
+    return null
+  }
+
   componentDidMount () {
     if (this.props.field.mapping !== undefined) {
       this.setPersonaAndFieldName(this.props.field)
     }
-  }
-
-  static getDerivedStateFromProps (props: Props, state: State): any | null {
     allPersonaSuggestions = []
-    props.personas.map((persona: PersonaType) => (
+    this.props.personas.map((persona: PersonaType) => (
       allPersonaSuggestions.push(persona.name)
     ))
   }
@@ -171,7 +207,7 @@ class FieldMapper extends React.Component<Props, State> {
     this.setPersonaAndFieldName(updatedField)
   }
 
-  setPersonaAndFieldName (field: ProfileField) {
+  public setPersonaAndFieldName (field: ProfileField) {
     if (field.mapping !== undefined) {
       let mapping = field.mapping
       let filteredPersonas = this.props.personas.filter(function (persona: PersonaType) {
@@ -239,14 +275,14 @@ class FieldMapper extends React.Component<Props, State> {
     this.props.handlePersonaAutoSelect(this.state.personaAutovalue)
   }
   render () {
-    const { classes, field, personas, selectedPersona, profile } = this.props
+    const { classes, field, personas, profile } = this.props
   	return (
       <div className={classes.root}>
         <ExpansionPanel expanded={this.state.expansionPanelOpen}>
           <ExpansionPanelSummary expandIcon={<Person name='expandPersonaDetails' onClick={() => { this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen }) }}/>}>
             <AutoCompleteProfileField
               personas={personas}
-              selectedPersona={selectedPersona}
+              selectedPersona={this.state.selectedPersona}
               profile={profile}
               field={field}
               handleMappingChange={() => this.handleMappingChange(this.props.field)}
