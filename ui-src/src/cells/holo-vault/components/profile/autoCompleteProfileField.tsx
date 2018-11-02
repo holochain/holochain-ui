@@ -229,8 +229,6 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
       let filteredSuggestions = allSuggestions.filter(function (suggestion: SuggestionType) {
         return suggestion.field.name === fieldName
       })
-      console.log(filteredSuggestions)
-      console.log(this.props.field.name)
       if (filteredSuggestions.length > 0) {
         field.mapping = {
           personaHash: filteredSuggestions[0].persona.hash,

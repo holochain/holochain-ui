@@ -42,7 +42,7 @@ export interface OwnProps {
 }
 
 export interface DispatchProps {
-  save: (profile: ProfileType) => Promise<any>
+  save: (profile: ProfileType, personas: Array<PersonaType>) => Promise<any>
   getProfiles: typeof GetProfiles.sig
   getPersonas: typeof GetPersonas.sig
 }
@@ -91,6 +91,28 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   handleMappingChange = (updatedField: ProfileField, value: string) => {
+    // To be able to save new Persona fields we add new fields to the existing personas.
+    console.log('updatedField')
+    if (updatedField.mapping !== undefined) {
+      let personas = this.state.personas
+      let personaHash = updatedField.mapping.personaHash
+      let personaFieldName = updatedField.mapping.personaFieldName
+      let selectedPersonas = personas.filter(function (persona: PersonaType) {
+        return persona.hash === personaHash
+      })
+      if (selectedPersonas.length === 1) {
+        let selectedPersonaFields = selectedPersonas[0].fields.filter(function (field) {
+          return field.name === personaFieldName
+        })
+        if (selectedPersonaFields.length === 0) {
+          selectedPersonas[0].fields.push({ name: personaFieldName, data: value })
+          this.setState({
+            personas: personas
+          })
+        }
+      }
+    }
+
     this.state.profile.fields.filter(function (field) {
       return field.name === updatedField.name
     })[0] = updatedField
@@ -100,8 +122,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   handleSaveProfile = () => {
-    console.log(this.state.profile)
-    this.props.save(this.state.profile)
+    this.props.save(this.state.profile, this.state.personas)
       .then(this.props.getProfiles)
       .then(() => this.props.history.push('/holo-vault/profiles'))
       .catch(err => console.error(err))
@@ -159,7 +180,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
                 selectedPersona={this.state.selectedPersona}
                 profile={profile}
                 field={field}
-                handleMappingChange={() => this.handleMappingChange}
+                handleMappingChange={this.handleMappingChange}
               />
             )
           })}

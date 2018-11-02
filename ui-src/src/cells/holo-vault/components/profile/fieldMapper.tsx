@@ -203,6 +203,8 @@ class FieldMapper extends React.Component<Props, State> {
   }
 
   handleMappingChange = (updatedField: ProfileField, value: string) => {
+    console.log('handleMappingChange field')
+
     this.props.handleMappingChange(updatedField, value)
     this.setPersonaAndFieldName(updatedField)
   }
@@ -272,7 +274,7 @@ class FieldMapper extends React.Component<Props, State> {
     })
   }
   public handlePersonaAutoSelect = () => {
-    this.props.handlePersonaAutoSelect(this.state.personaAutovalue)
+    // this.props.handlePersonaAutoSelect(this.state.personaAutovalue)
   }
   render () {
     const { classes, field, personas, profile } = this.props
@@ -285,7 +287,7 @@ class FieldMapper extends React.Component<Props, State> {
               selectedPersona={this.state.selectedPersona}
               profile={profile}
               field={field}
-              handleMappingChange={() => this.handleMappingChange}
+              handleMappingChange={this.handleMappingChange}
             />
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
