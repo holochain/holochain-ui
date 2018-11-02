@@ -73,7 +73,7 @@ pub fn handle_create_persona(spec: PersonaSpec) -> serde_json::Value {
 		hdk::commit_entry("anchor", json!("personas"))
 	) {
 		(Ok(persona_address),Ok(anchor_address)) => {
-			match hdk::link_entries(&anchor_address, &persona_address, "personas") {
+			match hdk::link_entries(&anchor_address, &persona_address, "") {
 				Ok(_) => json!({"address": persona_address}),
 				Err(hdk_error) => hdk_error.to_json(),
 			}
@@ -90,7 +90,7 @@ pub fn handle_create_persona(spec: PersonaSpec) -> serde_json::Value {
 pub fn handle_get_personas() -> serde_json::Value {
 	let anchor_address = hdk::commit_entry("anchor", json!("personas")).expect("Could not commit anchor");
 
-	let get_links_results: ZomeApiResult<GetLinksLoadResult<PersonaSpec>> = get_links_and_load(&anchor_address, "personas");
+	let get_links_results: ZomeApiResult<GetLinksLoadResult<PersonaSpec>> = get_links_and_load(&anchor_address, "");
 	match get_links_results {
 		Ok(result) => {
 			let personas: Vec<Persona> = result.iter().map(|elem| {
@@ -153,7 +153,7 @@ fn get_fields(persona_address: &HashString) -> ZomeApiResult<Vec<PersonaField>> 
 }
 
 
-#[derive(Serialize, Deserialize, Debug)]
+// #[derive(Serialize, Deserialize, Debug)]
 struct GetLinksLoadElement<T> {
 	address: HashString,
 	entry: T
