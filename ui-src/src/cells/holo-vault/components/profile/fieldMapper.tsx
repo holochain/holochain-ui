@@ -203,8 +203,6 @@ class FieldMapper extends React.Component<Props, State> {
   }
 
   handleMappingChange = (updatedField: ProfileField, value: string) => {
-    console.log('handleMappingChange field')
-
     this.props.handleMappingChange(updatedField, value)
     this.setPersonaAndFieldName(updatedField)
   }
