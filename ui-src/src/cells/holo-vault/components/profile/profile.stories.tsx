@@ -1,12 +1,10 @@
 import * as React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-// import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
 import { specs } from 'storybook-addon-specifications'
 import { withNotes } from '@storybook/addon-notes'
 import Profile, { Props } from './profile'
-// import { Profile as ProfileType } from '../../types/profile'
 import profileNotMappedNoDefaults from './profileNotMappedNoDefaults.md'
 import profileNotMappedNoDefaultsManualMap from './profileNotMappedNoDefaultsManualMap.md'
 import profileNotMappedHasDefaults from './profileNotMappedHasDefaults.md'
@@ -14,10 +12,8 @@ import profileMapped from './profileMapped.md'
 import profileFaultyMapping from './profileFaultyMapping.md'
 import { profileTests } from './profile.test'
 import * as constants from '../../constants'
-// import CreateStore from '../../../../store'
 
-// let store = CreateStore()
-const mockPromise = jest.fn(() => Promise.reject(''))
+const mockPromise = jest.fn(() => Promise.reject('Storybook mock function'))
 
 storiesOf('HoloVault/Profile', module)
   .add('Not mapped no defaults', withNotes(profileNotMappedNoDefaults)(() => {

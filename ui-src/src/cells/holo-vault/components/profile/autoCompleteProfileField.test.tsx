@@ -114,9 +114,9 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
 
     props = {
       personas: constants.personas,
-      selectedPersona: constants.personas[0],
-      profile: constants.exampleProfile,
-      field: constants.exampleProfile.fields[2],
+      selectedPersona: constants.personas[1],
+      profile: constants.exampleProfileNotMappedNoDefaults,
+      field: constants.exampleProfileNotMappedNoDefaults.fields[1],
       handleMappingChange: mockFn
     }
     autoCompleteProfileField().find('input[name="name"]').simulate('change', { target: { value: 'P' } })
@@ -125,7 +125,7 @@ export const autoCompleteProfileFieldTests = describe('Selecting Persona values 
     autoCompleteProfileField().find('input[name="name"]').simulate('focus')
     let suggestions: Array<SuggestionType> = (autoCompleteProfileField().find('AutoCompleteProfileField').instance().state as State).suggestions
     expect(suggestions.length).toEqual(0)
-    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Default - last_name')
+    expect(autoCompleteProfileField().find('Typography').text()).toEqual('Personal - no_default')
   })
 
   it('Populates data field, persona field and field name field if a match is found in any persona', () => {

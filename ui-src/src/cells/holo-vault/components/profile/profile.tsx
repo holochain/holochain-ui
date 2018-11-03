@@ -42,7 +42,7 @@ export interface OwnProps {
 }
 
 export interface DispatchProps {
-  save: (profile: ProfileType) => Promise<any>
+  save: (profile: ProfileType, personas: Array<PersonaType>) => Promise<any>
   getProfiles: typeof GetProfiles.sig
   getPersonas: typeof GetPersonas.sig
 }
@@ -56,6 +56,8 @@ export interface StateProps {
 
 export interface State {
   profile: ProfileType
+  selectedPersona: PersonaType
+  personas: Array<PersonaType>
 }
 
 export type Props = OwnProps & DispatchProps & StateProps
@@ -64,7 +66,9 @@ class Profile extends React.Component<Props & RouterProps, State> {
   constructor (props: Props & RouterProps) {
     super(props)
     this.state = {
-      profile: props.profile
+      profile: props.profile,
+      selectedPersona: props.selectedPersona,
+      personas: props.personas
     }
   }
 
@@ -77,14 +81,38 @@ class Profile extends React.Component<Props & RouterProps, State> {
   static getDerivedStateFromProps (props: Props & RouterProps, state: State) {
     if (!state.profile) {
       return {
-        profile: props.profile
+        profile: props.profile,
+        selectedPersona: props.selectedPersona,
+        personas: props.personas
       }
     } else {
       return null
     }
   }
 
-  handleMappingChange = (updatedField: ProfileField) => {
+  handleMappingChange = (updatedField: ProfileField, value: string) => {
+    // To be able to save new Persona fields we add new fields to the existing personas.
+    console.log('updatedField')
+    if (updatedField.mapping !== undefined) {
+      let personas = this.state.personas
+      let personaHash = updatedField.mapping.personaHash
+      let personaFieldName = updatedField.mapping.personaFieldName
+      let selectedPersonas = personas.filter(function (persona: PersonaType) {
+        return persona.hash === personaHash
+      })
+      if (selectedPersonas.length === 1) {
+        let selectedPersonaFields = selectedPersonas[0].fields.filter(function (field) {
+          return field.name === personaFieldName
+        })
+        if (selectedPersonaFields.length === 0) {
+          selectedPersonas[0].fields.push({ name: personaFieldName, data: value })
+          this.setState({
+            personas: personas
+          })
+        }
+      }
+    }
+
     this.state.profile.fields.filter(function (field) {
       return field.name === updatedField.name
     })[0] = updatedField
@@ -94,15 +122,30 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   handleSaveProfile = () => {
-    console.log(this.state.profile)
-    this.props.save(this.state.profile)
+    this.props.save(this.state.profile, this.state.personas)
       .then(this.props.getProfiles)
       .then(() => this.props.history.push('/holo-vault/profiles'))
       .catch(err => console.error(err))
   }
 
-  render () {
+  public handleChangeSelectedPersona = (event: any) => {
+    let personaHash = event.target.value
+    let selectedPersona = this.props.personas.filter(function (persona: PersonaType) {
+      return persona.hash === personaHash
+    })[0]
+    let personas = this.props.personas
+    let index: number = personas.map(function (persona: PersonaType) { return persona.hash }).indexOf(personaHash)
+    if (index > 0) {
+      let persona = personas.splice(index, 1)
+      personas.unshift(persona[0])
+    }
+    this.setState({
+      personas: personas,
+      selectedPersona: selectedPersona
+    })
+  }
 
+  render () {
     if (!this.state.profile || this.props.personas.length === 0) {
       return (
         <div>
@@ -111,15 +154,15 @@ class Profile extends React.Component<Props & RouterProps, State> {
       )
     }
 
-    const { profile, personas, classes, selectedPersona } = this.props
+    const { profile, classes } = this.props
     return (
       <div>
         <Typography variant='title' gutterBottom={true}>
         {profile.name} is requesting access to the following:
         </Typography>
         <Paper className={classes.selectContainer}>
-          <TextField name='PersonasSelect' className={classes.select} select={true} value={personas[0].hash} label='Selected Persona'>
-          {personas.map((persona) => {
+          <TextField name='PersonasSelect' className={classes.select} select={true} value={this.state.selectedPersona.hash} onChange={this.handleChangeSelectedPersona} label='Selected Persona'>
+          {this.state.personas.map((persona) => {
             return (
               <MenuItem key={persona.hash} value={persona.hash} >
                 {persona.name}
@@ -133,11 +176,11 @@ class Profile extends React.Component<Props & RouterProps, State> {
             return (
               <FieldMapper
                 key={i}
-                personas={personas}
-                selectedPersona={selectedPersona}
+                personas={this.state.personas}
+                selectedPersona={this.state.selectedPersona}
                 profile={profile}
                 field={field}
-                handleMappingChange={() => this.handleMappingChange(field)}
+                handleMappingChange={this.handleMappingChange}
               />
             )
           })}
