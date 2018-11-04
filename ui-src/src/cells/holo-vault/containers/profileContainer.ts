@@ -41,10 +41,10 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
         profile.fields.filter(field => field.mapping).map((field: ProfileField) => {
           console.log('add the persona field for ', field.displayName)
           if (field.mapping !== undefined) {
-            let personaHash = field.mapping.personaHash
+            let personaAddress = field.mapping.personaHash
             let personaFieldName = field.mapping.personaFieldName
             let selectedPersonas = personas.filter(function (persona: PersonaType) {
-              return persona.hash === personaHash
+              return persona.hash === personaAddress
             })
             if (selectedPersonas.length === 1) {
               let selectedPersonaFields = selectedPersonas[0].fields.filter(function (field) {
@@ -52,7 +52,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
               })
               if (selectedPersonaFields.length === 1) {
                 let personaField: PersonaField = selectedPersonaFields[0]
-                return dispatch(AddField.create({ personaHash: personaHash, field: personaField }))
+                return dispatch(AddField.create({ persona_address: personaAddress, field: personaField }))
               }
             }
           }

@@ -33,8 +33,9 @@ function genExpectedAction (zome: string, fname: string, data: any): any {
     payload: {
       request: {
         data: {
-          channel: 'holo-vault',
+          happ: 'holo-vault',
           zome: zome,
+          capability: 'main',
           func: fname,
           data: data
         }

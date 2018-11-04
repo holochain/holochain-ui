@@ -13,8 +13,9 @@ The type of the action will be automatically set
 export interface BridgeCallPayload<PayloadType> {
   request: AxiosRequestConfig & {
     data: {
-      channel: string,
+      happ: string,
       zome: string,
+      capability: string,
       func: string,
       data: PayloadType
     }
@@ -23,12 +24,13 @@ export interface BridgeCallPayload<PayloadType> {
 
 export type BridgeCallResponse<ResponseType> = AxiosResponse<ResponseType>
 
-function makeBridgeCallPayload<PayloadType> (channel: string, zome: string, func: string, data: PayloadType): BridgeCallPayload<PayloadType> {
+function makeBridgeCallPayload<PayloadType> (happ: string, zome: string, capability: string, func: string, data: PayloadType): BridgeCallPayload<PayloadType> {
   return {
     request: {
       data: {
-        channel,
+        happ,
         zome,
+        capability,
         func,
         data
       }
@@ -36,17 +38,17 @@ function makeBridgeCallPayload<PayloadType> (channel: string, zome: string, func
   }
 }
 
-export function createHolochainAsyncAction<paramType, returnType> (channel: string, zome: string, func: string) {
+export function createHolochainAsyncAction<paramType, returnType> (happ: string, zome: string, capability: string, func: string) {
   const action = createAsyncAction(
-		`${channel}/${zome}/${func}`,
-		`${channel}/${zome}/${func}_SUCCESS`,
-		`${channel}/${zome}/${func}_FAILURE`)
+		`${happ}/${zome}/${func}`,
+		`${happ}/${zome}/${func}_SUCCESS`,
+		`${happ}/${zome}/${func}_FAILURE`)
 	<BridgeCallPayload<paramType>, BridgeCallResponse<returnType>, AxiosError>()
 
   const newAction = action as (typeof action & {
     create: (param: paramType) => any,
     sig: (param: paramType) => Promise<{payload: BridgeCallResponse<returnType>}>
   })
-  newAction.create = (param: paramType) => action.request(makeBridgeCallPayload(channel, zome, func, param))
+  newAction.create = (param: paramType) => action.request(makeBridgeCallPayload(happ, zome, capability, func, param))
   return newAction
 }

@@ -3,6 +3,12 @@ import { mount, ReactWrapper, configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import * as constants from '../../constants'
 import Profiles, { Props } from './profiles'
+<<<<<<< HEAD
+// import { Profile as ProfileType } from '../../types/profile'
+// import CreateStore from '../../../../store'
+// import { Provider } from 'react-redux'
+=======
+>>>>>>> develop
 import { MemoryRouter } from 'react-router-dom'
 configure({ adapter: new Adapter() })
 
