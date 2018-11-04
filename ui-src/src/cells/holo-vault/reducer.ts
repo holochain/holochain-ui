@@ -32,9 +32,18 @@ export const initialState: State = {
 export function vaultReducer (state: VaultState = initialState, action: VaultAction) {
   switch (action.type) {
     case getType(vaultActions.GetPersonas.success):
+      let personas = action.payload.data.personas
+      console.log(personas.length)
+      if (personas.length === 0) {
+        personas.push({
+          hash: '',
+          name: 'Default',
+          fields: []
+        })
+      }
       return {
         ...state,
-        personas: action.payload.data.personas
+        personas: personas
       }
     case getType(vaultActions.GetProfiles.success):
       return {

@@ -27,7 +27,7 @@ export const profileTests = describe('', () => {
   })
 
   // const mockFn = jest.fn()
-  const mockPromise = jest.fn(() => Promise.reject(''))
+  const mockPromise = jest.fn(() => Promise.reject('Profile test mockPromise'))
 
   it('A new Profile has an empty AutoCompleteProfileField for each field in the Profile request', () => {
     props = {
@@ -112,5 +112,22 @@ export const profileTests = describe('', () => {
 
     profileField().find('Button').simulate('click')
     expect(props.save).toBeCalled()
+  })
+
+  it('Entering a value into an unmapped field adds the field to the selected Persona', () => {
+    props = {
+      personas: constants.personas,
+      selectedPersona: constants.personas[0],
+      profile: constants.exampleProfileNotMappedNoDefaults,
+      profiles: [],
+      save: mockPromise,
+      getProfiles: mockPromise,
+      getPersonas: mockPromise
+    }
+    profileField().find('input[name="name"]').first().simulate('change', { target: { value: 'Techno' } })
+    profileField().find('input[name="name"]').first().simulate('focus')
+    profileField().find('input[name="name"]').first().simulate('blur')
+    let personas = (profileField().find('Profile').instance().state as State).personas
+    console.log(JSON.stringify(personas))
   })
 })

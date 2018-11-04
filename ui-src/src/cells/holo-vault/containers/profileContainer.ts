@@ -2,12 +2,14 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Profile as ProfileType, ProfileField } from '../types/profile'
+import { Persona as PersonaType, PersonaField } from '../types/persona'
 import Profile, { Props, RouterProps, StateProps, DispatchProps, OwnProps } from '../components/profile/profile'
 
 import {
   CreateMapping,
   GetProfiles,
-  GetPersonas
+  GetPersonas,
+  AddField
 } from '../actions'
 
 const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps => {
@@ -32,11 +34,28 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     getProfiles: () => dispatch(GetProfiles.create(undefined)),
     getPersonas: () => dispatch(GetPersonas.create(undefined)),
-    save: (profile: ProfileType) => {
+    save: (profile: ProfileType, personas: Array<PersonaType>) => {
       // call createMapping on all of the fields with a mapping
       console.log('About to map ', profile)
       return Promise.all(
         profile.fields.filter(field => field.mapping).map((field: ProfileField) => {
+          console.log('add the persona field for ', field.displayName)
+          if (field.mapping !== undefined) {
+            let personaAddress = field.mapping.personaHash
+            let personaFieldName = field.mapping.personaFieldName
+            let selectedPersonas = personas.filter(function (persona: PersonaType) {
+              return persona.hash === personaAddress
+            })
+            if (selectedPersonas.length === 1) {
+              let selectedPersonaFields = selectedPersonas[0].fields.filter(function (field) {
+                return field.name === personaFieldName
+              })
+              if (selectedPersonaFields.length === 1) {
+                let personaField: PersonaField = selectedPersonaFields[0]
+                return dispatch(AddField.create({ persona_address: personaAddress, field: personaField }))
+              }
+            }
+          }
           console.log('creating map for ', field)
           return dispatch(CreateMapping.create({
             ...field.mapping!,

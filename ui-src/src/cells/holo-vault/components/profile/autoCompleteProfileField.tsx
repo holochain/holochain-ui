@@ -132,6 +132,7 @@ export interface StateProps {
 export type Props = OwnProps & StateProps
 
 export interface State {
+  selectedPersona: PersonaType
   suggestions: Array<SuggestionType>
   field: ProfileField
   value: string
@@ -180,23 +181,31 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props)
     this.state = {
+      selectedPersona: props.selectedPersona,
       suggestions: [],
       value: '',
       field: props.field
     }
   }
 
-  static getDerivedStateFromProps (props: Props, state: State): any | null {
+  static getDerivedStateFromProps (nextProps: Props, prevState: State): any | null {
     allSuggestions = []
-    props.personas.map((persona: PersonaType) => (
+    nextProps.personas.map((persona: PersonaType) => (
       persona.fields.map((field: PersonaFieldType) => (
         allSuggestions.push({ persona: persona, field: field, label: field.data + ' (' + persona.name + ' - ' + field.name + ')' })
       ))
     ))
-
-    if (props.field.mapping !== undefined) {
-      let mapping = props.field.mapping
-      let filteredPersonas = props.personas.filter(function (persona: PersonaType) {
+    if (nextProps.field.mapping !== undefined) {
+      let mapping = nextProps.field.mapping
+      if (nextProps.selectedPersona !== prevState.selectedPersona) {
+        let filteredField = nextProps.selectedPersona.fields.filter(function (field) {
+          return field.name === mapping.personaFieldName
+        })
+        if (filteredField.length > 0) {
+          mapping.personaHash = nextProps.selectedPersona.hash
+        }
+      }
+      let filteredPersonas = nextProps.personas.filter(function (persona: PersonaType) {
         return mapping.personaHash === persona.hash
       })
       if (filteredPersonas.length > 0) {
@@ -227,6 +236,11 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
         }
         this.setState({
           value: filteredSuggestions[0].field.data,
+          field: field
+        })
+      } else {
+        field.mapping = undefined
+        this.setState({
           field: field
         })
       }
@@ -263,7 +277,14 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
       return newValue === suggestion.label
     })
     if (selectedSuggestion.length === 0) {
-      field.mapping = undefined
+      if (newVal.newValue.length > 0) {
+        field.mapping = {
+          personaHash: this.props.selectedPersona.hash,
+          personaFieldName: this.props.field.name
+        }
+      } else {
+        field.mapping = undefined
+      }
       this.setState({
         value: newValue,
         field: field
@@ -294,7 +315,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
   }
 
   public handleMappingChange = () => {
-    this.props.handleMappingChange(this.state.field)
+    this.props.handleMappingChange(this.state.field, this.state.value)
   }
 
   public render () {
