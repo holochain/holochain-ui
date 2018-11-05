@@ -191,7 +191,7 @@ class Persona extends React.Component<Props & RouterProps, State> {
           Manage Your Personas
         </Typography>
         <Typography variant='body1' gutterBottom={true}>
-          You can add a new Persona and add as many fields to it as you like. You will probably have a *Personal*, *Work* and a *Friends* persona.
+          You can add a new Persona and add as many fields to it as you like. You will probably have a *Default*, *Work* and a *Friends* persona.
         </Typography>
           <div>
             <TextField name='personaName' value={this.state.persona.name} onChange={e => this.updateName(e.target.value)} label='Persona Name'/>

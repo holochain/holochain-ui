@@ -18,7 +18,7 @@ ui-src/coverage
 # production
 /build
 /dna
-
+foo
 # misc
 .DS_Store
 .env.local
