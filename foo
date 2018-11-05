@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"top_chain_header":{"entry_type":{"App":"anchor"},"entry_address":"QmQzQF5JUu5U4rS82ExaRS7Dp1BB9RPhwabXpdZQaxzenF","entry_signature":"","link":"QmfGHNsce2w6APYzx8FeqKw4Hf1bgSi6W62dnZ29pVosUh","link_same_type":"QmfGHNsce2w6APYzx8FeqKw4Hf1bgSi6W62dnZ29pVosUh","timestamp":""}}
+=======
+{"top_chain_header":{"entry_type":{"App":"anchor"},"entry_address":"QmQzQF5JUu5U4rS82ExaRS7Dp1BB9RPhwabXpdZQaxzenF","entry_signature":"","link":"QmQojEf5YKzNQeBAToF6gbgaXMnve3XMFovdDu6PwpcNQx","link_same_type":"QmQojEf5YKzNQeBAToF6gbgaXMnve3XMFovdDu6PwpcNQx","timestamp":""}}":""}}
+>>>>>>> 237467e2fba1722fcde53d06d47e49f98dddcfee

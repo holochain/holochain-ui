@@ -22,7 +22,28 @@ define_zome! {
 	]
 
     genesis: || {
-        Ok(())
+        {
+
+            let test_spec = profile::ProfileSpec {
+                name: "holo_chat".into(),
+                sourceDNA: "HOLOCHATDNA".into(),
+                fields: vec!(
+                    profile::ProfileFieldSpec {
+                        name: "handle".into(),
+                        displayName: "Handle".into(),
+                        description: "How a user is referenced in chat".into(),
+                        required: true,
+                        schema: "{}".into(),
+                        usage: profile::UsageType::STORE,
+                    }
+                ),
+
+            };
+            match hdk::call("profiles", "main", "register_app", json!({"spec": test_spec}).into()) {
+                Ok(_) => Ok(()),
+                Err(_) => Err("Could not commit profile spec".into()),
+            }
+        }
     }
 
     functions: {
