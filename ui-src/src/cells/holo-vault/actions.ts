@@ -18,8 +18,8 @@ export const DeleteField = createHolochainAsyncAction<{persona_address: string, 
 
 /*----------  Profile Actions  ----------*/
 
-export const GetProfiles = createHolochainAsyncAction<any, Array<Profile>>('holo-vault', 'profiles', 'main', 'getProfiles')
+export const GetProfiles = createHolochainAsyncAction<any, {profiles: Array<Profile>}>('holo-vault', 'profiles', 'main', 'get_profiles')
 
-export const CreateMapping = createHolochainAsyncAction<ProfileMapping, number>('holo-vault', 'profiles', 'main', 'createMapping')
+export const CreateMapping = createHolochainAsyncAction<ProfileMapping, number>('holo-vault', 'profiles', 'main', 'create_mapping')
 
-export const GetProfileFields = createHolochainAsyncAction<Hash, Array<ProfileField>>('holo-vault', 'profiles', 'main', 'getProfileFields')
+export const GetProfileFields = createHolochainAsyncAction<Hash, Array<ProfileField>>('holo-vault', 'profiles', 'main', 'get_profile_fields')

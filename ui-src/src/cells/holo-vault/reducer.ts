@@ -4,7 +4,7 @@ import { combineReducers } from 'redux'
 
 import * as vaultActions from './actions'
 
-import { Profile } from './types/profile'
+import { Profile, ProfileField } from './types/profile'
 import { Persona } from './types/persona'
 
 export type VaultAction = ActionType<typeof vaultActions>
@@ -48,7 +48,15 @@ export function vaultReducer (state: VaultState = initialState, action: VaultAct
     case getType(vaultActions.GetProfiles.success):
       return {
         ...state,
-        profiles: action.payload.data
+        profiles: action.payload.data.profiles.map((profile: Profile) => {
+          const fields = profile.fields.map((field: ProfileField) => {
+            return {
+              ...field,
+              mapping: field.mapping ? field.mapping : undefined
+            }
+          })
+          return { ...profile, fields }
+        })
       }
     default:
       return state
