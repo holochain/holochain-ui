@@ -1,5 +1,7 @@
 
 
+use hdk::holochain_core_types::error::HolochainError;
+use hdk::holochain_core_types::json::JsonString;
 use hdk::serde::de::DeserializeOwned;
 use hdk::error::ZomeApiResult;
 use hdk::holochain_core_types::hash::HashString;
@@ -11,30 +13,30 @@ use hdk::{
 
 use serde_json;
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct ProfileSpec {
     pub name: String,
     pub sourceDNA: HashString,
     pub fields: Vec<ProfileFieldSpec>
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct ProfileFieldSpec {
     pub name: String,
     pub displayName: String,
     pub required: bool,
     pub description: String,
     pub usage: UsageType,
-    pub schema: serde_json::Value
+    pub schema: String
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub enum UsageType {
     STORE,
     DISPLAY
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
 pub struct ProfileMapping {
     pub retrieverDNA: HashString,
     pub profileFieldName: String,
@@ -42,7 +44,7 @@ pub struct ProfileMapping {
     pub personaFieldName: String
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
 pub struct Profile {
     pub name: String,
     pub sourceDNA: HashString,
@@ -51,20 +53,20 @@ pub struct Profile {
     pub expiry: u32
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct FieldMapping {
     pub personaAddress: HashString,
     pub personaFieldName: String
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct ProfileField {
     pub name: String,
     pub displayName: String,
     pub required: bool,
     pub description: String,
     pub usage: UsageType,
-    pub schema: serde_json::Value,
+    pub schema: String,
     pub mapping: Option<FieldMapping>
 }
 

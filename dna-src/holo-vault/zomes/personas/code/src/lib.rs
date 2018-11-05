@@ -1,3 +1,4 @@
+#![feature(try_from)]
 #[macro_use]
 extern crate hdk;
 extern crate serde;
@@ -5,6 +6,8 @@ extern crate serde;
 extern crate serde_derive;
 #[macro_use]
 extern crate serde_json;
+#[macro_use]
+extern crate holochain_core_types_derive;
 
 use hdk::holochain_core_types::hash::HashString;
 use hdk::holochain_dna::zome::entry_types::Sharing;
@@ -42,22 +45,22 @@ pub mod persona;
     	main (Public) {
     		create_persona: {
     			inputs: |spec: persona::PersonaSpec|,
-    			outputs: |personaAddress: serde_json::Value|,
+    			outputs: |personaAddress: JsonString|,
     			handler: persona::handle_create_persona
     		}
     		get_personas: {
     			inputs: | |,
-    			outputs: |personas: serde_json::Value|,
+    			outputs: |personas: JsonString|,
     			handler: persona::handle_get_personas
     		}
             add_field: {
                 inputs: |persona_address: HashString, field: persona::PersonaField|,
-                outputs: |success: bool|,
+                outputs: |success: JsonString|,
                 handler: persona::handle_add_field
             }
             delete_field: {
                 inputs: |persona_address: HashString, field_name: String|,
-                outputs: |deleted_fields: bool|,
+                outputs: |deleted_fields: JsonString|,
                 handler: persona::handle_delete_field
             }
     	}

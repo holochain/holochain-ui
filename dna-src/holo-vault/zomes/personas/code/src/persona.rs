@@ -1,7 +1,10 @@
 
-use hdk::serde::de::DeserializeOwned;
-use hdk::error::ZomeApiResult;
+use hdk::holochain_core_types::error::HolochainError;
+use hdk::holochain_core_types::error::ZomeApiResult;
+use hdk::holochain_core_types::json::JsonString;
 use hdk::holochain_core_types::hash::HashString;
+use hdk::holochain_core_types::entry::Entry;
+use hdk::holochain_core_types::entry_type::EntryType;
 use hdk::{
 	self, 
 	entry_definition::ValidatingEntryType,
@@ -9,13 +12,14 @@ use hdk::{
 };
 
 use serde_json;
+use std::convert::TryFrom;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
 pub struct PersonaSpec {
 	name: String
 }
 
-#[derive(Serialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
 pub struct Persona {
 	name: String,
 	hash: HashString,
@@ -23,10 +27,10 @@ pub struct Persona {
 }
 
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct PersonaField {
 	name: String,
-	data: serde_json::Value
+	data: String
 }
 
 pub fn persona_definition() -> ValidatingEntryType {
@@ -67,74 +71,83 @@ pub fn field_definition() -> ValidatingEntryType {
 =            public fn handlers            =
 ==========================================*/
 
-pub fn handle_create_persona(spec: PersonaSpec) -> serde_json::Value {
+pub fn handle_create_persona(spec: PersonaSpec) -> JsonString {
+
+	let persona_entry = Entry::new(EntryType::App("persona".into()), spec);
+	let anchor_entry = Entry::new(EntryType::App("anchor".into()), json!("personas"));
+
 	match (
-		hdk::commit_entry("persona", json!(spec)),
-		hdk::commit_entry("anchor", json!("personas"))
+		hdk::commit_entry(&persona_entry),
+		hdk::commit_entry(&anchor_entry)
 	) {
 		(Ok(persona_address),Ok(anchor_address)) => {
 			match hdk::link_entries(&anchor_address, &persona_address, "personas") {
-				Ok(_) => json!({"address": persona_address}),
-				Err(hdk_error) => hdk_error.to_json(),
+				Ok(_) => json!({"address": persona_address}).into(),
+				Err(hdk_error) => hdk_error.into(),
 			}
 		},
-		(Err(err1), Err(_)) => err1.to_json(),
-		(Ok(_), Err(err2)) => err2.to_json(),
-		(Err(err1), Ok(_)) => err1.to_json(),
+		(Err(err1), Err(_)) => err1.into(),
+		(Ok(_), Err(err2)) => err2.into(),
+		(Err(err1), Ok(_)) => err1.into(),
 	}
 }
 
 
 
 
-pub fn handle_get_personas() -> serde_json::Value {
-	let anchor_address = hdk::commit_entry("anchor", json!("personas")).expect("Could not commit anchor");
+pub fn handle_get_personas() -> JsonString {
+	let anchor_address = hdk::commit_entry(
+		&Entry::new(EntryType::App("anchor".into()), json!("personas"))
+	).expect("Could not commit anchor");
 
-	let get_links_results: ZomeApiResult<GetLinksLoadResult<PersonaSpec>> = get_links_and_load(&anchor_address, "personas");
+	let get_links_results: ZomeApiResult<GetLinksLoadResult> = get_links_and_load(&anchor_address, "personas");
 	match get_links_results {
 		Ok(result) => {
 			let personas: Vec<Persona> = result.iter().map(|elem| {
+				let spec = PersonaSpec::try_from(elem.entry.value().clone()).unwrap();
 				Persona{
-					name: elem.entry.name.to_owned(),
+					name: spec.name.to_owned(),
 					hash: elem.address.to_owned(),
 					fields: get_fields(&elem.address).unwrap_or(Vec::new())
 				}
 			}).collect();
-			json!({"personas": personas})
+			json!({"personas": personas}).into()
 		},
-        Err(hdk_error) => hdk_error.to_json(),
+        Err(hdk_error) => hdk_error.into(),
 	}
 }
 
 
-pub fn handle_add_field(persona_address: HashString, field: PersonaField) -> bool {
-	match hdk::commit_entry("personaField", json!(field)) {
+pub fn handle_add_field(persona_address: HashString, field: PersonaField) -> JsonString {
+	let persona_field_entry = Entry::new(EntryType::App("personaField".into()), field);
+	match hdk::commit_entry(&persona_field_entry) {
 		Ok(field_addr) => {
 			match hdk::link_entries(&persona_address, &field_addr, "fields") {
-				Ok(_) => true,
-				Err(_hdk_error) => false // rewrite to not return a boolean as this loses error information
+				Ok(_) => json!({"success" : true}).into(),
+				Err(hdk_error) => json!({"error" : hdk_error}).into() // rewrite to not return a boolean as this loses error information
 			}
 		},
-		Err(_hdk_error) => false
+		Err(hdk_error) => json!({"error" : hdk_error}).into() 
 	}
 
 }
 
-pub fn handle_delete_field(persona_address: HashString, field_name: String) -> u32 {
+pub fn handle_delete_field(persona_address: HashString, field_name: String) -> JsonString {
 	let mut fields_deleted: u32 = 0;
 	match hdk::get_links(&persona_address, "fields") {
 		Ok(result) => {
-			for field_addr in result.links.iter() {
-				let field: PersonaField = hdk::get_entry(field_addr.to_owned()).unwrap().unwrap();
+			for field_addr in result.iter() {
+				let get_result = hdk::get_entry(field_addr.to_owned()).unwrap().unwrap().value().clone();
+				let field = PersonaField::try_from(get_result.clone()).unwrap();
 				if field.name == field_name {
 					fields_deleted+=1;
 					// remove entry not yet available
 					// hdk::remove_entry()
 				}
 			}
-			fields_deleted
+			json!({"fields_deleted" : fields_deleted}).into()
 		},
-		Err(_hdk_error) => 0
+		Err(hdk_error) => json!({"error" : hdk_error}).into() 
 	}
 }
 
@@ -145,34 +158,34 @@ pub fn handle_delete_field(persona_address: HashString, field_name: String) -> u
 
 fn get_fields(persona_address: &HashString) -> ZomeApiResult<Vec<PersonaField>> {
 	get_links_and_load(persona_address, "fields")
-		.map(|result: GetLinksLoadResult<PersonaField>| {
+		.map(|result: GetLinksLoadResult| {
 			result.iter().map(|elem| {
-				elem.entry.clone()
+				PersonaField::try_from(elem.entry.value().clone()).unwrap()
 			}).collect()
 		})
 }
 
 
 // #[derive(Serialize, Deserialize, Debug)]
-struct GetLinksLoadElement<T> {
+struct GetLinksLoadElement {
 	address: HashString,
-	entry: T
+	entry: Entry
 }
 
-type GetLinksLoadResult<T> = Vec<GetLinksLoadElement<T>>;
+type GetLinksLoadResult = Vec<GetLinksLoadElement>;
 
 
 
-fn get_links_and_load<T, S: Into<String>>(
+fn get_links_and_load<S: Into<String>>(
     base: &HashString, 
     tag: S
-) -> ZomeApiResult<GetLinksLoadResult<T>> where T: DeserializeOwned {
+) -> ZomeApiResult<GetLinksLoadResult>  {
 	hdk::get_links(base, tag)
 		.map(|result| {
-			result.links.iter()
+			result.iter()
 				.map(|address| {
 					hdk::get_entry(address.to_owned())
-						.map(|entry: Option<T>| {
+						.map(|entry: Option<Entry>| {
 							GetLinksLoadElement{
 								address: address.to_owned(),
 								entry: entry.unwrap()

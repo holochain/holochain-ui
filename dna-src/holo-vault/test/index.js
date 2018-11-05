@@ -43,7 +43,7 @@ test('add_field', t => {
 
   // add the field
   const add_result = app.call("personas", "main", "add_field", JSON.stringify({persona_address: persona_address, field: {name: "test_field", data: "string data"}}))
-  t.equal(JSON.parse(add_result), true)
+  t.deepEqual(JSON.parse(add_result), {success: true})
 
   // can get the field
   const get_result = app.call("personas", "main", "get_personas", JSON.stringify({}))
@@ -56,15 +56,15 @@ test('delete_field', t => {
   // create a new persona to add field to
   const create_result = app.call("personas", "main", "create_persona", JSON.stringify({spec: {name: "something"}}))
   const persona_address = JSON.parse(create_result).address
-  t.equal(persona_address.length, 46)
+  t.deepEqual(persona_address.length, 46)
 
   // add the field
   const add_result = app.call("personas", "main", "add_field", JSON.stringify({persona_address: persona_address, field: {name: "test_field", data: "string data"}}))
-  t.equal(JSON.parse(add_result), true)
+  t.deepEqual(JSON.parse(add_result), {success: true})
 
   // delete the field
   const delete_result = app.call("personas", "main", "delete_field", JSON.stringify({persona_address: persona_address, field_name: "test_field"}))
-  t.equal(JSON.parse(delete_result), 1)
+  t.deepEqual(JSON.parse(delete_result), {fields_deleted: 1})
 
   t.end()
 })
@@ -90,22 +90,22 @@ const testProfileSpec = {
 
 test('register_app', t => {
   const register_result = app.call("profiles", "main", "register_app", JSON.stringify({spec: testProfileSpec}))
-  t.equal(JSON.parse(register_result), true)
+  t.deepEqual(JSON.parse(register_result), {success: true})
   t.end()
 })
 
 test('get_profiles', t => {
   const register_result = app.call("profiles", "main", "register_app", JSON.stringify({spec: testProfileSpec}))
-  t.equal(JSON.parse(register_result), true)
+  t.deepEqual(JSON.parse(register_result), {success: true})
   const get_result = app.call("profiles", "main", "get_profiles", JSON.stringify({}))
   console.log(get_result)
-  t.equal(JSON.parse(get_result).profiles.length, 1)
+  t.deepEqual(JSON.parse(get_result).profiles.length, 1)
   t.end()
 })
 
 test('create_mapping', t => {
   const register_result = app.call("profiles", "main", "register_app", JSON.stringify({spec: testProfileSpec}))
-  t.equal(JSON.parse(register_result), true)
+  t.deepEqual(JSON.parse(register_result), {success: true})
 
   // can call the function with garbage data
   const map_result1 = app.call("profiles", "main", "create_mapping", 
@@ -118,7 +118,7 @@ test('create_mapping', t => {
       }
     }))
   // should not map any fields
-  t.equal(JSON.parse(map_result1), 0, "should not create a mapping as there are no matching fields");
+  t.deepEqual(JSON.parse(map_result1), { maps_created: 0 }, "should not create a mapping as there are no matching fields");
 
   // create a persona to map to and add a field
   const result = app.call("personas", "main", "create_persona", JSON.stringify({spec: {name: "mapToPersona"}}))
@@ -137,7 +137,7 @@ test('create_mapping', t => {
       }
     }))
   // should map a single field
-  t.equal(JSON.parse(map_result2), 1, "A single mapping should have been created");
+  t.deepEqual(JSON.parse(map_result2), { maps_created: 1 }, "A single mapping should have been created");
 
   // can then see the field is mapped
   const get_result = app.call("profiles", "main", "get_profiles", JSON.stringify({}))
