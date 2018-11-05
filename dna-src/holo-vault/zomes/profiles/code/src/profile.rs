@@ -38,7 +38,7 @@ pub enum UsageType {
 pub struct ProfileMapping {
     pub retrieverDNA: HashString,
     pub profileFieldName: String,
-    pub personaHash: HashString,
+    pub personaAddress: HashString,
     pub personaFieldName: String
 }
 
@@ -53,7 +53,7 @@ pub struct Profile {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct FieldMapping {
-    pub personaHash: HashString,
+    pub personaAddress: HashString,
     pub personaFieldName: String
 }
 
@@ -96,7 +96,7 @@ pub fn field_mapping_definition() -> ValidatingEntryType {
             hdk::ValidationPackageDefinition::ChainFull
         },
 
-        validation: |_profile: ProfileSpec, _ctx: hdk::ValidationData| {
+        validation: |_profile_field: ProfileField, _ctx: hdk::ValidationData| {
             Ok(())
         }
     )

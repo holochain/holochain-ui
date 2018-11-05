@@ -16,9 +16,7 @@ pub fn handle_register_app(spec: profile::ProfileSpec) -> bool {
 				Err(_) => false,
 			}
 		},
-		(Err(_), Err(_)) => false,
-		(Ok(_), Err(_)) => false,
-		(Err(_), Ok(_)) => false,
+		_ => false,
 	}
 }
 
@@ -70,10 +68,12 @@ pub fn handle_create_mapping(mapping: profile::ProfileMapping) -> u32 {
 			profile.fields.iter()
 				.filter(|field| field.name == mapping.profileFieldName)
 				.for_each(|field| {
+
 					let new_field = field.new_with_mapping(Some(profile::FieldMapping {
-						personaHash: mapping.personaHash.to_owned(),
+						personaAddress: mapping.personaAddress.to_owned(),
 						personaFieldName: mapping.personaFieldName.to_owned()
 					}));
+
 					hdk::commit_entry("field_mapping", json!(new_field))
 						.and_then(|result| {
 							hdk::link_entries(&profile.hash, &result, "field_mappings")
@@ -82,7 +82,7 @@ pub fn handle_create_mapping(mapping: profile::ProfileMapping) -> u32 {
 							maps_created += 1;
 							Ok(())
 						});
-					
+
 				});
 		});
 
@@ -102,12 +102,14 @@ pub fn handle_retrieve(retriever_DNA: HashString, profile_field: String) -> serd
 
 
 
+// #[derive(Serialize, Deserialize, Debug)]
 struct GetLinksLoadElement<T> {
 	address: HashString,
 	entry: T
 }
 
 type GetLinksLoadResult<T> = Vec<GetLinksLoadElement<T>>;
+
 
 
 fn get_links_and_load<T, S: Into<String>>(
