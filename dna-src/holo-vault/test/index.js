@@ -139,6 +139,9 @@ test('create_mapping', t => {
   // should map a single field
   t.equal(JSON.parse(map_result2), 1, "A single mapping should have been created");
 
+  // can then see the field is mapped
+  const get_result = app.call("profiles", "main", "get_profiles", JSON.stringify({}))
+  t.deepEqual(JSON.parse(get_result).profiles[0].fields[0].mapping, {personaAddress: personaAddress, personaFieldName: 'test_field'})
 
   t.end()
 })

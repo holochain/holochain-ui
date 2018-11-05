@@ -29,9 +29,9 @@ pub fn handle_get_profiles() -> serde_json::Value { // array of profiles
 			let profiles: Vec<profile::Profile> = result.iter().map(|elem| { // add code to loads fields etc
 
 				// merge spec fields and mapped fields to return a mapping where provided
-				let mapped_fields: Vec<profile::ProfileField> = serde_json::from_value(
-					handle_get_profile_fields(elem.address.to_owned()).get("fields").unwrap().to_owned()
-				).unwrap();
+				let mapped_fields = get_mapped_profile_fields(&elem.address).unwrap();
+
+				hdk::debug(&format!("{:?}", mapped_fields));
 
 				let fields: Vec<profile::ProfileField> = elem.entry.fields.iter().map(|field_spec| {
 					let matching_maps: Vec<profile::ProfileField> = mapped_fields.iter().filter(|mapped_field| {
@@ -89,16 +89,22 @@ pub fn handle_create_mapping(mapping: profile::ProfileMapping) -> u32 {
 	maps_created
 }
 
-pub fn handle_get_profile_fields(profile_address: HashString) -> serde_json::Value { // array of profileFields
-	json!({"fields": []})
-}
-
 
 
 pub fn handle_retrieve(retriever_DNA: HashString, profile_field: String) -> serde_json::Value {
 	json!({})
 }
 
+
+
+fn get_mapped_profile_fields(profile_address: &HashString) -> ZomeApiResult<Vec<profile::ProfileField>> {
+	get_links_and_load(profile_address, "field_mappings")
+		.map(|results: Vec<GetLinksLoadElement<profile::ProfileField>>| {
+			results.iter().map(|get_links_result| {
+				get_links_result.entry.to_owned()
+		}).collect()
+	})		
+}
 
 
 

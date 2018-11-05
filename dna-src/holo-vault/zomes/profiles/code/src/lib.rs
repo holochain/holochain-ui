@@ -38,11 +38,6 @@ define_zome! {
                 outputs: |num_created: u32|,
                 handler: handlers::handle_create_mapping
             }
-            get_profile_fields: {
-                inputs: |profile_address: HashString|,
-                outputs: |fields: serde_json::Value|,
-                handler: handlers::handle_get_profile_fields
-            }
             retrieve: {
                 inputs: |retriever_DNA: HashString, profile_field: String|,
                 outputs: |profiles: serde_json::Value|,
