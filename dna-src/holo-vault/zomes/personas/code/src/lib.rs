@@ -16,7 +16,7 @@ pub mod persona;
 
 
  define_zome! {
- 	
+
 	entries: [
 		persona::persona_definition(),
         persona::field_definition(),
@@ -37,7 +37,14 @@ pub mod persona;
 	]
 
     genesis: || {
-        Ok(())
+        {
+            let default_persona_spec = persona::PersonaSpec {
+                name: "Default".into()
+            };
+            
+            hdk::call("personas", "main", "create_persona", json!({"spec": default_persona_spec}).into());
+            Ok(())
+        }
     }
 
     functions: {

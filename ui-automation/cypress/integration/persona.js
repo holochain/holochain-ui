@@ -10,10 +10,10 @@ it('should have context', function () {
 });
 
 describe('How to work with Personas', function () {
-  it('Add a new Default persona by clicking the Add button', function () {
+  it('Add a new Personal persona by clicking the Add button', function () {
     cy.visit('/holo-vault/persona/new')
     cy.title().should('eq', 'Holochain')
-    cy.get('input[name="personaName"]').type('Default', { delay: 25 })
+    cy.get('input[name="personaName"]').type('Personal', { delay: 25 })
     cy.log('Fill out the name you want to refer to this Persona as')
     cy.get('button[name="addField"]').click()
     cy.log('Click the Add Field button to start adding your information')

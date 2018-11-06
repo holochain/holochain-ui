@@ -47,42 +47,42 @@ function genExpectedAction (zome: string, fname: string, data: any): any {
 const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, any, any]> = [
   [
     'personas',
-    'createPersona',
+    'create_persona',
     vaultActions.CreatePersona.create,
 		{ name: 'test persona', id: 'test_persona' },
     'xxx'
   ],
   [
     'personas',
-    'getPersonas',
+    'get_personas',
     vaultActions.GetPersonas.create,
     null,
 		[{ name: 'test persona', id: 'test_persona' }, { name: 'test persona', id: 'test_persona' }]
   ],
   [
     'personas',
-    'addField',
+    'add_field',
     vaultActions.AddField.create,
 		{ personaHash: 'xxx', field: { name: 'fieldName', data: 'data' } },
     true
   ],
   [
     'personas',
-    'deleteField',
+    'delete_field',
     vaultActions.DeleteField.create,
 		{ personaHash: 'xxx', fieldName: 'fieldName' },
     1
   ],
   [
     'profiles',
-    'getProfiles',
+    'get_profiles',
     vaultActions.GetProfiles.create,
     {},
     [{ name: 'profile1' }, { name: 'profile2' }]
   ],
   [
     'profiles',
-    'createMapping',
+    'create_mapping',
     vaultActions.CreateMapping.create,
     {
       retrieverDNA: 'XYZ',
@@ -94,7 +94,7 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
   ],
   [
     'profiles',
-    'getProfileFields',
+    'get_profile_fields',
     vaultActions.GetProfileFields.create,
     'ABCXYZ', // profile hash
     [
