@@ -34,16 +34,20 @@ export function vaultReducer (state: VaultState = initialState, action: VaultAct
     case getType(vaultActions.GetPersonas.success):
       let personas = action.payload.data.personas
       console.log(personas.length)
-      if (personas.length === 0) {
-        personas.push({
-          hash: '',
-          name: 'Default',
-          fields: []
-        })
-      }
+      // if (personas.length === 0) {
+      //   personas.push({
+      //     hash: '',
+      //     name: 'Default',
+      //     fields: []
+      //   })
+      // }
+
+      let currentPersona = personas.filter((persona: Persona) => persona.name === 'Default')[0] || personas[0] || undefined
+
       return {
         ...state,
-        personas: personas
+        personas,
+        currentPersona
       }
     case getType(vaultActions.GetProfiles.success):
       return {
@@ -57,6 +61,12 @@ export function vaultReducer (state: VaultState = initialState, action: VaultAct
           })
           return { ...profile, fields }
         })
+      }
+
+    case getType(vaultActions.SetCurrentPersona):
+      return {
+        ...state,
+        currentPersona: action.payload
       }
     default:
       return state

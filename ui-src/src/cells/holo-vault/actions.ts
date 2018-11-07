@@ -1,5 +1,6 @@
 
 import { createHolochainAsyncAction } from '../../utils/holochainAxiosActions'
+import { createAction } from 'typesafe-actions'
 
 import { Persona, PersonaSpec, PersonaField } from './types/persona'
 import { ProfileField, ProfileMapping, Profile } from './types/profile'
@@ -15,6 +16,10 @@ export const GetPersonas = createHolochainAsyncAction<any, {personas: Array<Pers
 export const AddField = createHolochainAsyncAction<{persona_address: string, field: PersonaField}, boolean>('holo-vault', 'personas', 'main', 'add_field')
 
 export const DeleteField = createHolochainAsyncAction<{persona_address: string, fieldName: string}, number>('holo-vault', 'personas', 'main', 'delete_field')
+
+export const SetCurrentPersona = createAction('holo-vault/SET_CURRENT_PERSONA', resolve => {
+  return (persona: Persona) => resolve(persona)
+})
 
 /*----------  Profile Actions  ----------*/
 

@@ -13,6 +13,7 @@ import profileFaultyMapping from './profileFaultyMapping.md'
 import { profileTests } from './profile.test'
 import * as constants from '../../constants'
 
+const mockFn = jest.fn()
 const mockPromise = jest.fn(() => Promise.reject('Storybook mock function'))
 
 storiesOf('HoloVault/Profile', module)
@@ -23,10 +24,10 @@ storiesOf('HoloVault/Profile', module)
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaultsManualMap,
-      profiles: [],
       save: jest.fn(() => Promise.resolve('')),
       getProfiles: mockPromise,
-      getPersonas: mockPromise
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
     }
     return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
   }))
@@ -37,10 +38,10 @@ storiesOf('HoloVault/Profile', module)
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
-      getPersonas: mockPromise
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
     }
     return <MemoryRouter initialEntries={['/']}><Profile {...props} handleSaveProfile={action('Save')} /></MemoryRouter>
   }))
@@ -51,10 +52,10 @@ storiesOf('HoloVault/Profile', module)
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMapped,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
-      getPersonas: mockPromise
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
     }
     return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
   }))
@@ -65,10 +66,10 @@ storiesOf('HoloVault/Profile', module)
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileMappedCorrectly,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
-      getPersonas: mockPromise
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
     }
     return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
   }))
@@ -78,10 +79,10 @@ storiesOf('HoloVault/Profile', module)
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleFaultyProfile,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
-      getPersonas: mockPromise
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
     }
     return <MemoryRouter initialEntries={['/']}><Profile {...props} /></MemoryRouter>
   }))
