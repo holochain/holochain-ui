@@ -2,7 +2,7 @@ import * as React from 'react'
 import { mount, ReactWrapper, configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import * as constants from '../../constants'
-import Profile, { Props, State } from './profile'
+import Profile, { ProfileBase, Props, State } from './profile'
 import { Profile as ProfileType } from '../../types/profile'
 // import CreateStore from '../../../../store'
 // import { Provider } from 'react-redux'
@@ -34,7 +34,6 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
       getPersonas: mockPromise
@@ -50,7 +49,6 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleFaultyProfile,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
       getPersonas: mockPromise
@@ -67,7 +65,6 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileMappedCorrectly,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
       getPersonas: mockPromise
@@ -84,7 +81,6 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
       getPersonas: mockPromise
@@ -104,7 +100,6 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileMappedCorrectly,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
       getPersonas: mockPromise
@@ -119,7 +114,6 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
       getPersonas: mockPromise
@@ -129,5 +123,38 @@ export const profileTests = describe('', () => {
     profileField().find('input[name="name"]').first().simulate('blur')
     let personas = (profileField().find('Profile').instance().state as State).personas
     console.log(JSON.stringify(personas))
+  })
+
+  it('Check getDerivedStateFromProps returns null when props dont set a profile', () => {
+    props = {
+      personas: constants.personas,
+      selectedPersona: constants.personas[0],
+      profile: constants.exampleProfileNotMappedNoDefaults,
+      save: mockPromise,
+      getProfiles: mockPromise,
+      getPersonas: mockPromise
+    }
+    const prevState = {
+      profile: {}
+    }
+    // @ts-ignore
+    let newState = ProfileBase.getDerivedStateFromProps(props, prevState)
+    expect(newState).toEqual(null)
+  })
+  it('Check getDerivedStateFromProps returns correct state update when props set a profile', () => {
+    props = {
+      personas: constants.personas,
+      selectedPersona: constants.personas[0],
+      profile: constants.exampleProfileNotMappedNoDefaults,
+      save: mockPromise,
+      getProfiles: mockPromise,
+      getPersonas: mockPromise
+    }
+    const prevState = {
+      profile: {}
+    }
+    // @ts-ignore
+    let newState = ProfileBase.getDerivedStateFromProps(props, prevState)
+    expect(newState).toEqual(null)
   })
 })

@@ -25,8 +25,7 @@ const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps 
   return {
     personas: state.holoVault.profile.personas,
     selectedPersona: state.holoVault.profile.personas[0],
-    profile: profile,
-    profiles: state.holoVault.profile.profiles
+    profile: profile
   }
 }
 

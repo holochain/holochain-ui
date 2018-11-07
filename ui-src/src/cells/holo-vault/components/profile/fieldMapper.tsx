@@ -278,7 +278,7 @@ class FieldMapper extends React.Component<Props, State> {
     const { classes, field, personas, profile } = this.props
   	return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={this.state.expansionPanelOpen}>
+        <ExpansionPanel expanded={this.state.expansionPanelOpen} style={{ boxShadow: 'none' }}>
           <ExpansionPanelSummary expandIcon={<Person name='expandPersonaDetails' onClick={() => { this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen }) }}/>}>
             <AutoCompleteProfileField
               personas={personas}

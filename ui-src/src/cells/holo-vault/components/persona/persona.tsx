@@ -145,10 +145,10 @@ class Persona extends React.Component<Props & RouterProps, State> {
     })
   }
 
-  static getDerivedStateFromProps (props: Props & RouterProps, state: State) {
-    if (!state.persona) {
+  static getDerivedStateFromProps (nextProps: Props & RouterProps, prevState: State) {
+    if (!prevState.persona) {
       return {
-        persona: props.currentPersona
+        persona: nextProps.currentPersona
       }
     } else {
       return null
@@ -232,4 +232,5 @@ class Persona extends React.Component<Props & RouterProps, State> {
   }
 }
 
+export { Persona as PersonaBase }
 export default withRoot(withStyles(styles)(withRouter(Persona)))

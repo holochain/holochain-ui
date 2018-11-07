@@ -22,13 +22,16 @@ const styles: StyleRulesCallback = theme => ({
   button: {
     marginRight: theme.spacing.unit,
     marginTop: theme.spacing.unit,
-    marginLeft: 25
+    marginLeft: 25,
+    marginBottom: 25
   },
   selectContainer: {
     paddingTop: 10,
+    paddingBottom: 10,
     paddingLeft: 25,
     paddingRight: 25,
-    width: '100%'
+    width: '100%',
+    marginBottom: 25
   },
   select: {
     width: '100%'
@@ -51,7 +54,6 @@ export interface StateProps {
   personas: Array<PersonaType>
   selectedPersona: PersonaType
   profile: ProfileType,
-  profiles: Array<ProfileType>
 }
 
 export interface State {
@@ -78,13 +80,18 @@ class Profile extends React.Component<Props & RouterProps, State> {
       .catch((err) => console.log(err))
   }
 
-  static getDerivedStateFromProps (props: Props & RouterProps, state: State) {
-    if (!state.profile) {
+  static getDerivedStateFromProps (nextProps: Props & RouterProps, prevState: State) {
+    if (!prevState.profile) {
       return {
-        profile: props.profile,
-        selectedPersona: props.selectedPersona,
-        personas: props.personas
+        profile: nextProps.profile,
+        selectedPersona: nextProps.selectedPersona,
+        personas: nextProps.personas
       }
+    // } else if (!prevState.personas || prevState.selectedPersona !== nextProps.selectedPersona) {
+    //   console.log('selectedPersona' + nextProps.selectedPersona.name)
+    //   return {
+    //     selectedPersona: nextProps.selectedPersona
+    //   }
     } else {
       return null
     }
@@ -171,7 +178,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
           })}
           </TextField>
         </Paper>
-        <div>
+        <Paper className={classes.form}>
           {this.state.profile.fields.map((field, i) => {
             return (
               <FieldMapper
@@ -188,11 +195,12 @@ class Profile extends React.Component<Props & RouterProps, State> {
             <Save/>
             Save Profile
           </Button>
-        </div>
+        </Paper>
 
       </div>
     )
   }
 }
 
+export { Profile as ProfileBase }
 export default withRoot(withStyles(styles)(withRouter(Profile)))
