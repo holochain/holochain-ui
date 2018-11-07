@@ -27,7 +27,7 @@ export enum UsageType {
 export interface ProfileMapping {
   retrieverDNA: string,
   profileFieldName: string,
-  personaHash: string,
+  personaAddress: string,
   personaFieldName: string
 }
 
@@ -39,7 +39,7 @@ export interface Profile extends ProfileSpec {
 
 export interface ProfileField extends ProfileFieldSpec {
   mapping?: {
-    personaHash: string,
+    personaAddress: string,
     personaFieldName: string
   } // id of the persona to map to. If not provided then an error will be thrown on access
 }

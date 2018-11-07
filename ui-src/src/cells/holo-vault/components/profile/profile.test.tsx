@@ -2,7 +2,7 @@ import * as React from 'react'
 import { mount, ReactWrapper, configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import * as constants from '../../constants'
-import Profile, { Props, State } from './profile'
+import Profile, { ProfileBase, Props, State } from './profile'
 import { Profile as ProfileType } from '../../types/profile'
 // import CreateStore from '../../../../store'
 // import { Provider } from 'react-redux'
@@ -26,7 +26,7 @@ export const profileTests = describe('', () => {
     mountedProfile = undefined
   })
 
-  // const mockFn = jest.fn()
+  const mockFn = jest.fn()
   const mockPromise = jest.fn(() => Promise.reject('Profile test mockPromise'))
 
   it('A new Profile has an empty AutoCompleteProfileField for each field in the Profile request', () => {
@@ -34,10 +34,10 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
-      getPersonas: mockPromise
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
     }
     expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfileNotMappedNoDefaults.fields.length)
     profileField().find('input[name="name"]').map(function (field) {
@@ -50,10 +50,10 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleFaultyProfile,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
-      getPersonas: mockPromise
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
     }
     expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfile.fields.length)
     let fields = profileField().find('input[name="name"]')
@@ -67,10 +67,10 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileMappedCorrectly,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
-      getPersonas: mockPromise
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
     }
     expect(profileField().find('AutoCompleteProfileField').length).toEqual(constants.exampleProfile.fields.length)
     profileField().find('input[name="name"]').map(function (field) {
@@ -84,10 +84,10 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
-      getPersonas: mockPromise
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
     }
     let profile: ProfileType = (profileField().find('Profile').instance().state as State).profile
     expect(profile.fields[0].mapping).toEqual(undefined)
@@ -104,10 +104,10 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileMappedCorrectly,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
-      getPersonas: mockPromise
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
     }
 
     profileField().find('Button').simulate('click')
@@ -119,15 +119,48 @@ export const profileTests = describe('', () => {
       personas: constants.personas,
       selectedPersona: constants.personas[0],
       profile: constants.exampleProfileNotMappedNoDefaults,
-      profiles: [],
       save: mockPromise,
       getProfiles: mockPromise,
-      getPersonas: mockPromise
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
     }
     profileField().find('input[name="name"]').first().simulate('change', { target: { value: 'Techno' } })
     profileField().find('input[name="name"]').first().simulate('focus')
     profileField().find('input[name="name"]').first().simulate('blur')
-    let personas = (profileField().find('Profile').instance().state as State).personas
-    console.log(JSON.stringify(personas))
+  })
+
+  it('Check getDerivedStateFromProps returns null when props dont set a profile', () => {
+    props = {
+      personas: constants.personas,
+      selectedPersona: constants.personas[0],
+      profile: constants.exampleProfileNotMappedNoDefaults,
+      save: mockPromise,
+      getProfiles: mockPromise,
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
+    }
+    const prevState = {
+      profile: {}
+    }
+    // @ts-ignore
+    let newState = ProfileBase.getDerivedStateFromProps(props, prevState)
+    expect(newState).toEqual(null)
+  })
+  it('Check getDerivedStateFromProps returns correct state update when props set a profile', () => {
+    props = {
+      personas: constants.personas,
+      selectedPersona: constants.personas[0],
+      profile: constants.exampleProfileNotMappedNoDefaults,
+      save: mockPromise,
+      getProfiles: mockPromise,
+      getPersonas: mockPromise,
+      setCurrentPersona: mockFn
+    }
+    const prevState = {
+      profile: {}
+    }
+    // @ts-ignore
+    let newState = ProfileBase.getDerivedStateFromProps(props, prevState)
+    expect(newState).toEqual(null)
   })
 })

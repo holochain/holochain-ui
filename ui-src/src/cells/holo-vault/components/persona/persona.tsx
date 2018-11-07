@@ -145,10 +145,10 @@ class Persona extends React.Component<Props & RouterProps, State> {
     })
   }
 
-  static getDerivedStateFromProps (props: Props & RouterProps, state: State) {
-    if (!state.persona) {
+  static getDerivedStateFromProps (nextProps: Props & RouterProps, prevState: State) {
+    if (!prevState.persona) {
       return {
-        persona: props.currentPersona
+        persona: nextProps.currentPersona
       }
     } else {
       return null
@@ -191,7 +191,7 @@ class Persona extends React.Component<Props & RouterProps, State> {
           Manage Your Personas
         </Typography>
         <Typography variant='body1' gutterBottom={true}>
-          You can add a new Persona and add as many fields to it as you like. You will probably have a *Personal*, *Work* and a *Friends* persona.
+          You can add a new Persona and add as many fields to it as you like. You will probably have a *Default*, *Work* and a *Friends* persona.
         </Typography>
           <div>
             <TextField name='personaName' value={this.state.persona.name} onChange={e => this.updateName(e.target.value)} label='Persona Name'/>
@@ -232,4 +232,5 @@ class Persona extends React.Component<Props & RouterProps, State> {
   }
 }
 
+export { Persona as PersonaBase }
 export default withRoot(withStyles(styles)(withRouter(Persona)))

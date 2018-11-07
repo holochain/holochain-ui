@@ -6,7 +6,7 @@ use hdk::holochain_core_types::hash::HashString;
 use hdk::holochain_core_types::entry::Entry;
 use hdk::holochain_core_types::entry_type::EntryType;
 use hdk::{
-	self, 
+	self,
 	entry_definition::ValidatingEntryType,
 	holochain_dna::zome::entry_types::Sharing,
 };
@@ -16,7 +16,7 @@ use std::convert::TryFrom;
 
 #[derive(Serialize, Deserialize, Debug, DefaultJson)]
 pub struct PersonaSpec {
-	name: String
+	pub name: String
 }
 
 #[derive(Serialize, Deserialize, Debug, DefaultJson)]
@@ -127,7 +127,7 @@ pub fn handle_add_field(persona_address: HashString, field: PersonaField) -> Jso
 				Err(hdk_error) => json!({"error" : hdk_error}).into() // rewrite to not return a boolean as this loses error information
 			}
 		},
-		Err(hdk_error) => json!({"error" : hdk_error}).into() 
+		Err(hdk_error) => json!({"error" : hdk_error}).into()
 	}
 
 }
@@ -147,7 +147,7 @@ pub fn handle_delete_field(persona_address: HashString, field_name: String) -> J
 			}
 			json!({"fields_deleted" : fields_deleted}).into()
 		},
-		Err(hdk_error) => json!({"error" : hdk_error}).into() 
+		Err(hdk_error) => json!({"error" : hdk_error}).into()
 	}
 }
 
@@ -177,7 +177,7 @@ type GetLinksLoadResult = Vec<GetLinksLoadElement>;
 
 
 fn get_links_and_load<S: Into<String>>(
-    base: &HashString, 
+    base: &HashString,
     tag: S
 ) -> ZomeApiResult<GetLinksLoadResult>  {
 	hdk::get_links(base, tag)

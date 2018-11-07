@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Persona, { State, Props } from './persona'
+import Persona, { PersonaBase, State, Props } from './persona'
 import { Persona as PersonaType } from '../../types/persona'
 import { mount, ReactWrapper, configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
@@ -140,4 +140,80 @@ export const personaTests = describe('Looking after your Personas', () => {
       done()
     })
   })
+
+  it('Check the state persona is set when props set persona', () => {
+    let editPersona: PersonaType = {
+      hash: 'hash11111',
+      name: 'Personal',
+      fields: [
+          { name: 'firstName', data: 'Phil' },
+          { name: 'lastName', data: 'Beadle' }
+      ]
+    }
+    props = {
+      currentPersona: editPersona,
+      title: 'Edit - Persona',
+      personas: [],
+      create: mockFn,
+      update: mockFn,
+      delete: mockFn,
+      getPersonas: mockPromise
+    }
+    const prevState = {
+    }
+    // @ts-ignore
+    let newState = PersonaBase.getDerivedStateFromProps(props, prevState)
+    expect(newState!.persona).toEqual(editPersona)
+  })
+
+  it('Check getDerivedStateFromProps returns null when props dont set persona', () => {
+    let editPersona: PersonaType = {
+      hash: 'hash11111',
+      name: 'Personal',
+      fields: [
+          { name: 'firstName', data: 'Phil' },
+          { name: 'lastName', data: 'Beadle' }
+      ]
+    }
+    props = {
+      currentPersona: editPersona,
+      title: 'Edit - Persona',
+      personas: [],
+      create: mockFn,
+      update: mockFn,
+      delete: mockFn,
+      getPersonas: mockPromise
+    }
+    const prevState = {
+      persona: {}
+    }
+    // @ts-ignore
+    let newState = PersonaBase.getDerivedStateFromProps(props, prevState)
+    expect(newState).toEqual(null)
+  })
+
+  // it('The loading circle shows while there is no persona set', (done) => {
+  //   let editPersona: PersonaType = {
+  //     hash: 'hash11111',
+  //     name: 'Personal',
+  //     fields: [
+  //         { name: 'firstName', data: 'Phil' },
+  //         { name: 'lastName', data: 'Beadle' }
+  //     ]
+  //   }
+  //
+  //   props = {
+  //     title: 'Edit - Persona',
+  //     personas: [],
+  //     create: mockFn,
+  //     update: mockFn,
+  //     delete: mockFn,
+  //     getPersonas: mockPromise
+  //   }
+  //
+  //   let persona = (personaView().find('Persona').instance().state as State).persona
+  //
+  //   personaView().find('button[name="deletePersona"]').simulate('click')
+  //
+  // })
 })

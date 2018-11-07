@@ -22,13 +22,16 @@ const styles: StyleRulesCallback = theme => ({
   button: {
     marginRight: theme.spacing.unit,
     marginTop: theme.spacing.unit,
-    marginLeft: 25
+    marginLeft: 25,
+    marginBottom: 25
   },
   selectContainer: {
     paddingTop: 10,
+    paddingBottom: 10,
     paddingLeft: 25,
     paddingRight: 25,
-    width: '100%'
+    width: '100%',
+    marginBottom: 25
   },
   select: {
     width: '100%'
@@ -45,18 +48,17 @@ export interface DispatchProps {
   save: (profile: ProfileType, personas: Array<PersonaType>) => Promise<any>
   getProfiles: typeof GetProfiles.sig
   getPersonas: typeof GetPersonas.sig
+  setCurrentPersona: (newCurrentPersona: PersonaType) => void
 }
 
 export interface StateProps {
   personas: Array<PersonaType>
   selectedPersona: PersonaType
   profile: ProfileType,
-  profiles: Array<ProfileType>
 }
 
 export interface State {
   profile: ProfileType
-  selectedPersona: PersonaType
   personas: Array<PersonaType>
 }
 
@@ -67,7 +69,6 @@ class Profile extends React.Component<Props & RouterProps, State> {
     super(props)
     this.state = {
       profile: props.profile,
-      selectedPersona: props.selectedPersona,
       personas: props.personas
     }
   }
@@ -78,12 +79,10 @@ class Profile extends React.Component<Props & RouterProps, State> {
       .catch((err) => console.log(err))
   }
 
-  static getDerivedStateFromProps (props: Props & RouterProps, state: State) {
-    if (!state.profile) {
+  static getDerivedStateFromProps (nextProps: Props & RouterProps, prevState: State) {
+    if (!prevState.profile) {
       return {
-        profile: props.profile,
-        selectedPersona: props.selectedPersona,
-        personas: props.personas
+        profile: nextProps.profile
       }
     } else {
       return null
@@ -94,11 +93,11 @@ class Profile extends React.Component<Props & RouterProps, State> {
     // To be able to save new Persona fields we add new fields to the existing personas.
     console.log('updatedField')
     if (updatedField.mapping !== undefined) {
-      let personas = this.state.personas
-      let personaHash = updatedField.mapping.personaHash
+      let personas = this.props.personas
+      let personaAddress = updatedField.mapping.personaAddress
       let personaFieldName = updatedField.mapping.personaFieldName
       let selectedPersonas = personas.filter(function (persona: PersonaType) {
-        return persona.hash === personaHash
+        return persona.hash === personaAddress
       })
       if (selectedPersonas.length === 1) {
         let selectedPersonaFields = selectedPersonas[0].fields.filter(function (field) {
@@ -116,6 +115,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
     this.state.profile.fields.filter(function (field) {
       return field.name === updatedField.name
     })[0] = updatedField
+
     this.setState({
       profile: this.state.profile
     })
@@ -129,24 +129,15 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   public handleChangeSelectedPersona = (event: any) => {
-    let personaHash = event.target.value
+    let personaAddress = event.target.value
     let selectedPersona = this.props.personas.filter(function (persona: PersonaType) {
-      return persona.hash === personaHash
+      return persona.hash === personaAddress
     })[0]
-    let personas = this.props.personas
-    let index: number = personas.map(function (persona: PersonaType) { return persona.hash }).indexOf(personaHash)
-    if (index > 0) {
-      let persona = personas.splice(index, 1)
-      personas.unshift(persona[0])
-    }
-    this.setState({
-      personas: personas,
-      selectedPersona: selectedPersona
-    })
+    this.props.setCurrentPersona(selectedPersona)
   }
 
   render () {
-    if (!this.state.profile || this.props.personas.length === 0) {
+    if (!this.props.selectedPersona || !this.props.profile) {
       return (
         <div>
           <CircularProgress/>
@@ -161,8 +152,8 @@ class Profile extends React.Component<Props & RouterProps, State> {
         {profile.name} is requesting access to the following:
         </Typography>
         <Paper className={classes.selectContainer}>
-          <TextField name='PersonasSelect' className={classes.select} select={true} value={this.state.selectedPersona.hash} onChange={this.handleChangeSelectedPersona} label='Selected Persona'>
-          {this.state.personas.map((persona) => {
+          <TextField name='PersonasSelect' className={classes.select} select={true} value={this.props.selectedPersona.hash} onChange={this.handleChangeSelectedPersona} label='Selected Persona'>
+          {this.props.personas.map((persona) => {
             return (
               <MenuItem key={persona.hash} value={persona.hash} >
                 {persona.name}
@@ -171,15 +162,16 @@ class Profile extends React.Component<Props & RouterProps, State> {
           })}
           </TextField>
         </Paper>
-        <div>
+        <Paper className={classes.form}>
           {this.state.profile.fields.map((field, i) => {
             return (
               <FieldMapper
                 key={i}
-                personas={this.state.personas}
-                selectedPersona={this.state.selectedPersona}
+                personas={this.props.personas}
+                selectedPersona={this.props.selectedPersona} // make sure the currentPersona is at the top
                 profile={profile}
                 field={field}
+                mapSaved={this.props.profile.fields[i].mapping}
                 handleMappingChange={this.handleMappingChange}
               />
             )
@@ -188,11 +180,12 @@ class Profile extends React.Component<Props & RouterProps, State> {
             <Save/>
             Save Profile
           </Button>
-        </div>
+        </Paper>
 
       </div>
     )
   }
 }
 
+export { Profile as ProfileBase }
 export default withRoot(withStyles(styles)(withRouter(Profile)))

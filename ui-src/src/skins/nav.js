@@ -122,7 +122,7 @@ class MiniDrawer extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar
+        <AppBar style={{ backgroundColor: '#2196F3' }}
           position="absolute"
           className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
         >

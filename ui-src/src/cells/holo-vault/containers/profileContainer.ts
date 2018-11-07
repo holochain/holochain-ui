@@ -9,7 +9,8 @@ import {
   CreateMapping,
   GetProfiles,
   GetPersonas,
-  AddField
+  AddField,
+  SetCurrentPersona
 } from '../actions'
 
 const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps => {
@@ -24,9 +25,8 @@ const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps 
 
   return {
     personas: state.holoVault.profile.personas,
-    selectedPersona: state.holoVault.profile.personas[0],
-    profile: profile,
-    profiles: state.holoVault.profile.profiles
+    selectedPersona: state.holoVault.profile.currentPersona,
+    profile: profile
   }
 }
 
@@ -34,14 +34,19 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     getProfiles: () => dispatch(GetProfiles.create(undefined)),
     getPersonas: () => dispatch(GetPersonas.create(undefined)),
+    setCurrentPersona: (newCurrentPersona: PersonaType) => { dispatch(SetCurrentPersona(newCurrentPersona)) },
     save: (profile: ProfileType, personas: Array<PersonaType>) => {
       // call createMapping on all of the fields with a mapping
       console.log('About to map ', profile)
+
       return Promise.all(
         profile.fields.filter(field => field.mapping).map((field: ProfileField) => {
+
+          let actions = []
+
           console.log('add the persona field for ', field.displayName)
           if (field.mapping !== undefined) {
-            let personaAddress = field.mapping.personaHash
+            let personaAddress = field.mapping.personaAddress
             let personaFieldName = field.mapping.personaFieldName
             let selectedPersonas = personas.filter(function (persona: PersonaType) {
               return persona.hash === personaAddress
@@ -52,18 +57,21 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
               })
               if (selectedPersonaFields.length === 1) {
                 let personaField: PersonaField = selectedPersonaFields[0]
-                return dispatch(AddField.create({ persona_address: personaAddress, field: personaField }))
+                actions.push(dispatch(AddField.create({ persona_address: personaAddress, field: personaField })))
               }
             }
           }
           console.log('creating map for ', field)
-          return dispatch(CreateMapping.create({
+          actions.push(dispatch(CreateMapping.create({mapping: {
             ...field.mapping!,
             retrieverDNA: profile.sourceDNA,
             profileFieldName: field.name
-          }))
+          }})))
+
+          return Promise.all(actions)
         })
       )
+
     }
   }
 }

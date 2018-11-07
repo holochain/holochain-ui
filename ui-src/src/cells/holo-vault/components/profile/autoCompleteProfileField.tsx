@@ -151,7 +151,7 @@ function Mapping (props: any) {
   if (props.field.mapping !== undefined) {
     let mapping = props.field.mapping
     let filteredPersonas = props.personas.filter(function (persona: PersonaType) {
-      return mapping.personaHash === persona.hash
+      return mapping.personaAddress === persona.hash
     })
     if (filteredPersonas.length > 0) {
       let filteredData = filteredPersonas[0].fields.filter(function (field: ProfileField) {
@@ -202,11 +202,11 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
           return field.name === mapping.personaFieldName
         })
         if (filteredField.length > 0) {
-          mapping.personaHash = nextProps.selectedPersona.hash
+          mapping.personaAddress = nextProps.selectedPersona.hash
         }
       }
       let filteredPersonas = nextProps.personas.filter(function (persona: PersonaType) {
-        return mapping.personaHash === persona.hash
+        return mapping.personaAddress === persona.hash
       })
       if (filteredPersonas.length > 0) {
         let filteredData = filteredPersonas[0].fields.filter(function (field) {
@@ -231,7 +231,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
       })
       if (filteredSuggestions.length > 0) {
         field.mapping = {
-          personaHash: filteredSuggestions[0].persona.hash,
+          personaAddress: filteredSuggestions[0].persona.hash,
           personaFieldName: filteredSuggestions[0].field.name
         }
         this.setState({
@@ -279,7 +279,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
     if (selectedSuggestion.length === 0) {
       if (newVal.newValue.length > 0) {
         field.mapping = {
-          personaHash: this.props.selectedPersona.hash,
+          personaAddress: this.props.selectedPersona.hash,
           personaFieldName: this.props.field.name
         }
       } else {
@@ -292,7 +292,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
     } else {
       newValue = selectedSuggestion[0].field.data
       field.mapping = {
-        personaHash: selectedSuggestion[0].persona.hash,
+        personaAddress: selectedSuggestion[0].persona.hash,
         personaFieldName: selectedSuggestion[0].field.name
       }
       this.setState({

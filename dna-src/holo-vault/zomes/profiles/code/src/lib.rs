@@ -15,7 +15,7 @@ pub mod profile;
 pub mod handlers;
 
 define_zome! {
- 	
+
 	entries: [
 		profile::profile_definition(),
 		profile::field_mapping_definition()
@@ -24,25 +24,106 @@ define_zome! {
     genesis: || {
         {
 
-            let test_spec = profile::ProfileSpec {
-                name: "holo_chat".into(),
-                sourceDNA: "HOLOCHATDNA".into(),
+            let hc1_spec = profile::ProfileSpec {
+                name: "Holo Chat - Holo Team".into(),
+                sourceDNA: "HOLOCHAT1DNA".into(),
                 fields: vec!(
                     profile::ProfileFieldSpec {
                         name: "handle".into(),
                         displayName: "Handle".into(),
-                        description: "How a user is referenced in chat".into(),
+                        description: "How you are referenced in chat".into(),
                         required: true,
                         schema: "{}".into(),
                         usage: profile::UsageType::STORE,
+                    },
+                    profile::ProfileFieldSpec {
+                        name: "firstName".into(),
+                        displayName: "First Name".into(),
+                        description: "Used when others search for you".into(),
+                        required: true,
+                        schema: "{}".into(),
+                        usage: profile::UsageType::DISPLAY,
                     }
                 ),
 
             };
-            match hdk::call("profiles", "main", "register_app", json!({"spec": test_spec}).into()) {
-                Ok(_) => Ok(()),
-                Err(_) => Err("Could not commit profile spec".into()),
-            }
+
+            let hc2_spec = profile::ProfileSpec {
+                name: "Holo Chat - Melbourne DJs".into(),
+                sourceDNA: "HOLOCHAT2DNA".into(),
+                fields: vec!(
+                    profile::ProfileFieldSpec {
+                        name: "handle".into(),
+                        displayName: "Handle".into(),
+                        description: "How you are referenced in chat".into(),
+                        required: true,
+                        schema: "{}".into(),
+                        usage: profile::UsageType::STORE,
+                    },
+                    profile::ProfileFieldSpec {
+                        name: "firstName".into(),
+                        displayName: "First Name".into(),
+                        description: "Used when others search for you".into(),
+                        required: true,
+                        schema: "{}".into(),
+                        usage: profile::UsageType::DISPLAY,
+                    }
+                ),
+
+            };
+
+			let hc3_spec = profile::ProfileSpec {
+                name: "Errand - Holo Team".into(),
+                sourceDNA: "HOLOCHAT3DNA".into(),
+                fields: vec!(
+                    profile::ProfileFieldSpec {
+                        name: "handle".into(),
+                        displayName: "Handle".into(),
+                        description: "How you are referenced in chat".into(),
+                        required: true,
+                        schema: "{}".into(),
+                        usage: profile::UsageType::STORE,
+                    },
+                    profile::ProfileFieldSpec {
+                        name: "firstName".into(),
+                        displayName: "First Name".into(),
+                        description: "Used when others search for you".into(),
+                        required: true,
+                        schema: "{}".into(),
+                        usage: profile::UsageType::DISPLAY,
+                    },
+                    profile::ProfileFieldSpec {
+                        name: "lastName".into(),
+                        displayName: "Last Name".into(),
+                        description: "Used when others search for you".into(),
+                        required: true,
+                        schema: "{}".into(),
+                        usage: profile::UsageType::DISPLAY,
+                    },
+                    profile::ProfileFieldSpec {
+                        name: "location".into(),
+                        displayName: "Location".into(),
+                        description: "Helps with setting up meetings".into(),
+                        required: true,
+                        schema: "{}".into(),
+                        usage: profile::UsageType::DISPLAY,
+                    },
+					profile::ProfileFieldSpec {
+                        name: "role".into(),
+                        displayName: "Role".into(),
+                        description: "Gives context on your core responsibilies".into(),
+                        required: true,
+                        schema: "{}".into(),
+                        usage: profile::UsageType::DISPLAY,
+                    }
+                ),
+
+            };
+
+            hdk::call("profiles", "main", "register_app", json!({"spec": hc1_spec}).into());
+            hdk::call("profiles", "main", "register_app", json!({"spec": hc2_spec}).into());
+			hdk::call("profiles", "main", "register_app", json!({"spec": hc3_spec}).into());
+			Ok(())
         }
     }
 

@@ -121,6 +121,7 @@ export interface OwnProps {
   field: ProfileField,
   handleMappingChange: any,
   handlePersonaAutoSelect: any
+  mapSaved: boolean
 }
 
 export interface StateProps {
@@ -163,10 +164,10 @@ class FieldMapper extends React.Component<Props, State> {
           return field.name === mapping.personaFieldName
         })
         if (filteredField.length > 0) {
-          mapping.personaHash = nextProps.selectedPersona.hash
+          mapping.personaAddress = nextProps.selectedPersona.hash
         }
         let filteredPersonas = nextProps.personas.filter(function (persona: PersonaType) {
-          return mapping.personaHash === persona.hash
+          return mapping.personaAddress === persona.hash
         })
         if (filteredPersonas.length !== 0) {
           return {
@@ -211,7 +212,7 @@ class FieldMapper extends React.Component<Props, State> {
     if (field.mapping !== undefined) {
       let mapping = field.mapping
       let filteredPersonas = this.props.personas.filter(function (persona: PersonaType) {
-        return mapping.personaHash === persona.hash
+        return mapping.personaAddress === persona.hash
       })
       if (filteredPersonas.length !== 0) {
         this.setState({
@@ -278,8 +279,8 @@ class FieldMapper extends React.Component<Props, State> {
     const { classes, field, personas, profile } = this.props
   	return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={this.state.expansionPanelOpen}>
-          <ExpansionPanelSummary expandIcon={<Person name='expandPersonaDetails' onClick={() => { this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen }) }}/>}>
+        <ExpansionPanel expanded={this.state.expansionPanelOpen} style={{ boxShadow: 'none' }}>
+          <ExpansionPanelSummary expandIcon={<Person name='expandPersonaDetails' color={this.props.mapSaved ? 'primary' : 'default'} onClick={() => { this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen }) }}/>}>
             <AutoCompleteProfileField
               personas={personas}
               selectedPersona={this.state.selectedPersona}
