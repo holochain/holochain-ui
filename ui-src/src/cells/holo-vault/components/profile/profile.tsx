@@ -94,10 +94,10 @@ class Profile extends React.Component<Props & RouterProps, State> {
     console.log('updatedField')
     if (updatedField.mapping !== undefined) {
       let personas = this.props.personas
-      let personaHash = updatedField.mapping.personaHash
+      let personaAddress = updatedField.mapping.personaAddress
       let personaFieldName = updatedField.mapping.personaFieldName
       let selectedPersonas = personas.filter(function (persona: PersonaType) {
-        return persona.hash === personaHash
+        return persona.hash === personaAddress
       })
       if (selectedPersonas.length === 1) {
         let selectedPersonaFields = selectedPersonas[0].fields.filter(function (field) {
@@ -129,9 +129,9 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   public handleChangeSelectedPersona = (event: any) => {
-    let personaHash = event.target.value
+    let personaAddress = event.target.value
     let selectedPersona = this.props.personas.filter(function (persona: PersonaType) {
-      return persona.hash === personaHash
+      return persona.hash === personaAddress
     })[0]
     this.props.setCurrentPersona(selectedPersona)
   }
@@ -171,6 +171,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
                 selectedPersona={this.props.selectedPersona} // make sure the currentPersona is at the top
                 profile={profile}
                 field={field}
+                mapSaved={this.props.profile.fields[i].mapping}
                 handleMappingChange={this.handleMappingChange}
               />
             )
