@@ -60,7 +60,7 @@ export const exampleProfile: Profile = {
       usage: UsageType.STORE,
       schema: { 'type': 'string' },
       mapping: {
-        personaHash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
+        personaAddress: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
         personaFieldName: 'nick_name'
       }
     },
@@ -86,14 +86,14 @@ export const exampleProfile: Profile = {
 export const exampleHandleMapping: ProfileMapping = {
   retrieverDNA:  'DNAXYZ',
   profileFieldName: 'handle',
-  personaHash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr',
+  personaAddress: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr',
   personaFieldName: 'nickName'
 }
 
 export const exampleFirstNameMapping: ProfileMapping = {
   retrieverDNA:  'DNAXYZ',
   profileFieldName: 'first_name',
-  personaHash: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7',
+  personaAddress: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7',
   personaFieldName: 'firstName'
 }
 
@@ -111,7 +111,7 @@ export const exampleFaultyProfile: Profile = {
       usage: UsageType.STORE,
       schema: { 'type': 'string' },
       mapping: {
-        personaHash: 'doiesnotexist', // implies field is already mapped
+        personaAddress: 'doiesnotexist', // implies field is already mapped
         personaFieldName: 'nick_name'
       }
     },
@@ -123,7 +123,7 @@ export const exampleFaultyProfile: Profile = {
       usage: UsageType.DISPLAY,
       schema: { 'type': 'string' },
       mapping: {
-        personaHash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
+        personaAddress: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
         personaFieldName: 'doesnotexist'
       }
     },
@@ -235,7 +235,7 @@ export const exampleProfileMappedCorrectly: Profile = {
       usage: UsageType.STORE,
       schema: { 'type': 'string' },
       mapping: {
-        personaHash: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
+        personaAddress: 'QmbzbwpLA8HjZCFqkPQE2TAEnugUPYz14W9Ux1hh8882Nr', // implies field is already mapped
         personaFieldName: 'nick_name'
       }
     },
@@ -247,7 +247,7 @@ export const exampleProfileMappedCorrectly: Profile = {
       usage: UsageType.DISPLAY,
       schema: { 'type': 'string' },
       mapping: {
-        personaHash: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7', // implies field is already mapped
+        personaAddress: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7', // implies field is already mapped
         personaFieldName: 'first_name'
       }
     },
@@ -259,7 +259,7 @@ export const exampleProfileMappedCorrectly: Profile = {
       usage: UsageType.STORE,
       schema: { 'type': 'string' },
       mapping: {
-        personaHash: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7', // implies field is already mapped
+        personaAddress: 'QmZqtKMs4pg9veqv3p4Sxzkgv2rdR7XoSn2TrLtAPLPSL7', // implies field is already mapped
         personaFieldName: 'last_name'
       }
     }
