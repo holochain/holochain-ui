@@ -9,7 +9,8 @@ import {
   CreateMapping,
   GetProfiles,
   GetPersonas,
-  AddField
+  AddField,
+  SetCurrentPersona
 } from '../actions'
 
 const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps => {
@@ -24,7 +25,7 @@ const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps 
 
   return {
     personas: state.holoVault.profile.personas,
-    selectedPersona: state.holoVault.profile.personas[0],
+    selectedPersona: state.holoVault.profile.currentPersona,
     profile: profile
   }
 }
@@ -33,6 +34,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     getProfiles: () => dispatch(GetProfiles.create(undefined)),
     getPersonas: () => dispatch(GetPersonas.create(undefined)),
+    setCurrentPersona: (newCurrentPersona: PersonaType) => { dispatch(SetCurrentPersona(newCurrentPersona)) },
     save: (profile: ProfileType, personas: Array<PersonaType>) => {
       // call createMapping on all of the fields with a mapping
       console.log('About to map ', profile)
