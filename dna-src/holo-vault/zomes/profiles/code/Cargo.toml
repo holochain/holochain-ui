@@ -7,9 +7,9 @@
   serde = "1.0"
   serde_json = "1.0"
   serde_derive = "1.0"
-  hdk = { git = "https://github.com/holochain/holochain-rust" , branch = "jsonstring" }
-  holochain_wasm_utils = { git = "https://github.com/holochain/holochain-rust" , branch = "jsonstring" }
-  holochain_core_types_derive = { git = "https://github.com/holochain/holochain-rust" , branch = "jsonstring" }
+  hdk = { git = "https://github.com/holochain/holochain-rust" , branch = "develop" }
+  holochain_wasm_utils = { git = "https://github.com/holochain/holochain-rust" , branch = "develop" }
+  holochain_core_types_derive = { git = "https://github.com/holochain/holochain-rust" , branch = "develop" }
 
 [lib]
   path = "src/lib.rs"

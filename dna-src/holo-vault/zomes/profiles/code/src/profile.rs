@@ -2,8 +2,6 @@
 
 use hdk::holochain_core_types::error::HolochainError;
 use hdk::holochain_core_types::json::JsonString;
-use hdk::serde::de::DeserializeOwned;
-use hdk::error::ZomeApiResult;
 use hdk::holochain_core_types::hash::HashString;
 use hdk::{
     self, 
