@@ -1,13 +1,45 @@
-use hdk::holochain_core_types::error::HolochainError;
-use hdk::holochain_core_types::json::JsonString;
-use hdk::holochain_core_types::hash::HashString;
 use hdk::{
     self, 
     entry_definition::ValidatingEntryType,
     holochain_dna::zome::entry_types::Sharing,
+    holochain_core_types::error::HolochainError,
+    holochain_core_types::json::JsonString,
+    holochain_core_types::hash::HashString,
+    holochain_core_types::entry::Entry,
+    holochain_core_types::entry_type::EntryType,
 };
 
-pub type MemberId = String;
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+pub struct Member {
+    pub id: String
+}
+
+impl Member {
+    pub fn hash(&self) -> HashString {
+        hdk::hash_entry(
+            &Entry::new(
+                EntryType::App("member".into()), 
+                self.to_owned())
+        ).unwrap()
+    }
+}
+
+pub fn member_id_definition() -> ValidatingEntryType {
+    entry!(
+        name: "member",
+        description: "A members unique identifier in the DHT",
+        sharing: Sharing::Public,
+        native_type: Member,
+
+        validation_package: || {
+            hdk::ValidationPackageDefinition::Entry
+        },
+
+        validation: |_member_id: Member, _ctx: hdk::ValidationData| {
+            Ok(())
+        }
+    )
+}
 
 // This is the full profile that can be requested for a member
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
@@ -48,9 +80,14 @@ pub fn profile_definition() -> ValidatingEntryType {
     )
 }
 
-pub fn handle_get_profile(member_id: MemberId) -> JsonString {
+pub fn handle_get_profile(member_id: Member) -> JsonString {
     json!({}).into()
 }
+
+pub fn get_my_member_id() -> Member {
+    return Member{id: "glibglob".into()} // placeholder until vault is linkable
+}
+
 
 // pub fn get_profile_spec() -> holovault::ProfileSpec {
 //     profile::ProfileSpec {

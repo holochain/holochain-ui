@@ -11,7 +11,7 @@ use hdk::{
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct Message {
     pub timestamp: String,
-    pub author: HashString,
+    pub author: String,
     pub message_type: String,
     pub payload: String,
     pub meta: String,
