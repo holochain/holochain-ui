@@ -33,7 +33,7 @@ define_zome! {
                         displayName: "Handle".into(),
                         description: "How you are referenced in chat".into(),
                         required: true,
-                        schema: "{}".into(),
+						schema: "{'type': 'object', 'properties': {'handle': {'type': 'string'}}}".into(),
                         usage: profile::UsageType::STORE,
                     },
                     profile::ProfileFieldSpec {
@@ -41,7 +41,15 @@ define_zome! {
                         displayName: "First Name".into(),
                         description: "Used when others search for you".into(),
                         required: true,
-                        schema: "{}".into(),
+                        schema: "{'type': 'object', 'properties': {'firstName': {'type': 'string'}}}".into(),
+                        usage: profile::UsageType::DISPLAY,
+                    },
+                    profile::ProfileFieldSpec {
+                        name: "avatar".into(),
+                        displayName: "Avatar".into(),
+                        description: "So we can show your smiling face".into(),
+                        required: true,
+                        schema: "{'type': 'object', 'properties': {'avatar': { 'type': 'string', 'contentEncoding': 'base64', 'contentMediaType': 'image/png'}}}".into(),
                         usage: profile::UsageType::DISPLAY,
                     }
                 ),
@@ -51,53 +59,53 @@ define_zome! {
             let hc2_spec = profile::ProfileSpec {
                 name: "Holo Chat - Melbourne DJs".into(),
                 sourceDNA: "HOLOCHAT2DNA".into(),
-                fields: vec!(
-                    profile::ProfileFieldSpec {
-                        name: "handle".into(),
-                        displayName: "Handle".into(),
-                        description: "How you are referenced in chat".into(),
-                        required: true,
-                        schema: "{}".into(),
-                        usage: profile::UsageType::STORE,
-                    },
-                    profile::ProfileFieldSpec {
-                        name: "firstName".into(),
-                        displayName: "First Name".into(),
-                        description: "Used when others search for you".into(),
-                        required: true,
-                        schema: "{}".into(),
-                        usage: profile::UsageType::DISPLAY,
-                    }
-                ),
+				fields: vec!(
+					profile::ProfileFieldSpec {
+						name: "handle".into(),
+						displayName: "Handle".into(),
+						description: "How you are referenced in chat".into(),
+						required: true,
+						schema: "{'type': 'object', 'properties': {'handle': {'type': 'string'}}}".into(),
+						usage: profile::UsageType::STORE,
+					},
+					profile::ProfileFieldSpec {
+						name: "firstName".into(),
+						displayName: "First Name".into(),
+						description: "Used when others search for you".into(),
+						required: true,
+						schema: "{'type': 'object', 'properties': {'firstName': {'type': 'string'}}}".into(),
+						usage: profile::UsageType::DISPLAY,
+					}
+				),
 
             };
 
 			let hc3_spec = profile::ProfileSpec {
                 name: "Errand - Holo Team".into(),
                 sourceDNA: "HOLOCHAT3DNA".into(),
-                fields: vec!(
-                    profile::ProfileFieldSpec {
-                        name: "handle".into(),
-                        displayName: "Handle".into(),
-                        description: "How you are referenced in chat".into(),
-                        required: true,
-                        schema: "{}".into(),
-                        usage: profile::UsageType::STORE,
-                    },
-                    profile::ProfileFieldSpec {
-                        name: "firstName".into(),
-                        displayName: "First Name".into(),
-                        description: "Used when others search for you".into(),
-                        required: true,
-                        schema: "{}".into(),
-                        usage: profile::UsageType::DISPLAY,
-                    },
+				fields: vec!(
+					profile::ProfileFieldSpec {
+						name: "handle".into(),
+						displayName: "Handle".into(),
+						description: "How you are referenced in chat".into(),
+						required: true,
+						schema: "{'type': 'object', 'properties': {'handle': {'type': 'string'}}}".into(),
+						usage: profile::UsageType::STORE,
+					},
+					profile::ProfileFieldSpec {
+						name: "firstName".into(),
+						displayName: "First Name".into(),
+						description: "Used when others search for you".into(),
+						required: true,
+						schema: "{'type': 'object', 'properties': {'firstName': {'type': 'string'}}}".into(),
+						usage: profile::UsageType::DISPLAY,
+					},
                     profile::ProfileFieldSpec {
                         name: "lastName".into(),
                         displayName: "Last Name".into(),
                         description: "Used when others search for you".into(),
                         required: true,
-                        schema: "{}".into(),
+						schema: "{'type': 'object', 'properties': {'Copyright (c) 2018 Copyright Holder All Rights Reserved.stName': {'type': 'string'}}}".into(),
                         usage: profile::UsageType::DISPLAY,
                     },
                     profile::ProfileFieldSpec {
@@ -105,7 +113,7 @@ define_zome! {
                         displayName: "Location".into(),
                         description: "Helps with setting up meetings".into(),
                         required: true,
-                        schema: "{}".into(),
+						schema: "{'type': 'object', 'properties': {'location': {'type': 'string'}}}".into(),
                         usage: profile::UsageType::DISPLAY,
                     },
 					profile::ProfileFieldSpec {
@@ -113,7 +121,7 @@ define_zome! {
                         displayName: "Role".into(),
                         description: "Gives context on your core responsibilies".into(),
                         required: true,
-                        schema: "{}".into(),
+						schema: "{'type': 'object', 'properties': {'role': {'type': 'string'}}}".into(),
                         usage: profile::UsageType::DISPLAY,
                     }
                 ),
