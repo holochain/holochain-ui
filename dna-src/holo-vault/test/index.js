@@ -99,7 +99,7 @@ test('get_profiles', t => {
   t.deepEqual(JSON.parse(register_result), {success: true})
   const get_result = app.call("profiles", "main", "get_profiles", JSON.stringify({}))
   console.log(get_result)
-  t.deepEqual(JSON.parse(get_result).profiles.length, 1)
+  t.deepEqual(JSON.parse(get_result).profiles.length, 4) // including the auto populated specs
   t.end()
 })
 
@@ -141,7 +141,8 @@ test('create_mapping', t => {
 
   // can then see the field is mapped
   const get_result = app.call("profiles", "main", "get_profiles", JSON.stringify({}))
-  t.deepEqual(JSON.parse(get_result).profiles[0].fields[0].mapping, {personaAddress: personaAddress, personaFieldName: 'test_field'})
+  console.log(get_result)
+  t.deepEqual(JSON.parse(get_result).profiles.filter(p => p.name === "something")[0].fields[0].mapping, {personaAddress: personaAddress, personaFieldName: 'test_field'})
 
   t.end()
 })
