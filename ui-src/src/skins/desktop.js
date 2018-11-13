@@ -42,6 +42,10 @@ const styles = theme => ({
   cardMedia: {
     paddingTop: '56.25%', // 16:9
   },
+  presenceContainer: {
+    display: 'inline-block'
+
+  },
   footer: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing.unit * 6,
@@ -63,8 +67,9 @@ function Desktop(props) {
               Organisation wide Presence Map
             </Typography>
 
-            <PresenceArcs arcs={presenceLargeGroup} strokeWidth={2}/>
-
+            <div className={classes.presenceContainer}>
+              <PresenceArcs arcs={presenceLargeGroup} strokeWidth={2}/>
+            </div>
           </div>
         </div>
       </main>

@@ -1,88 +1,28 @@
-import {ProfileMapping, Persona} from './types/profile'
 
+import { createHolochainAsyncAction } from '../../utils/holochainAxiosActions'
+import { createAction } from 'typesafe-actions'
 
-export const PROFILEMAPPINGCREATE = 'profileMappingCreate'
-export const PERSONACREATE = 'personaCreate'
-export const PERSONAUPDATE = 'personaUpdate'
-export const PROFILESLIST = 'profilesList'
-export const PERSONASLIST = 'personasList'
-export const CELLSLIST = 'cellsList'
+import { Persona, PersonaSpec, PersonaField } from './types/persona'
+import { ProfileMapping, Profile } from './types/profile'
 
-export type VaultAction = {
-  type: string,
-  meta: {
-    isHc: boolean,
-    namespace: string,
-    data: any
-  }
-}
+/*----------  Persona Actions  ----------*/
 
-export function cellsList() {
-  return {
-    type: CELLSLIST,
-    meta: {
-      isHc: true,
-      namespace: 'cells'
-    }
-  }
-}
+export const CreatePersona = createHolochainAsyncAction<{spec: PersonaSpec}, string>('holo-vault', 'personas', 'main', 'create_persona')
 
+export const GetPersonas = createHolochainAsyncAction<any, {personas: Array<Persona>}>('holo-vault', 'personas', 'main', 'get_personas')
 
-export function profileMappingCreate(profileMapping: ProfileMapping): VaultAction {
-  profileMapping.channel = 'holo-vault'
-  return {
-    type: PROFILEMAPPINGCREATE,
-    meta: {
-      isHc: true,
-      namespace: 'profiles',
-      data: profileMapping
-    }
-  }
-}
+export const AddField = createHolochainAsyncAction<{persona_address: string, field: PersonaField}, boolean>('holo-vault', 'personas', 'main', 'add_field')
 
-export function personaCreate(persona: Persona) {
-  persona.channel = 'holo-vault'
-  return {
-    type: PERSONACREATE,
-    meta: {
-      isHc: true,
-      namespace: 'personas',
-      data: persona
-    }
-  }
-}
+export const DeleteField = createHolochainAsyncAction<{persona_address: string, fieldName: string}, number>('holo-vault', 'personas', 'main', 'delete_field')
 
-export function personaUpdate(persona: Persona) {
-  persona.channel = 'holo-vault'
-  return {
-    type: PERSONAUPDATE,
-    meta: {
-      isHc: true,
-      namespace: 'personas',
-      data: persona
-    }
-  }
-}
+export const SetCurrentPersona = createAction('holo-vault/SET_CURRENT_PERSONA', resolve => {
+  return (persona: Persona) => resolve(persona)
+})
 
-export function personasList(then?: Function) {
-  return {
-    type: PERSONASLIST,
-    meta: {
-      isHc: true,
-      namespace: 'personas',
-      data: {'channel': 'holo-vault'},
-      then,
-    },
-  }
-}
+/*----------  Profile Actions  ----------*/
 
-export function profilesList() {
-  return {
-    type: PROFILESLIST,
-    meta: {
-      isHc: true,
-      namespace: 'profiles',
-      data: {'channel': 'holo-vault'}
-    },
-  }
-}
+export const GetProfiles = createHolochainAsyncAction<any, {profiles: Array<Profile>}>('holo-vault', 'profiles', 'main', 'get_profiles')
+
+export const CreateMapping = createHolochainAsyncAction<{mapping: ProfileMapping}, number>('holo-vault', 'profiles', 'main', 'create_mapping')
+
+// export const GetProfileFields = createHolochainAsyncAction<Hash, Array<ProfileField>>('holo-vault', 'profiles', 'main', 'get_profile_fields')

@@ -48,6 +48,7 @@ const styles = theme => ({
     display: 'flex'
   },
   appBar: {
+    backgroundColor: '#9900ff',
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -102,9 +103,9 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: '#ffffff',
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
     marginTop: 50
-  },
+  }
 });
 
 class MiniDrawer extends React.Component {
@@ -211,7 +212,7 @@ class MiniDrawer extends React.Component {
           <Route path='/holo-vault/personas' title='Personas' component={PersonasContainer} />
           <Route path='/holo-vault/persona/:name' component={PersonaContainer} />
           <Route path='/holo-vault/profiles' component={ProfilesContainer} />
-          <Route path='/holo-vault/profile/:name' component={ProfileContainer} />
+          <Route path='/holo-vault/profile/:hash' component={ProfileContainer} />
           <Route path='/holo-vault/cell/:name' component={SetupContainer} />
           <Route path='/holo-vault/happs' component={HappsContainer} />
           <Route path='/holo-chat/channels' component={ChannelsContainer} />

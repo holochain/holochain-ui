@@ -1,10 +1,12 @@
 {
-  "extends": ["tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint-config-standard", "tslint-react"],
   "rules": {
-  	"jsx-no-lambda": false
+  	"jsx-no-lambda": false,
+    "jsx-no-multiline-js": false
   },
   "linterOptions": {
     "exclude": [
+      "_test.ts",
       "config/**/*.js",
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js"

@@ -24,14 +24,14 @@ before_install:
 - TARGETDIR=$(pwd) docker-compose up -d
 - docker-compose ps
 script:
-# - docker run --rm  -v "$(pwd):/holochain-ui" holochain/holochain-proto-node:latest bash -c "cd /holochain-ui; hcdev test"
+- docker run --rm  -v "$(pwd):/holochain-ui" holochain/holochain-proto-node:latest bash -c "cd /holochain-ui; hcdev test"
 - cd ui-automation
 - npm install
 - npm test
 - curl http://localhost:4141
 - cd ..
 - cd ui-src
-- npm test
+- npm run coverage
 - npm run release:files
 - PACKAGE_NAME=$(node -p -e "require('./package.json').name")
 - PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
