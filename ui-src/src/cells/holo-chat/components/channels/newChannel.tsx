@@ -21,7 +21,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     margin: 0
   },
   appBar: {
-    position: 'relative'
+    position: 'sticky'
   },
   flex: {
     flex: 1

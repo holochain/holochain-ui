@@ -2,6 +2,7 @@ import * as React from 'react'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+// import Paper from '@material-ui/core/Paper'
 import Input from '@material-ui/core/Input'
 import Chip from '@material-ui/core/Chip'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -13,7 +14,7 @@ import { Identity } from '../../types/model/identity'
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     width: '100%',
-    minHeight: 300,
+    height: 500,
     backgroundColor: theme.palette.background.paper
   },
   button: {
@@ -21,8 +22,11 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     marginRight: theme.spacing.unit,
     marginTop: theme.spacing.unit
   },
+  list: {
+    overflow: 'auto',
+    maxHeight: '100%'
+  },
   filter: {
-    width: '100%',
     marginLeft: theme.spacing.unit,
     marginTop: theme.spacing.unit
   },
@@ -83,25 +87,29 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
     const { classes, users } = this.props
     return (
       <div className={classes.root}>
-        <div>
-        {
-          this.state.selectedUsers.map((person: Identity, index: number) => (
-            <Chip
-              key={index}
-              avatar={<MakeAvatar user={person} />}
-              label={person.name}
-              onDelete={this.onRowClick(person)}
-              className={classes.chip}
-            />))
-        }
+        <div className={classes.filter}>
+          <div>
+            {
+              this.state.selectedUsers.map((person: Identity, index: number) => (
+                <Chip
+                  key={index}
+                  avatar={<MakeAvatar user={person} />}
+                  label={person.name}
+                  onDelete={this.onRowClick(person)}
+                  className={classes.chip}
+                />))
+            }
+          </div>
+          <div>
+            <Input
+              id='filter-bar'
+              placeholder='To:'
+              value={this.state.filterString}
+              onChange={this.onFilterStringChange}
+            />
+          </div>
         </div>
-        <Input
-          id='filter-bar'
-          placeholder='To:'
-          value={this.state.filterString}
-          onChange={this.onFilterStringChange}
-        />
-        <List id='users' component='nav'>
+        <List id='users' className={classes.list}>
           {
             users
             .filter((user) => user.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1 || user.name.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1)
