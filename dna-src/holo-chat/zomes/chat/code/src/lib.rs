@@ -10,10 +10,6 @@ extern crate serde_json;
 extern crate holochain_core_types_derive;
 
 use hdk::{
-    entry_definition::ValidatingEntryType,
-    holochain_dna::zome::entry_types::Sharing,
-    holochain_core_types::error::HolochainError,
-    holochain_core_types::json::JsonString,
     holochain_core_types::hash::HashString,
     holochain_core_types::entry::Entry,
     holochain_core_types::entry_type::EntryType,
@@ -37,7 +33,7 @@ define_zome! {
     genesis: || {
 		hdk::commit_entry(&Entry::new(EntryType::App("member".into()), member::Member{id: "glibglob".into()}))
 			.map(|_| ())
-			.map_err(|hdk_err| "Could not commit member".into())
+			.map_err(|_| "Could not commit member".into())
     }
 
 	functions: {

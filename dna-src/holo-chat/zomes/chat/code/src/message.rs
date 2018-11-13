@@ -1,6 +1,5 @@
 use hdk::holochain_core_types::error::HolochainError;
 use hdk::holochain_core_types::json::JsonString;
-use hdk::holochain_core_types::hash::HashString;
 use hdk::{
     self, 
     entry_definition::ValidatingEntryType,

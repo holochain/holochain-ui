@@ -1,12 +1,7 @@
 use hdk::{
     self, 
-    entry_definition::ValidatingEntryType,
-    holochain_dna::zome::entry_types::Sharing,
-    holochain_core_types::error::HolochainError,
-    holochain_core_types::json::JsonString,
     holochain_core_types::hash::HashString,
     holochain_core_types::entry::Entry,
-    holochain_core_types::entry_type::EntryType,
     error::ZomeApiResult,
     error::ZomeApiError,
 };
