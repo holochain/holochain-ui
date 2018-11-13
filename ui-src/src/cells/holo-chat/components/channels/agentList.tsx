@@ -3,11 +3,10 @@ import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Input from '@material-ui/core/Input'
-import Checkbox from '@material-ui/core/Checkbox'
+import Chip from '@material-ui/core/Chip'
 import ListItemText from '@material-ui/core/ListItemText'
 import withRoot from '../../../../withRoot'
 import { MakeAvatar } from '../misc/makeAvatar'
-// import {Route} from 'react-router-dom'
 
 import { Identity } from '../../types/model/identity'
 
@@ -26,6 +25,9 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     width: '100%',
     marginLeft: theme.spacing.unit,
     marginTop: theme.spacing.unit
+  },
+  chip: {
+    margin: theme.spacing.unit
   }
 })
 
@@ -81,6 +83,18 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
     const { classes, users } = this.props
     return (
       <div className={classes.root}>
+        <div>
+        {
+          this.state.selectedUsers.map((person: Identity, index: number) => (
+            <Chip
+              key={index}
+              avatar={<MakeAvatar user={person} />}
+              label={person.name}
+              onDelete={this.onRowClick(person)}
+              className={classes.chip}
+            />))
+        }
+        </div>
         <Input
           id='filter-bar'
           placeholder='To:'
@@ -90,15 +104,12 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
         <List id='users' component='nav'>
           {
             users
-            .filter((user) => user.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1)
+            .filter((user) => user.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1 || user.name.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1)
             .map((user, i) => {
               return (
               <ListItem key={i} button={true} value={user.hash} className={classes.listItem} onClick={this.onRowClick(user)}>
                 <MakeAvatar user={user}/>
-                <ListItemText primary={user.handle}/>
-                <Checkbox
-                  checked={this.state.selectedUsers.indexOf(user) !== -1}
-                />
+                <ListItemText primary={user.handle + ' ' + user.name}/>
               </ListItem>
               )
             })

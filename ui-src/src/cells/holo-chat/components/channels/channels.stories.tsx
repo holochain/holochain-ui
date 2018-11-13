@@ -18,6 +18,7 @@ import { selectAgentTests } from './selectAgent.test'
 import { newChatTests } from './newChat.test'
 import { channelsTests } from './channels.test'
 import { channelData } from '../../data/channelData'
+import * as Agents from '../../data/contactsBase64'
 
 let store = CreateStore()
 
@@ -37,7 +38,7 @@ storiesOf('HoloChat/Channels', module)
   }))
   .add('Start a new Channel', withNotes(newChannel)(() => {
     specs(() => newChannelTests)
-    return <NewChannel open={true} users={[{ hash: '12334', handle: 'wollum', avatar: '' }, { hash: '1233', handle: 'Sarah', avatar: '' }, { hash: '1234', handle: 'Nicksmith', avatar: '' }]}/>
+    return <NewChannel open={true} users={Agents.agents}/>
   }))
   .add('Filter the list', withNotes(filterAgents)(() => {
     specs(() => filterAgentsTests)
