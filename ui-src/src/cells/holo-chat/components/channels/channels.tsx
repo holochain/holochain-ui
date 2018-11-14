@@ -95,7 +95,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
     //   }
     // })
 
-    this.getChannelsInterval = setInterval(this.props.getMyChannels, 200)
+    this.getChannelsInterval = setInterval(this.props.getMyChannels, 5000)
   }
 
   componentWillUnmount () {

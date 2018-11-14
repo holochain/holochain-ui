@@ -1,13 +1,24 @@
 import * as React from 'react'
 import { storiesOf } from '@storybook/react'
+import { withNotes } from '@storybook/addon-notes'
 import { MemoryRouter } from 'react-router'
-
+import { specs } from 'storybook-addon-specifications'
+import newChat from './newChat.md'
+import { newChatTests } from './newChat.test'
 import NewChannel from './newChannel'
+import * as Agents from '../../data/contactsBase64'
+import newChannel from './newChannel.md'
+import { agentListTest } from './agentList.test'
 
 storiesOf('HoloChat/Channels', module)
   .addDecorator(story => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
-  .add('Displays unfiltered list with add button', () => {
-    return <NewChannel open={true} users={[{ hash: '12334', handle: 'wollum', avatar: '' }, { hash: '1233', handle: 'Sarah', avatar: '' }, { hash: '1234', handle: 'Nicksmith', avatar: '' }]}/>
-  })
+  .add('New channel', withNotes(newChat)(() => {
+    specs(() => newChatTests)
+    return <NewChannel users={Agents.agents} open={true} />
+  }))
+  .add('Filterable/Selectable list of members', withNotes(newChannel)(() => {
+    specs(() => agentListTest)
+    return <NewChannel users={Agents.agents} open={true} />
+  }))

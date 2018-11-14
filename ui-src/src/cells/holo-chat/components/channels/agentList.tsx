@@ -32,6 +32,11 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   chip: {
     margin: theme.spacing.unit
+  },
+  input: {
+    width: '100%',
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
   }
 })
 
@@ -94,7 +99,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
                 <Chip
                   key={index}
                   avatar={<MakeAvatar user={person} />}
-                  label={person.name}
+                  label={person.handle}
                   onDelete={this.onRowClick(person)}
                   className={classes.chip}
                 />))
@@ -106,6 +111,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
               placeholder='To:'
               value={this.state.filterString}
               onChange={this.onFilterStringChange}
+              className={classes.input}
             />
           </div>
         </div>
@@ -117,7 +123,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
               return (
               <ListItem key={i} button={true} value={user.hash} className={classes.listItem} onClick={this.onRowClick(user)}>
                 <MakeAvatar user={user}/>
-                <ListItemText primary={user.handle + ' ' + user.name}/>
+                <ListItemText primary={user.name + ' (' + user.handle + ')'} />
               </ListItem>
               )
             })

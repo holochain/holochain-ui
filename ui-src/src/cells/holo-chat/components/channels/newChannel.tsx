@@ -18,13 +18,21 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     backgroundColor: theme.palette.background.paper
   },
   button: {
-    margin: 0
+    margin: theme.spacing.unit
+  },
+  leftIcon: {
+    marginRight: 0,
+    marginLeft: -20
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+    marginRight: -12
   },
   appBar: {
     position: 'sticky'
   },
-  flex: {
-    flex: 1
+  title: {
+    flexGrow: 1
   }
 })
 
@@ -73,24 +81,27 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
   }
 
   render () {
-    const { classes } = this.props
+    const { classes, users } = this.props
 
     return (
       <Dialog fullWidth={true} open={this.props.open} aria-labelledby='simple-dialog-title'>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <Button id='CloseDialog' onClick={this.props.onHandleClose} color='inherit' aria-label='Close'>
-              <CloseIcon />
+              <CloseIcon className={classes.leftIcon}/>
             </Button>
-            <Typography color='inherit' className={classes.flex}>
+            <Typography variant='h6' color='inherit' className={classes.title}>
               Members
             </Typography>
-            <Button id='CreateChannel' mini={true} onClick={this.onCreateChannelButtonClick} className={classes.button}>
-              <Send />
+            <Button id='CreateChannel' mini={true} onClick={this.onCreateChannelButtonClick} color='inherit' className={classes.button}>
+              <Typography variant='h6' color='inherit'>
+                Go
+              </Typography>
+              <Send className={classes.rightIcon}/>
             </Button>
           </Toolbar>
         </AppBar>
-        <AgentList users={this.props.users} selectionChanged={this.onSelectionChanged}/>
+        <AgentList users={users} selectionChanged={this.onSelectionChanged}/>
       </Dialog>
     )
   }
