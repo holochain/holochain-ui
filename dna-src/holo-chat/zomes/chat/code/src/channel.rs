@@ -73,7 +73,7 @@ pub fn handle_create_channel(
     };
 
     // good candidate for bundle when that is working
-    match hdk::commit_entry(&entry)
+    hdk::commit_entry(&entry)
         .and_then(|channel_addr| { // link all the new members (including the creator) bi-directionally
             utils::link_entries_bidir(&member::get_my_member_id().hash(), &channel_addr, "member_of", "has_member")
                 .and_then(|_| {
@@ -82,11 +82,11 @@ pub fn handle_create_channel(
                     }).collect()
                 })?;
             Ok(channel_addr)
-        }) 
-    {
-        Ok(channel_addr) => json!({"address": channel_addr}).into(),
-        Err(hdk_err) => hdk_err.into()
-    }
+        })
+        .map(|channel_addr|{
+            json!({"address": channel_addr}).into()
+        })
+        .unwrap_or_else(|hdk_err|{hdk_err.into()})
 }
 
 pub fn handle_get_my_channels() -> JsonString {
@@ -104,12 +104,13 @@ pub fn handle_get_members(channel_address: HashString) -> JsonString {
 }
 
 pub fn handle_add_members(channel_address: HashString, members: Vec<member::Member>) -> JsonString {
-    match members.iter().map(|member| {
+    members.iter().map(|member| {
         utils::link_entries_bidir(&member.hash(), &channel_address, "member_of", "has_member")
-    }).collect::<Result<Vec<_>,_>>() {
-        Ok(result) => json!({"success": true}).into(),
-        Err(hdk_err) => hdk_err.into()
-    }
+    }).collect::<Result<Vec<_>,_>>().map(|_|{
+        json!({"success": true}).into()
+    }).unwrap_or_else(|hdk_err|{
+        hdk_err.into()
+    }) 
 }
 
 pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonString {
@@ -120,12 +121,11 @@ pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonS
 }
 
 pub fn handle_post_message(channel_address: HashString, message: message::Message) -> JsonString {
-    match hdk::commit_entry(&Entry::new(EntryType::App("message".into()), message))
+    hdk::commit_entry(&Entry::new(EntryType::App("message".into()), message))
         .and_then(|message_addr| hdk::link_entries(&channel_address, &message_addr, "message_in")) 
-    {
-        Ok(result) => json!({"success": true}).into(),
-        Err(hdk_err) => hdk_err.into()
-    }
+        .map(|_|json!({"success": true}).into())
+        .unwrap_or_else(|hdk_err|hdk_err.into())
+   
 }
 
 // end public zome functions

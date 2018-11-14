@@ -10,10 +10,6 @@ extern crate serde_json;
 extern crate holochain_core_types_derive;
 
 use hdk::{
-    entry_definition::ValidatingEntryType,
-    holochain_dna::zome::entry_types::Sharing,
-    holochain_core_types::error::HolochainError,
-    holochain_core_types::json::JsonString,
     holochain_core_types::hash::HashString,
     holochain_core_types::entry::Entry,
     holochain_core_types::entry_type::EntryType,
@@ -49,6 +45,7 @@ define_zome! {
 	]
 
     genesis: || {
+<<<<<<< HEAD
         {
             let anchor_entry = Entry::new(EntryType::App("anchor".into()), json!("member_directory"));
     		let member_entry1 = Entry::new(EntryType::App("member".into()), member::Member{id: "glibglob".into()});
@@ -59,6 +56,11 @@ define_zome! {
             hdk::link_entries(&anchor_address, &member_address1, "member_tag").map_err(|_| "member not linked to anchor")?;
             Ok(())
         }
+=======
+		hdk::commit_entry(&Entry::new(EntryType::App("member".into()), member::Member{id: "glibglob".into()}))
+			.map(|_| ())
+			.map_err(|_| "Could not commit member".into())
+>>>>>>> 9d6ead748443a606711dbe8874183984a5641baf
     }
 
 	functions: {
