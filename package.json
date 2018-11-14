@@ -4,7 +4,8 @@
   "description": "A Holochain app (hApp) that you can add your own hApps to.",
   "scripts": {
     "hc:start": "node ../holochain-node-http-container ./container-config.json",
-    "hc:build": "cd dna-src/holo-vault && hc package --output ../../dna/holo-vault.hcpkg --strip-meta"
+    "hc:build": "cd dna-src/holo-vault && hc package --output ../../dna/holo-vault.hcpkg --strip-meta",
+    "hc:build-holochat": "cd dna-src/holo-chat && hc package --output ../../dna/holo-chat.hcpkg --strip-meta"
   },
   "repository": {
     "type": "git",

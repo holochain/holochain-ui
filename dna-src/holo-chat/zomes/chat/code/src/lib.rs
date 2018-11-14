@@ -27,13 +27,40 @@ define_zome! {
 		message::message_definition(),
     	channel::public_channel_definition(),
     	channel::direct_channel_definition(),
-		member::member_id_definition()
+		member::member_id_definition(),
+        entry!(
+			name: "anchor",
+	        description: "",
+	        sharing: Sharing::Public,
+	        native_type: String,
+
+	        validation_package: || {
+	            hdk::ValidationPackageDefinition::Entry
+	        },
+
+	        validation: |name: String, _ctx: hdk::ValidationData| {
+	        	Ok(())
+	        }
+		)
 	]
 
     genesis: || {
+<<<<<<< HEAD
+        {
+            let anchor_entry = Entry::new(EntryType::App("anchor".into()), json!("member_directory"));
+    		let member_entry1 = Entry::new(EntryType::App("member".into()), member::Member{id: "glibglob".into()});
+
+            let anchor_address = hdk::commit_entry(&anchor_entry).map_err(|_| "anchor not committed")?;
+            let member_address1 = hdk::commit_entry(&member_entry1).map_err(|_| "member not committed")?;
+
+            hdk::link_entries(&anchor_address, &member_address1, "member_tag").map_err(|_| "member not linked to anchor")?;
+            Ok(())
+        }
+=======
 		hdk::commit_entry(&Entry::new(EntryType::App("member".into()), member::Member{id: "glibglob".into()}))
 			.map(|_| ())
 			.map_err(|_| "Could not commit member".into())
+>>>>>>> 9d6ead748443a606711dbe8874183984a5641baf
     }
 
 	functions: {
@@ -47,6 +74,11 @@ define_zome! {
 				inputs: | |,
 				outputs: |result: JsonString|,
 				handler: channel::handle_get_my_channels
+			}
+            get_all_members: {
+				inputs: | |,
+				outputs: |result: JsonString|,
+				handler: member::handle_get_all_members
 			}
 			get_members: {
 				inputs: |channel_address: HashString|,

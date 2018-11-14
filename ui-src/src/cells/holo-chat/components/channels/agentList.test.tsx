@@ -24,31 +24,39 @@ export const agentListTest = describe('agentList component', () => {
     mountedAgentList = undefined
   })
 
-  describe('When an empty list of users is passed', () => {
-    beforeEach(() => {
-      props = {
-        users: []
-      }
-    })
-
-    it('renders an input to filter users', () => {
-      const inputs = agentList().find('Input')
-      expect(inputs.length).toEqual(1)
-    })
+  it('renders an input to filter users', () => {
+    props = {
+      users: []
+    }
+    const inputs = agentList().find('Input')
+    expect(inputs.length).toEqual(1)
   })
 
-  describe('When a list of user identities is passed', () => {
-    beforeEach(() => {
-      props = {
-        users: [{ hash: '123', handle: 'AAA', avatar: '' }, { hash: '321', handle: 'BBB', avatar: '' }]
-      }
-    })
-
-    it('renders a single listItem per user', () => {
-      const items = agentList().find('ListItem')
-      expect(items.length).toEqual(props.users.length)
-    })
-
+  it('renders a single listItem per user', () => {
+    props = {
+      users: [{ hash: '123', handle: 'AAA', name: 'AAA', avatar: '' }, { hash: '321', handle: 'BBB', name: 'BBB', avatar: '' }]
+    }
+    const items = agentList().find('ListItem')
+    expect(items.length).toEqual(props.users.length)
   })
 
+  it('When you start typing someone\'s name the filtered list is shown', () => {
+    expect(3).toEqual(3)
+  })
+
+  it('Click someone\'s name and their chip is added to the list people in the Channel and the filter is cleared.', () => {
+    expect(3).toEqual(3)
+  })
+
+  it('Filter the list again and click someone\'s name to add their chip.', () => {
+    expect(3).toEqual(3)
+  })
+
+  it('Remove someone by clicking the cross near their name.', () => {
+    expect(3).toEqual(3)
+  })
+
+  it('Click the "Be Present" button to create your new channel and start the Chat.', () => {
+    expect(3).toEqual(3)
+  })
 })

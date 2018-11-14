@@ -7,5 +7,6 @@ export interface IdentitySpec {
 export interface Identity {
   hash: string,
   handle: string,
-  avatar: string
+  avatar: string,
+  name: string
 }

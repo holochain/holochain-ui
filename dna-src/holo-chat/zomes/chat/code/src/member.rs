@@ -1,5 +1,6 @@
+use std::convert::TryFrom;
 use hdk::{
-    self, 
+    self,
     entry_definition::ValidatingEntryType,
     holochain_dna::zome::entry_types::Sharing,
     holochain_core_types::error::HolochainError,
@@ -7,7 +8,10 @@ use hdk::{
     holochain_core_types::hash::HashString,
     holochain_core_types::entry::Entry,
     holochain_core_types::entry_type::EntryType,
+    error::ZomeApiResult,
 };
+
+use super::utils;
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct Member {
@@ -18,7 +22,7 @@ impl Member {
     pub fn hash(&self) -> HashString {
         hdk::hash_entry(
             &Entry::new(
-                EntryType::App("member".into()), 
+                EntryType::App("member".into()),
                 self.to_owned())
         ).unwrap()
     }
@@ -46,8 +50,7 @@ pub fn member_id_definition() -> ValidatingEntryType {
 pub struct Profile {
     handle: String,
     email: String,
-    first_name: String,
-    last_name: String,
+    name: String,
     life_force: u32,
     avatar: String,
     timezone: String,
@@ -84,10 +87,26 @@ pub fn handle_get_profile(member_id: Member) -> JsonString {
     json!({}).into()
 }
 
+pub fn handle_get_all_members() -> JsonString {
+    match get_all_members() {
+        Ok(result) => result.into(),
+        Err(hdk_err) => hdk_err.into()
+    }
+}
+
 pub fn get_my_member_id() -> Member {
     return Member{id: "glibglob".into()} // placeholder until vault is linkable
 }
 
+fn get_all_members() -> ZomeApiResult<Vec<Member>> {
+    let anchor_entry = Entry::new(EntryType::App("anchor".into()), json!("member_directory"));
+    let anchor_address = hdk::hash_entry(&anchor_entry)?;
+    utils::get_links_and_load(&anchor_address, "member_tag").map(|results| {
+        results.iter().map(|get_links_result| {
+                Member::try_from(get_links_result.entry.value().clone()).unwrap()
+        }).collect()
+    })
+}
 
 // pub fn get_profile_spec() -> holovault::ProfileSpec {
 //     profile::ProfileSpec {
