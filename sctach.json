@@ -1,0 +1,93 @@
+{
+  "profiles": [{
+    "name": "Holo Chat - Melbourne DJs",
+    "sourceDNA": "HOLOCHAT2DNA",
+    "hash": "QmQEjQQQSUNnE7Z8WowVq1Yh1jVM6iUqqkytLfVbvE1tR3",
+    "fields": [{
+      "name": "handle",
+      "displayName": "Handle",
+      "required": true,
+      "description": "How you are referenced in chat",
+      "usage": "STORE",
+      "schema": "{}",
+      "mapping": null
+    }, {
+      "name": "firstName",
+      "displayName": "First Name",
+      "required": true,
+      "description": "Used when others search for you",
+      "usage": "DISPLAY",
+      "schema": "{}",
+      "mapping": null
+    }],
+    "expiry": 0
+  }, {
+    "name": "Errand - Holo Team",
+    "sourceDNA": "HOLOCHAT3DNA",
+    "hash": "QmSSbmSFstfjK69o9Z4swJx9Yqak6zUMnS6tgNfnGESRNL",
+    "fields": [{
+      "name": "handle",
+      "displayName": "Handle",
+      "required": true,
+      "description": "How you are referenced in chat",
+      "usage": "STORE",
+      "schema": "{}",
+      "mapping": null
+    }, {
+      "name": "firstName",
+      "displayName": "First Name",
+      "required": true,
+      "description": "Used when others search for you",
+      "usage": "DISPLAY",
+      "schema": "{}",
+      "mapping": null
+    }, {
+      "name": "lastName",
+      "displayName": "Last Name",
+      "required": true,
+      "description": "Used when others search for you",
+      "usage": "DISPLAY",
+      "schema": "{}",
+      "mapping": null
+    }, {
+      "name": "location",
+      "displayName": "Location",
+      "required": true,
+      "description": "Helps with setting up meetings",
+      "usage": "DISPLAY",
+      "schema": "{}",
+      "mapping": null
+    }, {
+      "name": "role",
+      "displayName": "Role",
+      "required": true,
+      "description": "Gives context on your core responsibilies",
+      "usage": "DISPLAY",
+      "schema": "{}",
+      "mapping": null
+    }],
+    "expiry": 0
+  }, {
+    "name": "Holo Chat - Holo Team",
+    "sourceDNA": "HOLOCHAT1DNA",
+    "hash": "QmUiDshn17H3ieQkrLe1LcNnptZ5H4aFHho5fnZTyiLQdm",
+    "fields": [{
+      "name": "handle",
+      "displayName": "Handle",
+      "required": true,
+      "description": "How you are referenced in chat",
+      "usage": "STORE",
+      "schema": "{}",
+      "mapping": null
+    }, {
+      "name": "firstName",
+      "displayName": "First Name",
+      "required": true,
+      "description": "Used when others search for you",
+      "usage": "DISPLAY",
+      "schema": "{}",
+      "mapping": null
+    }],
+    "expiry": 0
+  }]
+}
