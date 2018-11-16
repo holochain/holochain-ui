@@ -13,6 +13,7 @@ use hdk::{
     holochain_core_types::hash::HashString,
     holochain_core_types::entry::Entry,
     holochain_core_types::entry_type::EntryType,
+    holochain_dna::zome::entry_types::Sharing,
 };
 
 
