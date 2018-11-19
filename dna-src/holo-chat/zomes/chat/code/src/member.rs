@@ -105,7 +105,7 @@ fn get_all_members() -> ZomeApiResult<Vec<Member>> {
     utils::get_links_and_load(&anchor_address, "member_tag").map(|results| {
         results.iter().map(|get_links_result| {
                 let mut member = Member::try_from(get_links_result.entry.value().clone()).unwrap();
-                member.profile = get_profile(member.clone());
+                member.profile = get_profile(member.clone()).unwrap();
                 member
         }).collect::<Vec<Member>>()
     })
@@ -113,14 +113,14 @@ fn get_all_members() -> ZomeApiResult<Vec<Member>> {
     // Name & Life Force stored in Vault and retrieved asynch from  the UI once UI has the memberId.
 }
 
-fn get_profile(member:Member) -> Option<StoreProfile>
+fn get_profile(member:Member) -> ZomeApiResult<Option<StoreProfile>>
 {
     let links = utils::get_links_and_load(&member.hash(), "profile").map(|results| {
         results.iter().map(|get_links_result| {
-                StoreProfile::try_from(get_links_result.entry.value().clone()).unwrap()
-        }).collect::<Vec<StoreProfile>>()
-    });
-    links.ok().unwrap_or(Vec::new()).into_iter().next()                                      
+                StoreProfile::try_from(get_links_result.entry.value().clone()).ok()
+        }).collect::<Vec<Option<StoreProfile>>>()
+    })?;
+    Ok(links.into_iter().next().unwrap_or(None))                              
 }
 
 // pub fn get_profile_spec() -> holovault::ProfileSpec {
