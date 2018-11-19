@@ -15,7 +15,8 @@ use super::utils;
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct Member {
-    pub id: String
+    pub id: String,
+    pub profile : Option<StoreProfile>
 }
 
 impl Member {
@@ -84,7 +85,6 @@ pub fn profile_definition() -> ValidatingEntryType {
 }
 
 pub fn handle_get_profile(member_id: Member) -> JsonString {
-    // This will return the person's profile that shows Name, Avatar, handle, Timezone and Life Force
     json!({}).into()
 }
 
@@ -96,7 +96,7 @@ pub fn handle_get_all_members() -> JsonString {
 }
 
 pub fn get_my_member_id() -> Member {
-    return Member{id: "glibglob".into()} // placeholder until vault is linkable
+    return Member{id: "glibglob".into(),profile:None} // placeholder until vault is linkable
 }
 
 fn get_all_members() -> ZomeApiResult<Vec<Member>> {
@@ -104,11 +104,23 @@ fn get_all_members() -> ZomeApiResult<Vec<Member>> {
     let anchor_address = hdk::hash_entry(&anchor_entry)?;
     utils::get_links_and_load(&anchor_address, "member_tag").map(|results| {
         results.iter().map(|get_links_result| {
-                Member::try_from(get_links_result.entry.value().clone()).unwrap()
-        }).collect()
+                let mut member = Member::try_from(get_links_result.entry.value().clone()).unwrap();
+                member.profile = get_profile(member.clone());
+                member
+        }).collect::<Vec<Member>>()
     })
     // Now get the profile for each member. handle, email, avatar & timezone stored in DHT
     // Name & Life Force stored in Vault and retrieved asynch from  the UI once UI has the memberId.
+}
+
+fn get_profile(member:Member) -> Option<StoreProfile>
+{
+    let links = utils::get_links_and_load(&member.hash(), "profile").map(|results| {
+        results.iter().map(|get_links_result| {
+                StoreProfile::try_from(get_links_result.entry.value().clone()).unwrap()
+        }).collect::<Vec<StoreProfile>>()
+    });
+    links.ok().unwrap_or(Vec::new()).into_iter().next()                                      
 }
 
 // pub fn get_profile_spec() -> holovault::ProfileSpec {

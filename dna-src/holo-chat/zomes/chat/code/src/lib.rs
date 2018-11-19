@@ -106,9 +106,15 @@ define_zome! {
             ];
 
             for profile in profiles.iter() {
-                let member_entry = Entry::new(EntryType::App("member".into()), member::Member{id: profile.to_owned().handle.into()});
+                let member_entry = Entry::new(EntryType::App("member".into()), member::Member{id: profile.to_owned().handle.into(),profile:None});
+                let profile_entry = Entry::new(EntryType::App("profile".into()),profile.clone());
+                
                 let member_address = hdk::commit_entry(&member_entry).map_err(|_| "member not committed").unwrap();
+                let profile_address = hdk::commit_entry(&profile_entry).map_err(|_| "profile not committed").unwrap();
+                
                 hdk::link_entries(&anchor_address, &member_address, "member_tag").map_err(|_| "member not linked to anchor");
+                hdk::link_entries(&member_address, &profile_address, "profile").map_err(|_| "profile not linked to anchor");
+                
             }
 
     		Ok(())
