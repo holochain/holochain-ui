@@ -225,9 +225,9 @@ class MiniDrawer extends React.Component {
                 <Desktop />
               </div>
             } />
-            <Route path='/holo-chat/messages' title='Holochain' render={props =>
+            <Route path='/holo-chat' title='Holochain' render={props =>
               <div>
-                <ArcsOfPresenceContainer />
+                <ChannelsContainer />
                 <MessagesContainer />
               </div>
             } />
