@@ -54,7 +54,8 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         ...state,
         myHash: action.payload.data
       }
-    case getType(chatActions.GetUsers.success):
+    case getType(chatActions.GetAllMembers.success):
+      console.log(action.payload.data)
       return {
         ...state,
         users: action.payload.data

@@ -50,20 +50,20 @@ pub fn member_id_definition() -> ValidatingEntryType {
 pub struct Profile {
     handle: String,
     email: String,
-    name: String,
-    life_force: u32,
     avatar: String,
     timezone: String,
+    name: String,
+    life_force: u32,
     role: Option<String>
 }
 
 // This is the personal data that chat stores in the DHT
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct StoreProfile {
-    handle: String,
-    email: String,
-    avatar: String,
-    timezone: String
+    pub handle: String,
+    pub email: String,
+    pub avatar: String,
+    pub timezone: String
 }
 
 pub fn profile_definition() -> ValidatingEntryType {
@@ -84,6 +84,7 @@ pub fn profile_definition() -> ValidatingEntryType {
 }
 
 pub fn handle_get_profile(member_id: Member) -> JsonString {
+    // This will return the person's profile that shows Name, Avatar, handle, Timezone and Life Force
     json!({}).into()
 }
 
@@ -106,6 +107,8 @@ fn get_all_members() -> ZomeApiResult<Vec<Member>> {
                 Member::try_from(get_links_result.entry.value().clone()).unwrap()
         }).collect()
     })
+    // Now get the profile for each member. handle, email, avatar & timezone stored in DHT
+    // Name & Life Force stored in Vault and retrieved asynch from  the UI once UI has the memberId.
 }
 
 // pub fn get_profile_spec() -> holovault::ProfileSpec {
