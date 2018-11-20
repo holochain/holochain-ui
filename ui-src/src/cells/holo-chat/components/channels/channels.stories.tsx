@@ -8,7 +8,7 @@ import CreateStore from '../../../../store'
 import Channels from './channels'
 import { specs } from 'storybook-addon-specifications'
 import { channelsTests } from './channels.test'
-import { channelData } from '../../data/channelData'
+import * as constants from '../../constants'
 
 let store = CreateStore()
 
@@ -18,5 +18,5 @@ storiesOf('HoloChat/Channels', module)
   ))
   .add('List my Channels', withNotes(listChannels)(() => {
     specs(() => channelsTests)
-    return <Provider store={store}><Channels channels={channelData} /></Provider>
+    return <Provider store={store}><Channels channels={constants.directMessageChannels} title={'Direct Messages'} isPublic={false} /></Provider>
   }))

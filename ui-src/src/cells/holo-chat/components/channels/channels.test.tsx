@@ -5,7 +5,7 @@ import * as Adapter from 'enzyme-adapter-react-16'
 import CreateStore from '../../../../store'
 import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
-import { channelData } from '../../data/channelData'
+import * as constants from '../../constants'
 
 let store = CreateStore()
 Enzyme.configure({ adapter: new Adapter() })
@@ -31,7 +31,9 @@ export const channelsTests = describe('Listing your channels', () => {
     newChannel: jest.fn(() => Promise.reject('newChannel not implemented')),
     setActiveChannel: mockFn,
     setIdentity: mockFn,
-    channels: channelData
+    channels: constants.directMessageChannels,
+    title: 'Direct Messages',
+    isPublic: false
   }
 
   it('When there is a list of existing channels the channel view shows the list of existing channels', () => {
