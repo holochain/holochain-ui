@@ -123,7 +123,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
               return (
               <ListItem key={i} button={true} value={user.hash} className={classes.listItem} onClick={this.onRowClick(user)}>
                 <MakeAvatar user={user}/>
-                <ListItemText primary={user.name + ' (' + user.handle + ')'} />
+                <ListItemText primary={'(' + user.handle + ')'} />
               </ListItem>
               )
             })

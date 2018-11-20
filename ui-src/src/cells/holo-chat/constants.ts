@@ -45,6 +45,53 @@ export const profileSpec1 = {
     }
   ]
 }
+
+export const publicChannels = [
+  {
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'name': 'dev hApps',
+    'description': 'dev-happs'
+  },
+  {
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'name': 'dev Core',
+    'description': 'dev-core'
+  },
+  {
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'name': 'Town Central',
+    'description': 'Town Central'
+  }
+]
+
+export const directMessageChannels = [
+  {
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'name': 'philipbeadle, thedavidmeister',
+    'description': ''
+  },
+  {
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'name': 'ccxxoo',
+    'description': ''
+  },
+  {
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'name': 'jeanmrussell',
+    'description': ''
+  },
+  {
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'name': 'zippy',
+    'description': ''
+  },
+  {
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'name': 'artbrock',
+    'description': ''
+  }
+]
+
 export const messages: Array<Message> = [
   {
     type: MessageType.CHAT,

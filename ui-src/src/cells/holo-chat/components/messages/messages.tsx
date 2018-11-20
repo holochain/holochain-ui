@@ -20,9 +20,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   listItemMessage: {
     position: 'relative',
-    marginTop: '10px',
-    border: '2px solid #4255A9',
-    borderRadius: '45px'
+    marginTop: '10px'
   },
   textField: {
     float: 'left',
@@ -37,12 +35,12 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     width: '100%',
     boxShadow: 'none',
     backgroundColor: '#fff',
-    height: 70
+    height: 140
   },
   chatHistory: {
     height: 470,
     overflow: 'auto',
-    marginBottom: 50,
+    marginBottom: 120,
     boxShadow: 'none'
   }
 })
@@ -134,8 +132,17 @@ class Messages extends React.Component<MessagesProps, MessageState> {
         </Paper>
         <Paper className={classes.send}>
           <TextField
+              id='subject'
+              label='Subject'
+              className={classes.textField}
+              value={this.state.message}
+              onChange={this.handleChange}
+              margin='normal'
+              onKeyPress={this.handleKeyPress}
+          />
+          <TextField
               id='message'
-              label='Chat message'
+              label='Message'
               className={classes.textField}
               value={this.state.message}
               onChange={this.handleChange}

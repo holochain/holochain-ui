@@ -114,15 +114,6 @@ function MessageComponent (props: any) {
         <div className={props.classes.message}>
           <Typography className={props.classes.messageText}>{props.message.content.text}</Typography>
           <img alt={props.message.content.image} className={(props.message.content.image !== '') ? props.classes.messageImage : props.classes.messageNoImage} src={props.message.content.image} />
-          <List>
-            {
-              props.message.replies.map((message: any, index: number) => (
-                <ListItem key={index} dense={true} className={props.classes.listItemMessage}>
-                  <Typography className={props.classes.messageText}>{message.content.text}</Typography>
-                </ListItem>
-              ))
-            }
-          </List>
         </div>)
     case 1:
       return (
