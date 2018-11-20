@@ -33,6 +33,7 @@ define_zome! {
     	channel::public_channel_definition(),
     	channel::direct_channel_definition(),
 		member::member_id_definition(),
+        member::profile_definition(),
         entry!(
 			name: "anchor",
 	        description: "",
@@ -106,14 +107,14 @@ define_zome! {
             ];
 
             for profile in profiles.iter() {
-                let member_entry = Entry::new(EntryType::App("member".into()), member::Member{id: profile.to_owned().handle.into(),profile:None});
-                let profile_entry = Entry::new(EntryType::App("profile".into()), profile.clone());
+                let member_entry = Entry::new(EntryType::App("member".into()), member::Member{id: profile.to_owned().handle.into(), profile:None});
+                let profile_entry = Entry::new(EntryType::App("profile".into()), member::StoreProfile{handle: profile.to_owned().handle.into(), email: profile.to_owned().email.into(), avatar: profile.to_owned().avatar.into(), timezone:profile.to_owned().timezone.into()});
 
                 let member_address = hdk::commit_entry(&member_entry).map_err(|_| "member not committed").unwrap();
                 let profile_address = hdk::commit_entry(&profile_entry).map_err(|_| "profile not committed").unwrap();
 
                 hdk::link_entries(&anchor_address, &member_address, "member_tag").map_err(|_| "member not linked to anchor");
-                // hdk::link_entries(&member_address, &profile_address, "profile").map_err(|_| "profile not linked to anchor");
+                hdk::link_entries(&member_address, &profile_address, "profile").map_err(|_| "profile not linked to anchor");
 
             }
 
