@@ -12,6 +12,10 @@ import { ChannelSpec } from '../../types/model/channel'
 import AgentList from './agentList'
 import Send from '@material-ui/icons/Send'
 
+import {
+  GetAllMembers
+} from '../../actions'
+
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     width: '100%',
@@ -36,7 +40,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 })
 
-interface NewChannelProps {
+interface Props {
   classes: any,
   open: boolean,
   users: Array<Identity>,
@@ -44,14 +48,18 @@ interface NewChannelProps {
   onHandleClose: () => void
 }
 
-interface NewChannelState {
+interface State {
   selectedUsers: Array<Identity>,
   open: boolean
 }
 
-class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
+export interface DispatchProps {
+  getAllMembers: typeof GetAllMembers.sig
+}
 
-  constructor (props: NewChannelProps) {
+class NewChannel extends React.Component<Props & DispatchProps, State> {
+
+  constructor (props: Props & DispatchProps) {
     super(props)
     this.state = {
       selectedUsers: [],
@@ -59,6 +67,10 @@ class NewChannel extends React.Component<NewChannelProps, NewChannelState> {
     }
   }
 
+  componentDidMount () {
+    this.props.getAllMembers(null)
+    .catch(reason => { console.log(reason) })
+  }
   onSelectionChanged = (selectedUsers: Array<Identity>) => {
     this.setState({ selectedUsers })
   }

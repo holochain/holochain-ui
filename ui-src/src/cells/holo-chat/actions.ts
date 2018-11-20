@@ -31,8 +31,6 @@ export const GetIdentity = createHolochainAsyncAction<string, Identity>('holo-ch
 
 export const SetIdentity = createHolochainAsyncAction<IdentitySpec, boolean>('holo-chat', 'users', 'main', 'setIdentity')
 
-export const GetUsers = createHolochainAsyncAction<any, Array<Identity>>('holo-chat', 'chat', 'main', 'get_all_members')
-
 /*----------  Non-holochain actions  ----------*/
 
 export const SetActiveChannel = createAction('holochat/setActiveChannel', resolve => {

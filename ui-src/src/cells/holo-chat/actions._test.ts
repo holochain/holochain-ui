@@ -108,8 +108,8 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
   ],
   [
     'users',
-    'getUsers',
-    chatActions.GetUsers.create,
+    'getAllMembers',
+    chatActions.GetAllMembers.create,
     null,
 		[{ handle: 'wollum', hash: 'Qmmyagenthash', avatar: '' }]
   ]

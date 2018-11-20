@@ -67,7 +67,7 @@ describe('Chat Reducer', () => {
 
   it('Should update the state in response to GetUsers', () => {
     expect(holochatReducer(undefined, {
-      type: getType(chatActions.GetUsers.success),
+      type: getType(chatActions.GetAllMembers.success),
       payload: {
         data: [{ handle: 'a', avatar: '' }, { handle: 'b', avatar: '' }]
       } as AxiosResponse

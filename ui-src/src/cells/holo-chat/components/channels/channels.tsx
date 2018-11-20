@@ -15,8 +15,7 @@ import { IdentitySpec } from '../../types/model/identity'
 
 import {
   GetMyChannels,
-  CreateCustomChannel,
-  GetUsers
+  CreateCustomChannel
 } from '../../actions'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -40,7 +39,6 @@ export interface StateProps {
 export interface DispatchProps {
   getMyChannels: typeof GetMyChannels.sig,
   newChannel: typeof CreateCustomChannel.sig,
-  getUsers: typeof GetUsers.sig,
   setActiveChannel: (channel: ChannelType) => void,
   setIdentity: (identity: IdentitySpec) => void
 }

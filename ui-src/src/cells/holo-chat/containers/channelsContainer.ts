@@ -7,7 +7,6 @@ import {
 	GetMyChannels,
 	CreateCustomChannel,
   SetActiveChannel,
-  GetUsers,
   SetIdentity
 } from '../actions'
 
@@ -29,7 +28,6 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   	getMyChannels: () => dispatch(GetMyChannels.create(undefined)), // can be written as  () => { return dispatch(...) }
   	newChannel: (channelSpec: ChannelSpec) => dispatch(CreateCustomChannel.create(channelSpec)),
     setActiveChannel: (channel: Channel) => dispatch(SetActiveChannel(channel)),
-    getUsers: () => dispatch(GetUsers.create(undefined)),
     setIdentity: (identity: IdentitySpec) => dispatch(SetIdentity.create(identity))
   }
 }
