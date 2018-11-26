@@ -1,17 +1,16 @@
 import * as React from 'react'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
+// import List from '@material-ui/core/List'
+// import ListItem from '@material-ui/core/ListItem'
 import Button from '@material-ui/core/Button'
-import ListItemText from '@material-ui/core/ListItemText'
 import AddIcon from '@material-ui/icons/Add'
 import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
-// import {Persona} from '../../../holo-vault/types/profile'
 import withRoot from '../../../../withRoot'
-import { withRouter, Route, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import NewChannel from '../../containers/newChannelContainer'
 import { IdentitySpec } from '../../types/model/identity'
+import ChannelNav from './channelNav'
 
 import {
   GetMyChannels,
@@ -34,7 +33,8 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 export interface OwnProps {
   classes?: any,
   isPublic: boolean,
-  title: string
+  title: string,
+  getSubjects: (channelAddress: string) => void,
 }
 
 export interface StateProps {
@@ -48,8 +48,7 @@ export interface DispatchProps {
   setIdentity: (identity: IdentitySpec) => void
 }
 
-export interface RouterProps extends RouteComponentProps<{}> {}
-
+export interface RouterProps extends RouteComponentProps<{channel: string, subject?: string}> {}
 export type Props = OwnProps & StateProps & DispatchProps
 
 export interface State {
@@ -89,22 +88,8 @@ class Channels extends React.Component<Props & RouterProps, State> {
     this.setState({ modalOpen: false })
   }
 
-  handleChannelListClick = (history: any, channel: ChannelType) => {
-    this.props.setActiveChannel(channel)
-    history.push(`/holo-chat/messages`)
-  }
-
-  renderChannels = (channels: Array<ChannelType>) => {
-    return channels.map((channel: ChannelType, index: number) => (
-      <Route
-        key={index}
-        render={ ({ history }) => (
-        <ListItem id={channel.hash} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
-          <ListItemText primary={channel.name}/>
-        </ListItem>
-        )}
-      />
-    ))
+  getSubjects = (channelAddress: string) => {
+    this.props.getSubjects(channelAddress)
   }
 
   render (): JSX.Element {
@@ -117,9 +102,9 @@ class Channels extends React.Component<Props & RouterProps, State> {
       <Typography variant='h5' className={classes.title}>
         {title}
       </Typography>
-      <List id='channels' component='nav'>
-        {this.renderChannels(channels)}
-      </List>
+      {channels.map((channel: ChannelType, index: number) => (
+        <ChannelNav channel={channel} index={index} />
+      ))}
       <NewChannel open={this.state.modalOpen} onSubmit={this.addNewChannel} onHandleClose={this.onHandleClose}/>
     </div>
     )

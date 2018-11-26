@@ -66,29 +66,47 @@ export const publicChannels = [
 
 export const directMessageChannels = [
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp1',
     'name': 'philipbeadle, thedavidmeister',
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp2',
     'name': 'ccxxoo',
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp3',
     'name': 'jeanmrussell',
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp4',
     'name': 'zippy',
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp5',
     'name': 'artbrock',
     'description': ''
+  }
+]
+
+export const devhAppsSubjects = [
+  {
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'subject': 'Abundance of Presence',
+    'number': 3
+  },
+  {
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'subject': 'Videos',
+    'number': 2
+  },
+  {
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'subject': 'Standup',
+    'number': 1
   }
 ]
 

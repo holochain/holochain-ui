@@ -4,6 +4,7 @@ import { createHolochainAsyncAction } from '../../utils/holochainAxiosActions'
 import { Message, MessageSpec } from './types/model/message'
 import { Channel, ChannelSpec } from './types/model/channel'
 import { Identity, IdentitySpec } from './types/model/identity'
+import { Subject } from './types/model/subject'
 
 /*===============================================
 =            Action Type Definitions            =
@@ -16,6 +17,8 @@ export const CreateCustomChannel = createHolochainAsyncAction<ChannelSpec, strin
 export const AddMembers = createHolochainAsyncAction<{channelHash: string, members: Array<string>}, boolean>('holo-chat', 'chat', 'main', 'addMembers')
 
 export const GetMyChannels = createHolochainAsyncAction<any, Array<Channel>>('holo-chat', 'chat', 'main', 'get_my_channels')
+
+export const GetSubjects = createHolochainAsyncAction<{channelAddress: string}, Array<Subject>>('holo-chat', 'chat', 'main', 'get_subjects')
 
 export const GetAllMembers = createHolochainAsyncAction<any, Array<Channel>>('holo-chat', 'chat', 'main', 'get_all_members')
 
