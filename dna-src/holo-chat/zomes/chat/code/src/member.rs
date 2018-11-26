@@ -21,7 +21,7 @@ pub struct Member {
 
 impl Member {
     pub fn hash(&self) -> HashString {
-        hdk::hash_entry(
+        hdk::entry_address(
             &Entry::new(
                 EntryType::App("member".into()),
                 self.to_owned())
@@ -101,7 +101,7 @@ pub fn get_my_member_id() -> Member {
 
 fn get_all_members() -> ZomeApiResult<Vec<Member>> {
     let anchor_entry = Entry::new(EntryType::App("anchor".into()), json!("member_directory"));
-    let anchor_address = hdk::hash_entry(&anchor_entry)?;
+    let anchor_address = hdk::entry_address(&anchor_entry)?;
     utils::get_links_and_load(&anchor_address, "member_tag").map(|results| {
         results.iter().map(|get_links_result| {
                 let mut member = Member::try_from(get_links_result.entry.value().clone()).unwrap();
