@@ -1,13 +1,13 @@
 use std::convert::TryFrom;
 use hdk::{
-    self, 
+    self,
+    AGENT_ADDRESS,
     entry_definition::ValidatingEntryType,
-    holochain_dna::zome::entry_types::Sharing,
+    holochain_core_types::dna::zome::entry_types::Sharing,
     holochain_core_types::error::HolochainError,
     holochain_core_types::json::JsonString,
     holochain_core_types::hash::HashString,
-    holochain_core_types::entry::Entry,
-    holochain_core_types::entry_type::EntryType,
+    holochain_core_types::entry::{Entry,entry_type::EntryType},
     error::ZomeApiResult,
 };
 
@@ -110,7 +110,7 @@ pub fn handle_add_members(channel_address: HashString, members: Vec<member::Memb
         json!({"success": true}).into()
     }).unwrap_or_else(|hdk_err|{
         hdk_err.into()
-    }) 
+    })
 }
 
 pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonString {
@@ -122,10 +122,10 @@ pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonS
 
 pub fn handle_post_message(channel_address: HashString, message: message::Message) -> JsonString {
     hdk::commit_entry(&Entry::new(EntryType::App("message".into()), message))
-        .and_then(|message_addr| hdk::link_entries(&channel_address, &message_addr, "message_in")) 
+        .and_then(|message_addr| hdk::link_entries(&channel_address, &message_addr, "message_in"))
         .map(|_|json!({"success": true}).into())
         .unwrap_or_else(|hdk_err|hdk_err.into())
-   
+
 }
 
 // end public zome functions

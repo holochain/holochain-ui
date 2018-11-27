@@ -11,9 +11,8 @@ extern crate holochain_core_types_derive;
 
 use hdk::{
     holochain_core_types::hash::HashString,
-    holochain_core_types::entry::Entry,
-    holochain_core_types::entry_type::EntryType,
-    holochain_dna::zome::entry_types::Sharing,
+    holochain_core_types::entry::{Entry,entry_type::EntryType},
+    holochain_core_types::dna::zome::entry_types::Sharing
 };
 
 

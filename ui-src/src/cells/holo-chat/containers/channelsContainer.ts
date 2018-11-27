@@ -10,7 +10,7 @@ import {
 	CreateChannel
 } from '../actions'
 
-import { Channel, ChannelSpec } from '../types/model/channel'
+import { ChannelSpec } from '../types/model/channel'
 
 const mapStateToProps = (state: any): StateProps => {
   return {

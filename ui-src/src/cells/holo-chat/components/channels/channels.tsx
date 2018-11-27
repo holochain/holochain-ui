@@ -12,7 +12,6 @@ import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
 import withRoot from '../../../../withRoot'
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom'
 import NewChannel from '../../containers/newChannelContainer'
-import { IdentitySpec } from '../../types/model/identity'
 import { Subject as SubjectType } from '../../types/model/subject'
 import Badge from '@material-ui/core/Badge'
 
