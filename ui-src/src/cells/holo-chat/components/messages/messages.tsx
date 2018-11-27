@@ -44,7 +44,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 })
 
-interface MessagesProps {
+interface OwnProps {
   classes: any,
   messages: Array<MessageType>,
   channel: ChannelType,
@@ -56,11 +56,12 @@ interface MessagesProps {
   sendMessage: (payload: {channelHash: string, message: MessageSpec}) => void
 }
 
-interface MessageState {
+interface State {
   message: string
+  subject: string
 }
 
-class Messages extends React.Component<MessagesProps, MessageState> {
+class Messages extends React.Component<OwnProps, State> {
   getMessageInterval: any
 
   componentDidMount () {
@@ -77,11 +78,11 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     clearInterval(this.getMessageInterval)
   }
 
-  constructor (props: MessagesProps) {
+  constructor (props: OwnProps) {
     super(props)
-    this.handleChange = this.handleChange.bind(this)
     this.state = {
-      message: ''
+      message: '',
+      subject: ''
     }
   }
 
@@ -99,7 +100,11 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     this.setState({ message: '' })
   }
 
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleChangeSubject = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ subject: e.target.value })
+  }
+
+  handleChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ message: e.target.value })
   }
 
@@ -136,8 +141,8 @@ class Messages extends React.Component<MessagesProps, MessageState> {
                   id='subject'
                   label='Subject'
                   className={classes.textField}
-                  value={this.state.message}
-                  onChange={this.handleChange}
+                  value={this.state.subject}
+                  onChange={this.handleChangeSubject}
                   margin='normal'
                   onKeyPress={this.handleKeyPress}
               />
@@ -146,7 +151,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
                   label='Message'
                   className={classes.textField}
                   value={this.state.message}
-                  onChange={this.handleChange}
+                  onChange={this.handleChangeMessage}
                   margin='normal'
                   onKeyPress={this.handleKeyPress}
               />
