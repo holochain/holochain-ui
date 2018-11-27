@@ -3,12 +3,14 @@ import * as chatActions from './actions'
 import { Channel } from './types/model/channel'
 import { Message } from './types/model/message'
 import { Identity } from './types/model/identity'
+import { Map } from 'immutable'
 
 // create a union type that is all possible chat actions
 export type ChatAction = ActionType<typeof chatActions>
 
 export interface HoloChatState {
   readonly myChannels: Array<Channel>,
+  readonly channelSubjects: Map<String, Array<String>>,
   readonly currentMessages: Array<Message>
   readonly activeChannel: Channel | null,
   readonly activeChannelMembers: Array<Identity>,
@@ -18,6 +20,7 @@ export interface HoloChatState {
 
 export const initialState: HoloChatState = {
   myChannels: [],
+  channelSubjects: Map(),
   currentMessages: [],
   activeChannel: null,
   activeChannelMembers: [],
@@ -49,14 +52,19 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         ...state,
         activeChannel: action.payload
       }
-    case getType(chatActions.Whoami.success):
+    case getType(chatActions.GetProfile.success):
       return {
         ...state,
         myHash: action.payload.data
       }
     case getType(chatActions.GetAllMembers.success):
       console.log(action.payload.data)
-      let users: Array<Identity> = action.payload.data.map((user: any) => ({ hash: user.id, handle: user.profile.handle, email: user.profile.email, avatar: user.profile.avatar }))
+      let users: Array<Identity> = action.payload.data.map((user: any) => ({
+        hash: user.id,
+        handle: user.profile.handle,
+        email: user.profile.email,
+        avatar: user.profile.avatar
+      }))
       return {
         ...state,
         users: users

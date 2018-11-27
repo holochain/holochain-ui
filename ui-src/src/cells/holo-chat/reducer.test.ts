@@ -55,7 +55,7 @@ describe('Chat Reducer', () => {
 
   it('Should update the state in response to Whoami', () => {
     expect(holochatReducer(undefined, {
-      type: getType(chatActions.Whoami.success),
+      type: getType(chatActions.GetProfile.success),
       payload: {
         data: 'xxx'
       } as AxiosResponse
@@ -69,11 +69,11 @@ describe('Chat Reducer', () => {
     expect(holochatReducer(undefined, {
       type: getType(chatActions.GetAllMembers.success),
       payload: {
-        data: [{ handle: 'a', avatar: '' }, { handle: 'b', avatar: '' }]
+        data: [{ id: 'xyz', profile: { handle: 'a', email: 'x@x.com', avatar: '' } }]
       } as AxiosResponse
     })).toEqual({
       ...initialState,
-      users: [{ handle: 'a', avatar: '' }, { handle: 'b', avatar: '' }]
+      users: [{ hash: 'xyz', handle: 'a', email: 'x@x.com', avatar: '' } ]
     })
   })
 

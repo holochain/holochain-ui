@@ -5,6 +5,7 @@
   "proxy": "http://localhost:4141",
   "dependencies": {
     "@types/autosuggest-highlight": "^3.1.0",
+    "@types/immutable": "^3.8.7",
     "@types/json-schema": "^7.0.1",
     "@types/react-autosuggest": "^9.3.6",
     "@types/react-responsive": "^3.0.2",
@@ -12,6 +13,7 @@
     "axios": "^0.18.0",
     "axios-mock-adapter": "^1.15.0",
     "downshift": "^2.2.0",
+    "immutable": "^4.0.0-rc.12",
     "keycode": "^2.2.0",
     "konva": "^2.3.0",
     "lodash": "^4.17.10",

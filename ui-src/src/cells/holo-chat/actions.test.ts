@@ -26,14 +26,15 @@ afterEach(() => {
   mock.reset()
 })
 
-function genExpectedAction (zome: string, fname: string, data: any): any {
+function genExpectedAction (zome: string, capability: string, fname: string, data: any): any {
   return {
     type: `holo-chat/${zome}/${fname}`,
     payload: {
       request: {
         data: {
-          channel: 'holo-chat',
-          zome: zome,
+          happ: 'holo-chat',
+          zome,
+          capability,
           func: fname,
           data: data
         }
@@ -42,84 +43,81 @@ function genExpectedAction (zome: string, fname: string, data: any): any {
   }
 }
 
-const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, any, any]> = [
+/**
+ *
+ * The below test table simplifies the automated testing of multiple actions
+ * Each element in the table represents a test for a single action.
+ * It has the following form
+ * [
+ *    function name
+ *    callable action creator function
+ *    test payload
+ *    example response
+ * ]
+ *
+ * The test will pass if the action returned by the action creator function equals the expected response
+ * from genExpectedAction.
+ *
+ * It also test that dispatching this action to a mock store with a mock HTTP responder returns the expected response
+ *
+ */
+
+const asyncActionTestTable: Array<[string, (input: any) => AnyAction, any, any]> = [
   [
-    'custom_channel',
-    'createCustomChannel',
-    chatActions.CreateCustomChannel.create,
-		{ name: 'test channel', description: '', members: ['123abc'] },
-    'channel-hash-12345'
+    'create_channel',
+    chatActions.CreateChannel.create,
+    { channelHash: 'Qmchannelhash', members: ['123abc'] },
+    true
   ],
   [
-    'custom_channel',
-    'addMembers',
+    'add_members',
     chatActions.AddMembers.create,
 		{ channelHash: 'Qmchannelhash', members: ['123abc'] },
     true
   ],
   [
-    'custom_channel',
-    'getMyChannels',
+    'get_my_channels',
     chatActions.GetMyChannels.create,
     null,
 		[{ name: 'channel1', members: ['member1'] }]
   ],
   [
-    'custom_channel',
-    'getMembers',
+    'get_all_members',
+    chatActions.GetAllMembers.create,
+    null,
+    [{ name: 'channel1', members: ['member1'] }]
+  ],
+  [
+    'get_members',
     chatActions.GetMembers.create,
 		{ channelHash: 'xxx' },
 		[{ handle: 'wollum', hash: 'Qmmyagenthash', avatar: '' }]
   ],
   [
-    'custom_channel',
-    'postMessage',
+    'post_message',
     chatActions.PostMessage.create,
 		{ channelHash: 'Qmchanelhash', message: { content: { text: 'message body' } } },
     'Qmmessagehash'
   ],
   [
-    'custom_channel',
-    'getMessages',
+    'get_messages',
     chatActions.GetMessages.create,
 		{ channelHash: 'Qmchanelhash' },
 		{ content: { text: 'message body' } }
   ],
   [
-    'users',
-    'whoami',
-    chatActions.Whoami.create,
+    'get_profile',
+    chatActions.GetProfile.create,
     null,
     'Qmmyagenthash'
-  ],
-  [
-    'users',
-    'getIdentity',
-    chatActions.GetIdentity.create,
-    null,
-		{ handle: 'wollum', hash: 'Qmmyagenthash', avatar: '' }
-  ],
-  [
-    'users',
-    'setIdentity',
-    chatActions.SetIdentity.create,
-		{ handle: 'newHandle', avatar: '' },
-    true
-  ],
-  [
-    'users',
-    'getAllMembers',
-    chatActions.GetAllMembers.create,
-    null,
-		[{ handle: 'wollum', hash: 'Qmmyagenthash', avatar: '' }]
   ]
 ]
 
-asyncActionTestTable.forEach(([zome, name, actionCreator, testInput, testResponse]) => {
+asyncActionTestTable.forEach(([name, actionCreator, testInput, testResponse]) => {
 
   describe(`${name} action`, () => {
 
-    const expectedAction = genExpectedAction(zome, name, testInput)
+    const expectedAction = genExpectedAction('chat', 'main', name, testInput)
 
     it('should create an action that is correctly structured given parameters', () => {
       expect(actionCreator(testInput)).toEqual(expectedAction)

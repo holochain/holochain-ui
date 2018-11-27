@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Map } from 'immutable'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
@@ -15,7 +16,7 @@ import { IdentitySpec } from '../../types/model/identity'
 
 import {
   GetMyChannels,
-  CreateCustomChannel
+  CreateChannel
 } from '../../actions'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -43,7 +44,7 @@ export interface StateProps {
 
 export interface DispatchProps {
   getMyChannels: typeof GetMyChannels.sig,
-  newChannel: typeof CreateCustomChannel.sig,
+  newChannel: typeof CreateChannel.sig,
   setActiveChannel: (channel: ChannelType) => void,
   setIdentity: (identity: IdentitySpec) => void
 }
