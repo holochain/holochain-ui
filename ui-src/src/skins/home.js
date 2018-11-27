@@ -8,6 +8,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -226,10 +228,18 @@ class MiniDrawer extends React.Component {
               </div>
             } />
             <Route path='/holo-chat/channel' title='Holochain' render={props =>
-              <div>
-                <ChannelsContainer />
-                <MessagesContainer />
-              </div>
+              <Grid container={true} spacing={0}>
+                <Grid item={true} xs={3}>
+                  <ChannelsContainer title={'Public Channels'} isPublic={true}/>
+                  <ChannelsContainer title={'Direct Messages'} isPublic={false}/>
+                </Grid>
+                <Grid item={true} xs={7}>
+                  <MessagesContainer />
+                </Grid>
+                <Grid item={true} xs={2}>
+                  <Paper><Typography variant='h5'>Ideas</Typography></Paper>
+                </Grid>
+              </Grid>
             } />
           </MediaQuery>
           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1024}>

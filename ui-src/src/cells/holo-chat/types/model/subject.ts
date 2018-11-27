@@ -1,5 +1,6 @@
 export interface Subject {
-  hash: string,
+  channelAddress: string,
+  address: string,
   subject: string,
   unread: number
 }

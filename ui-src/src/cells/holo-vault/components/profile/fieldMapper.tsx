@@ -280,7 +280,7 @@ class FieldMapper extends React.Component<Props, State> {
   	return (
       <div className={classes.root}>
         <ExpansionPanel expanded={this.state.expansionPanelOpen} style={{ boxShadow: 'none' }}>
-          <ExpansionPanelSummary expandIcon={<Person name='expandPersonaDetails' color={this.props.mapSaved ? 'primary' : 'default'} onClick={() => { this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen }) }}/>}>
+          <ExpansionPanelSummary expandIcon={<Person name='expandPersonaDetails' color={this.props.mapSaved ? 'primary' : 'secondary'} onClick={() => { this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen }) }}/>}>
             <AutoCompleteProfileField
               personas={personas}
               selectedPersona={this.state.selectedPersona}

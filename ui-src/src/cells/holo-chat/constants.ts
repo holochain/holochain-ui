@@ -48,17 +48,17 @@ export const profileSpec1 = {
 
 export const publicChannels = [
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'name': 'dev hApps',
     'description': 'dev-happs'
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devCore',
     'name': 'dev Core',
     'description': 'dev-core'
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
     'name': 'Town Central',
     'description': 'Town Central'
   }
@@ -92,21 +92,24 @@ export const directMessageChannels = [
   }
 ]
 
-export const devhAppsSubjects = [
+export const subjects = [
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'address': 'aop',
     'subject': 'Abundance of Presence',
-    'number': 3
+    'unread': 3
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'address': 'videos',
     'subject': 'Videos',
-    'number': 2
+    'unread': 2
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp',
+    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'address': 'standup',
     'subject': 'Standup',
-    'number': 1
+    'unread': 1
   }
 ]
 

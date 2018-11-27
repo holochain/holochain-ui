@@ -43,7 +43,7 @@ class Profiles extends React.Component<Props, {}> {
     const { classes, profiles } = this.props
     return (
       <div className={classes.root}>
-        <Typography variant='display1'>
+        <Typography variant='h1'>
           Profiles
         </Typography>
         <Typography variant='body1' gutterBottom={true}>

@@ -12,16 +12,13 @@ import {
 	GetSubjects
 } from '../actions'
 
-// import {
-//   personasList
-// } from '../../holo-vault/actions'
-
 import { Channel, ChannelSpec } from '../types/model/channel'
 import { IdentitySpec } from '../types/model/identity'
 
 const mapStateToProps = (state: any): StateProps => {
   return {
-    channels: constants.directMessageChannels // state.holoChat.myChannels
+    channels: constants.publicChannels, // state.holoChat.myChannels
+    subjects: constants.subjects
   }
 }
 

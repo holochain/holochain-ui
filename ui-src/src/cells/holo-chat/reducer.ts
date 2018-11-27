@@ -3,6 +3,7 @@ import * as chatActions from './actions'
 import { Channel } from './types/model/channel'
 import { Message } from './types/model/message'
 import { Identity } from './types/model/identity'
+import { Subject } from './types/model/subject'
 
 // create a union type that is all possible chat actions
 export type ChatAction = ActionType<typeof chatActions>
@@ -13,7 +14,8 @@ export interface HoloChatState {
   readonly activeChannel: Channel | null,
   readonly activeChannelMembers: Array<Identity>,
   readonly myHash: string | null,
-  readonly users: Array<Identity>
+  readonly users: Array<Identity>,
+  readonly subjects: Array<Subject>
 }
 
 export const initialState: HoloChatState = {
@@ -22,7 +24,8 @@ export const initialState: HoloChatState = {
   activeChannel: null,
   activeChannelMembers: [],
   myHash: null,
-  users: []
+  users: [],
+  subjects: []
 }
 
 export function holochatReducer (state = initialState, action: ChatAction) {
@@ -55,12 +58,29 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         myHash: action.payload.data
       }
     case getType(chatActions.GetAllMembers.success):
-      console.log(action.payload.data)
       let users: Array<Identity> = action.payload.data.map((user: any) => ({ hash: user.id, handle: user.profile.handle, email: user.profile.email, avatar: user.profile.avatar }))
       return {
         ...state,
         users: users
       }
+    case getType(chatActions.GetSubjects.success):
+      let subjects: Array<Subject> = action.payload.data
+      if (subjects.length > 0) {
+        // Remove any exisitng subjects for the channel and push the new ones in
+        let channelAddress: string = subjects[0].channelAddress
+        let stateSubjects: Array<Subject> = state.subjects.filter(function (subject: Subject) {
+          return subject.channelAddress !== channelAddress
+        })
+        return {
+          ...state,
+          subjects: stateSubjects.concat(subjects)
+        }
+      } else {
+        return {
+          ...state
+        }
+      }
+
     default:
       return state
   }

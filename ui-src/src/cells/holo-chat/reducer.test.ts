@@ -66,14 +66,61 @@ describe('Chat Reducer', () => {
   })
 
   it('Should update the state in response to GetUsers', () => {
+    let usersResponse = [{ id: '3', profile: { handle: 'philipbeadle', email: 'philip.beadle@holo.host', avatar: '' } }, { id: '2', profile: { handle: 'thedavidmeister', email: 'david.meister@holo.host', avatar: '' } }]
     expect(holochatReducer(undefined, {
       type: getType(chatActions.GetAllMembers.success),
       payload: {
-        data: [{ handle: 'a', avatar: '' }, { handle: 'b', avatar: '' }]
+        data: usersResponse
       } as AxiosResponse
     })).toEqual({
       ...initialState,
-      users: [{ handle: 'a', avatar: '' }, { handle: 'b', avatar: '' }]
+      users: [{ hash: '3', email: 'philip.beadle@holo.host', handle: 'philipbeadle', avatar: '' }, { hash: '2', email: 'david.meister@holo.host', handle: 'thedavidmeister', avatar: '' }]
+    })
+  })
+
+  it('Should update the state in response to GetSubjects', () => {
+    expect(holochatReducer(undefined, {
+      type: getType(chatActions.GetSubjects.success),
+      payload: {
+        data: [{
+          channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+          address: 'aop',
+          subject: 'Abundance of Presence',
+          unread: 3
+        },
+        {
+          channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+          address: 'videos',
+          subject: 'Videos',
+          unread: 2
+        },
+        {
+          channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+          address: 'standup',
+          subject: 'Standup',
+          unread: 1
+        }]
+      } as AxiosResponse
+    })).toEqual({
+      ...initialState,
+      subjects: [{
+        channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+        address: 'aop',
+        subject: 'Abundance of Presence',
+        unread: 3
+      },
+      {
+        channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+        address: 'videos',
+        subject: 'Videos',
+        unread: 2
+      },
+      {
+        channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+        address: 'standup',
+        subject: 'Standup',
+        unread: 1
+      }]
     })
   })
 

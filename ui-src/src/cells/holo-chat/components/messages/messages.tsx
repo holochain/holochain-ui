@@ -7,7 +7,7 @@ import { Message as MessageType } from '../../types/view/message'
 import { MessageSpec } from '../../types/model/message'
 import { Channel as ChannelType } from '../../types/model/channel'
 import { Identity } from '../../types/model/identity'
-// import {Message as MessageType} from '../../types/message'
+import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
@@ -23,22 +23,21 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     marginTop: '10px'
   },
   textField: {
-    float: 'left',
-    width: '70%'
+    width: '100%'
   },
   button: {
     marginTop: theme.spacing.unit
   },
   send: {
+    flexGrow: 1,
     position: 'fixed',
     bottom: 0,
-    width: '100%',
     boxShadow: 'none',
     backgroundColor: '#fff',
     height: 140
   },
   chatHistory: {
-    height: 470,
+    height: '100%',
     overflow: 'auto',
     marginBottom: 120,
     boxShadow: 'none'
@@ -131,27 +130,33 @@ class Messages extends React.Component<MessagesProps, MessageState> {
           </List>
         </Paper>
         <Paper className={classes.send}>
-          <TextField
-              id='subject'
-              label='Subject'
-              className={classes.textField}
-              value={this.state.message}
-              onChange={this.handleChange}
-              margin='normal'
-              onKeyPress={this.handleKeyPress}
-          />
-          <TextField
-              id='message'
-              label='Message'
-              className={classes.textField}
-              value={this.state.message}
-              onChange={this.handleChange}
-              margin='normal'
-              onKeyPress={this.handleKeyPress}
-          />
-          <Button variant='fab' mini={true} className={classes.button} onClick={this.handleSendMessage}>
-            <Send />
-          </Button>
+          <Grid container={true} spacing={0}>
+            <Grid item={true} xs={11}>
+              <TextField
+                  id='subject'
+                  label='Subject'
+                  className={classes.textField}
+                  value={this.state.message}
+                  onChange={this.handleChange}
+                  margin='normal'
+                  onKeyPress={this.handleKeyPress}
+              />
+              <TextField
+                  id='message'
+                  label='Message'
+                  className={classes.textField}
+                  value={this.state.message}
+                  onChange={this.handleChange}
+                  margin='normal'
+                  onKeyPress={this.handleKeyPress}
+              />
+            </Grid>
+            <Grid item={true} xs={1}>
+              <Button variant='fab' mini={true} className={classes.button} onClick={this.handleSendMessage}>
+                <Send />
+              </Button>
+            </Grid>
+          </Grid>
         </Paper>
       </Paper>
     )

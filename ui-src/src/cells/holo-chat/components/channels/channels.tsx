@@ -1,16 +1,19 @@
 import * as React from 'react'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-// import List from '@material-ui/core/List'
-// import ListItem from '@material-ui/core/ListItem'
+import Chip from '@material-ui/core/Chip'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
 import withRoot from '../../../../withRoot'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, Route, RouteComponentProps } from 'react-router-dom'
 import NewChannel from '../../containers/newChannelContainer'
 import { IdentitySpec } from '../../types/model/identity'
-import ChannelNav from './channelNav'
+import { Subject as SubjectType } from '../../types/model/subject'
 
 import {
   GetMyChannels,
@@ -38,14 +41,16 @@ export interface OwnProps {
 }
 
 export interface StateProps {
-  channels: Array<ChannelType>
+  channels: Array<ChannelType>,
+  subjects: Array<SubjectType>
 }
 
 export interface DispatchProps {
   getMyChannels: typeof GetMyChannels.sig,
   newChannel: typeof CreateCustomChannel.sig,
   setActiveChannel: (channel: ChannelType) => void,
-  setIdentity: (identity: IdentitySpec) => void
+  setIdentity: (identity: IdentitySpec) => void,
+  getSubjects: (channelAddress: string) => void
 }
 
 export interface RouterProps extends RouteComponentProps<{channel: string, subject?: string}> {}
@@ -57,6 +62,7 @@ export interface State {
 
 class Channels extends React.Component<Props & RouterProps, State> {
   getChannelsInterval: any
+
   constructor (props: Props & RouterProps) {
     super(props)
     this.state = {
@@ -65,7 +71,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount () {
-    this.getChannelsInterval = setInterval(this.props.getMyChannels, 20000)
+    this.getChannelsInterval = setInterval(this.props.getMyChannels, 60000)
   }
 
   componentWillUnmount () {
@@ -89,11 +95,13 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   getSubjects = (channelAddress: string) => {
+    console.log(`get subjects for ${channelAddress}`)
+    this.props.history.push(`/holo-chat/channel/${channelAddress}`)
     this.props.getSubjects(channelAddress)
   }
 
   render (): JSX.Element {
-    const { classes, channels, title } = this.props
+    const { classes, channels, title, subjects } = this.props
     return (
     <div className={classes.root}>
       <Button id='AddChannel' mini={true} onClick={this.handleNewChannelButtonClick} className={classes.addButton}>
@@ -103,7 +111,32 @@ class Channels extends React.Component<Props & RouterProps, State> {
         {title}
       </Typography>
       {channels.map((channel: ChannelType, index: number) => (
-        <ChannelNav channel={channel} index={index} />
+        <div key={index} className={classes.root}>
+            <Route
+              render={ ({ history }) => (
+                <ExpansionPanel style={{ boxShadow: 'none' }}>
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(channel.hash)}>
+                    <Typography variant='h6'>{channel.name}</Typography>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    <div>
+                      {
+                        subjects.filter(function (subject: SubjectType) {
+                          return subject.channelAddress === channel.hash
+                        }).map((subject: SubjectType, subjectIndex: number) => (
+                          <Chip
+                            key={subjectIndex}
+                            label={subject.subject}
+                            className={classes.chip}
+                            onClick={() => history.push(`/holo-chat/channel/${channel.hash}/subject/${subject.address}`)}
+                          />))
+                      }
+                    </div>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+                )}
+            />
+        </div>
       ))}
       <NewChannel open={this.state.modalOpen} onSubmit={this.addNewChannel} onHandleClose={this.onHandleClose}/>
     </div>
