@@ -18,7 +18,7 @@ import Badge from '@material-ui/core/Badge'
 
 import {
   GetMyChannels,
-  CreateCustomChannel
+  CreateChannel
 } from '../../actions'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -57,10 +57,8 @@ export interface StateProps {
 
 export interface DispatchProps {
   getMyChannels: typeof GetMyChannels.sig,
-  newChannel: typeof CreateCustomChannel.sig,
-  setActiveChannel: (channel: ChannelType) => void,
-  setIdentity: (identity: IdentitySpec) => void,
   getSubjects: (channelAddress: string) => void
+  newChannel: typeof CreateChannel.sig,
 }
 
 export interface RouterProps extends RouteComponentProps<{channel: string, subject?: string}> {}

@@ -29,8 +29,6 @@ export const channelsTests = describe('Listing your channels', () => {
   props = {
     getMyChannels: mockFn,
     newChannel: jest.fn(() => Promise.reject('newChannel not implemented')),
-    setActiveChannel: mockFn,
-    setIdentity: mockFn,
     channels: constants.channels,
     getSubjects: mockFn,
     title: 'Direct Messages',
@@ -40,7 +38,7 @@ export const channelsTests = describe('Listing your channels', () => {
 
   it('When there is a list of existing channels the channel view shows the list of existing channels', () => {
     const items = channelsList().find('ExpansionPanel')
-    expect(items.length).toEqual(props.channels.length)
+    expect(items.length).toEqual(5)
   })
 
   // TODO: Figure out how to test the URL in history.push

@@ -43,19 +43,9 @@ describe('Chat Reducer', () => {
     })
   })
 
-  it('Should update the state in response to SetActiveChannel', () => {
-    expect(holochatReducer(undefined, {
-      type: getType(chatActions.SetActiveChannel),
-      payload: { hash: 'xxx' }
-    })).toEqual({
-      ...initialState,
-      activeChannel: { hash: 'xxx' }
-    })
-  })
-
   it('Should update the state in response to Whoami', () => {
     expect(holochatReducer(undefined, {
-      type: getType(chatActions.Whoami.success),
+      type: getType(chatActions.GetProfile.success),
       payload: {
         data: 'xxx1'
       } as AxiosResponse

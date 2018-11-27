@@ -6,14 +6,11 @@ import * as constants from '../constants'
 
 import {
 	GetMyChannels,
-	CreateCustomChannel,
-  SetActiveChannel,
-  SetIdentity,
-	GetSubjects
+	GetSubjects,
+	CreateChannel
 } from '../actions'
 
 import { Channel, ChannelSpec } from '../types/model/channel'
-import { IdentitySpec } from '../types/model/identity'
 
 const mapStateToProps = (state: any): StateProps => {
   return {
@@ -25,10 +22,8 @@ const mapStateToProps = (state: any): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
   	getMyChannels: () => dispatch(GetMyChannels.create(undefined)), // can be written as  () => { return dispatch(...) }
-  	newChannel: (channelSpec: ChannelSpec) => dispatch(CreateCustomChannel.create(channelSpec)),
-    setActiveChannel: (channel: Channel) => dispatch(SetActiveChannel(channel)),
-    setIdentity: (identity: IdentitySpec) => dispatch(SetIdentity.create(identity)),
-    getSubjects: (channelAddress: string) => dispatch(GetSubjects.create({ channelAddress: channelAddress }))
+    getSubjects: (channelAddress: string) => dispatch(GetSubjects.create({ channelAddress: channelAddress })),
+  	newChannel: (channelSpec: ChannelSpec) => dispatch(CreateChannel.create(channelSpec))
   }
 }
 

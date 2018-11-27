@@ -3,7 +3,7 @@ import { createHolochainAsyncAction } from '../../utils/holochainAxiosActions'
 
 import { Message, MessageSpec } from './types/model/message'
 import { Channel, ChannelSpec } from './types/model/channel'
-import { Identity, IdentitySpec } from './types/model/identity'
+import { Identity } from './types/model/identity'
 import { Subject } from './types/model/subject'
 
 /*===============================================
@@ -12,9 +12,9 @@ import { Subject } from './types/model/subject'
 
 /*----------  Holochain actions  ----------*/
 
-export const CreateCustomChannel = createHolochainAsyncAction<ChannelSpec, string>('holo-chat', 'chat', 'main', 'createCustomChannel')
+export const CreateChannel = createHolochainAsyncAction<ChannelSpec, string>('holo-chat', 'chat', 'main', 'create_channel')
 
-export const AddMembers = createHolochainAsyncAction<{channelHash: string, members: Array<string>}, boolean>('holo-chat', 'chat', 'main', 'addMembers')
+export const AddMembers = createHolochainAsyncAction<{channelHash: string, members: Array<string>}, boolean>('holo-chat', 'chat', 'main', 'add_members')
 
 export const GetMyChannels = createHolochainAsyncAction<any, Array<Channel>>('holo-chat', 'chat', 'main', 'get_my_channels')
 
@@ -22,17 +22,17 @@ export const GetSubjects = createHolochainAsyncAction<{channelAddress: string}, 
 
 export const GetAllMembers = createHolochainAsyncAction<any, Array<Channel>>('holo-chat', 'chat', 'main', 'get_all_members')
 
-export const GetMembers = createHolochainAsyncAction<{channelHash: string}, Array<Identity>>('holo-chat', 'chat', 'main', 'getMembers')
+export const GetMembers = createHolochainAsyncAction<{channelHash: string}, Array<Identity>>('holo-chat', 'chat', 'main', 'get_members')
 
-export const PostMessage = createHolochainAsyncAction<{channelHash: string, message: MessageSpec}, string>('holo-chat', 'chat', 'main', 'postMessage')
+export const PostMessage = createHolochainAsyncAction<{channelHash: string, message: MessageSpec}, string>('holo-chat', 'chat', 'main', 'post_message')
 
-export const GetMessages = createHolochainAsyncAction<{channelHash: string}, Array<Message>>('holo-chat', 'chat', 'main', 'getMessages')
+export const GetMessages = createHolochainAsyncAction<{channelHash: string}, Array<Message>>('holo-chat', 'chat', 'main', 'get_messages')
 
-export const Whoami = createHolochainAsyncAction<any, string>('holo-chat', 'users', 'main', 'whoami')
+export const GetProfile = createHolochainAsyncAction<any, string>('holo-chat', 'chat', 'main', 'get_profile')
 
-export const GetIdentity = createHolochainAsyncAction<string, Identity>('holo-chat', 'users', 'main', 'getIdentity')
+// export const GetIdentity = createHolochainAsyncAction<string, Identity>('holo-chat', 'users', 'main', 'getIdentity')
 
-export const SetIdentity = createHolochainAsyncAction<IdentitySpec, boolean>('holo-chat', 'users', 'main', 'setIdentity')
+// export const SetIdentity = createHolochainAsyncAction<IdentitySpec, boolean>('holo-chat', 'users', 'main', 'setIdentity')
 
 /*----------  Non-holochain actions  ----------*/
 
