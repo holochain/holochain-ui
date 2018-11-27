@@ -115,6 +115,12 @@ export const subjects = [
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Standup',
     'subject': 'Standup',
     'unread': 1
+  },
+  {
+    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
+    'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Bitcoin',
+    'subject': 'Bitcoin',
+    'unread': 1
   }
 ]
 
