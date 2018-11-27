@@ -9,7 +9,7 @@ import { MessageSpec } from '../types/model/message'
 import {
 	GetMessages,
 	GetMembers,
-	Whoami,
+	GetProfile,
 	PostMessage
 } from '../actions'
 
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getMessages: (channelUUID: string) => dispatch(GetMessages.create({ channelHash: channelUUID })),
     getMembers:  (channelUUID: string) => dispatch(GetMembers.create({ channelHash: channelUUID })),
-    whoami: () => dispatch(Whoami.create(undefined)),
+    whoami: () => dispatch(GetProfile.create(undefined)),
     sendMessage: (payload: {message: MessageSpec, channelHash: string}) => dispatch(PostMessage.create(payload))
   }
 }

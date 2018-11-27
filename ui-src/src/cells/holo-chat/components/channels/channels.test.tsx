@@ -30,7 +30,6 @@ export const channelsTests = describe('Listing your channels', () => {
     getMyChannels: mockFn,
     newChannel: jest.fn(() => Promise.reject('newChannel not implemented')),
     setActiveChannel: mockFn,
-    setIdentity: mockFn,
     channels: constants.directMessageChannels,
     title: 'Direct Messages',
     isPublic: false

@@ -3,7 +3,7 @@ import NewChannel from '../components/channels/newChannel'
 import { Dispatch } from 'redux'
 import {
 	GetAllMembers,
-	CreateCustomChannel
+	CreateChannel
 } from '../actions'
 import { ChannelSpec } from '../types/model/channel'
 
@@ -16,7 +16,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getAllMembers: () => dispatch(GetAllMembers.create(undefined)),
-    createChannel: (channelSpec: ChannelSpec) => dispatch(CreateCustomChannel.create(channelSpec))
+    createChannel: (channelSpec: ChannelSpec) => dispatch(CreateChannel.create(channelSpec))
   }
 }
 

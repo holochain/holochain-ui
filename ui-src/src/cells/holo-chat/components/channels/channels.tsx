@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Map } from 'immutable'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
@@ -12,7 +11,6 @@ import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
 import withRoot from '../../../../withRoot'
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom'
 import NewChannel from '../../containers/newChannelContainer'
-import { IdentitySpec } from '../../types/model/identity'
 
 import {
   GetMyChannels,
@@ -45,8 +43,7 @@ export interface StateProps {
 export interface DispatchProps {
   getMyChannels: typeof GetMyChannels.sig,
   newChannel: typeof CreateChannel.sig,
-  setActiveChannel: (channel: ChannelType) => void,
-  setIdentity: (identity: IdentitySpec) => void
+  setActiveChannel: (channel: ChannelType) => void
 }
 
 export interface RouterProps extends RouteComponentProps<{}> {}
