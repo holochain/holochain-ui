@@ -46,48 +46,53 @@ export const profileSpec1 = {
   ]
 }
 
-export const publicChannels = [
+export const channels = [
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'name': 'dev hApps',
+    'isPublic': true,
     'description': 'dev-happs'
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devCore',
     'name': 'dev Core',
+    'isPublic': true,
     'description': 'dev-core'
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
     'name': 'Town Central',
+    'isPublic': true,
     'description': 'Town Central'
-  }
-]
-
-export const directMessageChannels = [
+  },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp1',
     'name': 'philipbeadle, thedavidmeister',
+    'isPublic': false,
     'description': ''
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp2',
     'name': 'ccxxoo',
+    'isPublic': false,
     'description': ''
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp3',
     'name': 'jeanmrussell',
+    'isPublic': false,
     'description': ''
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp4',
     'name': 'zippy',
+    'isPublic': false,
     'description': ''
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp5',
     'name': 'artbrock',
+    'isPublic': false,
     'description': ''
   }
 ]
@@ -95,19 +100,19 @@ export const directMessageChannels = [
 export const subjects = [
   {
     'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
-    'address': 'aop',
+    'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8AoP',
     'subject': 'Abundance of Presence',
     'unread': 3
   },
   {
     'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
-    'address': 'videos',
+    'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Videos',
     'subject': 'Videos',
     'unread': 2
   },
   {
     'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
-    'address': 'standup',
+    'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Standup',
     'subject': 'Standup',
     'unread': 1
   }

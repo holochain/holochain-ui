@@ -7,6 +7,7 @@ export interface ChannelSpec {
 
 export interface Channel {
   hash: string,
+  isPublic: boolean,
   name?: string,
   description?: string
 }

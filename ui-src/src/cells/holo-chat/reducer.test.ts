@@ -57,11 +57,11 @@ describe('Chat Reducer', () => {
     expect(holochatReducer(undefined, {
       type: getType(chatActions.Whoami.success),
       payload: {
-        data: 'xxx'
+        data: 'xxx1'
       } as AxiosResponse
     })).toEqual({
       ...initialState,
-      myHash: 'xxx'
+      myHash: 'xxx1'
     })
   })
 
@@ -121,6 +121,18 @@ describe('Chat Reducer', () => {
         subject: 'Standup',
         unread: 1
       }]
+    })
+  })
+
+  it('Should not touch the state when GetSubjects returns an empty set', () => {
+    expect(holochatReducer(undefined, {
+      type: getType(chatActions.GetSubjects.success),
+      payload: {
+        data: []
+      } as AxiosResponse
+    })).toEqual({
+      ...initialState,
+      subjects: []
     })
   })
 

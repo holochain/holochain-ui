@@ -44,8 +44,8 @@ function genExpectedAction (zome: string, fname: string, data: any): any {
 
 const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, any, any]> = [
   [
-    'custom_channel',
-    'createCustomChannel',
+    'chat',
+    'create_custom_channel',
     chatActions.CreateCustomChannel.create,
 		{ name: 'test channel', description: '', members: ['123abc'] },
     'channel-hash-12345'
@@ -58,8 +58,8 @@ const asyncActionTestTable: Array<[string, string, (input: any) => AnyAction, an
     true
   ],
   [
-    'custom_channel',
-    'getMyChannels',
+    'chat',
+    'get_my_channelsyChannels',
     chatActions.GetMyChannels.create,
     null,
 		[{ name: 'channel1', members: ['member1'] }]

@@ -215,7 +215,6 @@ class MiniDrawer extends React.Component {
           <Route path='/holo-vault/profiles' component={ProfilesContainer} />
           <Route path='/holo-vault/profile/:hash' component={ProfileContainer} />
           <Route path='/holo-vault/happs' component={HappsContainer} />
-          <Route path='/holo-chat/channels' component={ChannelsContainer} />
           <MediaQuery minDeviceWidth={1025}>
             <Route exact path='/home' title='Holochain' render={props =>
               <div>
@@ -227,7 +226,7 @@ class MiniDrawer extends React.Component {
                 <Desktop />
               </div>
             } />
-            <Route path='/holo-chat/channel' title='Holochain' render={props =>
+            <Route path='/holo-chat' title='Holochain' render={props =>
               <Grid container={true} spacing={0}>
                 <Grid item={true} xs={3}>
                   <ChannelsContainer title={'Public Channels'} isPublic={true}/>

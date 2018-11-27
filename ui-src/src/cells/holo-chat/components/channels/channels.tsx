@@ -14,6 +14,7 @@ import { withRouter, Route, RouteComponentProps } from 'react-router-dom'
 import NewChannel from '../../containers/newChannelContainer'
 import { IdentitySpec } from '../../types/model/identity'
 import { Subject as SubjectType } from '../../types/model/subject'
+import Badge from '@material-ui/core/Badge'
 
 import {
   GetMyChannels,
@@ -30,6 +31,15 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   title: {
     padding: theme.spacing.unit
+  },
+  badge: {
+    top: -5,
+    right: -5,
+    // The border color match the background color.
+    border: `2px solid`
+  },
+  chip: {
+    margin: 2
   }
 })
 
@@ -100,8 +110,12 @@ class Channels extends React.Component<Props & RouterProps, State> {
     this.props.getSubjects(channelAddress)
   }
 
+  formatSubjectLabel = (subject: string): string => {
+    return `${subject.substr(0, 15)}...`
+  }
+
   render (): JSX.Element {
-    const { classes, channels, title, subjects } = this.props
+    const { classes, channels, title, subjects, isPublic } = this.props
     return (
     <div className={classes.root}>
       <Button id='AddChannel' mini={true} onClick={this.handleNewChannelButtonClick} className={classes.addButton}>
@@ -110,7 +124,9 @@ class Channels extends React.Component<Props & RouterProps, State> {
       <Typography variant='h5' className={classes.title}>
         {title}
       </Typography>
-      {channels.map((channel: ChannelType, index: number) => (
+        {channels.filter(function (channel: ChannelType) {
+          return channel.isPublic === isPublic
+        }).map((channel: ChannelType, index: number) => (
         <div key={index} className={classes.root}>
             <Route
               render={ ({ history }) => (
@@ -124,12 +140,15 @@ class Channels extends React.Component<Props & RouterProps, State> {
                         subjects.filter(function (subject: SubjectType) {
                           return subject.channelAddress === channel.hash
                         }).map((subject: SubjectType, subjectIndex: number) => (
-                          <Chip
-                            key={subjectIndex}
-                            label={subject.subject}
-                            className={classes.chip}
-                            onClick={() => history.push(`/holo-chat/channel/${channel.hash}/subject/${subject.address}`)}
-                          />))
+                          <Badge badgeContent={subject.unread} color='primary' classes={{ badge: classes.badge }}>
+                            <Chip
+                              key={subjectIndex}
+                              label={this.formatSubjectLabel(subject.subject)}
+                              className={classes.chip}
+                              onClick={() => history.push(`/holo-chat/channel/${channel.hash}/subject/${subject.address}`)}
+                            />
+                          </Badge>
+                          ))
                       }
                     </div>
                   </ExpansionPanelDetails>

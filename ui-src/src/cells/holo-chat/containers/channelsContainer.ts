@@ -17,7 +17,7 @@ import { IdentitySpec } from '../types/model/identity'
 
 const mapStateToProps = (state: any): StateProps => {
   return {
-    channels: constants.publicChannels, // state.holoChat.myChannels
+    channels: constants.channels, // state.holoChat.myChannels
     subjects: constants.subjects
   }
 }
