@@ -2,13 +2,16 @@ use std::convert::TryFrom;
 use hdk::{
     self,
     entry_definition::ValidatingEntryType,
-    holochain_dna::zome::entry_types::Sharing,
     holochain_core_types::error::HolochainError,
     holochain_core_types::json::JsonString,
-    holochain_core_types::hash::HashString,
-    holochain_core_types::entry::Entry,
-    holochain_core_types::entry_type::EntryType,
     error::ZomeApiResult,
+};
+
+use hdk::holochain_core_types::{
+    hash::HashString,
+    entry::Entry,
+    dna::zome::entry_types::Sharing,
+    entry::entry_type::EntryType
 };
 
 use super::utils;
@@ -96,7 +99,7 @@ pub fn handle_get_all_members() -> JsonString {
 }
 
 pub fn get_my_member_id() -> Member {
-    return Member{id: "glibglob".into(),profile:None} // placeholder until vault is linkable
+    return Member{id: "wollum".into(), profile:None} // placeholder until vault is linkable
 }
 
 fn get_all_members() -> ZomeApiResult<Vec<Member>> {

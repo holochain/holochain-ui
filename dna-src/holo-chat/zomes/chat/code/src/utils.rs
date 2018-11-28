@@ -22,7 +22,7 @@ pub fn get_links_and_load<S: Into<String>>(
 ) -> ZomeApiResult<GetLinksLoadResult>  {
 	hdk::get_links(base, tag)
 		.map(|result| {
-			result.iter()
+			result.addresses().iter()
 				.map(|address| {
 					hdk::get_entry(address.to_owned())
 						.map(|entry: Option<Entry>| {

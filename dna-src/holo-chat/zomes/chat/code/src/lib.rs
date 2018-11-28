@@ -9,11 +9,11 @@ extern crate serde_json;
 #[macro_use]
 extern crate holochain_core_types_derive;
 
-use hdk::{
-    holochain_core_types::hash::HashString,
-    holochain_core_types::entry::Entry,
-    holochain_core_types::entry_type::EntryType,
-    holochain_dna::zome::entry_types::Sharing,
+use hdk::holochain_core_types::{
+    hash::HashString,
+    entry::Entry,
+    dna::zome::entry_types::Sharing,
+    entry::entry_type::EntryType
 };
 
 
@@ -103,7 +103,8 @@ define_zome! {
                 StoreProfile {email:"sami-honeypot@holo.host".to_string(),handle:"sami-honeypot".to_string(),avatar:"".to_string(),timezone:"UTC".to_string()},
                 StoreProfile {email:"samrose@holo.host".to_string(),handle:"samrose".to_string(),avatar:"".to_string(),timezone:"UTC".to_string()},
                 StoreProfile {email:"sphinxc0re@holo.host".to_string(),handle:"sphinxc0re".to_string(),avatar:"".to_string(),timezone:"UTC".to_string()},
-                StoreProfile {email:"thedavidmeister@holo.host".to_string(),handle:"thedavidmeister".to_string(),avatar:"".to_string(),timezone:"UTC".to_string()}
+                StoreProfile {email:"thedavidmeister@holo.host".to_string(),handle:"thedavidmeister".to_string(),avatar:"".to_string(),timezone:"UTC".to_string()},
+                StoreProfile {email:"willem.olding@holo.host".to_string(),handle:"wollum".to_string(),avatar:"".to_string(),timezone:"AEDT".to_string()}
             ];
 
             for profile in profiles.iter() {
@@ -115,7 +116,6 @@ define_zome! {
 
                 hdk::link_entries(&anchor_address, &member_address, "member_tag").map_err(|_| "member not linked to anchor");
                 hdk::link_entries(&member_address, &profile_address, "profile").map_err(|_| "profile not linked to anchor");
-
             }
 
     		Ok(())
