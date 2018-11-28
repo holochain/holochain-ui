@@ -21,8 +21,8 @@ storiesOf('HoloChat', module)
       <Provider store={store}>
       <Grid container={true} spacing={8}>
         <Grid item={true} xs={3}>
-          <Channels channels={constants.publicChannels} title={'Public Channels'} isPublic={true}/>
-          <Channels channels={constants.directMessageChannels} title={'Direct Messages'} isPublic={false}/>
+          <Channels channels={constants.channels} title={'Public Channels'} isPublic={true}/>
+          <Channels channels={constants.channels} title={'Direct Messages'} isPublic={false}/>
         </Grid>
         <Grid item={true} xs={9}>
           <Messages messages={constants.messages} />

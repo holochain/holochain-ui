@@ -1,16 +1,19 @@
 import * as React from 'react'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
+import Chip from '@material-ui/core/Chip'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Button from '@material-ui/core/Button'
-import ListItemText from '@material-ui/core/ListItemText'
 import AddIcon from '@material-ui/icons/Add'
 import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
-// import {Persona} from '../../../holo-vault/types/profile'
 import withRoot from '../../../../withRoot'
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom'
 import NewChannel from '../../containers/newChannelContainer'
+import { Subject as SubjectType } from '../../types/model/subject'
+import Badge from '@material-ui/core/Badge'
 
 import {
   GetMyChannels,
@@ -27,27 +30,37 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   title: {
     padding: theme.spacing.unit
+  },
+  badge: {
+    top: -5,
+    right: -5,
+    // The border color match the background color.
+    border: `2px solid`
+  },
+  chip: {
+    margin: 2
   }
 })
 
 export interface OwnProps {
   classes?: any,
   isPublic: boolean,
-  title: string
+  title: string,
+  getSubjects: (channelAddress: string) => void,
 }
 
 export interface StateProps {
-  channels: Array<ChannelType>
+  channels: Array<ChannelType>,
+  subjects: Array<SubjectType>
 }
 
 export interface DispatchProps {
   getMyChannels: typeof GetMyChannels.sig,
+  getSubjects: (channelAddress: string) => void
   newChannel: typeof CreateChannel.sig,
-  setActiveChannel: (channel: ChannelType) => void
 }
 
-export interface RouterProps extends RouteComponentProps<{}> {}
-
+export interface RouterProps extends RouteComponentProps<{channel: string, subject?: string}> {}
 export type Props = OwnProps & StateProps & DispatchProps
 
 export interface State {
@@ -56,6 +69,7 @@ export interface State {
 
 class Channels extends React.Component<Props & RouterProps, State> {
   getChannelsInterval: any
+
   constructor (props: Props & RouterProps) {
     super(props)
     this.state = {
@@ -64,7 +78,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount () {
-    this.getChannelsInterval = setInterval(this.props.getMyChannels, 20000)
+    this.getChannelsInterval = setInterval(this.props.getMyChannels, 60000)
   }
 
   componentWillUnmount () {
@@ -87,26 +101,18 @@ class Channels extends React.Component<Props & RouterProps, State> {
     this.setState({ modalOpen: false })
   }
 
-  handleChannelListClick = (history: any, channel: ChannelType) => {
-    this.props.setActiveChannel(channel)
-    history.push(`/holo-chat/messages`)
+  getSubjects = (channelAddress: string) => {
+    console.log(`get subjects for ${channelAddress}`)
+    this.props.history.push(`/holo-chat/channel/${channelAddress}`)
+    this.props.getSubjects(channelAddress)
   }
 
-  renderChannels = (channels: Array<ChannelType>) => {
-    return channels.map((channel: ChannelType, index: number) => (
-      <Route
-        key={index}
-        render={ ({ history }) => (
-        <ListItem id={channel.hash} button={true} onClick={() => this.handleChannelListClick(history, channel)}>
-          <ListItemText primary={channel.name}/>
-        </ListItem>
-        )}
-      />
-    ))
+  formatSubjectLabel = (subject: string): string => {
+    return `${subject.substr(0, 15)}...`
   }
 
   render (): JSX.Element {
-    const { classes, channels, title } = this.props
+    const { classes, channels, title, subjects, isPublic } = this.props
     return (
     <div className={classes.root}>
       <Button id='AddChannel' mini={true} onClick={this.handleNewChannelButtonClick} className={classes.addButton}>
@@ -115,9 +121,39 @@ class Channels extends React.Component<Props & RouterProps, State> {
       <Typography variant='h5' className={classes.title}>
         {title}
       </Typography>
-      <List id='channels' component='nav'>
-        {this.renderChannels(channels)}
-      </List>
+        {channels.filter(function (channel: ChannelType) {
+          return channel.isPublic === isPublic
+        }).map((channel: ChannelType, index: number) => (
+        <div key={index} className={classes.root}>
+            <Route
+              render={ ({ history }) => (
+                <ExpansionPanel style={{ boxShadow: 'none' }}>
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(channel.hash)}>
+                    <Typography variant='h6'>{channel.name}</Typography>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    <div>
+                      {
+                        subjects.filter(function (subject: SubjectType) {
+                          return subject.channelAddress === channel.hash
+                        }).map((subject: SubjectType, subjectIndex: number) => (
+                          <Badge badgeContent={subject.unread} color='primary' classes={{ badge: classes.badge }}>
+                            <Chip
+                              key={subjectIndex}
+                              label={this.formatSubjectLabel(subject.subject)}
+                              className={classes.chip}
+                              onClick={() => history.push(`/holo-chat/channel/${channel.hash}/subject/${subject.address}`)}
+                            />
+                          </Badge>
+                          ))
+                      }
+                    </div>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+                )}
+            />
+        </div>
+      ))}
       <NewChannel open={this.state.modalOpen} onSubmit={this.addNewChannel} onHandleClose={this.onHandleClose}/>
     </div>
     )

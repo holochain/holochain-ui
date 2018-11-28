@@ -1,6 +1,7 @@
 use std::convert::TryFrom;
 use hdk::{
-    self, 
+    self,
+    AGENT_ADDRESS,
     entry_definition::ValidatingEntryType,
     holochain_core_types::error::HolochainError,
     holochain_core_types::json::JsonString,
@@ -139,7 +140,7 @@ pub fn handle_add_members(channel_address: HashString, members: Vec<member::Memb
         json!({"success": true}).into()
     }).unwrap_or_else(|hdk_err|{
         hdk_err.into()
-    }) 
+    })
 }
 
 pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonString {
@@ -218,3 +219,4 @@ fn get_subjects(channel_address: &HashString) -> ZomeApiResult<Vec<String>> {
         }).collect()
     })
 }
+

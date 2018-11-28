@@ -8,6 +8,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -213,7 +215,6 @@ class MiniDrawer extends React.Component {
           <Route path='/holo-vault/profiles' component={ProfilesContainer} />
           <Route path='/holo-vault/profile/:hash' component={ProfileContainer} />
           <Route path='/holo-vault/happs' component={HappsContainer} />
-          <Route path='/holo-chat/channels' component={ChannelsContainer} />
           <MediaQuery minDeviceWidth={1025}>
             <Route exact path='/home' title='Holochain' render={props =>
               <div>
@@ -225,11 +226,19 @@ class MiniDrawer extends React.Component {
                 <Desktop />
               </div>
             } />
-            <Route path='/holo-chat/messages' title='Holochain' render={props =>
-              <div>
-                <ChannelsContainer />
-                <MessagesContainer />
-              </div>
+            <Route path='/holo-chat' title='Holochain' render={props =>
+              <Grid container={true} spacing={0}>
+                <Grid item={true} xs={3}>
+                  <ChannelsContainer title={'Public Channels'} isPublic={true}/>
+                  <ChannelsContainer title={'Direct Messages'} isPublic={false}/>
+                </Grid>
+                <Grid item={true} xs={7}>
+                  <MessagesContainer />
+                </Grid>
+                <Grid item={true} xs={2}>
+                  <Paper><Typography variant='h5'>Ideas</Typography></Paper>
+                </Grid>
+              </Grid>
             } />
           </MediaQuery>
           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1024}>

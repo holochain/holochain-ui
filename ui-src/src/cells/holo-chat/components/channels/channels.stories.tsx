@@ -18,5 +18,5 @@ storiesOf('HoloChat/Channels', module)
   ))
   .add('List my Channels', withNotes(listChannels)(() => {
     specs(() => channelsTests)
-    return <Provider store={store}><Channels channels={constants.directMessageChannels} title={'Direct Messages'} isPublic={false} /></Provider>
+    return <Provider store={store}><Channels channels={constants.channels} title={'Public Channels'} isPublic={false} subjects={constants.subjects} /></Provider>
   }))

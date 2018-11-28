@@ -78,7 +78,7 @@ function Desktop(props) {
         <Typography variant="title" align="center" gutterBottom>
           Holo
         </Typography>
-        <Typography variant="subheading" align="center" color="textSecondary" component="p">
+        <Typography variant="h3" align="center" color="textSecondary" component="p">
           Where the Crowd is the Cloud
         </Typography>
       </footer>

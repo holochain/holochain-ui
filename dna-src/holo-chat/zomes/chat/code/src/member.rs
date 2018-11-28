@@ -1,6 +1,7 @@
 use std::convert::TryFrom;
 use hdk::{
     self,
+    AGENT_ADDRESS,
     entry_definition::ValidatingEntryType,
     holochain_core_types::error::HolochainError,
     holochain_core_types::json::JsonString,

@@ -46,7 +46,7 @@ class Personas extends React.Component<Props & RouterProps, {}> {
     const { classes, personas } = this.props
     return (
     <div className={classes.root}>
-      <Typography variant='display1'>
+      <Typography variant='h1'>
         Personas
       </Typography>
       <Typography variant='body1' gutterBottom={true}>
@@ -77,7 +77,7 @@ class Personas extends React.Component<Props & RouterProps, {}> {
         render={({ history }) => (
           <Button
             name='addPersona'
-            variant='raised'
+            variant='contained'
             className={classes.button}
             onClick={() => {
               history.push(`/holo-vault/persona/new`)
