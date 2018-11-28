@@ -1,9 +1,12 @@
 use hdk::holochain_core_types::error::HolochainError;
 use hdk::holochain_core_types::json::JsonString;
 use hdk::{
-    self, 
+    self,
     entry_definition::ValidatingEntryType,
-    holochain_dna::zome::entry_types::Sharing,
+};
+
+use hdk::holochain_core_types::{
+    dna::zome::entry_types::Sharing,
 };
 
 

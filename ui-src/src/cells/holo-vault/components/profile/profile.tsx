@@ -125,7 +125,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
     this.props.save(this.state.profile, this.state.personas)
       .then(this.props.getProfiles)
       .then(() => this.props.history.push('/holo-vault/profiles'))
-      .catch(err => console.error(err))
+      .catch(err => console.log(err))
   }
 
   public handleChangeSelectedPersona = (event: any) => {
@@ -148,7 +148,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
     const { profile, classes } = this.props
     return (
       <div>
-        <Typography variant='title' gutterBottom={true}>
+        <Typography variant='h2' gutterBottom={true}>
         {profile.name} is requesting access to the following:
         </Typography>
         <Paper className={classes.selectContainer}>
@@ -176,7 +176,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
               />
             )
           })}
-          <Button name='addField' variant='raised' className={classes.button} onClick={this.handleSaveProfile}>
+          <Button name='addField' variant='contained' className={classes.button} onClick={this.handleSaveProfile}>
             <Save/>
             Save Profile
           </Button>

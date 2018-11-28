@@ -3,6 +3,7 @@ import * as chatActions from './actions'
 import { Channel } from './types/model/channel'
 import { Message } from './types/model/message'
 import { Identity } from './types/model/identity'
+import { Subject } from './types/model/subject'
 import { Map } from 'immutable'
 
 // create a union type that is all possible chat actions
@@ -15,7 +16,8 @@ export interface HoloChatState {
   readonly activeChannel: Channel | null,
   readonly activeChannelMembers: Array<Identity>,
   readonly myHash: string | null,
-  readonly users: Array<Identity>
+  readonly users: Array<Identity>,
+  readonly subjects: Array<Subject>
 }
 
 export const initialState: HoloChatState = {
@@ -25,7 +27,8 @@ export const initialState: HoloChatState = {
   activeChannel: null,
   activeChannelMembers: [],
   myHash: null,
-  users: []
+  users: [],
+  subjects: []
 }
 
 export function holochatReducer (state = initialState, action: ChatAction) {
@@ -47,18 +50,12 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         ...state,
         activeChannelMembers: action.payload.data
       }
-    case getType(chatActions.SetActiveChannel):
-      return {
-        ...state,
-        activeChannel: action.payload
-      }
     case getType(chatActions.GetProfile.success):
       return {
         ...state,
         myHash: action.payload.data
       }
     case getType(chatActions.GetAllMembers.success):
-      console.log(action.payload.data)
       let users: Array<Identity> = action.payload.data.map((user: any) => ({
         hash: user.id,
         handle: user.profile.handle,
@@ -69,6 +66,24 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         ...state,
         users: users
       }
+    case getType(chatActions.GetSubjects.success):
+      let subjects: Array<Subject> = action.payload.data
+      if (subjects.length > 0) {
+        // Remove any exisitng subjects for the channel and push the new ones in
+        let channelAddress: string = subjects[0].channelAddress
+        let stateSubjects: Array<Subject> = state.subjects.filter(function (subject: Subject) {
+          return subject.channelAddress !== channelAddress
+        })
+        return {
+          ...state,
+          subjects: stateSubjects.concat(subjects)
+        }
+      } else {
+        return {
+          ...state
+        }
+      }
+
     default:
       return state
   }

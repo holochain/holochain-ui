@@ -96,7 +96,7 @@ const asyncActionTestTable: Array<[string, (input: any) => AnyAction, any, any]>
   [
     'post_message',
     chatActions.PostMessage.create,
-		{ channelHash: 'Qmchanelhash', message: { content: { text: 'message body' } } },
+		{ channelHash: 'Qmchanelhash', subject: 'Testing subject', message: { content: { text: 'message body' } } },
     'Qmmessagehash'
   ],
   [

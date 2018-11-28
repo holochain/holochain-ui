@@ -1,15 +1,20 @@
 
-use hdk::holochain_core_types::error::HolochainError;
-use hdk::holochain_core_types::error::ZomeApiResult;
-use hdk::holochain_core_types::json::JsonString;
-use hdk::holochain_core_types::hash::HashString;
-use hdk::holochain_core_types::entry::Entry;
-use hdk::holochain_core_types::entry_type::EntryType;
+
 use hdk::{
 	self,
 	entry_definition::ValidatingEntryType,
-	holochain_dna::zome::entry_types::Sharing,
+	error::ZomeApiResult,
 };
+
+use hdk::holochain_core_types::{
+	error::HolochainError,
+	json::JsonString,
+	hash::HashString,
+	entry::Entry,
+	entry::entry_type::EntryType,
+	dna::zome::entry_types::Sharing,
+};
+
 
 use serde_json;
 use std::convert::TryFrom;
@@ -136,7 +141,7 @@ pub fn handle_delete_field(persona_address: HashString, field_name: String) -> J
 	let mut fields_deleted: u32 = 0;
 	match hdk::get_links(&persona_address, "fields") {
 		Ok(result) => {
-			for field_addr in result.iter() {
+			for field_addr in result.addresses().iter() {
 				let get_result = hdk::get_entry(field_addr.to_owned()).unwrap().unwrap().value().clone();
 				let field = PersonaField::try_from(get_result.clone()).unwrap();
 				if field.name == field_name {
@@ -177,12 +182,12 @@ type GetLinksLoadResult = Vec<GetLinksLoadElement>;
 
 
 fn get_links_and_load<S: Into<String>>(
-    base: &HashString,
+    base: &HashString, 
     tag: S
 ) -> ZomeApiResult<GetLinksLoadResult>  {
 	hdk::get_links(base, tag)
 		.map(|result| {
-			result.iter()
+			result.addresses().iter()
 				.map(|address| {
 					hdk::get_entry(address.to_owned())
 						.map(|entry: Option<Entry>| {

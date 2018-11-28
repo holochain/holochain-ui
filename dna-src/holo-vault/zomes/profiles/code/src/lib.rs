@@ -9,7 +9,6 @@ extern crate serde_json;
 #[macro_use]
 extern crate holochain_core_types_derive;
 use hdk::holochain_core_types::hash::HashString;
-use hdk::holochain_core_types::json::JsonString;
 
 pub mod profile;
 pub mod handlers;

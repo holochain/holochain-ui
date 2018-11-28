@@ -7,7 +7,7 @@ import { Message as MessageType } from '../../types/view/message'
 import { MessageSpec } from '../../types/model/message'
 import { Channel as ChannelType } from '../../types/model/channel'
 import { Identity } from '../../types/model/identity'
-// import {Message as MessageType} from '../../types/message'
+import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
@@ -23,29 +23,28 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     marginTop: '10px'
   },
   textField: {
-    float: 'left',
-    width: '70%'
+    width: '100%'
   },
   button: {
     marginTop: theme.spacing.unit
   },
   send: {
+    flexGrow: 1,
     position: 'fixed',
     bottom: 0,
-    width: '100%',
     boxShadow: 'none',
     backgroundColor: '#fff',
     height: 140
   },
   chatHistory: {
-    height: 470,
+    height: '100%',
     overflow: 'auto',
     marginBottom: 120,
     boxShadow: 'none'
   }
 })
 
-interface MessagesProps {
+interface OwnProps {
   classes: any,
   messages: Array<MessageType>,
   channel: ChannelType,
@@ -54,22 +53,23 @@ interface MessagesProps {
   getMessages: (channelUUID: string) => void,
   getMembers: (channelUUID: string) => void,
   whoami: () => void,
-  sendMessage: (payload: {channelHash: string, message: MessageSpec}) => void
+  sendMessage: (payload: {channelHash: string, subject: string, message: MessageSpec}) => void
 }
 
-interface MessageState {
+interface State {
   message: string
+  subject: string
 }
 
-class Messages extends React.Component<MessagesProps, MessageState> {
+class Messages extends React.Component<OwnProps, State> {
   getMessageInterval: any
 
   componentDidMount () {
     if (this.props.channel) {
+      this.props.whoami()
+      this.props.getMembers(this.props.channel.hash)
       this.getMessageInterval = setInterval(() => {
-        this.props.whoami()
         this.props.getMessages(this.props.channel.hash)
-        this.props.getMembers(this.props.channel.hash)
       }, 200)
     }
   }
@@ -78,11 +78,11 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     clearInterval(this.getMessageInterval)
   }
 
-  constructor (props: MessagesProps) {
+  constructor (props: OwnProps) {
     super(props)
-    this.handleChange = this.handleChange.bind(this)
     this.state = {
-      message: ''
+      message: '',
+      subject: ''
     }
   }
 
@@ -91,6 +91,7 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     // call holochain here.
     this.props.sendMessage({
       channelHash: this.props.channel.hash,
+      subject: this.state.subject,
       message: {
         content: {
           text: this.state.message
@@ -100,7 +101,11 @@ class Messages extends React.Component<MessagesProps, MessageState> {
     this.setState({ message: '' })
   }
 
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleChangeSubject = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ subject: e.target.value })
+  }
+
+  handleChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ message: e.target.value })
   }
 
@@ -131,27 +136,33 @@ class Messages extends React.Component<MessagesProps, MessageState> {
           </List>
         </Paper>
         <Paper className={classes.send}>
-          <TextField
-              id='subject'
-              label='Subject'
-              className={classes.textField}
-              value={this.state.message}
-              onChange={this.handleChange}
-              margin='normal'
-              onKeyPress={this.handleKeyPress}
-          />
-          <TextField
-              id='message'
-              label='Message'
-              className={classes.textField}
-              value={this.state.message}
-              onChange={this.handleChange}
-              margin='normal'
-              onKeyPress={this.handleKeyPress}
-          />
-          <Button variant='fab' mini={true} className={classes.button} onClick={this.handleSendMessage}>
-            <Send />
-          </Button>
+          <Grid container={true} spacing={0}>
+            <Grid item={true} xs={11}>
+              <TextField
+                  id='subject'
+                  label='Subject'
+                  className={classes.textField}
+                  value={this.state.subject}
+                  onChange={this.handleChangeSubject}
+                  margin='normal'
+                  onKeyPress={this.handleKeyPress}
+              />
+              <TextField
+                  id='message'
+                  label='Message'
+                  className={classes.textField}
+                  value={this.state.message}
+                  onChange={this.handleChangeMessage}
+                  margin='normal'
+                  onKeyPress={this.handleKeyPress}
+              />
+            </Grid>
+            <Grid item={true} xs={1}>
+              <Button variant='fab' mini={true} className={classes.button} onClick={this.handleSendMessage}>
+                <Send />
+              </Button>
+            </Grid>
+          </Grid>
         </Paper>
       </Paper>
     )

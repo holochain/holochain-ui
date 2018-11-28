@@ -102,7 +102,7 @@ class IdeaCard extends React.Component<IdeaCardProps & RouteComponentProps<{}>, 
       <div>
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant='display1'>
+            <Typography variant='h1'>
               {idea.title}
             </Typography>
             <Typography component='p'>{idea.description}</Typography>

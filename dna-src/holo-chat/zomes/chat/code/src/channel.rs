@@ -1,14 +1,18 @@
 use std::convert::TryFrom;
 use hdk::{
-    self, 
+    self,
+    AGENT_ADDRESS,
     entry_definition::ValidatingEntryType,
-    holochain_dna::zome::entry_types::Sharing,
     holochain_core_types::error::HolochainError,
     holochain_core_types::json::JsonString,
-    holochain_core_types::hash::HashString,
-    holochain_core_types::entry::Entry,
-    holochain_core_types::entry_type::EntryType,
     error::ZomeApiResult,
+};
+
+use hdk::holochain_core_types::{
+    hash::HashString,
+    entry::Entry,
+    dna::zome::entry_types::Sharing,
+    entry::entry_type::EntryType
 };
 
 use super::member;
@@ -19,6 +23,12 @@ use super::utils;
 pub struct Channel {
     pub name: String,
     pub description: String,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+pub struct Subject {
+    pub name: String,
+    pub channel_address: HashString,
 }
 
 
@@ -56,7 +66,27 @@ pub fn direct_channel_definition() -> ValidatingEntryType {
     )
 }
 
-// public zome functions
+pub fn subject_anchor_definition() -> ValidatingEntryType {
+    entry!(
+        name: "subject",
+        description: "A way messages within a channel are grouped",
+        sharing: Sharing::Public,
+        native_type: Subject,
+
+        validation_package: || {
+            hdk::ValidationPackageDefinition::Entry
+        },
+
+        validation: |_subject: Subject, _ctx: hdk::ValidationData| {
+            Ok(())
+        }
+    )
+}
+
+
+/*=============================================
+=            Public Zome functions            =
+=============================================*/
 
 pub fn handle_create_channel(
     name: String,
@@ -110,7 +140,7 @@ pub fn handle_add_members(channel_address: HashString, members: Vec<member::Memb
         json!({"success": true}).into()
     }).unwrap_or_else(|hdk_err|{
         hdk_err.into()
-    }) 
+    })
 }
 
 pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonString {
@@ -120,15 +150,22 @@ pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonS
     }
 }
 
-pub fn handle_post_message(channel_address: HashString, message: message::Message) -> JsonString {
-    hdk::commit_entry(&Entry::new(EntryType::App("message".into()), message))
-        .and_then(|message_addr| hdk::link_entries(&channel_address, &message_addr, "message_in")) 
-        .map(|_|json!({"success": true}).into())
-        .unwrap_or_else(|hdk_err|hdk_err.into())
-   
+pub fn handle_post_message(channel_address: HashString, message: message::Message, subjects: Vec<String>) -> JsonString {
+    match post_message(&channel_address, message, subjects) {
+        Ok(()) => json!({"success": true}).into(),
+        Err(hdk_err) => hdk_err.into()
+    }
 }
 
-// end public zome functions
+pub fn handle_get_subjects(channel_address: HashString) -> JsonString {
+    match get_subjects(&channel_address) {
+        Ok(subjects) => subjects.into(),
+        Err(hdk_err) => hdk_err.into(),
+    }
+}
+
+/*=====  End of Public Zome functions  ======*/
+
 
 fn get_my_channels() -> ZomeApiResult<Vec<Channel>> {
     utils::get_links_and_load(&member::get_my_member_id().hash(), "member_of").map(|results| {
@@ -153,3 +190,33 @@ fn get_messages(channel_address: &HashString) -> ZomeApiResult<Vec<message::Mess
         }).collect()
     })
 }
+
+
+fn post_message(channel_address: &HashString, message: message::Message, subjects: Vec<String>) -> ZomeApiResult<()> {
+    let message_addr = hdk::commit_entry(&Entry::new(EntryType::App("message".into()), message))?;
+    // link to the channel
+    hdk::link_entries(&channel_address, &message_addr, "message_in")?;  
+
+    subjects.iter().map(|subject| -> ZomeApiResult<()> {
+        let subject_entry = Entry::new(
+            EntryType::App("subject".into()), 
+            Subject{name: subject.to_owned(), channel_address: channel_address.clone()});
+
+        let subject_address = hdk::commit_entry(&subject_entry)?;
+        hdk::link_entries(&channel_address, &subject_address, "subject_in")?;
+        hdk::link_entries(&subject_address, &message_addr, "message_in")?;
+        Ok(())
+    }).collect::<ZomeApiResult<()>>()?;
+
+    Ok(())
+}
+
+
+fn get_subjects(channel_address: &HashString) -> ZomeApiResult<Vec<String>> {
+    utils::get_links_and_load(channel_address, "subject_in").map(|results| {
+        results.iter().map(|get_links_result| {
+                Subject::try_from(get_links_result.entry.value().clone()).unwrap().name
+        }).collect()
+    })
+}
+

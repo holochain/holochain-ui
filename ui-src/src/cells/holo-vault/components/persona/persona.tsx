@@ -98,7 +98,7 @@ class Persona extends React.Component<Props & RouterProps, State> {
       const personaFields: Array<PersonaField> = this.state.persona.fields
       this.props.create(personaSpec, personaFields)
         .then(this.props.getPersonas)
-        .catch(err => console.error(err))
+        .catch(err => console.log(err))
     } else {
       this.props.update(this.state.persona)
         // .then(this.props.getPersonas)
@@ -187,7 +187,7 @@ class Persona extends React.Component<Props & RouterProps, State> {
 
     return (
       <div className={classes.root}>
-        <Typography variant='display1'>
+        <Typography variant='h1'>
           Manage Your Personas
         </Typography>
         <Typography variant='body1' gutterBottom={true}>
@@ -197,15 +197,15 @@ class Persona extends React.Component<Props & RouterProps, State> {
             <TextField name='personaName' value={this.state.persona.name} onChange={e => this.updateName(e.target.value)} label='Persona Name'/>
           </div>
           {this.state.persona.fields.map((field: PersonaField, index: number) => (<PersonaField key={index} index={index} field={field} onChange={(newField: PersonaField) => this.updateField(newField, index)}/>))}
-          <Button name='addField' variant='raised' className={classes.button} onClick={this.handleAddPersonaField}>
+          <Button name='addField' variant='contained' className={classes.button} onClick={this.handleAddPersonaField}>
             <TextFields/>
             Add Field
           </Button>
-          <Button name='submitPersona' variant='raised' className={classes.button} onClick={() => this.handleSubmit()}>
+          <Button name='submitPersona' variant='contained' className={classes.button} onClick={() => this.handleSubmit()}>
             <PersonAdd/>
             {this.state.persona.hash === '' ? 'Create Persona' : 'Update Persona'}
           </Button>
-          <Button name='deletePersona' variant='raised' className={classes.button} onClick={() => this.handleConfirmDelete()}>
+          <Button name='deletePersona' variant='contained' className={classes.button} onClick={() => this.handleConfirmDelete()}>
             <PersonAdd/>
             Delete Persona
           </Button>

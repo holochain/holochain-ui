@@ -1,11 +1,14 @@
-use hdk::holochain_core_types::entry::Entry;
-use hdk::holochain_core_types::entry_type::EntryType;
 
-use hdk::holochain_core_types::json::JsonString;
+use hdk::holochain_core_types::{
+    hash::HashString,
+    entry::Entry,
+    entry::entry_type::EntryType,
+    json::JsonString,
+};
+
 use hdk::error::ZomeApiResult;
 use crate::profile;
 extern crate serde_json;
-use hdk::holochain_core_types::hash::HashString;
 use std::convert::TryFrom;
 
 
@@ -131,7 +134,7 @@ fn get_links_and_load<S: Into<String>>(
 ) -> ZomeApiResult<GetLinksLoadResult>  {
 	hdk::get_links(base, tag)
 		.map(|result| {
-			result.iter()
+			result.addresses().iter()
 				.map(|address| {
 					hdk::get_entry(address.to_owned())
 						.map(|entry: Option<Entry>| {
