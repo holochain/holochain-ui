@@ -45,7 +45,7 @@ test('Can post a message to the channel and retrieve', (t) => {
   console.log(get_result)
   t.deepEqual(get_result.length, 1)
 
-  const post_result = app.call('chat', 'main', 'post_message', {channel_address: channel_addr, message: testMessage})
+  const post_result = app.call('chat', 'main', 'post_message', {channel_address: channel_addr, message: testMessage, subjects: []})
   console.log(post_result)
   t.deepEqual(post_result, {success: true})
 
@@ -53,6 +53,25 @@ test('Can post a message to the channel and retrieve', (t) => {
   console.log(get_message_result)
   const messages = get_message_result
   t.deepEqual(messages[0]. testMessage)
+
+  t.end()
+})
+
+
+test('Can post a message with a subject and this is added to the channel', t => {
+  const create_result = app.call('chat', 'main', 'create_channel', testNewChannelParams)
+  console.log(create_result)
+  const channel_addr = create_result.address
+  t.deepEqual(channel_addr.length, 46)
+
+  const post_result = app.call('chat', 'main', 'post_message', {channel_address: channel_addr, message: testMessage, subjects: ['memes']})
+  console.log(post_result)
+  t.deepEqual(post_result, {success: true})
+
+  const get_subjects_result = app.call('chat', 'main', 'get_subjects', {channel_address: channel_addr})
+  console.log(get_subjects_result)
+  t.deepEqual(get_subjects_result, ['memes'])
+
   t.end()
 })
 
