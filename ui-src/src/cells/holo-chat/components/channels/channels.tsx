@@ -154,7 +154,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
             />
         </div>
       ))}
-      <NewChannel open={this.state.modalOpen} onSubmit={this.addNewChannel} onHandleClose={this.onHandleClose}/>
+      <NewChannel isPublic={this.props.isPublic} open={this.state.modalOpen} onSubmit={this.addNewChannel} onHandleClose={this.onHandleClose}/>
     </div>
     )
   }

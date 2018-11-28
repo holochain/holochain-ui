@@ -45,7 +45,8 @@ interface Props {
   open: boolean,
   users: Array<Identity>,
   onSubmit: (spec: ChannelSpec) => void,
-  onHandleClose: () => void
+  onHandleClose: () => void,
+  isPublic: boolean
 }
 
 interface State {
@@ -87,7 +88,8 @@ class NewChannel extends React.Component<Props & DispatchProps, State> {
     const channelSpec: ChannelSpec = {
       members: this.state.selectedUsers.map(user => user.hash),
       name: channelName,
-      description: ''
+      description: '',
+      isPublic: this.props.isPublic
     }
     this.props.onSubmit(channelSpec)
   }
