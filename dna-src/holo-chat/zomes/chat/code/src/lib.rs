@@ -31,6 +31,7 @@ define_zome! {
 		message::message_definition(),
     	channel::public_channel_definition(),
     	channel::direct_channel_definition(),
+        channel::subject_definition(),
 		member::member_id_definition(),
         member::profile_definition(),
         entry!(
@@ -154,7 +155,7 @@ define_zome! {
 				handler: channel::handle_post_message
 			}
 			get_messages: {
-				inputs: |channel_address: HashString, min_count: u32|,
+				inputs: |address: HashString, min_count: u32|,
 				outputs: |result: JsonString|,
 				handler: channel::handle_get_messages
 			}

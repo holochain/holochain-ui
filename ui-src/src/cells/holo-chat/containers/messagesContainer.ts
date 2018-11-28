@@ -24,10 +24,10 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    getMessages: (channelUUID: string) => dispatch(GetMessages.create({ channelHash: channelUUID })),
+    getMessages: (channelSubjectAddress: string) => dispatch(GetMessages.create({ channelSubjectAddress: channelSubjectAddress })),
     getMembers:  (channelUUID: string) => dispatch(GetMembers.create({ channelHash: channelUUID })),
     whoami: () => dispatch(GetProfile.create(undefined)),
-    sendMessage: (payload: {message: MessageSpec, channelHash: string}) => dispatch(PostMessage.create(payload))
+    sendMessage: (payload: {message: MessageSpec, channelAddress: string, subject: string}) => dispatch(PostMessage.create(payload))
   }
 }
 

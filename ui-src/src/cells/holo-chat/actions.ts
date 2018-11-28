@@ -24,9 +24,9 @@ export const GetAllMembers = createHolochainAsyncAction<any, Array<Channel>>('ho
 
 export const GetMembers = createHolochainAsyncAction<{channelHash: string}, Array<Identity>>('holo-chat', 'chat', 'main', 'get_members')
 
-export const PostMessage = createHolochainAsyncAction<{channelHash: string, message: MessageSpec}, string>('holo-chat', 'chat', 'main', 'post_message')
+export const PostMessage = createHolochainAsyncAction<{channelAddress: string, subject: string, message: MessageSpec}, string>('holo-chat', 'chat', 'main', 'post_message')
 
-export const GetMessages = createHolochainAsyncAction<{channelHash: string}, Array<Message>>('holo-chat', 'chat', 'main', 'get_messages')
+export const GetMessages = createHolochainAsyncAction<{channelSubjectAddress: string}, Array<Message>>('holo-chat', 'chat', 'main', 'get_messages')
 
 export const GetProfile = createHolochainAsyncAction<any, string>('holo-chat', 'chat', 'main', 'get_profile')
 

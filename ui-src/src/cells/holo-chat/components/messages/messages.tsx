@@ -53,7 +53,7 @@ interface OwnProps {
   getMessages: (channelUUID: string) => void,
   getMembers: (channelUUID: string) => void,
   whoami: () => void,
-  sendMessage: (payload: {channelHash: string, message: MessageSpec}) => void
+  sendMessage: (payload: {channelHash: string, subject: string, message: MessageSpec}) => void
 }
 
 interface State {
@@ -66,10 +66,10 @@ class Messages extends React.Component<OwnProps, State> {
 
   componentDidMount () {
     if (this.props.channel) {
+      this.props.whoami()
+      this.props.getMembers(this.props.channel.hash)
       this.getMessageInterval = setInterval(() => {
-        this.props.whoami()
         this.props.getMessages(this.props.channel.hash)
-        this.props.getMembers(this.props.channel.hash)
       }, 200)
     }
   }
@@ -91,6 +91,7 @@ class Messages extends React.Component<OwnProps, State> {
     // call holochain here.
     this.props.sendMessage({
       channelHash: this.props.channel.hash,
+      subject: this.state.subject,
       message: {
         content: {
           text: this.state.message

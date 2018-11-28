@@ -21,7 +21,6 @@ pub struct Channel {
     pub description: String,
 }
 
-
 pub fn public_channel_definition() -> ValidatingEntryType {
     entry!(
         name: "public_channel",
@@ -56,6 +55,22 @@ pub fn direct_channel_definition() -> ValidatingEntryType {
     )
 }
 
+pub fn subject_definition() -> ValidatingEntryType {
+    entry!(
+        name: "subject",
+        description: "A subject linked to a channel and messages",
+        sharing: Sharing::Public,
+        native_type: String,
+
+        validation_package: || {
+            hdk::ValidationPackageDefinition::Entry
+        },
+
+        validation: |subject: String, _ctx: hdk::ValidationData| {
+            Ok(())
+        }
+    )
+}
 // public zome functions
 
 pub fn handle_create_channel(
@@ -113,19 +128,39 @@ pub fn handle_add_members(channel_address: HashString, members: Vec<member::Memb
     })
 }
 
-pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonString {
-    match get_messages(&channel_address) {
+pub fn handle_get_messages(address: HashString, min_count: u32) -> JsonString {
+    match get_messages(&address) {
         Ok(result) => result.into(),
         Err(hdk_err) => hdk_err.into()
     }
 }
 
-pub fn handle_post_message(channel_address: HashString, message: message::Message) -> JsonString {
-    hdk::commit_entry(&Entry::new(EntryType::App("message".into()), message))
-        .and_then(|message_addr| hdk::link_entries(&channel_address, &message_addr, "message_in"))
-        .map(|_|json!({"success": true}).into())
-        .unwrap_or_else(|hdk_err|hdk_err.into())
+pub fn handle_post_message(channel_address: HashString, subject: String, message: message::Message) -> JsonString {
 
+
+    let subject_entry = Entry::new(EntryType::App("subject".into()), json!(subject.into()));
+    let message_entry = Entry::new(EntryType::App("message".into()), message);
+
+    match (
+        hdk::commit_entry(&subject_entry),
+        hdk::commit_entry(&message_entry)
+    ) {
+        (Ok(subject_address),Ok(message_address)) => {
+            let subjectlink_result = hdk::link_entries(
+                &HashString::from(subject_address),
+                &message_address,
+                "subject_messages"
+            );
+
+            if link_result.is_err() {
+                return link_result.into()
+            }
+            let _ = hdk::link_entries(&channel_address, &message_address, "channel_messages");
+        },
+        (Err(err1), Err(_)) => err1.into(),
+        (Ok(_), Err(err2)) => err2.into(),
+        (Err(err1), Ok(_)) => err1.into(),
+    }
 }
 
 // end public zome functions
@@ -146,8 +181,8 @@ fn get_members(channel_address: &HashString) -> ZomeApiResult<Vec<member::Member
     })
 }
 
-fn get_messages(channel_address: &HashString) -> ZomeApiResult<Vec<message::Message>> {
-    utils::get_links_and_load(channel_address, "message_in").map(|results| {
+fn get_messages(address: &HashString) -> ZomeApiResult<Vec<message::Message>> {
+    utils::get_links_and_load(address, "message_in").map(|results| {
         results.iter().map(|get_links_result| {
                 message::Message::try_from(get_links_result.entry.value().clone()).unwrap()
         }).collect()
