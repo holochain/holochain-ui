@@ -24,34 +24,34 @@ const testMessage = {
 }
 
 test('Can create a public channel with no other members and retrieve it', (t) => {
-  const create_result = app.call('chat', 'main', 'create_channel', JSON.stringify(testNewChannelParams))
+  const create_result = app.call('chat', 'main', 'create_channel', testNewChannelParams)
   console.log(create_result)
-  t.deepEqual(JSON.parse(create_result).address.length, 46)
+  t.deepEqual(create_result.address.length, 46)
 
-  const get_result = app.call('chat', 'main', 'get_my_channels', JSON.stringify({}))
+  const get_result = app.call('chat', 'main', 'get_my_channels', {})
   console.log(get_result)
-  t.deepEqual(JSON.parse(get_result).length, 1)
+  t.deepEqual(get_result.length, 1)
 
   t.end()
 })
 
 test('Can post a message to the channel and retrieve', (t) => {
-  const create_result = app.call('chat', 'main', 'create_channel', JSON.stringify(testNewChannelParams))
+  const create_result = app.call('chat', 'main', 'create_channel', testNewChannelParams)
   console.log(create_result)
-  const channel_addr = JSON.parse(create_result).address
+  const channel_addr = create_result.address
   t.deepEqual(channel_addr.length, 46)
 
-  const get_result = app.call('chat', 'main', 'get_my_channels', JSON.stringify({}))
+  const get_result = app.call('chat', 'main', 'get_my_channels', {})
   console.log(get_result)
-  t.deepEqual(JSON.parse(get_result).length, 1)
+  t.deepEqual(get_result.length, 1)
 
-  const post_result = app.call('chat', 'main', 'post_message', JSON.stringify({channel_address: channel_addr, message: testMessage}))
+  const post_result = app.call('chat', 'main', 'post_message', {channel_address: channel_addr, message: testMessage})
   console.log(post_result)
-  t.deepEqual(JSON.parse(post_result), {success: true})
+  t.deepEqual(post_result, {success: true})
 
-  const get_message_result = app.call('chat', 'main', 'get_messages', JSON.stringify({channel_address: channel_addr, min_count: 10}))
+  const get_message_result = app.call('chat', 'main', 'get_messages', {channel_address: channel_addr, min_count: 10})
   console.log(get_message_result)
-  const messages = JSON.parse(get_message_result)
+  const messages = get_message_result
   t.deepEqual(messages[0]. testMessage)
   t.end()
 })

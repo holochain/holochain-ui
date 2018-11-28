@@ -9,8 +9,10 @@ extern crate serde_json;
 #[macro_use]
 extern crate holochain_core_types_derive;
 
-use hdk::holochain_core_types::hash::HashString;
-use hdk::holochain_dna::zome::entry_types::Sharing;
+use hdk::holochain_core_types::{
+    hash::HashString,
+    dna::zome::entry_types::Sharing,
+};
 
 pub mod persona;
 
