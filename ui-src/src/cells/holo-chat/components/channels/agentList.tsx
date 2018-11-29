@@ -68,23 +68,23 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
   }
 
   onRowClick = (value: Identity) => () => {
-    const checked = this.state.selectedUsers
-    const currentIndex = checked.indexOf(value)
-    const newChecked = [...checked]
+    const selected = this.state.selectedUsers
+    const currentIndex = selected.indexOf(value)
+    const newSelected = [...selected]
 
     if (currentIndex === -1) {
-      newChecked.push(value)
+      newSelected.push(value)
     } else {
-      newChecked.splice(currentIndex, 1)
+      newSelected.splice(currentIndex, 1)
     }
 
     this.setState({
       ...this.state,
-      selectedUsers: newChecked
+      selectedUsers: newSelected
     })
 
     if (this.props.selectionChanged) {
-      this.props.selectionChanged(newChecked)
+      this.props.selectionChanged(newSelected)
     }
   }
 
@@ -95,9 +95,9 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
         <div className={classes.filter}>
           <div>
             {
-              this.state.selectedUsers.map((person: Identity, index: number) => (
+              this.state.selectedUsers.map((person: Identity) => (
                 <Chip
-                  key={index}
+                  key={person.hash}
                   avatar={<MakeAvatar user={person} />}
                   label={person.handle}
                   onDelete={this.onRowClick(person)}

@@ -1,5 +1,6 @@
 import { Message, MessageType } from './types/view/message'
 import { Channel } from './types/model/channel'
+import { Subject } from './types/model/subject'
 
 export const profileSpec1 = {
   'id': 'HoloChat [Holo Team]',
@@ -98,7 +99,7 @@ export const channels: Array<Channel> = [
   }
 ]
 
-export const subjects = [
+export const subjects: Array<Subject> = [
   {
     'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8AoP',
