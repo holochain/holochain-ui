@@ -12,7 +12,8 @@ use hdk::holochain_core_types::{
     hash::HashString,
     entry::Entry,
     dna::zome::entry_types::Sharing,
-    entry::entry_type::EntryType
+    entry::entry_type::EntryType,
+    cas::content::Address,
 };
 
 use super::utils;
@@ -46,7 +47,22 @@ pub fn member_id_definition() -> ValidatingEntryType {
 
         validation: |_member_id: Member, _ctx: hdk::ValidationData| {
             Ok(())
-        }
+        },
+
+        links: [
+            to!(
+                "profile",
+                tag: "profile",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
+            )
+        ]
     )
 }
 

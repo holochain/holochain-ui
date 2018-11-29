@@ -1,7 +1,8 @@
 // This test file uses the tape testing framework.
 // To learn more, go here: https://github.com/substack/tape
-const test = require('tape')
+const test = require('tape');
 const Container = require('@holochain/holochain-nodejs')
+
 // instantiate an app from the DNA JSON bundle
 const app = Container.loadAndInstantiate("dist/bundle.json")
 
@@ -24,6 +25,10 @@ const testMessage = {
 }
 
 test('Can create a public channel with no other members and retrieve it', (t) => {
+  const init_result = app.call('chat', 'main', 'init', {})
+  console.log(init_result)
+  t.equal(init_result.success, true, 'init should return success')
+
   const create_result = app.call('chat', 'main', 'create_channel', testNewChannelParams)
   console.log(create_result)
   t.deepEqual(create_result.address.length, 46)
@@ -36,6 +41,8 @@ test('Can create a public channel with no other members and retrieve it', (t) =>
 })
 
 test('Can post a message to the channel and retrieve', (t) => {
+  const init_result = app.call('chat', 'main', 'init', {})
+
   const create_result = app.call('chat', 'main', 'create_channel', testNewChannelParams)
   console.log(create_result)
   const channel_addr = create_result.address
@@ -59,6 +66,8 @@ test('Can post a message to the channel and retrieve', (t) => {
 
 
 test('Can post a message with a subject and this is added to the channel', t => {
+  const init_result = app.call('chat', 'main', 'init', {})
+
   const create_result = app.call('chat', 'main', 'create_channel', testNewChannelParams)
   console.log(create_result)
   const channel_addr = create_result.address
@@ -75,9 +84,11 @@ test('Can post a message with a subject and this is added to the channel', t => 
   t.end()
 })
 
-// test('Can create a public channel with some members', (t) => {
-//   const create_result = app.call('chat', 'main', 'create_channel', JSON.stringify({...testNewChannelParams, initial_members: [{id: "id123"}]}))
-//   console.log(create_result)
-//   t.deepEqual(JSON.parse(create_result), {success: true})
-//   t.end()
-// })
+test('Can create a public channel with some members', (t) => {
+  const init_result = app.call('chat', 'main', 'init', {})
+
+  const create_result = app.call('chat', 'main', 'create_channel', {...testNewChannelParams, initial_members: [{id: "wollum"}]})
+  console.log(create_result)
+  t.deepEqual(create_result.address.length, 46)
+  t.end()
+})
