@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     getMessages: (channelSubjectAddress: string) => dispatch(GetMessages.create({ channelSubjectAddress: channelSubjectAddress })),
     getMembers:  (channelUUID: string) => dispatch(GetMembers.create({ channelHash: channelUUID })),
     whoami: () => dispatch(GetProfile.create(undefined)),
-    sendMessage: (payload: {message: MessageSpec, channelAddress: string, subject: string}) => dispatch(PostMessage.create(payload))
+    sendMessage: (payload: {message: MessageSpec, channelAddress: string, subjects: [string]}) => dispatch(PostMessage.create(payload))
   }
 }
 

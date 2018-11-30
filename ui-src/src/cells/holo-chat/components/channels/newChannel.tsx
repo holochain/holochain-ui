@@ -40,15 +40,16 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 })
 
-interface Props {
-  classes: any,
+interface OwnProps {
+  classes?: any,
   open: boolean,
   users: Array<Identity>,
   onSubmit: (spec: ChannelSpec) => void,
-  onHandleClose: () => void
+  onHandleClose: () => void,
+  isPublic: boolean
 }
 
-interface State {
+export interface State {
   selectedUsers: Array<Identity>,
   open: boolean
 }
@@ -57,9 +58,11 @@ export interface DispatchProps {
   getAllMembers: typeof GetAllMembers.sig
 }
 
-class NewChannel extends React.Component<Props & DispatchProps, State> {
+export type Props = OwnProps & DispatchProps
 
-  constructor (props: Props & DispatchProps) {
+class NewChannel extends React.Component<Props, State> {
+
+  constructor (props: Props) {
     super(props)
     this.state = {
       selectedUsers: [],
@@ -87,7 +90,8 @@ class NewChannel extends React.Component<Props & DispatchProps, State> {
     const channelSpec: ChannelSpec = {
       members: this.state.selectedUsers.map(user => user.hash),
       name: channelName,
-      description: ''
+      description: '',
+      isPublic: this.props.isPublic
     }
     this.props.onSubmit(channelSpec)
   }
@@ -118,5 +122,4 @@ class NewChannel extends React.Component<Props & DispatchProps, State> {
     )
   }
 }
-
 export default withRoot(withStyles(styles)(NewChannel))

@@ -31,9 +31,9 @@ export const channelsTests = describe('Listing your channels', () => {
     newChannel: jest.fn(() => Promise.reject('newChannel not implemented')),
     channels: constants.channels,
     getSubjects: mockFn,
-    title: 'Direct Messages',
-    isPublic: false,
-    subjects: []
+    title: 'Public Channels',
+    isPublic: true,
+    subjects: constants.subjects
   }
 
   it('When there is a list of existing channels the channel view shows the list of existing channels', () => {
@@ -42,10 +42,19 @@ export const channelsTests = describe('Listing your channels', () => {
   })
 
   // TODO: Figure out how to test the URL in history.push
-  // it('Clicking a Channel in the list will set the URL to the channel and show the messages', () => {
-  //   channelsList().find('ExpansionPanelSummary').get(0).props.onClick()
-  //   expect(location.pathname).toEqual('/login')
-  // })
+  it('Clicking a Channel in the list will set the URL to the channel', () => {
+    channelsList().find('ExpansionPanelSummary').get(0).props.onClick()
+    expect(location.pathname).toEqual('/channel/QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps')
+  })
+
+  it('Clicking a Subject will set the URL to the channel and subject', (done) => {
+    channelsList().find('ExpansionPanelSummary').get(0).props.onClick()
+    process.nextTick(() => {
+      channelsList().find('Chip').get(0).props.onClick()
+      expect(location.pathname).toEqual('/channel/QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps')
+      done()
+    })
+  })
 
   it('Clicking the Add Channel button shows the New Channel dialog and clicking the Close button closes it', (done) => {
     channelsList().find('button[id="AddChannel"]').simulate('click')

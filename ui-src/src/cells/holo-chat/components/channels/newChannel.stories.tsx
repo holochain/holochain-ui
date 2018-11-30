@@ -14,9 +14,9 @@ storiesOf('HoloChat/Channels', module)
   .addDecorator(story => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
-  .add('New channel', withNotes(newChat)(() => {
+  .add('New Public Channel', withNotes(newChat)(() => {
     specs(() => newChatTests)
-    return <NewChannel users={Agents.agents} open={true} getAllMembers={jest.fn(() => Promise.resolve('Get Members'))} />
+    return <NewChannel users={Agents.agents} open={true} isPublic='true' getAllMembers={jest.fn(() => Promise.resolve('Get Members'))} />
   }))
   .add('Filterable/Selectable list of members', withNotes(newChannel)(() => {
     specs(() => agentListTest)

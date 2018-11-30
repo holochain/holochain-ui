@@ -195,16 +195,17 @@ fn get_messages(channel_address: &HashString) -> ZomeApiResult<Vec<message::Mess
 fn post_message(channel_address: &HashString, message: message::Message, subjects: Vec<String>) -> ZomeApiResult<()> {
     let message_addr = hdk::commit_entry(&Entry::new(EntryType::App("message".into()), message))?;
     // link to the channel
-    hdk::link_entries(&channel_address, &message_addr, "message_in")?;  
+    hdk::link_entries(&channel_address, &message_addr, "message_in")?;
 
     subjects.iter().map(|subject| -> ZomeApiResult<()> {
         let subject_entry = Entry::new(
-            EntryType::App("subject".into()), 
+            EntryType::App("subject".into()),
             Subject{name: subject.to_owned(), channel_address: channel_address.clone()});
 
         let subject_address = hdk::commit_entry(&subject_entry)?;
-        hdk::link_entries(&channel_address, &subject_address, "subject_in")?;
-        hdk::link_entries(&subject_address, &message_addr, "message_in")?;
+        hdk::link_entries(&channel_address, &message_addr, "channel_message")?;
+        hdk::link_entries(&channel_address, &subject_address, "channel_subject")?;
+        hdk::link_entries(&subject_address, &message_addr, "subject_message")?;
         Ok(())
     }).collect::<ZomeApiResult<()>>()?;
 
@@ -213,10 +214,9 @@ fn post_message(channel_address: &HashString, message: message::Message, subject
 
 
 fn get_subjects(channel_address: &HashString) -> ZomeApiResult<Vec<String>> {
-    utils::get_links_and_load(channel_address, "subject_in").map(|results| {
+    utils::get_links_and_load(channel_address, "channel_subject").map(|results| {
         results.iter().map(|get_links_result| {
                 Subject::try_from(get_links_result.entry.value().clone()).unwrap().name
         }).collect()
     })
 }
-
