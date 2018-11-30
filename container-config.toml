@@ -1,17 +1,17 @@
 [[agents]]
-id = "test agent"
-name = "Holo Tester"
+id = "test_agent"
+name = "HoloTester"
 key_file = "holo_tester.key"
 
 [[dnas]]
-id = "chat"
-file = "C:/Users/Ashan/Documents/holochain/holochat-rust/dist/bundle.json"
-hash = "Qm328wyq38924y"
+id = "chat_dna"
+file = "dna/holo-chat.hcpkg"
+hash = "QmN0tARea1#ash"
 
 [[instances]]
-id = "chat"
-dna = "chat"
-agent = "test agent"
+id = "chat_instance"
+dna = "chat_dna"
+agent = "test_agent"
 [instances.logger]
 type = "simple"
 file = "app_spec.log"
@@ -21,9 +21,9 @@ path = "tmp-storage"
 
 
 [[interfaces]]
-id = "websocket interface"
+id = "websocket_interface"
 [interfaces.driver]
 type = "websocket"
 port = 3400
 [[interfaces.instances]]
-id = "chat"
+id = "chat_instance"
