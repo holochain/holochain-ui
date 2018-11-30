@@ -12,6 +12,8 @@ import { Subject } from './types/model/subject'
 
 /*----------  Holochain actions  ----------*/
 
+export const Init = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'create_channel')
+
 export const CreateChannel = createHolochainAsyncAction<ChannelSpec, string>('holo-chat', 'chat', 'main', 'create_channel')
 
 export const AddMembers = createHolochainAsyncAction<{channelHash: string, members: Array<string>}, boolean>('holo-chat', 'chat', 'main', 'add_members')

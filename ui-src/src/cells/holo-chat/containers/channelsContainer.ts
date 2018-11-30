@@ -5,6 +5,7 @@ import { Dispatch } from 'redux'
 import * as constants from '../constants'
 
 import {
+  Init,
 	GetMyChannels,
 	GetSubjects,
 	CreateChannel
@@ -21,7 +22,8 @@ const mapStateToProps = (state: any): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-  	getMyChannels: () => dispatch(GetMyChannels.create(undefined)), // can be written as  () => { return dispatch(...) }
+    init: () => dispatch(Init.create({})),
+  	getMyChannels: () => dispatch(GetMyChannels.create({})),
     getSubjects: (channelAddress: string) => dispatch(GetSubjects.create({ channelAddress: channelAddress })),
   	newChannel: (channelSpec: ChannelSpec) => dispatch(CreateChannel.create(channelSpec))
   }

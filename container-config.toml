@@ -9,7 +9,7 @@ file = "dna/holo-chat.hcpkg"
 hash = "QmN0tARea1#ash"
 
 [[instances]]
-id = "chat_instance"
+id = "holo-chat"
 dna = "chat_dna"
 agent = "test_agent"
 [instances.logger]
@@ -26,4 +26,4 @@ id = "websocket_interface"
 type = "websocket"
 port = 3400
 [[interfaces.instances]]
-id = "chat_instance"
+id = "holo-chat"

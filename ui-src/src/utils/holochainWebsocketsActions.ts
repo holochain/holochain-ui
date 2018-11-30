@@ -13,10 +13,10 @@ export const createHolochainAsyncAction = <ParamType, ReturnType>(
 ) => {
 
   const action = createAsyncAction(
-    `${happ}/${zome}/${capability}/${func}`,
+    `${happ}/${zome}/${capability}/${func}_REQUEST`,
     `${happ}/${zome}/${capability}/${func}_SUCCESS`,
     `${happ}/${zome}/${capability}/${func}_FAILURE`)
-  <ParamType, ReturnType, String>()
+  <ParamType, ReturnType, Error>()
 
   const newAction = action as (typeof action & {
     create: (param: ParamType) => any,
@@ -24,13 +24,19 @@ export const createHolochainAsyncAction = <ParamType, ReturnType>(
   })
 
   newAction.create = (params: ParamType) => async (dispatch: Dispatch): Promise<Action> => {
+    // @ts-ignore
+    dispatch(action.request(params)) // dispatch the action signifying a request
     try {
       const { call } = await connect(url)
-      const result = await call(happ, zome, capability, func)(params)
-      return dispatch(action.success(result))
-    } catch {
-      return dispatch(action.failure(`failed to call ${func}`))
+      const stringResult = await call(happ, zome, capability, func)(params)
+      const result = JSON.parse(stringResult)
+      // @ts-ignore
+      return dispatch(action.success(result)) // on success
+    } catch (err) {
+      // @ts-ignore
+      return dispatch(action.failure(err)) // on failure
     }
   }
+
   return newAction
 }

@@ -15,7 +15,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    getAllMembers: () => dispatch(GetAllMembers.create(undefined)),
+    getAllMembers: () => dispatch(GetAllMembers.create({})),
     createChannel: (channelSpec: ChannelSpec) => dispatch(CreateChannel.create(channelSpec))
   }
 }
