@@ -75,19 +75,7 @@ pub fn public_channel_definition() -> ValidatingEntryType {
             ),
             to!(
                 "subject",
-                tag: "subject_in",
-
-                validation_package: || {
-                    hdk::ValidationPackageDefinition::Entry
-                },
-
-                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
-                    Ok(())
-                }
-            ),
-            from!(
-                "subject",
-                tag: "channel_has_subject",
+                tag: "channel_subject",
 
                 validation_package: || {
                     hdk::ValidationPackageDefinition::Entry
@@ -143,7 +131,22 @@ pub fn subject_anchor_definition() -> ValidatingEntryType {
 
         validation: |_subject: Subject, _ctx: hdk::ValidationData| {
             Ok(())
-        }
+        },
+
+        links: [
+            to!(
+                "message",
+                tag: "subject_message",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
+            )
+        ]
     )
 }
 
@@ -268,7 +271,6 @@ fn post_message(channel_address: &HashString, message: message::Message, subject
 
         let subject_address = hdk::commit_entry(&subject_entry)?;
 
-        hdk::link_entries(&channel_address, &message_addr, "channel_message")?;
         hdk::link_entries(&channel_address, &subject_address, "channel_subject")?;
         hdk::link_entries(&subject_address, &message_addr, "subject_message")?;
         Ok(())
