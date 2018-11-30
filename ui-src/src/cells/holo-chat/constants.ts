@@ -1,4 +1,6 @@
 import { Message, MessageType } from './types/view/message'
+import { Channel } from './types/model/channel'
+import { Subject } from './types/model/subject'
 
 export const profileSpec1 = {
   'id': 'HoloChat [Holo Team]',
@@ -46,7 +48,7 @@ export const profileSpec1 = {
   ]
 }
 
-export const channels = [
+export const channels: Array<Channel> = [
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'name': 'dev hApps',
@@ -97,7 +99,7 @@ export const channels = [
   }
 ]
 
-export const subjects = [
+export const subjects: Array<Subject> = [
   {
     'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8AoP',
@@ -128,26 +130,27 @@ export const messages: Array<Message> = [
   {
     type: MessageType.CHAT,
     author: 'Phil',
-    channelId: 'holochain',
+    channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    subjectAddress: 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8AoP',
     timestamp: 10,
     content: {
-      text: 'Hey Micah, how are you doing?'
-    },
-    replies: [{
-      type: MessageType.CHAT,
-      author: 'Micah',
-      channelId: 'holochain',
-      timestamp: 11,
-      content: {
-        text: 'Buenas dias! good u?'
-      },
-      replies: []
-    }]
+      text: 'Lets add a subject to each message so we can gete some context happening'
+    }
+  },{
+    type: MessageType.CHAT,
+    author: 'Phil',
+    channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    subjectAddress: 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8AoP',
+    timestamp: 10,
+    content: {
+      text: 'Lets add a subject to each message so we can gete some context happening'
+    }
   },
   {
     type: MessageType.IDEA,
     author: 'Jean',
-    channelId: 'holochain',
+    channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    subjectAddress: 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Videos',
     timestamp: 10,
     content: {
       upVotes: 33,
