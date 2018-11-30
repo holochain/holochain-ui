@@ -9,8 +9,8 @@ import { initialState } from './reducer'
 
 const mockHolochainClient = axios.create({
   baseURL: '/fn/holochain/callBridgedFunction',
-  	responseType: 'json',
-  	method: 'POST'
+  responseType: 'json',
+  method: 'POST'
 })
 
 const mockStore = configureMockStore([axiosMiddleware(mockHolochainClient)])
@@ -72,14 +72,14 @@ const asyncActionTestTable: Array<[string, (input: any) => AnyAction, any, any]>
   [
     'add_members',
     chatActions.AddMembers.create,
-		{ channelHash: 'Qmchannelhash', members: ['123abc'] },
+    { channelHash: 'Qmchannelhash', members: ['123abc'] },
     true
   ],
   [
     'get_my_channels',
     chatActions.GetMyChannels.create,
     null,
-		[{ name: 'channel1', members: ['member1'] }]
+    [{ name: 'channel1', members: ['member1'] }]
   ],
   [
     'get_all_members',
@@ -90,20 +90,20 @@ const asyncActionTestTable: Array<[string, (input: any) => AnyAction, any, any]>
   [
     'get_members',
     chatActions.GetMembers.create,
-		{ channelHash: 'xxx' },
-		[{ handle: 'wollum', hash: 'Qmmyagenthash', avatar: '' }]
+    { channelHash: 'xxx' },
+    [{ handle: 'wollum', hash: 'Qmmyagenthash', avatar: '' }]
   ],
   [
     'post_message',
     chatActions.PostMessage.create,
-		{ channelHash: 'Qmchanelhash', subjects: ['Testing subject'], message: { content: { text: 'message body' } } },
+    { channelHash: 'Qmchanelhash', subjects: ['Testing subject'], message: { content: { text: 'message body' } } },
     'Qmmessagehash'
   ],
   [
     'get_messages',
     chatActions.GetMessages.create,
-		{ channelHash: 'Qmchanelhash' },
-		{ content: { text: 'message body' } }
+    { channelHash: 'Qmchanelhash' },
+    { content: { text: 'message body' } }
   ],
   [
     'get_profile',
@@ -123,35 +123,15 @@ asyncActionTestTable.forEach(([name, actionCreator, testInput, testResponse]) =>
       expect(actionCreator(testInput)).toEqual(expectedAction)
     })
 
-    it('should trigger middleware creating a request response that returns a promise with the response', () => {
-      mock.onPost('/').reply(200, testResponse)
+    // it('should trigger middleware creating a request response that returns a promise with the response', () => {
+    //   mock.onPost('/').reply(200, testResponse)
 
-	    // @ts-ignore - minor error in the typings for redux/typesafe-actions
-	    return store.dispatch(actionCreator(testInput)).then((response) => {
-      const actions = store.getActions()
-      expect(actions[0]).toEqual(expectedAction)
-      expect(response.payload.data).toEqual(testResponse)
-	    })
-    })
+    //   // @ts-ignore - minor error in the typings for redux/typesafe-actions
+    //   return store.dispatch(actionCreator(testInput)).then((response) => {
+    //     const actions = store.getActions()
+    //     expect(actions[0]).toEqual(expectedAction)
+    //     expect(response.payload.data).toEqual(testResponse)
+    //   })
+    // })
   })
 })
-
-// describe('getMessages action', () => {
-// 	const testInput = {channelHash: 'xxx'}
-// 	const expectedAction = genExpectedAction('custom_channel', 'getMessages', testInput)
-
-// 	it('should create an action that is correctly structured given parameters', () => {
-// 		expect(chatActions.GetMembers.create({channelHash: 'xxx'})).toEqual(expectedAction)
-// 	})
-
-// 	it('should trigger middleware creating a request response that returns a promise with the response', () => {
-// 		mock.onPost('/').reply(200, testResponse)
-
-// 	    // @ts-ignore - minor error in the typings for redux/typesafe-actions
-// 	    return store.dispatch(actionCreator(testInput)).then((response) => {
-// 			const actions = store.getActions()
-// 			expect(actions[0]).toEqual(expectedAction)
-// 			expect(response.payload.data).toEqual(testResponse)
-// 	    })
-// 	})
-// })

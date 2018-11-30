@@ -31,8 +31,10 @@
     "redux": "latest",
     "redux-axios-middleware": "^4.0.0",
     "redux-form": "latest",
+    "redux-promise": "^0.6.0",
     "redux-promise-middleware": "^5.1.1",
-    "rpc-websockets": "^4.3.3",
+    "redux-thunk": "^2.3.0",
+    "rpc-websockets": "^4.3.5",
     "typesafe-actions": "^2.0.4"
   },
   "scripts": {

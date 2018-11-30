@@ -36,10 +36,10 @@ export function holochatReducer (state = initialState, action: ChatAction) {
   // console.log('processing action: ', action)
   switch (action.type) {
     case getType(chatActions.GetMyChannels.success):
-    	return {
-      ...state,
-      myChannels: action.payload.data
-    }
+      return {
+        ...state,
+        myChannels: action.payload.data
+      }
     case getType(chatActions.GetMessages.success):
       return {
         ...state,
