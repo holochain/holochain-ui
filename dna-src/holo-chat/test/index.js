@@ -99,7 +99,7 @@ test('Can post a message with a subject and this is added to the channel', t => 
 test('Can create a public channel with some members', (t) => {
   const init_result = app.call('chat', 'main', 'init', {})
 
-  const create_result = app.call('chat', 'main', 'create_channel', {...testNewChannelParams, initial_members: [{id: "wollum"}]})
+  const create_result = app.call('chat', 'main', 'create_channel', {...testNewChannelParams, public: false, initial_members: [{id: "wollum"}, {id: "philipbeadle"}]})
   console.log(create_result)
   t.deepEqual(create_result.address.length, 46)
   t.end()

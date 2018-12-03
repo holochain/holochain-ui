@@ -1,9 +1,13 @@
 
+export interface Member {
+  id: string
+}
+
 export interface ChannelSpec {
-  members: Array<string>,
+  initial_members: Array<Member>,
   name: string,
   description: string,
-  isPublic: boolean
+  public: boolean
 }
 
 export interface Channel {

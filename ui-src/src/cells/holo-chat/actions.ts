@@ -2,7 +2,7 @@ import { createAction } from 'typesafe-actions'
 import { createHolochainAsyncAction } from '../../utils/holochainWebsocketsActions'
 
 // import { Message, MessageSpec } from './types/model/message'
-import { Channel } from './types/model/channel'
+import { Channel, ChannelSpec } from './types/model/channel'
 // import { Identity } from './types/model/identity'
 // import { Subject } from './types/model/subject'
 
@@ -14,7 +14,7 @@ import { Channel } from './types/model/channel'
 
 export const Init = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'init')
 
-export const CreateChannel = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'create_channel')
+export const CreateChannel = createHolochainAsyncAction<ChannelSpec, any>('holo-chat', 'chat', 'main', 'create_channel')
 
 export const AddMembers = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'add_members')
 

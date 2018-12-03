@@ -8,7 +8,7 @@ import withRoot from '../../../../withRoot'
 import Typography from '@material-ui/core/Typography'
 import CloseIcon from '@material-ui/icons/Close'
 import { Identity } from '../../types/model/identity'
-import { ChannelSpec } from '../../types/model/channel'
+import { ChannelSpec, Member } from '../../types/model/channel'
 import AgentList from './agentList'
 import Send from '@material-ui/icons/Send'
 
@@ -84,10 +84,10 @@ class NewChannel extends React.Component<Props, State> {
     }, '')
 
     const channelSpec: ChannelSpec = {
-      members: this.state.selectedUsers.map(user => user.hash),
+      initial_members: this.state.selectedUsers.map((user): Member => { return { id: user.hash } }),
       name: channelName,
       description: '',
-      isPublic: this.props.isPublic
+      public: this.props.isPublic
     }
     this.props.onSubmit(channelSpec)
   }
