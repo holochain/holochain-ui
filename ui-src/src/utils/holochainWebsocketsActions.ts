@@ -32,20 +32,21 @@ export const createHolochainAsyncAction = <ParamType, ReturnType>(
 
   // the action creators that are produced
   newAction.create = (params: ParamType) => async (dispatch: Dispatch): Promise<Action> => {
+    let result
     // @ts-ignore
     dispatch(action.request(params)) // dispatch the action signifying a request
     try {
       const { call, close } = await connect(url)
       const stringResult = await call(happ, zome, capability, func)(params)
-      const result = JSON.parse(stringResult)
+      result = JSON.parse(stringResult)
       await close()
-      // @ts-ignore
-      return dispatch(action.success(result)) // on success
     } catch (err) {
       console.log(err)
       // @ts-ignore
-      return dispatch(action.failure(err)) // on failure
+      return dispatch(action.failure(err.toString())) // on failure
     }
+    // @ts-ignore
+    return dispatch(action.success(result)) // on success
   }
 
   return newAction
