@@ -40,6 +40,18 @@ test('Can create a public channel with no other members and retrieve it', (t) =>
   t.end()
 })
 
+test('Can retrieve all the members that are added by init', t => {
+  const init_result = app.call('chat', 'main', 'init', {})
+  console.log(init_result)
+  t.equal(init_result.success, true, 'init should return success')
+
+  const getAllMembersResult = app.call('chat', 'main', 'get_all_members', {})
+  console.log(getAllMembersResult)
+  t.equal(getAllMembersResult.length, 5) // will fail if we change test data
+
+  t.end()
+})
+
 test('Can post a message to the channel and retrieve', (t) => {
   const init_result = app.call('chat', 'main', 'init', {})
 

@@ -15,7 +15,7 @@ import NewChannel from '../../containers/newChannelContainer'
 import { Subject as SubjectType } from '../../types/model/subject'
 import Badge from '@material-ui/core/Badge'
 
-const updateInterval = 5000
+const updateInterval = 10000
 
 import {
   GetMyChannels,
@@ -59,7 +59,8 @@ export interface StateProps {
 export interface DispatchProps {
   init: () => void,
   getMyChannels: typeof GetMyChannels.sig,
-  getSubjects: (channelAddress: string) => void
+  getSubjects: (channelAddress: string) => void,
+  getAllMembers: () => void,
   newChannel: typeof CreateChannel.sig,
 }
 
@@ -90,6 +91,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   handleNewChannelButtonClick = () => {
+    this.props.getAllMembers()
     this.setState({ modalOpen: true })
   }
 
