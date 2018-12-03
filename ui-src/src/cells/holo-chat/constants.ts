@@ -50,49 +50,49 @@ export const profileSpec1 = {
 
 export const channels: Array<Channel> = [
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'name': 'dev hApps',
     'public': true,
     'description': 'dev-happs'
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devCore',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devCore',
     'name': 'dev Core',
     'public': true,
     'description': 'dev-core'
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
     'name': 'Town Central',
     'public': true,
     'description': 'Town Central'
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp1',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp1',
     'name': 'philipbeadle, thedavidmeister',
     'public': false,
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp2',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp2',
     'name': 'ccxxoo',
     'public': false,
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp3',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp3',
     'name': 'jeanmrussell',
     'public': false,
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp4',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp4',
     'name': 'zippy',
     'public': false,
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp5',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp5',
     'name': 'artbrock',
     'public': false,
     'description': ''

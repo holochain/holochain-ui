@@ -337,11 +337,17 @@ fn post_message(channel_address: &HashString, message: message::Message, subject
     Ok(())
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+struct GetSubjectsResult {
+    entry: Subject,
+    address: Address
+}
 
-fn get_subjects(channel_address: &HashString) -> ZomeApiResult<Vec<String>> {
+fn get_subjects(channel_address: &HashString) -> ZomeApiResult<Vec<GetSubjectsResult>> {
     utils::get_links_and_load(channel_address, "channel_subject").map(|results| {
         results.iter().map(|get_links_result| {
-                Subject::try_from(get_links_result.entry.value().clone()).unwrap().name
+            let subject = Subject::try_from(get_links_result.entry.value().clone()).unwrap();
+            GetSubjectsResult{entry: subject, address: get_links_result.address.clone()}
         }).collect()
     })
 }

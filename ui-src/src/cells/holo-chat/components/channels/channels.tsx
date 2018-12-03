@@ -134,21 +134,21 @@ class Channels extends React.Component<Props & RouterProps, State> {
             <Route
               render={ ({ history }) => (
                 <ExpansionPanel style={{ boxShadow: 'none' }}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(channel.hash)}>
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(channel.address)}>
                     <Typography variant='h6'>{channel.name}</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <div>
                       {
                         subjects.filter(function (subject: SubjectType) {
-                          return subject.channelAddress === channel.hash
+                          return subject.channelAddress === channel.address
                         }).map((subject: SubjectType, subjectIndex: number) => (
                           <Badge badgeContent={subject.unread} color='primary' classes={{ badge: classes.badge }}>
                             <Chip
                               key={subjectIndex}
                               label={this.formatSubjectLabel(subject.subject)}
                               className={classes.chip}
-                              onClick={() => history.push(`/holo-chat/channel/${channel.hash}/subject/${subject.address}`)}
+                              onClick={() => history.push(`/holo-chat/channel/${channel.address}/subject/${subject.address}`)}
                             />
                           </Badge>
                           ))

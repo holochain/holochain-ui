@@ -91,7 +91,10 @@ test('Can post a message with a subject and this is added to the channel', t => 
 
   const get_subjects_result = app.call('chat', 'main', 'get_subjects', {channel_address: channel_addr})
   console.log(get_subjects_result)
-  t.deepEqual(get_subjects_result, ['memes'])
+  t.deepEqual(get_subjects_result[0].entry.name, 'memes')
+  t.deepEqual(get_subjects_result[0].entry.channel_address.length, 46)
+  t.deepEqual(get_subjects_result[0].address.length, 46)
+
 
   t.end()
 })
