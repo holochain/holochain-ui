@@ -285,11 +285,17 @@ pub fn handle_get_subjects(channel_address: HashString) -> JsonString {
 
 /*=====  End of Public Zome functions  ======*/
 
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+struct GetMyChannelsResult {
+    entry: Channel,
+    address: Address
+}
 
-fn get_my_channels() -> ZomeApiResult<Vec<Channel>> {
+fn get_my_channels() -> ZomeApiResult<Vec<GetMyChannelsResult>> {
     utils::get_links_and_load(&member::get_my_member_id().hash(), "member_of").map(|results| {
         results.iter().map(|get_links_result| {
-                Channel::try_from(get_links_result.entry.value().clone()).unwrap()
+                let channel = Channel::try_from(get_links_result.entry.value().clone()).unwrap();
+                GetMyChannelsResult{entry: channel, address: get_links_result.address.clone()}
         }).collect()
     })
 }
