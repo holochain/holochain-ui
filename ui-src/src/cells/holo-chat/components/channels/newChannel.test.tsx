@@ -43,6 +43,17 @@ export const agentListTest = describe('agentList component', () => {
     expect(selectedPeople.length).toEqual(1)
   })
 
+  it('A new Public Channel shows the Channel Name', () => {
+    expect(newChannel().find('input[id="ChannelName"]').length).toEqual(1)
+  })
+
+  it('A new Direct Message does not show the Channel Name', () => {
+    props = {...props,
+      isPublic: false
+    }
+    expect(newChannel().find('input[id="ChannelName"]').length).toEqual(0)
+  })
+
   it('Clicking Go submits the list of people to Create Channel', () => {
     newChannel().find('input[id="filter-bar"]').simulate('change', { target: { value: 'art' } })
     newChannel().find('ListItem').first().simulate('click')
