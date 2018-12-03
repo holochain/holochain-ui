@@ -73,7 +73,7 @@ class Messages extends React.Component<Props & RouterProps, State> {
     if (this.props.channelAddress) {
       this.getMessageInterval = setInterval(() => {
         this.props.getMessages(this.props.channelAddress)
-      }, 200)
+      }, 20000)
     }
   }
 
@@ -91,7 +91,6 @@ class Messages extends React.Component<Props & RouterProps, State> {
 
   handleSendMessage = () => {
     console.log(this.state.message)
-    // call holochain here.
     this.props.sendMessage({
       channelAddress: this.props.channelAddress,
       subjects: [this.state.subject],

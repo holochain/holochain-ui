@@ -9,8 +9,8 @@ import {
 	PostMessage
 } from '../actions'
 
-const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps => {
-  const channelAddress = ownProps.match.params.channel
+const mapStateToProps = (state: any, props: Props & RouterProps): StateProps => {
+  const channelAddress = props.match.params.channel
   return {
     messages: modelMessagesToViewMessages(state.holoChat.currentMessages, state.holoChat.activeChannelMembers, state.holoChat.myHash),
     channelAddress: channelAddress
