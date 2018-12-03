@@ -24,6 +24,7 @@ use super::utils;
 pub struct Channel {
     pub name: String,
     pub description: String,
+    pub public: bool
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
@@ -97,7 +98,7 @@ pub fn public_channel_definition() -> ValidatingEntryType {
                     Ok(())
                 }
             )
-        ]        
+        ]
     )
 }
 
@@ -165,7 +166,7 @@ pub fn direct_channel_definition() -> ValidatingEntryType {
                     Ok(())
                 }
             )
-        ]        
+        ]
     )
 }
 
@@ -213,7 +214,7 @@ pub fn handle_create_channel(
     public: bool,
 ) -> JsonString {
 
-    let channel = Channel{name, description};
+    let channel = Channel{name, description, public};
 
     let entry = match public {
         true => Entry::new(EntryType::App("public_channel".into()), channel),

@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import Channels, { OwnProps, StateProps, DispatchProps } from '../components/channels/channels'
 import { Dispatch } from 'redux'
-import * as constants from '../constants'
+// import * as constants from '../constants'
 
 import {
   Init,
@@ -16,8 +16,8 @@ import { ChannelSpec } from '../types/model/channel'
 
 const mapStateToProps = (state: any): StateProps => {
   return {
-    channels: constants.channels, // state.holoChat.myChannels
-    subjects: constants.subjects
+    channels: state.holoChat.myChannels,
+    subjects: state.holoChat.subjects
   }
 }
 

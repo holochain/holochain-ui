@@ -52,49 +52,49 @@ export const channels: Array<Channel> = [
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'name': 'dev hApps',
-    'isPublic': true,
+    'public': true,
     'description': 'dev-happs'
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devCore',
     'name': 'dev Core',
-    'isPublic': true,
+    'public': true,
     'description': 'dev-core'
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
     'name': 'Town Central',
-    'isPublic': true,
+    'public': true,
     'description': 'Town Central'
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp1',
     'name': 'philipbeadle, thedavidmeister',
-    'isPublic': false,
+    'public': false,
     'description': ''
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp2',
     'name': 'ccxxoo',
-    'isPublic': false,
+    'public': false,
     'description': ''
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp3',
     'name': 'jeanmrussell',
-    'isPublic': false,
+    'public': false,
     'description': ''
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp4',
     'name': 'zippy',
-    'isPublic': false,
+    'public': false,
     'description': ''
   },
   {
     'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp5',
     'name': 'artbrock',
-    'isPublic': false,
+    'public': false,
     'description': ''
   }
 ]

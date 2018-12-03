@@ -128,7 +128,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
         {title}
       </Typography>
         {channels.filter(function (channel: ChannelType) {
-          return channel.isPublic === isPublic
+          return channel.public === isPublic
         }).map((channel: ChannelType, index: number) => (
         <div key={index} className={classes.root}>
             <Route
