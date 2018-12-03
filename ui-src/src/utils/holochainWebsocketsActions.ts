@@ -43,7 +43,7 @@ export const createHolochainAsyncAction = <ParamType, ReturnType>(
     } catch (err) {
       console.log(err)
       // @ts-ignore
-      return dispatch(action.failure(err.toString())) // on failure
+      return dispatch(action.failure(err)) // on failure
     }
     // @ts-ignore
     return dispatch(action.success(result)) // on success
