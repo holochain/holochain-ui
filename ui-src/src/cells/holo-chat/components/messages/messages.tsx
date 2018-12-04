@@ -90,7 +90,15 @@ class Messages extends React.Component<Props & RouterProps, State> {
   }
 
   handleSendMessage = () => {
-    console.log(this.state.message)
+    console.log({
+      channelAddress: this.props.channelAddress,
+      subjects: [this.state.subject],
+      message: {
+        content: {
+          text: this.state.message
+        }
+      }
+    })
     this.props.sendMessage({
       channelAddress: this.props.channelAddress,
       subjects: [this.state.subject],

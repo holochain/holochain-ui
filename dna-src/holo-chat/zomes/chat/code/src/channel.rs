@@ -308,8 +308,8 @@ fn get_members(channel_address: &HashString) -> ZomeApiResult<Vec<member::Member
     })
 }
 
-fn get_messages(channel_address: &HashString) -> ZomeApiResult<Vec<message::Message>> {
-    utils::get_links_and_load(channel_address, "message_in").map(|results| {
+fn get_messages(address: &HashString) -> ZomeApiResult<Vec<message::Message>> {
+    utils::get_links_and_load(address, "message_in").map(|results| {
         results.iter().map(|get_links_result| {
                 message::Message::try_from(get_links_result.entry.value().clone()).unwrap()
         }).collect()
