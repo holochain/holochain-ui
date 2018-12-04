@@ -13,11 +13,4 @@ before_install:
 - cd ..
 - docker pull holochain/holochain-rust:latest
 script:
-- docker run holochain/holochain-rust:latest /bin/sh -c "npm run hc:test-chat"
-- cd ui-automation
-- npm install
-- npm test
-- curl http://localhost:4141
-- cd ..
-- cd ui-src
-- npm run coverage
+- docker run holochain/holochain-rust:latest -v ${TRAVIS_BUILD_DIR}:/home/holochain-ui/ /bin/sh -c "cd /home/holochain-ui && npm run hc:test-chat"
