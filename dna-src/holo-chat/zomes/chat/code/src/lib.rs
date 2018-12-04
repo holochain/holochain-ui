@@ -109,7 +109,7 @@ define_zome! {
 				handler: channel::handle_add_members
 			}
 			post_message: {
-				inputs: |channel_address: HashString, message: message::Message, subjects: Vec<String>|,
+				inputs: |channel_address: HashString, message: message::MessageSpec, subjects: Vec<String>|,
 				outputs: |result: JsonString|,
 				handler: channel::handle_post_message
 			}

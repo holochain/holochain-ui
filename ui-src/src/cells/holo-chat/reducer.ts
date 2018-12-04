@@ -38,9 +38,7 @@ export function holochatReducer (state = initialState, action: ChatAction) {
     case getType(chatActions.GetMyChannels.success):
       let channels: Array<Channel> = action.payload.map((result: any) => ({
         address: result.address,
-        public: result.entry.public,
-        name: result.entry.name,
-        description: result.entry.description
+        ...result.entry
       }))
       return {
         ...state,

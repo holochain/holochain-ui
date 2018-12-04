@@ -19,6 +19,25 @@ pub struct Message {
     pub meta: String,
 }
 
+impl Message {
+    pub fn from_spec(spec: &MessageSpec, author: &String, timestamp: &String) -> Message {
+        return Message{
+            message_type: spec.message_type.clone(),
+            payload: spec.payload.clone(),
+            meta: spec.meta.clone(),
+            author: author.to_owned(),
+            timestamp: timestamp.to_owned()
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+pub struct MessageSpec {
+    pub message_type: String,
+    pub payload: String,
+    pub meta: String
+}
+
 pub fn message_definition() -> ValidatingEntryType {
     entry!(
         name: "message",
