@@ -8,4 +8,4 @@ services:
 before_install:
 - docker pull holochain/holochain-rust:latest
 script:
-- docker run -v ${TRAVIS_BUILD_DIR}:/home/holochain-ui/ holochain/holochain-rust:latest /bin/sh -c "cd /home/holochain-ui && npm run hc:test-chat"
+- docker run -v ${TRAVIS_BUILD_DIR}:/holochain-ui/ holochain/holochain-rust:latest /bin/sh -c "cd /holochain-ui/dna-src/holo-chat && hc test"
