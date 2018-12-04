@@ -5,7 +5,9 @@
   "scripts": {
     "hc:start": "mkdir -p tmp-storage && holochain_container -c ./container-config.toml",
     "hc:build-vault": "rm -rf tmp-storage && mkdir -p dna && cd dna-src/holo-vault && hc package --output ../../dna/holo-vault.hcpkg --strip-meta",
-    "hc:build-chat": "rm -rf tmp-storage && mkdir -p dna && cd dna-src/holo-chat && hc package --output ../../dna/holo-chat.hcpkg --strip-meta"
+    "hc:build-chat": "rm -rf tmp-storage && mkdir -p dna && cd dna-src/holo-chat && hc package --output ../../dna/holo-chat.hcpkg --strip-meta",
+    "hc:test-chat": "cd dna-src/holo-chat && hc test",
+    "hc:test-vault": "cd dna-src/holo-vault && hc test"
   },
   "repository": {
     "type": "git",
