@@ -269,8 +269,8 @@ pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonS
     }
 }
 
-pub fn handle_post_message(channel_address: HashString, message: message::Message, subjects: Vec<String>) -> JsonString {
-    match post_message(&channel_address, message, subjects) {
+pub fn handle_post_message(channel_address: HashString, message_spec: message::MessageSpec, subjects: Vec<String>) -> JsonString {
+    match post_message(&channel_address, message::Message::from_spec(&message_spec, &AGENT_ADDRESS.to_string(), &"0".into()), subjects) {
         Ok(()) => json!({"success": true}).into(),
         Err(hdk_err) => hdk_err.into()
     }
