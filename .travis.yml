@@ -6,11 +6,6 @@ node_js:
 services:
 - docker
 before_install:
-- cd ui-src
-- npm install
-- npm run build
-- npm run start &
-- cd ..
 - docker pull holochain/holochain-rust:latest
 script:
-- docker run holochain/holochain-rust:latest -v ${TRAVIS_BUILD_DIR}:/home/holochain-ui/ /bin/sh -c "cd /home/holochain-ui && npm run hc:test-chat"
+- docker run -v ${TRAVIS_BUILD_DIR}:/home/holochain-ui/ holochain/holochain-rust:latest /bin/sh -c "cd /home/holochain-ui && npm run hc:test-chat"
