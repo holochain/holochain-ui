@@ -17,10 +17,8 @@ const testNewChannelParams = {
 }
 
 const testMessage = {
-  timestamp: "100000",
-  author: "glibglob",
   message_type: "text",
-  payload: "{}",
+  payload: "I am the message payload",
   meta: "{}",
 }
 
@@ -71,7 +69,7 @@ test('Can post a message to the channel and retrieve', (t) => {
   const get_message_result = app.call('chat', 'main', 'get_messages', {channel_address: channel_addr, min_count: 10})
   console.log(get_message_result)
   const messages = get_message_result
-  t.deepEqual(messages[0], testMessage, 'expected to receive the message back')
+  t.deepEqual(messages[0].payload, testMessage.payload, 'expected to receive the message back')
 
   t.end()
 })
