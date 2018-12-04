@@ -19,7 +19,7 @@ describe('Chat Reducer', () => {
     expect(holochatReducer(undefined, chatActions.GetMyChannels.success(testChannelsData)))
     .toEqual({
       ...initialState,
-      myChannels: ['channel1', 'channel2']
+      myChannels: testChannelsData.map(c => { return { ...c.entry, address: c.address } })
     })
   })
 
@@ -54,7 +54,7 @@ describe('Chat Reducer', () => {
     expect(holochatReducer(undefined, chatActions.GetAllMembers.success(usersResponse)))
     .toEqual({
       ...initialState,
-      users: usersResponse
+      users: usersResponse.map(u => { return { hash: u.id, ...u.profile } })
     })
   })
 
