@@ -6,6 +6,7 @@ node_js:
 before_install:
 - cd ui-src
 - npm install
+- cd ..
 script:
 - cd ui-src
 - npm run test
