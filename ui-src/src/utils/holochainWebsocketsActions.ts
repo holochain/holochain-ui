@@ -1,9 +1,5 @@
-import { Action, Dispatch } from 'redux'
-import { connect } from './hc-web-client'
+import { AnyAction } from 'redux'
 import { createAsyncAction } from 'typesafe-actions'
-
-// remove this later
-const url = 'ws://localhost:3400'
 
 /**
  *
@@ -20,7 +16,7 @@ export const createHolochainAsyncAction = <ParamType, ReturnType>(
 ) => {
 
   const action = createAsyncAction(
-    `${happ}/${zome}/${capability}/${func}_REQUEST`,
+    `${happ}/${zome}/${capability}/${func}`,
     `${happ}/${zome}/${capability}/${func}_SUCCESS`,
     `${happ}/${zome}/${capability}/${func}_FAILURE`)
   <ParamType, ReturnType, Error>()
@@ -31,22 +27,14 @@ export const createHolochainAsyncAction = <ParamType, ReturnType>(
   })
 
   // the action creators that are produced
-  newAction.create = (params: ParamType) => async (dispatch: Dispatch): Promise<Action> => {
-    let result
-    // @ts-ignore
-    dispatch(action.request(params)) // dispatch the action signifying a request
-    try {
-      const { call } = await connect(url)
-      const stringResult = await call(happ, zome, capability, func)(params)
-      result = JSON.parse(stringResult)
-      // await close()
-    } catch (err) {
-      console.log(err)
-      // @ts-ignore
-      return dispatch(action.failure(err)) // on failure
+  newAction.create = (params: ParamType): AnyAction => {
+    return {
+      type: `${happ}/${zome}/${capability}/${func}`,
+      meta: {
+        holochainAction: true
+      },
+      payload: params
     }
-    // @ts-ignore
-    return dispatch(action.success(result)) // on success
   }
 
   return newAction
