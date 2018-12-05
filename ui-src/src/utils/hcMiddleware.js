@@ -6,26 +6,25 @@ export const holochain = (url) => store => {
 	// this is how we persist a websocket connection
 	let call = null
 
-	connect(url).then(({call}) => {
+	connect(url).then((wsFunctions) => {
 		store.dispatch({type: 'HOLOCHAIN_WEBSOCKET_CONNECTED', payload: url})
-		call = call
+		call = wsFunctions.call
 	})
 
 	return next => action => {
 		// send off the original action for debug
 		next(action)
 
-		if (action.payload && action.payload.holochainAction) {
+		if (action.meta && action.meta.holochainAction) {
 			if(call) {
-				return new Promise(resolve => store.dispatch({type: action.type+'SUCCESS', payload: 'A connection available'}))			
-				// return call(happ, zome, capability, func)(params)
-				// .then((stringResult) => {
-				// 	result = JSON.parse(stringResult)
-				// 	return store.dispatch({type: action.type+'_SUCCESS', payload: result})
-				// })
-				// .catch((err) => {
-	  	// 			return store.dispatch({type: action.type+'_FAILURE', payload: err})
-				// })
+				return call(action.type)(action.payload)
+				.then((stringResult) => {
+					result = JSON.parse(stringResult)
+					return store.dispatch({type: action.type+'_SUCCESS', payload: result})
+				})
+				.catch((err) => {
+	  				return store.dispatch({type: action.type+'_FAILURE', payload: err})
+				})
 			} else {
 	  			return new Promise(resolve => store.dispatch({type: action.type+'_FAILURE', payload: 'No connection available'}))			
 			}

@@ -30,9 +30,10 @@ export const createHolochainAsyncAction = <ParamType, ReturnType>(
   newAction.create = (params: ParamType): AnyAction => {
     return {
       type: `${happ}/${zome}/${capability}/${func}`,
-      payload: {
+      meta: {
         holochainAction: true
-      }
+      },
+      payload: params
     }
   }
 
