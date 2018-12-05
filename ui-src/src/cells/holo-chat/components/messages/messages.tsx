@@ -12,6 +12,8 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Send from '@material-ui/icons/Send'
 
+const updateInterval = 1000
+
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     width: '95%',
@@ -77,11 +79,11 @@ class Messages extends React.Component<Props & RouterProps, State> {
     if (this.props.subjectAddress) {
       this.getMessageInterval = setInterval(() => {
         this.props.getMessages(this.props.subjectAddress)
-      }, 2000)
+      }, updateInterval)
     } else if (this.props.channelAddress) {
       this.getMessageInterval = setInterval(() => {
         this.props.getMessages(this.props.channelAddress)
-      }, 2000)
+      }, updateInterval)
     }
   }
 

@@ -15,7 +15,7 @@ import NewChannel from '../../containers/newChannelContainer'
 import { Subject as SubjectType } from '../../types/model/subject'
 import Badge from '@material-ui/core/Badge'
 
-const updateInterval = 10000
+const updateInterval = 1000
 
 import {
   GetMyChannels,
