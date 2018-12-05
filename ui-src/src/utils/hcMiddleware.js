@@ -11,10 +11,9 @@ export const holochain = (url) => store => {
 	})
 
 	return next => action => {
-		// send off the original action
-		next(action)
-
 		if (action.meta && action.meta.holochainAction) {
+			next(action) // resend the original action so the UI can change based on requests
+
 			return connectPromise.then((call) => {
 				return call(action.type)(action.payload)
 				.then((stringResult) => {
@@ -25,6 +24,8 @@ export const holochain = (url) => store => {
 	  				return store.dispatch({type: action.type+'_FAILURE', payload: err.toString()})
 				})
 			})
+		} else {
+			return next(action)
 		}
 	}
 
