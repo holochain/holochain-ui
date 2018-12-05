@@ -61,28 +61,34 @@ describe('Chat Reducer', () => {
   it('Should update the state in response to GetSubjects', () => {
     const subjectsTestData = [
       {
-        channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
-        address: 'aop',
-        subject: 'Abundance of Presence',
-        unread: 3
+        entry: {
+          channel_address: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+          subject: 'Abundance of Presence',
+          unread: 3
+        },
+        address: 'aop'
       },
       {
-        channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
-        address: 'videos',
-        subject: 'Videos',
-        unread: 2
+        entry: {
+          channel_address: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+          subject: 'Videos',
+          unread: 2
+        },
+        address: 'videos'
       },
       {
-        channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
-        address: 'standup',
-        subject: 'Standup',
-        unread: 1
+        entry: {
+          channel_address: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+          subject: 'Standup',
+          unread: 1
+        },
+        address: 'standup'
       }]
 
     expect(holochatReducer(undefined, chatActions.GetSubjects.success(subjectsTestData)))
     .toEqual({
       ...initialState,
-      subjects: subjectsTestData
+      subjects: subjectsTestData.map(s => { return { ...s.entry, address: s.address } })
     })
   })
 
