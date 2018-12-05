@@ -54,7 +54,7 @@ export interface StateProps {
 
 export interface DispatchProps {
   getMessages: (address: string) => void,
-  sendMessage: (payload: {channelAddress: string, subjects: [string], message: MessageSpec}) => void
+  sendMessage: (payload: {channel_address: string, subjects: [string], message: MessageSpec}) => void
 }
 
 export interface State {
@@ -73,7 +73,7 @@ class Messages extends React.Component<Props & RouterProps, State> {
     if (this.props.channelAddress) {
       this.getMessageInterval = setInterval(() => {
         this.props.getMessages(this.props.channelAddress)
-      }, 20000)
+      }, 2000)
     }
   }
 
@@ -91,21 +91,21 @@ class Messages extends React.Component<Props & RouterProps, State> {
 
   handleSendMessage = () => {
     console.log({
-      channelAddress: this.props.channelAddress,
+      channel_address: this.props.channelAddress,
       subjects: [this.state.subject],
       message: {
-        content: {
-          text: this.state.message
-        }
+        message_type: 'text',
+        payload: this.state.message,
+        meta: '{}'
       }
     })
     this.props.sendMessage({
-      channelAddress: this.props.channelAddress,
+      channel_address: this.props.channelAddress,
       subjects: [this.state.subject],
       message: {
-        content: {
-          text: this.state.message
-        }
+        message_type: 'text',
+        payload: this.state.message,
+        meta: '{}'
       }
     })
     this.setState({ message: '' })

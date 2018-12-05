@@ -11,6 +11,7 @@ import {
 
 const mapStateToProps = (state: any, props: Props & RouterProps): StateProps => {
   const channelAddress = props.match.params.channel
+  console.log(channelAddress)
   return {
     messages: modelMessagesToViewMessages(state.holoChat.currentMessages, state.holoChat.activeChannelMembers, state.holoChat.myHash),
     channelAddress: channelAddress
@@ -19,8 +20,8 @@ const mapStateToProps = (state: any, props: Props & RouterProps): StateProps => 
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    getMessages: (channelSubjectAddress: string) => dispatch(GetMessages.create({ channelSubjectAddress: channelSubjectAddress })),
-    sendMessage: (payload: {message: MessageSpec, channelAddress: string, subjects: [string]}) => dispatch(PostMessage.create(payload))
+    getMessages: (channelSubjectAddress: string) => dispatch(GetMessages.create({ address: channelSubjectAddress })),
+    sendMessage: (payload: {message: MessageSpec, channel_address: string, subjects: [string]}) => dispatch(PostMessage.create(payload))
   }
 }
 

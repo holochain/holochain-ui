@@ -262,8 +262,8 @@ pub fn handle_add_members(channel_address: HashString, members: Vec<member::Memb
     })
 }
 
-pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonString {
-    match get_messages(&channel_address) {
+pub fn handle_get_messages(address: HashString) -> JsonString {
+    match get_messages(&address) {
         Ok(result) => result.into(),
         Err(hdk_err) => hdk_err.into()
     }
@@ -272,7 +272,7 @@ pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonS
 pub fn handle_post_message(channel_address: HashString, message_spec: message::MessageSpec, subjects: Vec<String>) -> JsonString {
     match post_message(&channel_address, message::Message::from_spec(&message_spec, &AGENT_ADDRESS.to_string(), &"0".into()), subjects) {
         Ok(()) => json!({"success": true}).into(),
-        Err(hdk_err) => hdk_err.into()
+        Err(hdk_err) => "handle_post_failed".into()
     }
 }
 

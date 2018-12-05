@@ -101,27 +101,27 @@ export const channels: Array<Channel> = [
 
 export const subjects: Array<Subject> = [
   {
-    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8AoP',
-    'subject': 'Abundance of Presence',
+    'name': 'Abundance of Presence',
     'unread': 3
   },
   {
-    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Videos',
-    'subject': 'Videos',
+    'name': 'Videos',
     'unread': 2
   },
   {
-    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Standup',
-    'subject': 'Standup',
+    'name': 'Standup',
     'unread': 1
   },
   {
-    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
+    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Bitcoin',
-    'subject': 'Bitcoin',
+    'name': 'Bitcoin',
     'unread': 1
   }
 ]

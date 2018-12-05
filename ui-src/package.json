@@ -2,7 +2,6 @@
   "name": "ui-src-ts",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4141",
   "dependencies": {
     "@types/autosuggest-highlight": "^3.1.0",
     "@types/immutable": "^3.8.7",

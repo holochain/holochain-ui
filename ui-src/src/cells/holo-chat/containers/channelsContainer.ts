@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
     init: () => dispatch(Init.create({})),
     getAllMembers: () => dispatch(GetAllMembers.create({})),
   	getMyChannels: () => dispatch(GetMyChannels.create({})),
-    getSubjects: (channelAddress: string) => dispatch(GetSubjects.create({ channelAddress: channelAddress })),
+    getSubjects: (channelAddress: string) => dispatch(GetSubjects.create({ channel_address: channelAddress })),
   	newChannel: (channelSpec: ChannelSpec) => dispatch(CreateChannel.create(channelSpec))
   }
 }

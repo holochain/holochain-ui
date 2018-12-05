@@ -108,12 +108,11 @@ function VoteControls (props: MessageState & {handleIdea: Function}) {
 
 function MessageComponent (props: any) {
 
-  switch (props.message.type) {
-    case 0:
+  switch (props.message.message_type) {
+    case 'text':
       return (
         <div className={props.classes.message}>
-          <Typography className={props.classes.messageText}>{props.message.content.text}</Typography>
-          <img alt={props.message.content.image} className={(props.message.content.image !== '') ? props.classes.messageImage : props.classes.messageNoImage} src={props.message.content.image} />
+          <Typography className={props.classes.messageText}>{props.message.payload}</Typography>
         </div>)
     case 1:
       return (
