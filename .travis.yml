@@ -10,6 +10,6 @@ before_install:
 - npm install
 - cd ..
 script:
-- docker run -v "$(pwd):/holochain-ui" willemolding/holochain:latest bash -c "cd /holochain-ui/dna-src/holo-chat && hc test"
+- docker run -v "$(pwd):/holochain-ui" willemolding/holochain:latest bash -c "cd /holochain-ui/dna-src/holo-chat && hc test && cd ../holo-vault && hc test"
 - cd ui-src
 - npm run test
