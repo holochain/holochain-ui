@@ -11,10 +11,13 @@ import {
 
 const mapStateToProps = (state: any, props: Props & RouterProps): StateProps => {
   const channelAddress = props.match.params.channel
+  const subjectAddress = props.match.params.subject
+
   console.log(channelAddress)
   return {
     messages: modelMessagesToViewMessages(state.holoChat.currentMessages, state.holoChat.activeChannelMembers, state.holoChat.myHash),
-    channelAddress: channelAddress
+    channelAddress: channelAddress,
+    subjectAddress: subjectAddress
   }
 }
 

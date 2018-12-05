@@ -226,7 +226,7 @@ class MiniDrawer extends React.Component {
                 <Desktop {...props} />
               </div>
             } />
-            <Route path='/holo-chat/channel/:channel' title='Holochain' render={props =>
+            <Route path={['/holo-chat/channel/:channel', '/holo-chat/subject/:subject', '/holo-chat' ]} title='Holochain' render={props =>
               <Grid container={true} spacing={0}>
                 <Grid item={true} xs={3}>
                   <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} />

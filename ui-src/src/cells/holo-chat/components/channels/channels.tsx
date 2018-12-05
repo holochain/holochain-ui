@@ -143,12 +143,12 @@ class Channels extends React.Component<Props & RouterProps, State> {
                         subjects.filter(function (subject: SubjectType) {
                           return subject.channel_address === channel.address
                         }).map((subject: SubjectType, subjectIndex: number) => (
-                          <Badge badgeContent={subject.unread} color='primary' classes={{ badge: classes.badge }}>
+                          <Badge badgeContent={3} color='primary' classes={{ badge: classes.badge }}>
                             <Chip
                               key={subjectIndex}
                               label={this.formatSubjectLabel(subject.name)}
                               className={classes.chip}
-                              onClick={() => history.push(`/holo-chat/channel/${channel.address}/subject/${subject.address}`)}
+                              onClick={() => history.push(`/holo-chat/subject/${subject.address}`)}
                             />
                           </Badge>
                           ))

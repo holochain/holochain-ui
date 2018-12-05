@@ -49,7 +49,8 @@ export interface OwnProps {
 
 export interface StateProps {
   messages: Array<MessageType>,
-  channelAddress: string
+  channelAddress: string,
+  subjectAddress: string
 }
 
 export interface DispatchProps {
@@ -64,13 +65,20 @@ export interface State {
 
 export type Props = OwnProps & StateProps & DispatchProps
 
-export interface RouterProps extends RouteComponentProps<{channel: string}> {}
+export interface RouterProps extends RouteComponentProps<{channel: string, subject: string}> {}
 
 class Messages extends React.Component<Props & RouterProps, State> {
   getMessageInterval: any
 
   componentDidMount () {
-    if (this.props.channelAddress) {
+    console.log('this.props.subjectAddress' + this.props.subjectAddress)
+
+    console.log('this.props.channelAddress' + this.props.channelAddress)
+    if (this.props.subjectAddress) {
+      this.getMessageInterval = setInterval(() => {
+        this.props.getMessages(this.props.subjectAddress)
+      }, 2000)
+    } else if (this.props.channelAddress) {
       this.getMessageInterval = setInterval(() => {
         this.props.getMessages(this.props.channelAddress)
       }, 2000)
