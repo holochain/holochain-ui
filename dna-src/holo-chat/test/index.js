@@ -66,7 +66,7 @@ test('Can post a message to the channel and retrieve', (t) => {
   console.log(post_result)
   t.deepEqual(post_result, {success: true})
 
-  const get_message_result = app.call('chat', 'main', 'get_messages', {channel_address: channel_addr, min_count: 10})
+  const get_message_result = app.call('chat', 'main', 'get_messages', {address: channel_addr})
   console.log(get_message_result)
   const messages = get_message_result
   t.deepEqual(messages[0].payload, testMessage.payload, 'expected to receive the message back')
