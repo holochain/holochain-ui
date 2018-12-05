@@ -50,78 +50,78 @@ export const profileSpec1 = {
 
 export const channels: Array<Channel> = [
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'name': 'dev hApps',
-    'isPublic': true,
+    'public': true,
     'description': 'dev-happs'
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devCore',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devCore',
     'name': 'dev Core',
-    'isPublic': true,
+    'public': true,
     'description': 'dev-core'
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
     'name': 'Town Central',
-    'isPublic': true,
+    'public': true,
     'description': 'Town Central'
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp1',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp1',
     'name': 'philipbeadle, thedavidmeister',
-    'isPublic': false,
+    'public': false,
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp2',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp2',
     'name': 'ccxxoo',
-    'isPublic': false,
+    'public': false,
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp3',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp3',
     'name': 'jeanmrussell',
-    'isPublic': false,
+    'public': false,
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp4',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp4',
     'name': 'zippy',
-    'isPublic': false,
+    'public': false,
     'description': ''
   },
   {
-    'hash': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp5',
+    'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8hasp5',
     'name': 'artbrock',
-    'isPublic': false,
+    'public': false,
     'description': ''
   }
 ]
 
 export const subjects: Array<Subject> = [
   {
-    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8AoP',
-    'subject': 'Abundance of Presence',
+    'name': 'Abundance of Presence',
     'unread': 3
   },
   {
-    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Videos',
-    'subject': 'Videos',
+    'name': 'Videos',
     'unread': 2
   },
   {
-    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Standup',
-    'subject': 'Standup',
+    'name': 'Standup',
     'unread': 1
   },
   {
-    'channelAddress': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
+    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Bitcoin',
-    'subject': 'Bitcoin',
+    'name': 'Bitcoin',
     'unread': 1
   }
 ]

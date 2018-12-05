@@ -36,27 +36,31 @@ export function holochatReducer (state = initialState, action: ChatAction) {
   // console.log('processing action: ', action)
   switch (action.type) {
     case getType(chatActions.GetMyChannels.success):
-    	return {
-      ...state,
-      myChannels: action.payload.data
-    }
+      let channels: Array<Channel> = action.payload.map((result: any) => ({
+        address: result.address,
+        ...result.entry
+      }))
+      return {
+        ...state,
+        myChannels: channels
+      }
     case getType(chatActions.GetMessages.success):
       return {
         ...state,
-        currentMessages: action.payload.data
+        currentMessages: action.payload
       }
     case getType(chatActions.GetMembers.success):
       return {
         ...state,
-        activeChannelMembers: action.payload.data
+        activeChannelMembers: action.payload
       }
     case getType(chatActions.GetProfile.success):
       return {
         ...state,
-        myHash: action.payload.data
+        myHash: action.payload
       }
     case getType(chatActions.GetAllMembers.success):
-      let users: Array<Identity> = action.payload.data.map((user: any) => ({
+      let users: Array<Identity> = action.payload.map((user: any) => ({
         hash: user.id,
         handle: user.profile.handle,
         email: user.profile.email,
@@ -67,12 +71,15 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         users: users
       }
     case getType(chatActions.GetSubjects.success):
-      let subjects: Array<Subject> = action.payload.data
+      let subjects: Array<Subject> = action.payload.map((result: any) => ({
+        address: result.address,
+        ...result.entry
+      }))
       if (subjects.length > 0) {
         // Remove any exisitng subjects for the channel and push the new ones in
-        let channelAddress: string = subjects[0].channelAddress
+        let channelAddress: string = subjects[0].channel_address
         let stateSubjects: Array<Subject> = state.subjects.filter(function (subject: Subject) {
-          return subject.channelAddress !== channelAddress
+          return subject.channel_address !== channelAddress
         })
         return {
           ...state,

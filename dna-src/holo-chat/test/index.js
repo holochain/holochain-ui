@@ -17,10 +17,8 @@ const testNewChannelParams = {
 }
 
 const testMessage = {
-  timestamp: "100000",
-  author: "glibglob",
   message_type: "text",
-  payload: "{}",
+  payload: "I am the message payload",
   meta: "{}",
 }
 
@@ -36,6 +34,18 @@ test('Can create a public channel with no other members and retrieve it', (t) =>
   const get_result = app.call('chat', 'main', 'get_my_channels', {})
   console.log(get_result)
   t.deepEqual(get_result.length, 1)
+
+  t.end()
+})
+
+test('Can retrieve all the members that are added by init', t => {
+  const init_result = app.call('chat', 'main', 'init', {})
+  console.log(init_result)
+  t.equal(init_result.success, true, 'init should return success')
+
+  const getAllMembersResult = app.call('chat', 'main', 'get_all_members', {})
+  console.log(getAllMembersResult)
+  t.equal(getAllMembersResult.length, 5) // will fail if we change test data
 
   t.end()
 })
@@ -56,11 +66,10 @@ test('Can post a message to the channel and retrieve', (t) => {
   console.log(post_result)
   t.deepEqual(post_result, {success: true})
 
-  const get_message_result = app.call('chat', 'main', 'get_messages', {channel_address: channel_addr, min_count: 10})
+  const get_message_result = app.call('chat', 'main', 'get_messages', {address: channel_addr})
   console.log(get_message_result)
   const messages = get_message_result
-  t.deepEqual(messages[0], testMessage, 'expected to receive the message back')
-
+  t.deepEqual(messages[0].payload, testMessage.payload, 'expected to receive the message back')
   t.end()
 })
 
@@ -79,7 +88,10 @@ test('Can post a message with a subject and this is added to the channel', t => 
 
   const get_subjects_result = app.call('chat', 'main', 'get_subjects', {channel_address: channel_addr})
   console.log(get_subjects_result)
-  t.deepEqual(get_subjects_result, ['memes'])
+  t.deepEqual(get_subjects_result[0].entry.name, 'memes')
+  t.deepEqual(get_subjects_result[0].entry.channel_address.length, 46)
+  t.deepEqual(get_subjects_result[0].address.length, 46)
+
 
   t.end()
 })
@@ -87,7 +99,7 @@ test('Can post a message with a subject and this is added to the channel', t => 
 test('Can create a public channel with some members', (t) => {
   const init_result = app.call('chat', 'main', 'init', {})
 
-  const create_result = app.call('chat', 'main', 'create_channel', {...testNewChannelParams, initial_members: [{id: "wollum"}]})
+  const create_result = app.call('chat', 'main', 'create_channel', {...testNewChannelParams, public: false, initial_members: [{id: "wollum"}, {id: "philipbeadle"}]})
   console.log(create_result)
   t.deepEqual(create_result.address.length, 46)
   t.end()

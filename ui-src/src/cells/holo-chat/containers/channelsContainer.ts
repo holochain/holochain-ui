@@ -2,27 +2,31 @@
 import { connect } from 'react-redux'
 import Channels, { OwnProps, StateProps, DispatchProps } from '../components/channels/channels'
 import { Dispatch } from 'redux'
-import * as constants from '../constants'
+// import * as constants from '../constants'
 
 import {
+  Init,
 	GetMyChannels,
 	GetSubjects,
-	CreateChannel
+	CreateChannel,
+  GetAllMembers
 } from '../actions'
 
 import { ChannelSpec } from '../types/model/channel'
 
 const mapStateToProps = (state: any): StateProps => {
   return {
-    channels: constants.channels, // state.holoChat.myChannels
-    subjects: constants.subjects
+    channels: state.holoChat.myChannels,
+    subjects: state.holoChat.subjects
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-  	getMyChannels: () => dispatch(GetMyChannels.create(undefined)), // can be written as  () => { return dispatch(...) }
-    getSubjects: (channelAddress: string) => dispatch(GetSubjects.create({ channelAddress: channelAddress })),
+    init: () => dispatch(Init.create({})),
+    getAllMembers: () => dispatch(GetAllMembers.create({})),
+  	getMyChannels: () => dispatch(GetMyChannels.create({})),
+    getSubjects: (channelAddress: string) => dispatch(GetSubjects.create({ channel_address: channelAddress })),
   	newChannel: (channelSpec: ChannelSpec) => dispatch(CreateChannel.create(channelSpec))
   }
 }

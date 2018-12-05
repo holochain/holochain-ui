@@ -1,5 +1,5 @@
 use hdk::{
-    self, 
+    self,
     holochain_core_types::hash::HashString,
     holochain_core_types::entry::Entry,
     error::ZomeApiResult,
@@ -17,7 +17,7 @@ pub type GetLinksLoadResult = Vec<GetLinksLoadElement>;
 
 
 pub fn get_links_and_load<S: Into<String>>(
-    base: &HashString, 
+    base: &HashString,
     tag: S
 ) -> ZomeApiResult<GetLinksLoadResult>  {
 	hdk::get_links(base, tag)

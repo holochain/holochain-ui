@@ -24,6 +24,7 @@ use super::utils;
 pub struct Channel {
     pub name: String,
     pub description: String,
+    pub public: bool
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
@@ -97,7 +98,7 @@ pub fn public_channel_definition() -> ValidatingEntryType {
                     Ok(())
                 }
             )
-        ]        
+        ]
     )
 }
 
@@ -114,7 +115,58 @@ pub fn direct_channel_definition() -> ValidatingEntryType {
 
         validation: |_channel: Channel, _ctx: hdk::ValidationData| {
             Ok(())
-        }
+        },
+
+        links: [
+            to!(
+                "member",
+                tag: "has_member",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
+            ),
+            from!(
+                "member",
+                tag: "member_of",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
+            ),
+            to!(
+                "subject",
+                tag: "channel_subject",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
+            ),
+            to!(
+                "message",
+                tag: "message_in",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
+            )
+        ]
     )
 }
 
@@ -162,7 +214,7 @@ pub fn handle_create_channel(
     public: bool,
 ) -> JsonString {
 
-    let channel = Channel{name, description};
+    let channel = Channel{name, description, public};
 
     let entry = match public {
         true => Entry::new(EntryType::App("public_channel".into()), channel),
@@ -210,17 +262,17 @@ pub fn handle_add_members(channel_address: HashString, members: Vec<member::Memb
     })
 }
 
-pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonString {
-    match get_messages(&channel_address) {
+pub fn handle_get_messages(address: HashString) -> JsonString {
+    match get_messages(&address) {
         Ok(result) => result.into(),
         Err(hdk_err) => hdk_err.into()
     }
 }
 
-pub fn handle_post_message(channel_address: HashString, message: message::Message, subjects: Vec<String>) -> JsonString {
-    match post_message(&channel_address, message, subjects) {
+pub fn handle_post_message(channel_address: HashString, message_spec: message::MessageSpec, subjects: Vec<String>) -> JsonString {
+    match post_message(&channel_address, message::Message::from_spec(&message_spec, &AGENT_ADDRESS.to_string(), &"0".into()), subjects) {
         Ok(()) => json!({"success": true}).into(),
-        Err(hdk_err) => hdk_err.into()
+        Err(hdk_err) => "handle_post_failed".into()
     }
 }
 
@@ -233,11 +285,17 @@ pub fn handle_get_subjects(channel_address: HashString) -> JsonString {
 
 /*=====  End of Public Zome functions  ======*/
 
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+struct GetMyChannelsResult {
+    entry: Channel,
+    address: Address
+}
 
-fn get_my_channels() -> ZomeApiResult<Vec<Channel>> {
+fn get_my_channels() -> ZomeApiResult<Vec<GetMyChannelsResult>> {
     utils::get_links_and_load(&member::get_my_member_id().hash(), "member_of").map(|results| {
         results.iter().map(|get_links_result| {
-                Channel::try_from(get_links_result.entry.value().clone()).unwrap()
+                let channel = Channel::try_from(get_links_result.entry.value().clone()).unwrap();
+                GetMyChannelsResult{entry: channel, address: get_links_result.address.clone()}
         }).collect()
     })
 }
@@ -250,8 +308,8 @@ fn get_members(channel_address: &HashString) -> ZomeApiResult<Vec<member::Member
     })
 }
 
-fn get_messages(channel_address: &HashString) -> ZomeApiResult<Vec<message::Message>> {
-    utils::get_links_and_load(channel_address, "message_in").map(|results| {
+fn get_messages(address: &HashString) -> ZomeApiResult<Vec<message::Message>> {
+    utils::get_links_and_load(address, "message_in").map(|results| {
         results.iter().map(|get_links_result| {
                 message::Message::try_from(get_links_result.entry.value().clone()).unwrap()
         }).collect()
@@ -279,11 +337,17 @@ fn post_message(channel_address: &HashString, message: message::Message, subject
     Ok(())
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+struct GetSubjectsResult {
+    entry: Subject,
+    address: Address
+}
 
-fn get_subjects(channel_address: &HashString) -> ZomeApiResult<Vec<String>> {
+fn get_subjects(channel_address: &HashString) -> ZomeApiResult<Vec<GetSubjectsResult>> {
     utils::get_links_and_load(channel_address, "channel_subject").map(|results| {
         results.iter().map(|get_links_result| {
-                Subject::try_from(get_links_result.entry.value().clone()).unwrap().name
+            let subject = Subject::try_from(get_links_result.entry.value().clone()).unwrap();
+            GetSubjectsResult{entry: subject, address: get_links_result.address.clone()}
         }).collect()
     })
 }

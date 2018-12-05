@@ -15,6 +15,8 @@ import NewChannel from '../../containers/newChannelContainer'
 import { Subject as SubjectType } from '../../types/model/subject'
 import Badge from '@material-ui/core/Badge'
 
+const updateInterval = 10000
+
 import {
   GetMyChannels,
   CreateChannel
@@ -55,8 +57,10 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
+  init: () => void,
   getMyChannels: typeof GetMyChannels.sig,
-  getSubjects: (channelAddress: string) => void
+  getSubjects: (channelAddress: string) => void,
+  getAllMembers: () => void,
   newChannel: typeof CreateChannel.sig,
 }
 
@@ -78,7 +82,8 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount () {
-    this.getChannelsInterval = setInterval(this.props.getMyChannels, 60000)
+    this.props.init()
+    this.getChannelsInterval = setInterval(this.props.getMyChannels, updateInterval)
   }
 
   componentWillUnmount () {
@@ -86,6 +91,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   handleNewChannelButtonClick = () => {
+    this.props.getAllMembers()
     this.setState({ modalOpen: true })
   }
 
@@ -122,27 +128,27 @@ class Channels extends React.Component<Props & RouterProps, State> {
         {title}
       </Typography>
         {channels.filter(function (channel: ChannelType) {
-          return channel.isPublic === isPublic
+          return channel.public === isPublic
         }).map((channel: ChannelType, index: number) => (
         <div key={index} className={classes.root}>
             <Route
               render={ ({ history }) => (
                 <ExpansionPanel style={{ boxShadow: 'none' }}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(channel.hash)}>
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(channel.address)}>
                     <Typography variant='h6'>{channel.name}</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <div>
                       {
                         subjects.filter(function (subject: SubjectType) {
-                          return subject.channelAddress === channel.hash
+                          return subject.channel_address === channel.address
                         }).map((subject: SubjectType, subjectIndex: number) => (
-                          <Badge badgeContent={subject.unread} color='primary' classes={{ badge: classes.badge }}>
+                          <Badge badgeContent={3} color='primary' classes={{ badge: classes.badge }}>
                             <Chip
                               key={subjectIndex}
-                              label={this.formatSubjectLabel(subject.subject)}
+                              label={this.formatSubjectLabel(subject.name)}
                               className={classes.chip}
-                              onClick={() => history.push(`/holo-chat/channel/${channel.hash}/subject/${subject.address}`)}
+                              onClick={() => history.push(`/holo-chat/subject/${subject.address}`)}
                             />
                           </Badge>
                           ))
