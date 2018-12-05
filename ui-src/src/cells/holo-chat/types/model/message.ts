@@ -1,16 +1,14 @@
 
 export interface MessageSpec {
-  content: {
-    text: string,
-    mediaLink?: string
-  }
+  message_type: string,
+  payload: string,
+  meta: string
 }
 
 export interface Message {
   author?: string,
   timestamp?: number,
-  content: {
-    text: string,
-    mediaLink?: string
-  }
+  message_type: string,
+  payload: string,
+  meta: string
 }

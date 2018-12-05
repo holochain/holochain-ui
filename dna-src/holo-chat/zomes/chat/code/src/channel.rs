@@ -262,17 +262,17 @@ pub fn handle_add_members(channel_address: HashString, members: Vec<member::Memb
     })
 }
 
-pub fn handle_get_messages(channel_address: HashString, min_count: u32) -> JsonString {
-    match get_messages(&channel_address) {
+pub fn handle_get_messages(address: HashString) -> JsonString {
+    match get_messages(&address) {
         Ok(result) => result.into(),
         Err(hdk_err) => hdk_err.into()
     }
 }
 
-pub fn handle_post_message(channel_address: HashString, message: message::Message, subjects: Vec<String>) -> JsonString {
-    match post_message(&channel_address, message, subjects) {
+pub fn handle_post_message(channel_address: HashString, message_spec: message::MessageSpec, subjects: Vec<String>) -> JsonString {
+    match post_message(&channel_address, message::Message::from_spec(&message_spec, &AGENT_ADDRESS.to_string(), &"0".into()), subjects) {
         Ok(()) => json!({"success": true}).into(),
-        Err(hdk_err) => hdk_err.into()
+        Err(hdk_err) => "handle_post_failed".into()
     }
 }
 
@@ -308,8 +308,8 @@ fn get_members(channel_address: &HashString) -> ZomeApiResult<Vec<member::Member
     })
 }
 
-fn get_messages(channel_address: &HashString) -> ZomeApiResult<Vec<message::Message>> {
-    utils::get_links_and_load(channel_address, "message_in").map(|results| {
+fn get_messages(address: &HashString) -> ZomeApiResult<Vec<message::Message>> {
+    utils::get_links_and_load(address, "message_in").map(|results| {
         results.iter().map(|get_links_result| {
                 message::Message::try_from(get_links_result.entry.value().clone()).unwrap()
         }).collect()
@@ -337,11 +337,17 @@ fn post_message(channel_address: &HashString, message: message::Message, subject
     Ok(())
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+struct GetSubjectsResult {
+    entry: Subject,
+    address: Address
+}
 
-fn get_subjects(channel_address: &HashString) -> ZomeApiResult<Vec<String>> {
+fn get_subjects(channel_address: &HashString) -> ZomeApiResult<Vec<GetSubjectsResult>> {
     utils::get_links_and_load(channel_address, "channel_subject").map(|results| {
         results.iter().map(|get_links_result| {
-                Subject::try_from(get_links_result.entry.value().clone()).unwrap().name
+            let subject = Subject::try_from(get_links_result.entry.value().clone()).unwrap();
+            GetSubjectsResult{entry: subject, address: get_links_result.address.clone()}
         }).collect()
     })
 }

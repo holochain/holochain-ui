@@ -11,7 +11,7 @@ export interface ChannelSpec {
 }
 
 export interface Channel {
-  hash: string,
+  address: string,
   public: boolean,
   name?: string,
   description?: string

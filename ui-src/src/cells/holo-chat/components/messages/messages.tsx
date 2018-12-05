@@ -5,8 +5,7 @@ import { List, ListItem } from '@material-ui/core'
 import MessageView from './messageView'
 import { Message as MessageType } from '../../types/view/message'
 import { MessageSpec } from '../../types/model/message'
-import { Channel as ChannelType } from '../../types/model/channel'
-import { Identity } from '../../types/model/identity'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
@@ -44,34 +43,37 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   }
 })
 
-interface OwnProps {
-  classes: any,
-  messages: Array<MessageType>,
-  channel: ChannelType,
-  members: Map<string, Identity>,
-  myHash: string,
-  getMessages: (channelUUID: string) => void,
-  getMembers: (channelUUID: string) => void,
-  whoami: () => void,
-  sendMessage: (payload: {channelAddress: string, subjects: [string], message: MessageSpec}) => void
+export interface OwnProps {
+  classes: any
 }
 
-interface State {
+export interface StateProps {
+  messages: Array<MessageType>,
+  channelAddress: string
+}
+
+export interface DispatchProps {
+  getMessages: (address: string) => void,
+  sendMessage: (payload: {channel_address: string, subjects: [string], message: MessageSpec}) => void
+}
+
+export interface State {
   message: string
   subject: string
 }
 
-class Messages extends React.Component<OwnProps, State> {
+export type Props = OwnProps & StateProps & DispatchProps
+
+export interface RouterProps extends RouteComponentProps<{channel: string}> {}
+
+class Messages extends React.Component<Props & RouterProps, State> {
   getMessageInterval: any
 
   componentDidMount () {
-    if (this.props.channel) {
-      // let address: string = this.props.
-      this.props.whoami()
-      this.props.getMembers(this.props.channel.hash)
+    if (this.props.channelAddress) {
       this.getMessageInterval = setInterval(() => {
-        this.props.getMessages(this.props.channel.hash)
-      }, 200)
+        this.props.getMessages(this.props.channelAddress)
+      }, 2000)
     }
   }
 
@@ -79,7 +81,7 @@ class Messages extends React.Component<OwnProps, State> {
     clearInterval(this.getMessageInterval)
   }
 
-  constructor (props: OwnProps) {
+  constructor (props: Props & RouterProps) {
     super(props)
     this.state = {
       message: '',
@@ -88,15 +90,22 @@ class Messages extends React.Component<OwnProps, State> {
   }
 
   handleSendMessage = () => {
-    console.log(this.state.message)
-    // call holochain here.
-    this.props.sendMessage({
-      channelAddress: this.props.channel.hash,
+    console.log({
+      channel_address: this.props.channelAddress,
       subjects: [this.state.subject],
       message: {
-        content: {
-          text: this.state.message
-        }
+        message_type: 'text',
+        payload: this.state.message,
+        meta: '{}'
+      }
+    })
+    this.props.sendMessage({
+      channel_address: this.props.channelAddress,
+      subjects: [this.state.subject],
+      message: {
+        message_type: 'text',
+        payload: this.state.message,
+        meta: '{}'
       }
     })
     this.setState({ message: '' })
@@ -170,4 +179,4 @@ class Messages extends React.Component<OwnProps, State> {
   }
 }
 
-export default withRoot(withStyles(styles)(Messages))
+export default withRoot(withStyles(styles)(withRouter(Messages)))

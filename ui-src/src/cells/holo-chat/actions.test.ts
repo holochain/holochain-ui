@@ -85,8 +85,8 @@ asyncActionTestTable.forEach(([name, action, testInput, testResponse]) => {
 
   describe(`${name} action`, () => {
 
-    it('should create an action that is correctly structured given parameters', async () => {
-      await store.dispatch(action.create(testInput))
+    it('should create an action that is correctly structured given parameters', () => {
+      store.dispatch(action.create(testInput))
       console.log(store.getActions()[0])
       expect(store.getActions()[0]).toEqual(action.request(testInput))
     })

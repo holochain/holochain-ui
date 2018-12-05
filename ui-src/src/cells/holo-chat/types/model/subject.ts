@@ -1,6 +1,6 @@
 export interface Subject {
-  channelAddress: string,
+  channel_address: string,
   address: string,
-  subject: string,
+  name: string,
   unread: number
 }

@@ -36,9 +36,13 @@ export function holochatReducer (state = initialState, action: ChatAction) {
   // console.log('processing action: ', action)
   switch (action.type) {
     case getType(chatActions.GetMyChannels.success):
+      let channels: Array<Channel> = action.payload.map((result: any) => ({
+        address: result.address,
+        ...result.entry
+      }))
       return {
         ...state,
-        myChannels: action.payload
+        myChannels: channels
       }
     case getType(chatActions.GetMessages.success):
       return {
@@ -67,12 +71,15 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         users: users
       }
     case getType(chatActions.GetSubjects.success):
-      let subjects: Array<Subject> = action.payload
+      let subjects: Array<Subject> = action.payload.map((result: any) => ({
+        address: result.address,
+        ...result.entry
+      }))
       if (subjects.length > 0) {
         // Remove any exisitng subjects for the channel and push the new ones in
-        let channelAddress: string = subjects[0].channelAddress
+        let channelAddress: string = subjects[0].channel_address
         let stateSubjects: Array<Subject> = state.subjects.filter(function (subject: Subject) {
-          return subject.channelAddress !== channelAddress
+          return subject.channel_address !== channelAddress
         })
         return {
           ...state,

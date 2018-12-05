@@ -218,28 +218,29 @@ class MiniDrawer extends React.Component {
           <MediaQuery minDeviceWidth={1025}>
             <Route exact path='/home' title='Holochain' render={props =>
               <div>
-                <Desktop />
+                <Desktop {...props} />
               </div>
             } />
             <Route exact path='/' title='Holochain' render={props =>
               <div>
-                <Desktop />
+                <Desktop {...props} />
               </div>
             } />
-            <Route path='/holo-chat' title='Holochain' render={props =>
+            <Route path='/holo-chat/channel/:channel' title='Holochain' render={props =>
               <Grid container={true} spacing={0}>
                 <Grid item={true} xs={3}>
-                  <ChannelsContainer title={'Public Channels'} isPublic={true}/>
-                  <ChannelsContainer title={'Direct Messages'} isPublic={false}/>
+                  <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} />
+                  <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} />
                 </Grid>
                 <Grid item={true} xs={7}>
-                  <MessagesContainer />
+                  <MessagesContainer {...props} />
                 </Grid>
                 <Grid item={true} xs={2}>
                   <Paper><Typography variant='h5'>Ideas</Typography></Paper>
                 </Grid>
               </Grid>
             } />
+
           </MediaQuery>
           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1024}>
             <Desktop />
