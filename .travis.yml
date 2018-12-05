@@ -2,11 +2,14 @@ language: node_js
 
 node_js:
 - '10'
+services:
+- docker
 
 before_install:
 - cd ui-src
 - npm install
 - cd ..
 script:
+- docker run -v "$(pwd):/holochain-ui" willemolding/holochain:latest bash -c "cd /holochain-ui/dna-src/holo-chat && hc test"
 - cd ui-src
 - npm run test
