@@ -1,5 +1,5 @@
 import { createAction } from 'typesafe-actions'
-import { createHolochainAsyncAction } from '../../utils/holochainWebsocketsActions'
+import { createHolochainAsyncAction } from '../../utils/hcMiddlewareActions'
 
 // import { Message, MessageSpec } from './types/model/message'
 import { Channel, ChannelSpec } from './types/model/channel'

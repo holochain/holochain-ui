@@ -1,10 +1,9 @@
 import configureMockStore, { MockStoreEnhanced } from 'redux-mock-store'
-import thunk from 'redux-thunk'
 
 import * as chatActions from './actions'
 import { initialState } from './reducer'
 
-const mockStore = configureMockStore([thunk])
+const mockStore = configureMockStore()
 let store: MockStoreEnhanced
 
 beforeEach(() => {
@@ -87,8 +86,7 @@ asyncActionTestTable.forEach(([name, action, testInput, testResponse]) => {
 
     it('should create an action that is correctly structured given parameters', () => {
       store.dispatch(action.create(testInput))
-      console.log(store.getActions()[0])
-      expect(store.getActions()[0]).toEqual(action.request(testInput))
+      expect(store.getActions()[0]).toEqual(action.create(testInput))
     })
   })
 })
