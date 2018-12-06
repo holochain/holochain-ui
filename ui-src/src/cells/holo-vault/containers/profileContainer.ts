@@ -32,8 +32,8 @@ const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps 
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    getProfiles: () => dispatch(GetProfiles.create(undefined)),
-    getPersonas: () => dispatch(GetPersonas.create(undefined)),
+    getProfiles: () => dispatch(GetProfiles.create({})),
+    getPersonas: () => dispatch(GetPersonas.create({})),
     setCurrentPersona: (newCurrentPersona: PersonaType) => { dispatch(SetCurrentPersona(newCurrentPersona)) },
     save: (profile: ProfileType, personas: Array<PersonaType>) => {
       // call createMapping on all of the fields with a mapping

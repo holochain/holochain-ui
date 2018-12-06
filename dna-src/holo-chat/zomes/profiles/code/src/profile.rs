@@ -1,5 +1,6 @@
 
 
+use hdk::holochain_core_types::cas::content::Address;
 use hdk::holochain_core_types::error::HolochainError;
 use hdk::holochain_core_types::json::JsonString;
 use hdk::holochain_core_types::hash::HashString;
@@ -24,15 +25,10 @@ pub struct ProfileFieldSpec {
     pub displayName: String,
     pub required: bool,
     pub description: String,
-    pub usage: UsageType,
+    pub usage: String,
     pub schema: String
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
-pub enum UsageType {
-    STORE,
-    DISPLAY
-}
 
 #[derive(Serialize, Deserialize, Debug, DefaultJson)]
 pub struct ProfileMapping {
@@ -63,7 +59,7 @@ pub struct ProfileField {
     pub displayName: String,
     pub required: bool,
     pub description: String,
-    pub usage: UsageType,
+    pub usage: String,
     pub schema: String,
     pub mapping: Option<FieldMapping>
 }
@@ -76,12 +72,27 @@ pub fn profile_definition() -> ValidatingEntryType {
         native_type: ProfileSpec,
 
         validation_package: || {
-            hdk::ValidationPackageDefinition::ChainFull
+            hdk::ValidationPackageDefinition::Entry
         },
 
         validation: |_profile: ProfileSpec, _ctx: hdk::ValidationData| {
             Ok(())
-        }
+        },
+
+        links: [
+            to!(
+                "field_mapping",
+                tag: "field_mappings",
+                
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
+                )
+        ]
     )
 }
 

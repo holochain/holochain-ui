@@ -23,8 +23,7 @@ define_zome! {
 
     genesis: || {
         {
-          specs::populate_specs();
-			    Ok(())
+			Ok(())
         }
     }
 

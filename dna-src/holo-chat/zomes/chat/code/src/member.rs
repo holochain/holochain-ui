@@ -51,7 +51,7 @@ pub fn member_id_definition() -> ValidatingEntryType {
 
         links: [
             to!(
-                "profile",
+                "chat_profile",
                 tag: "profile",
 
                 validation_package: || {
@@ -89,7 +89,7 @@ pub struct StoreProfile {
 
 pub fn profile_definition() -> ValidatingEntryType {
     entry!(
-        name: "profile",
+        name: "chat_profile",
         description: "The data that chat has about a particular user",
         sharing: Sharing::Public,
         native_type: StoreProfile,

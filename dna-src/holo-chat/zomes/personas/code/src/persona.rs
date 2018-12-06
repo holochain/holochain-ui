@@ -13,6 +13,7 @@ use hdk::holochain_core_types::{
 	entry::Entry,
 	entry::entry_type::EntryType,
 	dna::zome::entry_types::Sharing,
+	cas::content::Address,
 };
 
 
@@ -51,7 +52,22 @@ pub fn persona_definition() -> ValidatingEntryType {
 
         validation: |_persona: PersonaSpec, _ctx: hdk::ValidationData| {
         	Ok(())
-        }
+        },
+
+        links: [
+            to!(
+                "personaField",
+                tag: "fields",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
+            )
+        ]
 	)
 }
 
@@ -77,32 +93,28 @@ pub fn field_definition() -> ValidatingEntryType {
 ==========================================*/
 
 pub fn handle_create_persona(spec: PersonaSpec) -> JsonString {
-
-	let persona_entry = Entry::new(EntryType::App("persona".into()), spec);
-	let anchor_entry = Entry::new(EntryType::App("anchor".into()), json!("personas"));
-
-	match (
-		hdk::commit_entry(&persona_entry),
-		hdk::commit_entry(&anchor_entry)
-	) {
-		(Ok(persona_address),Ok(anchor_address)) => {
-			match hdk::link_entries(&anchor_address, &persona_address, "personas") {
-				Ok(_) => json!({"address": persona_address}).into(),
-				Err(hdk_error) => hdk_error.into(),
-			}
-		},
-		(Err(err1), Err(_)) => err1.into(),
-		(Ok(_), Err(err2)) => err2.into(),
-		(Err(err1), Ok(_)) => err1.into(),
+	match create_persona(spec) {
+		Ok(result) => result,
+		Err(hdk_err) => hdk_err.into()
 	}
 }
 
+fn create_persona(spec: PersonaSpec) -> ZomeApiResult<JsonString> {
+	let anchor_entry = Entry::new(EntryType::App("vault_anchor".into()), json!("personas"));
+	let persona_entry = Entry::new(EntryType::App("persona".into()), spec);
+
+	let anchor_address = hdk::commit_entry(&anchor_entry)?;
+	let persona_address = hdk::commit_entry(&persona_entry)?;
+	hdk::link_entries(&anchor_address, &persona_address, "personas")?;
+
+	Ok(json!({"address": persona_address}).into())
+}
 
 
 
 pub fn handle_get_personas() -> JsonString {
 	let anchor_address = hdk::commit_entry(
-		&Entry::new(EntryType::App("anchor".into()), json!("personas"))
+		&Entry::new(EntryType::App("vault_anchor".into()), json!("personas"))
 	).expect("Could not commit anchor");
 
 	let get_links_results: ZomeApiResult<GetLinksLoadResult> = get_links_and_load(&anchor_address, "personas");

@@ -35,7 +35,7 @@ const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps 
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    getPersonas: () => dispatch(GetPersonas.create(undefined)),
+    getPersonas: () => dispatch(GetPersonas.create({})),
     create: (personaSpec: PersonaSpec, personaFields: Array<PersonaField>) => {
       return dispatch(CreatePersona.create({ spec: personaSpec }))
         .then((response: any) => {

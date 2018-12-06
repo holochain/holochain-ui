@@ -13,7 +13,7 @@ pub fn populate_specs() {
                 description: "How you are referenced in chat".into(),
                 required: true,
                 schema: "{}".into(),
-                usage: profile::UsageType::STORE,
+                usage: "STORE".into(),
             },
             profile::ProfileFieldSpec {
                 name: "firstName".into(),
@@ -21,7 +21,7 @@ pub fn populate_specs() {
                 description: "Used when others search for you".into(),
                 required: true,
                 schema: "{}".into(),
-                usage: profile::UsageType::DISPLAY,
+                usage: "DISPLAY".into(),
             }
         ),
 
@@ -37,7 +37,7 @@ pub fn populate_specs() {
                 description: "How you are referenced in chat".into(),
                 required: true,
                 schema: "{}".into(),
-                usage: profile::UsageType::STORE,
+                usage: "STORE".into(),
             },
             profile::ProfileFieldSpec {
                 name: "firstName".into(),
@@ -45,7 +45,7 @@ pub fn populate_specs() {
                 description: "Used when others search for you".into(),
                 required: true,
                 schema: "{}".into(),
-                usage: profile::UsageType::DISPLAY,
+                usage: "DISPLAY".into(),
             }
         ),
 
@@ -61,7 +61,7 @@ pub fn populate_specs() {
                 description: "How you are referenced in chat".into(),
                 required: true,
                 schema: "{}".into(),
-                usage: profile::UsageType::STORE,
+                usage: "STORE".into(),
             },
             profile::ProfileFieldSpec {
                 name: "firstName".into(),
@@ -69,7 +69,7 @@ pub fn populate_specs() {
                 description: "Used when others search for you".into(),
                 required: true,
                 schema: "{}".into(),
-                usage: profile::UsageType::DISPLAY,
+                usage: "DISPLAY".into(),
             },
             profile::ProfileFieldSpec {
                 name: "lastName".into(),
@@ -77,7 +77,7 @@ pub fn populate_specs() {
                 description: "Used when others search for you".into(),
                 required: true,
                 schema: "{}".into(),
-                usage: profile::UsageType::DISPLAY,
+                usage: "DISPLAY".into(),
             },
             profile::ProfileFieldSpec {
                 name: "location".into(),
@@ -85,7 +85,7 @@ pub fn populate_specs() {
                 description: "Helps with setting up meetings".into(),
                 required: true,
                 schema: "{}".into(),
-                usage: profile::UsageType::DISPLAY,
+                usage: "DISPLAY".into(),
             },
             profile::ProfileFieldSpec {
                 name: "role".into(),
@@ -93,7 +93,7 @@ pub fn populate_specs() {
                 description: "Gives context on your core responsibilies".into(),
                 required: true,
                 schema: "{}".into(),
-                usage: profile::UsageType::DISPLAY,
+                usage: "DISPLAY".into(),
             }
         ),
 

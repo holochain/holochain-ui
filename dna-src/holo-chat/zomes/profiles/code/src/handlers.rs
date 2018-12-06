@@ -13,19 +13,24 @@ use std::convert::TryFrom;
 
 
 pub fn handle_register_app(spec: profile::ProfileSpec) -> JsonString {
-    match (
-		hdk::commit_entry(&Entry::new(EntryType::App("profile".into()), spec)),
-		hdk::commit_entry(&Entry::new(EntryType::App("anchor".into()), json!("profiles")))
-	) {
-		(Ok(profile_address),Ok(anchor_address)) => {
-			match hdk::link_entries(&anchor_address, &profile_address, "") {
-				Ok(_) => json!({"success": true}).into(),
-				Err(hdk_error) => json!({"success": false}).into(),
-			}
-		},
-		_ => json!({"success": false}).into(),
-	}
+    match register_app(spec) {
+    	Ok(result) => result,
+    	Err(hdk_error) => hdk_error.into()
+    }
 }
+
+fn register_app(spec: profile::ProfileSpec) -> ZomeApiResult<JsonString> {
+
+	let anchor_entry = Entry::new(EntryType::App("vault_anchor".into()), json!("profiles"));
+	let profile_entry = Entry::new(EntryType::App("profile".into()), spec);
+
+	let anchor_address = hdk::commit_entry(&anchor_entry)?;
+	let profile_address = hdk::commit_entry(&profile_entry)?;
+	hdk::link_entries(&anchor_address, &profile_address, "profiles")?;
+
+	Ok(json!({"success": true}).into())
+}
+
 
 pub fn handle_get_profiles() -> JsonString { // array of profiles
 
@@ -76,9 +81,9 @@ pub fn handle_retrieve(_retriever_dna: HashString, _profile_field: String) -> Js
 
 
 fn get_profiles() -> ZomeApiResult<Vec<profile::Profile>> {
-	let anchor_address = hdk::commit_entry(&Entry::new(EntryType::App("anchor".into()), json!("profiles"))).expect("Could not commit anchor");
+	let anchor_address = hdk::commit_entry(&Entry::new(EntryType::App("vault_anchor".into()), json!("profiles"))).expect("Could not commit anchor");
 
-	get_links_and_load(&anchor_address, "")
+	get_links_and_load(&anchor_address, "profiles")
 		.map(|result| {
 			result.iter().map(|elem| {
 

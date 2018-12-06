@@ -146,7 +146,7 @@ define_zome! {
 
 	for profile in test_data::get_test_profiles().iter() {
 	    let member_entry = Entry::new(EntryType::App("member".into()), member::Member{id: profile.to_owned().handle.into(), profile:None});
-	    let profile_entry = Entry::new(EntryType::App("profile".into()), member::StoreProfile{handle: profile.to_owned().handle.into(), email: profile.to_owned().email.into(), avatar: profile.to_owned().avatar.into(), timezone:profile.to_owned().timezone.into()});
+	    let profile_entry = Entry::new(EntryType::App("chat_profile".into()), member::StoreProfile{handle: profile.to_owned().handle.into(), email: profile.to_owned().email.into(), avatar: profile.to_owned().avatar.into(), timezone:profile.to_owned().timezone.into()});
 
 	    let member_address = hdk::commit_entry(&member_entry)?;
 	    let profile_address = hdk::commit_entry(&profile_entry)?;

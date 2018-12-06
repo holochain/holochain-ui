@@ -3,10 +3,14 @@ id = "test_agent"
 name = "HoloTester"
 key_file = "holo_tester.key"
 
+
+
 [[dnas]]
 id = "chat_dna"
 file = "dna/holo-chat.hcpkg"
-hash = "QmN0tARea1#ash"
+hash = "QmChatN0tARea1#ash"
+
+
 
 [[instances]]
 id = "holo-chat"
@@ -18,6 +22,9 @@ file = "app_spec.log"
 [instances.storage]
 type = "file"
 path = "tmp-storage"
+
+
+
 
 
 [[interfaces]]

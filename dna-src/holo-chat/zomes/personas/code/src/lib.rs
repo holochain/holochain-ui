@@ -12,6 +12,7 @@ extern crate holochain_core_types_derive;
 use hdk::holochain_core_types::{
     hash::HashString,
     dna::zome::entry_types::Sharing,
+    cas::content::Address
 };
 
 pub mod persona;
@@ -23,7 +24,7 @@ pub mod persona;
 		persona::persona_definition(),
         persona::field_definition(),
 		entry!(
-			name: "anchor",
+			name: "vault_anchor",
 	        description: "",
 	        sharing: Sharing::Public,
 	        native_type: String,
@@ -34,17 +35,39 @@ pub mod persona;
 
 	        validation: |name: String, _ctx: hdk::ValidationData| {
 	        	Ok(())
-	        }
+	        },
+
+            links: [
+                to!(
+                    "persona",
+                    tag: "personas",
+
+                    validation_package: || {
+                        hdk::ValidationPackageDefinition::Entry
+                    },
+
+                    validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                        Ok(())
+                    }
+                ),
+                to!(
+                    "profile",
+                    tag: "profiles",
+
+                    validation_package: || {
+                        hdk::ValidationPackageDefinition::Entry
+                    },
+
+                    validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                        Ok(())
+                    }
+                )
+            ]
 		)
 	]
 
     genesis: || {
         {
-            let default_persona_spec = persona::PersonaSpec {
-                name: "Default".into()
-            };
-            
-            hdk::call("personas", "main", "create_persona", json!({"spec": default_persona_spec}).into());
             Ok(())
         }
     }
