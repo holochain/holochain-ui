@@ -1,5 +1,5 @@
 
-import { createHolochainAsyncAction } from '../../utils/holochainAxiosActions'
+import { createHolochainAsyncAction } from '../../utils/hcMiddlewareActions'
 import { createAction } from 'typesafe-actions'
 
 import { Persona, PersonaSpec, PersonaField } from './types/persona'
