@@ -89,7 +89,7 @@ class NewChannel extends React.Component<Props, State> {
       description: '',
       public: this.props.isPublic
     }
-    this.props.onSubmit(channelSpec)
+    this.props.onSubmit(channelSpec) // need to add a promise and push to the new channelAddress
   }
 
   render () {

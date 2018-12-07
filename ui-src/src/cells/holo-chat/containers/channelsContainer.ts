@@ -9,7 +9,9 @@ import {
 	GetMyChannels,
 	GetSubjects,
 	CreateChannel,
-  GetAllMembers
+  GetAllMembers,
+  SetChannelAddress,
+  SetSubjectAddress
 } from '../actions'
 
 import { ChannelSpec } from '../types/model/channel'
@@ -27,7 +29,9 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
     getAllMembers: () => dispatch(GetAllMembers.create({})),
   	getMyChannels: () => dispatch(GetMyChannels.create({})),
     getSubjects: (channelAddress: string) => dispatch(GetSubjects.create({ channel_address: channelAddress })),
-  	newChannel: (channelSpec: ChannelSpec) => dispatch(CreateChannel.create(channelSpec))
+  	newChannel: (channelSpec: ChannelSpec) => dispatch(CreateChannel.create(channelSpec)),
+    setChannelAddress: (channelAddress: String) => dispatch(SetChannelAddress(channelAddress)),
+    setSubjectAddress: (subjectAddress: String) => dispatch(SetSubjectAddress(subjectAddress))
   }
 }
 

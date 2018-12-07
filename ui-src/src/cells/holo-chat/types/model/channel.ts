@@ -13,6 +13,6 @@ export interface ChannelSpec {
 export interface Channel {
   address: string,
   public: boolean,
-  name?: string,
+  name: string,
   description?: string
 }
