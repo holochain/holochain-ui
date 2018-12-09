@@ -1,5 +1,5 @@
 import { createAction } from 'typesafe-actions'
-import { createHolochainAsyncAction } from '../../utils/hcMiddlewareActions'
+import { createHolochainAsyncAction } from '@holochain/hc-redux-middleware'
 
 // import { Message, MessageSpec } from './types/model/message'
 import { Channel, ChannelSpec } from './types/model/channel'
