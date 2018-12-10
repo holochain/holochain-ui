@@ -9,7 +9,11 @@ extern crate serde_json;
 #[macro_use]
 extern crate holochain_core_types_derive;
 
-use hdk::error::ZomeApiResult;
+use hdk::{
+    AGENT_ADDRESS,
+    error::ZomeApiResult,
+};
+
 use hdk::holochain_core_types::{
     hash::HashString,
     entry::Entry,
@@ -143,6 +147,15 @@ define_zome! {
  fn run_init() -> ZomeApiResult<()> {
 	let anchor_entry = Entry::new(EntryType::App("anchor".into()), json!("member_directory"));
 	let anchor_address = hdk::commit_entry(&anchor_entry)?;
+
+    let agent_entry = Entry::new(EntryType::App("member".into()), member::Member{id: AGENT_ADDRESS.to_string(), profile:None});
+    let agent_profile_entry = Entry::new(EntryType::App("profile".into()), member::StoreProfile{handle: "Phil".into(), email: "philip.beadle@holo.host".into(), avatar: "".into(), timezone:"ADT".into()});
+
+    let agent_address = hdk::commit_entry(&agent_entry)?;
+    let agent_profile_address = hdk::commit_entry(&agent_profile_entry)?;
+
+    hdk::link_entries(&anchor_address, &agent_address, "member_tag")?;
+    hdk::link_entries(&agent_address, &agent_profile_address, "profile")?;
 
 	for profile in test_data::get_test_profiles().iter() {
 	    let member_entry = Entry::new(EntryType::App("member".into()), member::Member{id: profile.to_owned().handle.into(), profile:None});

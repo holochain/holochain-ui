@@ -1,4 +1,4 @@
-import { Message, MessageType } from './types/view/message'
+import { Message } from './types/model/message'
 import { Channel } from './types/model/channel'
 import { Subject } from './types/model/subject'
 
@@ -128,38 +128,17 @@ export const subjects: Array<Subject> = [
 
 export const messages: Array<Message> = [
   {
-    type: MessageType.CHAT,
-    author: 'Phil',
-    channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
-    subjectAddress: 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8AoP',
+    message_type: 'text',
+    author: 'Phil_hash_address',
     timestamp: 10,
-    content: {
-      text: 'Lets add a subject to each message so we can gete some context happening'
-    }
-  },{
-    type: MessageType.CHAT,
-    author: 'Phil',
-    channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
-    subjectAddress: 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8AoP',
-    timestamp: 10,
-    content: {
-      text: 'Lets add a subject to each message so we can gete some context happening'
-    }
+    payload: 'Lets add a subject to each message so we can gete some context happening',
+    meta: ''
   },
   {
-    type: MessageType.IDEA,
-    author: 'Jean',
-    channelAddress: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
-    subjectAddress: 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Videos',
+    message_type: 'text',
+    author: 'Phil_hash_address',
     timestamp: 10,
-    content: {
-      upVotes: 33,
-      downVotes: 0,
-      description: 'New Channel feature makes it intuitive to add new channels with members.',
-      avatar: '',
-      productOwner: 'Phil',
-      title: 'New Channel'
-    },
-    replies: []
+    payload: 'Lets add a subject to each message so we can gete some context happening',
+    meta: ''
   }
 ]

@@ -27,7 +27,7 @@ import ErrandContainer from '../cells/errand/containers/errandContainer'
 import ArcsOfPresenceContainer from '../cells/holo-chat/containers/arcsOfPresenceContainer'
 import Desktop from './desktop'
 import Mobile from './mobile'
-import { MainNav } from './navData';
+import MainNav from './navData';
 import HoloVaultNav from './holoVaultNavData';
 import StorybookSkin from './storybook'
 import HoloChatNav from './holoChatNavData'
@@ -72,6 +72,7 @@ const styles = theme => ({
     display: 'none',
   },
   drawerPaper: {
+    backgroundColor: '#3A277A',
     position: 'relative',
     whiteSpace: 'nowrap',
     width: drawerWidth,
@@ -103,9 +104,8 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    backgroundColor: '#ffffff',
-    padding: theme.spacing.unit * 2,
-    marginTop: 50
+    padding: 0,
+    marginTop: 58
   }
 });
 
@@ -159,7 +159,11 @@ class MiniDrawer extends React.Component {
               </IconButton>
             </div>
             <Divider />
-            <List><MainNav handleDrawerClose={this.handleDrawerClose}/></List>
+            <List>
+              <Route path='/' render={props =>
+                <MainNav handleDrawerClose={this.handleDrawerClose} />
+              } />
+            </List>
             <Divider />
             <List>
               <Route path='/holo-vault' render={props =>
@@ -188,7 +192,11 @@ class MiniDrawer extends React.Component {
               </IconButton>
             </div>
             <Divider />
-            <List><MainNav handleDrawerClose={this.handleDrawerClose}/></List>
+              <List>
+                <Route path='/' render={props =>
+                  <MainNav handleDrawerClose={this.handleDrawerClose} />
+                } />
+              </List>
             <Divider />
             <List>
               <Route path='/holo-vault' render={props =>
@@ -236,7 +244,7 @@ class MiniDrawer extends React.Component {
                   <MessagesContainer {...props} />
                 </Grid>
                 <Grid item={true} xs={2}>
-                  <Paper><Typography variant='h5'>Ideas</Typography></Paper>
+                  <Paper></Paper>
                 </Grid>
               </Grid>
             } />
@@ -248,11 +256,16 @@ class MiniDrawer extends React.Component {
           <MediaQuery maxDeviceWidth={767}>
             <Route exact path='/home' title='Holochain' component={Desktop} />
             <Route exact path='/' title='Holochain' component={Desktop} />
-            <Route path='/holo-chat' title='Holochain' render={props =>
-              <div>
-                <ArcsOfPresenceContainer />
-                <MessagesContainer />
-              </div>
+            <Route path={['/holo-chat/channel/:channel', '/holo-chat/subject/:subject', '/holo-chat' ]} title='Holochain' render={props =>
+              <Grid container={true} spacing={0}>
+                <Grid item={true} xs={4}>
+                  <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} />
+                  <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} />
+                </Grid>
+                <Grid item={true} xs={8}>
+                  <MessagesContainer {...props} />
+                </Grid>
+              </Grid>
             } />
           </MediaQuery>
 

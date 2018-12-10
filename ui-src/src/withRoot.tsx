@@ -7,15 +7,25 @@ const theme = createMuiTheme({
     useNextVariants: true
   },
   palette: {
+    type: 'dark',
     primary: {
-      light: '#6600ff',
+      light: '#7986cb',
       main: '#3A277A',
-      dark: '#00ff99'
+      dark: '#303f9f',
+      contrastText: '#fff'
     },
     secondary: {
-      light: '#6ff9ff',
-      main: '#00838D',
-      dark: '#0095a8'
+      light: 'rgba(29, 169, 199, 1)',
+      main: 'rgba(0, 131, 141, 1)',
+      dark: 'rgba(16, 110, 131, 1)',
+      contrastText: '#fff'
+    }
+  },
+  overrides: {
+    MuiButton: { // Name of the component ⚛️ / style sheet
+      root: {
+        background: '#7986cb'
+      }
     }
   }
 })
