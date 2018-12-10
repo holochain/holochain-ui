@@ -2,7 +2,7 @@ import { createAction } from 'typesafe-actions'
 import { createHolochainAsyncAction } from '@holochain/hc-redux-middleware'
 
 // import { Message, MessageSpec } from './types/model/message'
-import { Channel, ChannelSpec } from './types/model/channel'
+import { ChannelSpec } from './types/model/channel'
 // import { Identity } from './types/model/identity'
 // import { Subject } from './types/model/subject'
 
@@ -38,8 +38,12 @@ export const GetProfile = createHolochainAsyncAction<any, string>('holo-chat', '
 
 /*----------  Non-holochain actions  ----------*/
 
-export const SetActiveChannel = createAction('holochat/setActiveChannel', resolve => {
-  return (channel: Channel) => resolve(channel)
+export const SetChannelAddress = createAction('holochat/setChannelAddress', resolve => {
+  return (channelAddress: String) => resolve(channelAddress)
+})
+
+export const SetSubjectAddress = createAction('holochat/setSubject', resolve => {
+  return (subjectAddress: String) => resolve(subjectAddress)
 })
 
 /*=====  End of Action Type Definitions  ======*/

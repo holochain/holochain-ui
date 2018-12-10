@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Send from '@material-ui/icons/Send'
 
-const updateInterval = 1000
+const updateInterval = 10000
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
@@ -73,18 +73,17 @@ class Messages extends React.Component<Props & RouterProps, State> {
   getMessageInterval: any
 
   componentDidMount () {
-    console.log('this.props.subjectAddress' + this.props.subjectAddress)
 
-    console.log('this.props.channelAddress' + this.props.channelAddress)
-    if (this.props.subjectAddress) {
-      this.getMessageInterval = setInterval(() => {
+    this.getMessageInterval = setInterval(() => {
+      if (this.props.subjectAddress) {
+        // console.log('this.props.subjectAddress' + this.props.subjectAddress)
         this.props.getMessages(this.props.subjectAddress)
-      }, updateInterval)
-    } else if (this.props.channelAddress) {
-      this.getMessageInterval = setInterval(() => {
+        console.log(this.props.messages)
+      } else if (this.props.channelAddress) {
+        // console.log('this.props.channelAddress' + this.props.channelAddress)
         this.props.getMessages(this.props.channelAddress)
-      }, updateInterval)
-    }
+      }
+    }, updateInterval)
   }
 
   componentWillUnmount () {
@@ -137,10 +136,6 @@ class Messages extends React.Component<Props & RouterProps, State> {
 
   render () {
     const { classes, messages } = this.props
-
-    messages.sort((a, b) => {
-      return a.timestamp - b.timestamp
-    })
 
     return (
       <Paper className={classes.root}>

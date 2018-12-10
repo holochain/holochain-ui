@@ -15,7 +15,7 @@ import NewChannel from '../../containers/newChannelContainer'
 import { Subject as SubjectType } from '../../types/model/subject'
 import Badge from '@material-ui/core/Badge'
 
-const updateInterval = 1000
+const updateInterval = 10000
 
 import {
   GetMyChannels,
@@ -62,6 +62,8 @@ export interface DispatchProps {
   getSubjects: (channelAddress: string) => void,
   getAllMembers: () => void,
   newChannel: typeof CreateChannel.sig,
+  setChannelAddress: (channelAddress: String) => void,
+  setSubjectAddress: (subjectAddress: String) => void
 }
 
 export interface RouterProps extends RouteComponentProps<{channel: string, subject?: string}> {}
@@ -98,6 +100,10 @@ class Channels extends React.Component<Props & RouterProps, State> {
   addNewChannel = (channelSpec: ChannelSpec) => {
     this.setState({ modalOpen: false })
     this.props.newChannel(channelSpec)
+      .then((result: any) => {
+        // console.log(result.payload.address)
+        this.props.history.push(`/holo-chat/channel/${result.payload.address}`)
+      })
       .catch((err: Error) => {
         console.log(err)
       })
@@ -108,9 +114,16 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   getSubjects = (channelAddress: string) => {
-    console.log(`get subjects for ${channelAddress}`)
+    // console.log(`get subjects for ${channelAddress}`)
     this.props.history.push(`/holo-chat/channel/${channelAddress}`)
+    this.props.setChannelAddress(channelAddress)
     this.props.getSubjects(channelAddress)
+  }
+
+  getMessages = (subjectAddress: string) => {
+    // console.log(`get messages for ${subjectAddress}`)
+    this.props.history.push(`/holo-chat/subject/${subjectAddress}`)
+    this.props.setSubjectAddress(subjectAddress)
   }
 
   formatSubjectLabel = (subject: string): string => {
@@ -132,7 +145,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
         }).map((channel: ChannelType, index: number) => (
         <div key={index} className={classes.root}>
             <Route
-              render={ ({ history }) => (
+              render={ () => (
                 <ExpansionPanel style={{ boxShadow: 'none' }}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(channel.address)}>
                     <Typography variant='h6'>{channel.name}</Typography>
@@ -148,7 +161,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
                               key={subjectIndex}
                               label={this.formatSubjectLabel(subject.name)}
                               className={classes.chip}
-                              onClick={() => history.push(`/holo-chat/subject/${subject.address}`)}
+                              onClick={() => this.getMessages(subject.address)}
                             />
                           </Badge>
                           ))

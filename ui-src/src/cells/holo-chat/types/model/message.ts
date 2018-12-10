@@ -6,8 +6,8 @@ export interface MessageSpec {
 }
 
 export interface Message {
-  author?: string,
-  timestamp?: number,
+  author: string,
+  timestamp: number,
   message_type: string,
   payload: string,
   meta: string

@@ -188,7 +188,7 @@ pub fn subject_anchor_definition() -> ValidatingEntryType {
         links: [
             to!(
                 "message",
-                tag: "subject_message",
+                tag: "message_in",
 
                 validation_package: || {
                     hdk::ValidationPackageDefinition::Entry
@@ -308,10 +308,17 @@ fn get_members(channel_address: &HashString) -> ZomeApiResult<Vec<member::Member
     })
 }
 
-fn get_messages(address: &HashString) -> ZomeApiResult<Vec<message::Message>> {
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+struct GetMyMessagesResult {
+    entry: message::Message,
+    address: Address
+}
+
+fn get_messages(address: &HashString) -> ZomeApiResult<Vec<GetMyMessagesResult>> {
     utils::get_links_and_load(address, "message_in").map(|results| {
         results.iter().map(|get_links_result| {
-                message::Message::try_from(get_links_result.entry.value().clone()).unwrap()
+                let message = message::Message::try_from(get_links_result.entry.value().clone()).unwrap();
+                GetMyMessagesResult{entry: message, address: get_links_result.address.clone()}
         }).collect()
     })
 }
@@ -328,9 +335,10 @@ fn post_message(channel_address: &HashString, message: message::Message, subject
             Subject{name: subject.to_owned(), channel_address: channel_address.clone()});
 
         let subject_address = hdk::commit_entry(&subject_entry)?;
-
-        hdk::link_entries(&channel_address, &subject_address, "channel_subject")?;
-        hdk::link_entries(&subject_address, &message_addr, "subject_message")?;
+        hdk::debug("subject_address")?;
+        hdk::debug(&subject_address)?;
+        hdk::debug(hdk::link_entries(&subject_address, &message_addr, "message_in")?)?;
+        hdk::debug(hdk::link_entries(&channel_address, &subject_address, "channel_subject")?)?;
         Ok(())
     }).collect::<ZomeApiResult<()>>()?;
 

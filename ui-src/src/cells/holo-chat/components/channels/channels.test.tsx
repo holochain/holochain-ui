@@ -35,7 +35,9 @@ export const channelsTests = describe('Listing your channels', () => {
     getSubjects: mockFn,
     title: 'Public Channels',
     isPublic: true,
-    subjects: constants.subjects
+    subjects: constants.subjects,
+    setChannelAddress: mockFn,
+    setSubjectAddress: mockFn
   }
 
   it('When there is a list of existing channels the channel view shows the list of existing channels', () => {

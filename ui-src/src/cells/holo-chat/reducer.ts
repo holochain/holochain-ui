@@ -12,7 +12,7 @@ export type ChatAction = ActionType<typeof chatActions>
 export interface HoloChatState {
   readonly myChannels: Array<Channel>,
   readonly channelSubjects: Map<String, Array<String>>,
-  readonly currentMessages: Array<Message>
+  readonly messages: Array<Message>
   readonly activeChannel: Channel | null,
   readonly activeChannelMembers: Array<Identity>,
   readonly myHash: string | null,
@@ -23,7 +23,7 @@ export interface HoloChatState {
 export const initialState: HoloChatState = {
   myChannels: [],
   channelSubjects: Map(),
-  currentMessages: [],
+  messages: [],
   activeChannel: null,
   activeChannelMembers: [],
   myHash: null,
@@ -40,14 +40,25 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         address: result.address,
         ...result.entry
       }))
+      channels.sort((one, two) => (one.name > two.name ? 1 : -1))
       return {
         ...state,
         myChannels: channels
       }
-    case getType(chatActions.GetMessages.success):
+    case getType(chatActions.CreateChannel.success):
       return {
         ...state,
-        currentMessages: action.payload
+        channelAddress: action.payload
+      }
+    case getType(chatActions.GetMessages.success):
+      let messages: Array<Message> = action.payload.map((result: any) => ({
+        address: result.address,
+        ...result.entry
+      }))
+      // console.log(messages)
+      return {
+        ...state,
+        messages: messages
       }
     case getType(chatActions.GetMembers.success):
       return {
@@ -90,7 +101,16 @@ export function holochatReducer (state = initialState, action: ChatAction) {
           ...state
         }
       }
-
+    case getType(chatActions.SetChannelAddress):
+      return {
+        ...state,
+        channelAddress: action.payload
+      }
+    case getType(chatActions.SetSubjectAddress):
+      return {
+        ...state,
+        subjectAddress: action.payload
+      }
     default:
       return state
   }
