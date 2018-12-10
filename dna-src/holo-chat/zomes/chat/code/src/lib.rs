@@ -5,14 +5,11 @@ extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 #[macro_use]
-extern crate serde_json;
-#[macro_use]
 extern crate holochain_core_types_derive;
 
 use hdk::error::ZomeApiResult;
 use hdk::holochain_core_types::{
     hash::HashString,
-    json::JsonString,
     cas::content::Address,
 };
 
@@ -56,13 +53,13 @@ define_zome! {
 				handler: channel::handlers::handle_create_channel
 			}
 			get_my_channels: {
-				inputs: |address: HashString|,
+				inputs: | |,
 				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<channel::Channel>>|,
 				handler: channel::handlers::handle_get_my_channels
 			}
             get_all_members: {
 				inputs: | |,
-				outputs: |result: ZomeApiResult<Vec<member::Member>>|,
+				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<member::Member>>|,
 				handler: member::handlers::handle_get_all_members
 			}
 			get_members: {

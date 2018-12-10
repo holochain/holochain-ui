@@ -1,4 +1,3 @@
-use std::convert::TryFrom;
 use hdk::{
     self,
     entry_definition::ValidatingEntryType,
@@ -12,7 +11,6 @@ use hdk::holochain_core_types::{
     cas::content::Address,
 };
 
-use crate::message;
 
 pub mod handlers;
 
@@ -31,24 +29,6 @@ pub struct Subject {
 }
 
 
-
-#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
-pub struct GetMyChannelsResult {
-    entry: Channel,
-    address: Address
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
-pub struct GetMyMessagesResult {
-    entry: message::Message,
-    address: Address
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
-pub struct GetSubjectsResult {
-    entry: Subject,
-    address: Address
-}
 
 
 pub fn public_channel_definition() -> ValidatingEntryType {

@@ -1,5 +1,3 @@
-use hdk::holochain_core_types::error::HolochainError;
-use hdk::holochain_core_types::json::JsonString;
 use core::convert::TryFrom;
 use hdk::{
     self,

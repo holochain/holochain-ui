@@ -55,8 +55,8 @@ pub fn handle_add_members(channel_address: HashString, members: Vec<member::Memb
 }
 
 
-pub fn handle_get_my_channels(address: HashString) -> ZomeApiResult<utils::GetLinksLoadResult<Channel>> {
-    utils::get_links_and_load_type(&address, "member_of")
+pub fn handle_get_my_channels() -> ZomeApiResult<utils::GetLinksLoadResult<Channel>> {
+    utils::get_links_and_load_type(&get_my_member_id().hash(), "member_of")
 }
 
 
@@ -75,7 +75,13 @@ pub fn handle_get_subjects(address: HashString) -> ZomeApiResult<utils::GetLinks
 }
 
 
-pub fn handle_post_message(channel_address: HashString, message: message::MessageSpec, subjects: Vec<String>) -> ZomeApiResult<()> {
+pub fn handle_post_message(channel_address: HashString, message_spec: message::MessageSpec, subjects: Vec<String>) -> ZomeApiResult<()> {
+    
+    let message = message::Message::from_spec(
+        &message_spec, 
+        &"test author".to_string(), 
+        &"test timestamp".to_string());
+
     let message_entry = Entry::App(
         AppEntryType::from("message"),
         AppEntryValue::from(message)
@@ -91,6 +97,8 @@ pub fn handle_post_message(channel_address: HashString, message: message::Messag
             AppEntryValue::from(Subject{name: subject.to_owned(), channel_address: channel_address.clone()})
         );
         let subject_address = hdk::commit_entry(&subject_entry)?;
+        hdk::link_entries(&subject_address, &message_addr, "message_in")?;
+        hdk::link_entries(&channel_address, &subject_address, "channel_subject")?;
     }
 
     Ok(())
