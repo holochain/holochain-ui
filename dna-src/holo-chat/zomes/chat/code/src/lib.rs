@@ -80,7 +80,7 @@ define_zome! {
 		main (Public) {
 			init: {
 				inputs: | |,
-				outputs: |result: JsonString|,
+				outputs: |result: ZomeApiResult<()>|,
 				handler: handle_init
 			}
 			create_channel: {
@@ -90,7 +90,7 @@ define_zome! {
 			}
 			get_my_channels: {
 				inputs: | |,
-				outputs: |result: JsonString|,
+				outputs: |result: ZomeApiResult<Vec<GetMyChannelsResult>>|,
 				handler: channel::handle_get_my_channels
 			}
             get_all_members: {
@@ -105,7 +105,7 @@ define_zome! {
 			}
 			add_members: {
 				inputs: |channel_address: HashString, members: Vec<member::Member>|,
-				outputs: |result: JsonString|,
+				outputs: |result: ZomeApiResult<Vec<member::Member>>|,
 				handler: channel::handle_add_members
 			}
 			post_message: {
@@ -115,12 +115,12 @@ define_zome! {
 			}
 			get_messages: {
 				inputs: |address: HashString|,
-				outputs: |result: JsonString|,
+				outputs: |result: ZomeApiResult<Vec<GetMyMessagesResult>>|,
 				handler: channel::handle_get_messages
 			}
             get_subjects: {
                 inputs: |channel_address: HashString|,
-                outputs: |result: JsonString|,
+                outputs: |result: ZomeApiResult<Vec<GetSubjectsResult>>|,
                 handler: channel::handle_get_subjects
             }
 			get_profile: {
@@ -133,20 +133,28 @@ define_zome! {
  }
 
 
- fn handle_init() -> JsonString {
-    match run_init() {
-    	Ok(()) => json!({"success": true}).into(),
-    	Err(hdk_err) => hdk_err.into()
-    }
+ // fn handle_init() -> JsonString {
+ //    match run_init() {
+ //    	Ok(()) => json!({"success": true}).into(),
+ //    	Err(hdk_err) => hdk_err.into()
+ //    }
+ // }
+
+ type MemberDirectoryEntry = Entry;
+
+ impl Entry {
+     fn app_from<T: Into<AppEntryType>, V: Into<AppEntryValue>>(t: T, v: V) -> Entry {
+         Entry::App(t.into(), v.into())
+     }
  }
 
- fn run_init() -> ZomeApiResult<()> {
-	let anchor_entry = Entry::new(EntryType::App("anchor".into()), json!("member_directory"));
+ fn handle_init() -> ZomeApiResult<()> {
+	let anchor_entry = Entry::app_from("anchor", RawString::from("member_directory"));
 	let anchor_address = hdk::commit_entry(&anchor_entry)?;
 
 	for profile in test_data::get_test_profiles().iter() {
-	    let member_entry = Entry::new(EntryType::App("member".into()), member::Member{id: profile.to_owned().handle.into(), profile:None});
-	    let profile_entry = Entry::new(EntryType::App("profile".into()), member::StoreProfile{handle: profile.to_owned().handle.into(), email: profile.to_owned().email.into(), avatar: profile.to_owned().avatar.into(), timezone:profile.to_owned().timezone.into()});
+	    let member_entry = Entry::app_from("member", member::Member{id: profile.to_owned().handle.into(), profile:None});
+        let profile_entry = Entry::app_from("profile", member::StoreProfile{handle: profile.to_owned().handle.into(), email: profile.to_owned().email.into(), avatar: profile.to_owned().avatar.into(), timezone:profile.to_owned().timezone.into()})
 
 	    let member_address = hdk::commit_entry(&member_entry)?;
 	    let profile_address = hdk::commit_entry(&profile_entry)?;

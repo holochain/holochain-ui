@@ -238,20 +238,6 @@ pub fn handle_create_channel(
         .unwrap_or_else(|hdk_err|{hdk_err.into()})
 }
 
-pub fn handle_get_my_channels() -> JsonString {
-    match get_my_channels() {
-        Ok(result) => result.into(),
-        Err(hdk_err) => hdk_err.into()
-    }
-}
-
-pub fn handle_get_members(channel_address: HashString) -> JsonString {
-    match get_members(&channel_address) {
-        Ok(result) => result.into(),
-        Err(hdk_err) => hdk_err.into()
-    }
-}
-
 pub fn handle_add_members(channel_address: HashString, members: Vec<member::Member>) -> JsonString {
     members.iter().map(|member| {
         utils::link_entries_bidir(&member.hash(), &channel_address, "member_of", "has_member")
@@ -262,24 +248,10 @@ pub fn handle_add_members(channel_address: HashString, members: Vec<member::Memb
     })
 }
 
-pub fn handle_get_messages(address: HashString) -> JsonString {
-    match get_messages(&address) {
-        Ok(result) => result.into(),
-        Err(hdk_err) => hdk_err.into()
-    }
-}
-
 pub fn handle_post_message(channel_address: HashString, message_spec: message::MessageSpec, subjects: Vec<String>) -> JsonString {
     match post_message(&channel_address, message::Message::from_spec(&message_spec, &AGENT_ADDRESS.to_string(), &"0".into()), subjects) {
         Ok(()) => json!({"success": true}).into(),
         Err(hdk_err) => "handle_post_failed".into()
-    }
-}
-
-pub fn handle_get_subjects(channel_address: HashString) -> JsonString {
-    match get_subjects(&channel_address) {
-        Ok(subjects) => subjects.into(),
-        Err(hdk_err) => hdk_err.into(),
     }
 }
 
@@ -291,7 +263,7 @@ struct GetMyChannelsResult {
     address: Address
 }
 
-fn get_my_channels() -> ZomeApiResult<Vec<GetMyChannelsResult>> {
+fn handle_get_my_channels() -> ZomeApiResult<Vec<GetMyChannelsResult>> {
     utils::get_links_and_load(&member::get_my_member_id().hash(), "member_of").map(|results| {
         results.iter().map(|get_links_result| {
                 let channel = Channel::try_from(get_links_result.entry.value().clone()).unwrap();
@@ -300,7 +272,7 @@ fn get_my_channels() -> ZomeApiResult<Vec<GetMyChannelsResult>> {
     })
 }
 
-fn get_members(channel_address: &HashString) -> ZomeApiResult<Vec<member::Member>> {
+fn handle_get_members(channel_address: &HashString) -> ZomeApiResult<Vec<member::Member>> {
     utils::get_links_and_load(channel_address, "has_member").map(|results| {
         results.iter().map(|get_links_result| {
                 member::Member::try_from(get_links_result.entry.value().clone()).unwrap()
@@ -314,7 +286,7 @@ struct GetMyMessagesResult {
     address: Address
 }
 
-fn get_messages(address: &HashString) -> ZomeApiResult<Vec<GetMyMessagesResult>> {
+fn handle_get_messages(address: &HashString) -> ZomeApiResult<Vec<GetMyMessagesResult>> {
     utils::get_links_and_load(address, "message_in").map(|results| {
         results.iter().map(|get_links_result| {
                 let message = message::Message::try_from(get_links_result.entry.value().clone()).unwrap();
@@ -351,7 +323,7 @@ struct GetSubjectsResult {
     address: Address
 }
 
-fn get_subjects(channel_address: &HashString) -> ZomeApiResult<Vec<GetSubjectsResult>> {
+fn handle_get_subjects(channel_address: &HashString) -> ZomeApiResult<Vec<GetSubjectsResult>> {
     utils::get_links_and_load(channel_address, "channel_subject").map(|results| {
         results.iter().map(|get_links_result| {
             let subject = Subject::try_from(get_links_result.entry.value().clone()).unwrap();
