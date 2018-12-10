@@ -20,8 +20,8 @@ use crate::utils::{
 };
 
 
-pub fn handle_get_profile(member_id: Member) -> ZomeApiResult<StoreProfile> {
-    Err(ZomeApiError::Internal("not implemented".to_string()))
+pub fn handle_get_profile(_member_id: Member) -> ZomeApiResult<StoreProfile> {
+    Err(ZomeApiError::Internal("zome function not implemented".to_string()))
 }
 
 pub fn get_my_member_id() -> Member {
@@ -36,9 +36,3 @@ pub fn handle_get_all_members() -> ZomeApiResult<GetLinksLoadResult<Member>> {
     let anchor_address = hdk::entry_address(&anchor_entry)?;
     get_links_and_load_type(&anchor_address, "member_tag")
 }
-
-fn get_profile(member:Member) -> ZomeApiResult<Option<StoreProfile>>
-{
-    Err(ZomeApiError::Internal("not implemented".to_string()))
-}
-

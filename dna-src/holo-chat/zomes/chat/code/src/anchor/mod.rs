@@ -18,7 +18,7 @@ pub fn anchor_definition() -> ValidatingEntryType {
             hdk::ValidationPackageDefinition::Entry
         },
 
-        validation: |name: RawString, _ctx: hdk::ValidationData| {
+        validation: |_name: RawString, _ctx: hdk::ValidationData| {
             Ok(())
         },
 
