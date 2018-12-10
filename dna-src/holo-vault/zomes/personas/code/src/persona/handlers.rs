@@ -58,9 +58,9 @@ pub fn handle_get_personas() -> ZomeApiResult<GetLinksLoadResult<Persona>> {
                 name: elem.entry.name.to_owned(),
                 fields: get_fields(&elem.address).unwrap_or(Vec::new())
             },
-            address: elem.address
+            address: elem.address.clone()
         }
-    }).collect()?;
+    }).collect::<GetLinksLoadResult<Persona>>();
 
     Ok(result)
 }
@@ -83,9 +83,9 @@ pub fn handle_add_field(persona_address: HashString, field: PersonaField) -> Zom
 
 
 fn get_fields(persona_address: &HashString) -> ZomeApiResult<Vec<PersonaField>> {
-    get_links_and_load_type(persona_address, "fields").map(|result| {
+    get_links_and_load_type(persona_address, "fields").map(|result: GetLinksLoadResult<PersonaField>| {
         result.iter().map(|elem| {
-            elem.entry
+            elem.entry.clone()
         }).collect()
     })
 }

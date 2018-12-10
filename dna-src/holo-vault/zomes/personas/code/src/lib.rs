@@ -61,7 +61,7 @@ pub mod utils;
     		}
             add_field: {
                 inputs: |persona_address: HashString, field: persona::PersonaField|,
-                outputs: |success: JsonString|,
+                outputs: |result: ZomeApiResult<()>|,
                 handler: persona::handlers::handle_add_field
             }
     	}

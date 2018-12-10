@@ -11,7 +11,6 @@ extern crate holochain_core_types_derive;
 use hdk::holochain_core_types::hash::HashString;
 
 pub mod profile;
-pub mod handlers;
 mod specs;
 
 define_zome! {
