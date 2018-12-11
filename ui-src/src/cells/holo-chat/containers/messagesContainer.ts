@@ -15,6 +15,7 @@ const mapStateToProps = (state: any, props: Props & RouterProps): StateProps => 
 
   return {
     messages: state.holoChat.messages, // modelMessagesToViewMessages(state.holoChat.currentMessages, state.holoChat.activeChannelMembers, state.holoChat.myHash),
+    members: state.holoChat.members,
     channelAddress: channelAddress,
     subjectAddress: subjectAddress
   }

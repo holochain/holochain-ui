@@ -1,15 +1,15 @@
 import * as React from 'react'
 import withRoot from '../../../../withRoot'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
-import { List, ListItem, ListItemText } from '@material-ui/core'
+import { List, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 // import Highlight from '@material-ui/icons/Highlight'
 // import ThumbUp from '@material-ui/icons/ThumbUp'
 // import ThumbDown from '@material-ui/icons/ThumbDown'
 // import IconButton from '@material-ui/core/IconButton'
 import IdeaContainer from '../../containers/ideaContainer'
-// import { MakeAvatar } from '../misc/makeAvatar'
-
+import { MakeAvatar } from '../misc/makeAvatar'
+import { Identity } from '../../types/model/identity'
 import { Message as MessageType } from '../../types/model/message'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -61,6 +61,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   messageAuthor: {
     fontSize: 14,
+    fontWeight: 'bold',
     color: theme.palette.primary.contrastText
   },
   messageImage: {
@@ -124,18 +125,19 @@ function MessageComponent (props: any) {
   }
 }
 
-interface MessageProps {
+interface OwnProps {
   classes: any,
-  message: MessageType & {avatar: string}
+  message: MessageType & {avatar: string},
+  member: Identity
 }
 
-interface MessageState {
+interface State {
   isHovered: boolean,
   message: MessageType & {avatar: string}
 }
 
-class MessageView extends React.Component<MessageProps, MessageState> {
-  constructor (props: MessageProps) {
+class MessageView extends React.Component<OwnProps, State> {
+  constructor (props: OwnProps) {
     super(props)
     this.state = {
       isHovered: false,
@@ -156,13 +158,22 @@ class MessageView extends React.Component<MessageProps, MessageState> {
     this.setState({ isHovered: false })
   }
 
+  getName (member: Identity): string {
+    if (member.name) {
+      return member.name
+    } else {
+      return member.handle
+    }
+  }
+
   render () {
-    const { classes } = this.props
+    const { classes, member } = this.props
 
     return (
       <List>
         <ListItem key={'1'} dense={true} >
-          <ListItemText className={classes.messageAuthor} primary={this.props.message.author} />
+        <ListItemAvatar><MakeAvatar member={member} /></ListItemAvatar>
+          <ListItemText className={classes.messageAuthor} primary={this.getName(member)} />
         </ListItem>
         <ListItem dense={true} className={classes.message}>
           <MessageComponent message={this.props.message} classes={classes} />

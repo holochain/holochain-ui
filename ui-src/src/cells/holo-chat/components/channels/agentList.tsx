@@ -42,7 +42,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 
 export interface AgentListProps {
   classes?: any,
-  users: Array<Identity>,
+  members: Array<Identity>,
   selectionChanged?: (selectedUsers: Array<Identity>) => void
 }
 
@@ -89,7 +89,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
   }
 
   render () {
-    const { classes, users } = this.props
+    const { classes, members } = this.props
     return (
       <div className={classes.root}>
         <div className={classes.filter}>
@@ -97,8 +97,8 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
             {
               this.state.selectedUsers.map((person: Identity) => (
                 <Chip
-                  key={person.hash}
-                  avatar={<MakeAvatar user={person} />}
+                  key={person.agentId}
+                  avatar={<MakeAvatar member={person} />}
                   label={person.handle}
                   onDelete={this.onRowClick(person)}
                   className={classes.chip}
@@ -117,12 +117,12 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
         </div>
         <List id='users' className={classes.list}>
           {
-            users
-            .filter((user) => user.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1 || user.name.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1)
+            members
+            .filter((member) => member.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1 || member.name.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1)
             .map((user, i) => {
               return (
-              <ListItem key={i} button={true} value={user.hash} className={classes.listItem} onClick={this.onRowClick(user)}>
-                <MakeAvatar user={user}/>
+              <ListItem key={i} button={true} value={user.agentId} className={classes.listItem} onClick={this.onRowClick(user)}>
+                <MakeAvatar member={user}/>
                 <ListItemText primary={'(' + user.handle + ')'} />
               </ListItem>
               )
