@@ -40,7 +40,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 interface OwnProps {
   classes?: any,
   open: boolean,
-  users: Array<Identity>,
+  members: Array<Identity>,
   onSubmit: (spec: ChannelSpec) => void,
   onHandleClose: () => void,
   isPublic: boolean
@@ -85,7 +85,7 @@ class NewChannel extends React.Component<Props, State> {
     }, '')
 
     const channelSpec: ChannelSpec = {
-      initial_members: this.state.selectedUsers.map((user): Member => { return { id: user.hash } }),
+      initial_members: this.state.selectedUsers.map((user): Member => { return { id: user.agentId } }),
       name: channelName,
       description: '',
       public: this.props.isPublic
@@ -94,7 +94,7 @@ class NewChannel extends React.Component<Props, State> {
   }
 
   render () {
-    const { classes, users } = this.props
+    const { classes, members } = this.props
 
     return (
       <Dialog fullWidth={true} open={this.props.open} aria-labelledby='simple-dialog-title'>
@@ -114,7 +114,7 @@ class NewChannel extends React.Component<Props, State> {
             </Button>
           </Toolbar>
         </AppBar>
-        <AgentList users={users} selectionChanged={this.onSelectionChanged}/>
+        <AgentList members={members} selectionChanged={this.onSelectionChanged}/>
       </Dialog>
     )
   }

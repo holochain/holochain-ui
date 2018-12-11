@@ -10,12 +10,13 @@ import TextField from '@material-ui/core/TextField'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Send from '@material-ui/icons/Send'
+import { Identity } from '../../types/model/identity'
 
 const updateInterval = 1000
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
-    width: '95%',
+    width: '100%',
     boxShadow: 'none'
   },
   listItemMessage: {
@@ -29,7 +30,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     marginTop: theme.spacing.unit
   },
   send: {
-    width: '60%',
+    width: '100%',
     position: 'fixed',
     bottom: 0,
     boxShadow: 'none',
@@ -50,6 +51,7 @@ export interface OwnProps {
 
 export interface StateProps {
   messages: Array<MessageType>,
+  members: Array<Identity>,
   channelAddress: string,
   subjectAddress: string
 }
@@ -75,11 +77,9 @@ class Messages extends React.Component<Props & RouterProps, State> {
 
     this.getMessageInterval = setInterval(() => {
       if (this.props.subjectAddress) {
-        // console.log('this.props.subjectAddress' + this.props.subjectAddress)
         this.props.getMessages(this.props.subjectAddress)
         console.log(this.props.messages)
       } else if (this.props.channelAddress) {
-        // console.log('this.props.channelAddress' + this.props.channelAddress)
         this.props.getMessages(this.props.channelAddress)
       }
     }, updateInterval)
@@ -133,6 +133,21 @@ class Messages extends React.Component<Props & RouterProps, State> {
     }
   }
 
+  getIdentity (agentId: string): Identity {
+    let filteredAgents = this.props.members.filter((member) => member.agentId === agentId)
+    if (filteredAgents.length > 0) {
+      return filteredAgents[0]
+    } else {
+      let defaultMember: Identity = {
+        agentId: '',
+        handle: '',
+        avatar: '',
+        name: ''
+      }
+      return defaultMember
+    }
+  }
+
   render () {
     const { classes, messages } = this.props
 
@@ -143,14 +158,14 @@ class Messages extends React.Component<Props & RouterProps, State> {
             {
               messages.map((message: any, index: number) => (
                 <ListItem key={index} dense={true} className={classes.listItemMessage}>
-                  <MessageView message={message} />
+                  <MessageView message={message} member={this.getIdentity(message.author)} />
                 </ListItem>
               ))
             }
           </List>
         </Paper>
         <Paper className={classes.send}>
-          <Grid container={true} spacing={0}>
+          <Grid container={true} xs={7} spacing={0}>
             <Grid item={true} xs={11}>
               <TextField
                   id='subject'

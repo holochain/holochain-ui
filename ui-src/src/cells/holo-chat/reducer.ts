@@ -16,7 +16,7 @@ export interface HoloChatState {
   readonly activeChannel: Channel | null,
   readonly activeChannelMembers: Array<Identity>,
   readonly myHash: string | null,
-  readonly users: Array<Identity>,
+  readonly members: Array<Identity>,
   readonly subjects: Array<Subject>
 }
 
@@ -27,7 +27,7 @@ export const initialState: HoloChatState = {
   activeChannel: null,
   activeChannelMembers: [],
   myHash: null,
-  users: [],
+  members: [],
   subjects: []
 }
 
@@ -71,15 +71,15 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         myHash: action.payload
       }
     case getType(chatActions.GetAllMembers.success):
-      let users: Array<Identity> = action.payload.map((user: any) => ({
-        hash: user.id,
-        handle: user.profile.handle,
-        email: user.profile.email,
-        avatar: user.profile.avatar
+      let members: Array<Identity> = action.payload.map((member: any) => ({
+        agentId: member.id,
+        handle: member.profile.handle,
+        email: member.profile.email,
+        avatar: member.profile.avatar
       }))
       return {
         ...state,
-        users: users
+        members: members
       }
     case getType(chatActions.GetSubjects.success):
       let subjects: Array<Subject> = action.payload.map((result: any) => ({

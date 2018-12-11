@@ -24,7 +24,13 @@ const theme = createMuiTheme({
   overrides: {
     MuiButton: { // Name of the component ⚛️ / style sheet
       root: {
-        background: '#7986cb'
+        // Some CSS
+        backgroundColor: 'green',
+        borderRadius: 5,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px'
       }
     }
   }

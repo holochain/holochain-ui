@@ -27,7 +27,7 @@ export const agentListTest = describe('agentList component', () => {
 
   it('renders an input to filter users', () => {
     props = {
-      users: []
+      members: []
     }
     const inputs = agentList().find('Input')
     expect(inputs.length).toEqual(1)
@@ -35,15 +35,15 @@ export const agentListTest = describe('agentList component', () => {
 
   it('renders a single listItem per user', () => {
     props = {
-      users: Agents.agents
+      members: Agents.agents
     }
     const items = agentList().find('ListItem')
-    expect(items.length).toEqual(props.users.length)
+    expect(items.length).toEqual(props.members.length)
   })
 
   it('When you start typing someone\'s name the filtered list is shown', () => {
     props = {
-      users: Agents.agents
+      members: Agents.agents
     }
     agentList().find('input[id="filter-bar"]').simulate('change', { target: { value: 'art' } })
     const filteredItems = agentList().find('ListItem').length
@@ -52,7 +52,7 @@ export const agentListTest = describe('agentList component', () => {
 
   it('Click someone\'s name and their chip is added to the list people in the Channel and the filter is cleared.', () => {
     props = {
-      users: Agents.agents
+      members: Agents.agents
     }
     agentList().find('input[id="filter-bar"]').simulate('change', { target: { value: 'a' } })
     agentList().find('ListItem').first().simulate('click')
@@ -62,7 +62,7 @@ export const agentListTest = describe('agentList component', () => {
 
   it('Remove someone by clicking the cross near their name.', () => {
     props = {
-      users: Agents.agents
+      members: Agents.agents
     }
     // const unfilteredItems = agentList().find('ListItem').length
     agentList().find('input[id="filter-bar"]').simulate('change', { target: { value: 'a' } })

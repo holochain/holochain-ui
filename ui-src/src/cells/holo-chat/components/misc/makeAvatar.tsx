@@ -7,12 +7,12 @@ import { Identity } from '../../types/model/identity'
 // Does not check if it decodes to a valid image
 // const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
 
-export const MakeAvatar = (props: {user: Identity}) => {
-  const { user } = props
-  if (user.avatar && user.avatar.length > 0) {
-    return (<Avatar src={user.avatar}/>)
-  } else if (user.handle) {
-    return (<Avatar>{user.handle[0]}</Avatar>)
+export const MakeAvatar = (props: {member: Identity}) => {
+  const { member } = props
+  if (member.avatar && member.avatar.length > 0) {
+    return (<Avatar src={member.avatar}/>)
+  } else if (member.handle) {
+    return (<Avatar>{member.handle[0]}</Avatar>)
   } else {
   	return (<Avatar>?</Avatar>)
   }

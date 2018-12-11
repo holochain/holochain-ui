@@ -129,14 +129,14 @@ export const subjects: Array<Subject> = [
 export const messages: Array<Message> = [
   {
     message_type: 'text',
-    author: 'Phil_hash_address',
+    author: 'philipbeadle',
     timestamp: 10,
     payload: 'Lets add a subject to each message so we can gete some context happening',
     meta: ''
   },
   {
     message_type: 'text',
-    author: 'Phil_hash_address',
+    author: 'philipbeadle',
     timestamp: 10,
     payload: 'Lets add a subject to each message so we can gete some context happening',
     meta: ''
