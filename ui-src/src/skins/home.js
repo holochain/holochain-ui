@@ -30,7 +30,7 @@ import Mobile from './mobile'
 import MainNav from './navData';
 import HoloVaultNav from './holoVaultNavData';
 import StorybookSkin from './storybook'
-import HoloChatNav from './holoChatNavData'
+// import HoloChatNav from './holoChatNavData'
 import ErrandNav from './errandNavData'
 import HackTogetherSkin from './hackTogether'
 import HoloChessSkin from './holochess'
@@ -186,9 +186,6 @@ class MiniDrawer extends React.Component {
               <Route path='/holo-vault' render={props =>
                 <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
               } />
-              <Route path='/holo-chat' render={props =>
-                <HoloChatNav handleDrawerClose={this.handleDrawerClose} />
-              } />
               <Route path='/errand' render={props =>
                 <ErrandNav handleDrawerClose={this.handleDrawerClose} />
               } />
@@ -220,7 +217,10 @@ class MiniDrawer extends React.Component {
                 <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
               } />
               <Route path='/holo-chat' render={props =>
-                <HoloChatNav handleDrawerClose={this.handleDrawerClose} />
+                <div>
+                  <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} />
+                  <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} />
+                </div>
               } />
               <Route path='/errand' render={props =>
                 <ErrandNav handleDrawerClose={this.handleDrawerClose} />
@@ -274,15 +274,7 @@ class MiniDrawer extends React.Component {
             <Route exact path='/home' title='Holochain' component={Desktop} />
             <Route exact path='/' title='Holochain' component={Desktop} />
             <Route path={['/holo-chat/channel/:channel', '/holo-chat/subject/:subject', '/holo-chat' ]} title='Holochain' render={props =>
-              <Grid container={true} spacing={0}>
-                <Grid item={true} xs={4}>
-                  <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} />
-                  <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} />
-                </Grid>
-                <Grid item={true} xs={8}>
-                  <MessagesContainer {...props} />
-                </Grid>
-              </Grid>
+                <MessagesContainer {...props} />
             } />
           </MediaQuery>
 

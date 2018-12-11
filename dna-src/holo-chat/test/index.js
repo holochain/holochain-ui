@@ -38,7 +38,7 @@ test('Can create a public channel with no other members and retrieve it', (t) =>
   t.end()
 })
 
-test.only('Can retrieve all the members that are added by init', t => {
+test('Can retrieve all the members that are added by init', t => {
   const init_result = app.call('chat', 'main', 'init', {})
   console.log(init_result)
   t.equal(init_result.success, true, 'init should return success')
