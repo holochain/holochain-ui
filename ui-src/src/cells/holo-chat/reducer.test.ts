@@ -25,11 +25,20 @@ describe('Chat Reducer', () => {
 
   it('Should update the state in response to GetMessages', () => {
     expect(holochatReducer(undefined, chatActions.GetMessages.success([
-      { type: MessageType.CHAT, author: 'xxx', timestamp: 0, content: '', replies: [], channelId: '' }
+      {
+        entry: {
+          type: MessageType.CHAT,
+          author: 'xxx',
+          timestamp: 0,
+          payload: '',
+          meta: ''
+        },
+        address: 'message_address'
+      }
     ])))
     .toEqual({
       ...initialState,
-      currentMessages: [{ type: MessageType.CHAT, author: 'xxx', timestamp: 0, content: '', replies: [], channelId: '' }]
+      messages: [{ type: MessageType.CHAT, author: 'xxx', timestamp: 0, payload: '', meta: '', address: 'message_address' }]
     })
   })
 
