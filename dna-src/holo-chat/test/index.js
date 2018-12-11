@@ -38,7 +38,7 @@ test('Can create a public channel with no other members and retrieve it', (t) =>
   t.end()
 })
 
-test('Can retrieve all the members that are added by init', t => {
+test.only('Can retrieve all the members that are added by init', t => {
   const init_result = app.call('chat', 'main', 'init', {})
   console.log(init_result)
   t.equal(init_result.success, true, 'init should return success')
@@ -102,7 +102,7 @@ test('Can post a message with a subject and this is added to the channel', t => 
 test('Can create a public channel with some members', (t) => {
   const init_result = app.call('chat', 'main', 'init', {})
 
-  const create_result = app.call('chat', 'main', 'create_channel', {...testNewChannelParams, public: false, initial_members: [{id: "wollum"}, {id: "philipbeadle"}]})
+  const create_result = app.call('chat', 'main', 'create_channel', {...testNewChannelParams, public: false, initial_members: [{id: "jeanmrussell"}, {id: "artbrock"}]})
   console.log(create_result)
   t.deepEqual(create_result.address.length, 46)
   t.end()

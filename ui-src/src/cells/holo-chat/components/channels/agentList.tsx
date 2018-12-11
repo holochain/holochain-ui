@@ -119,11 +119,11 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
           {
             members
             .filter((member) => member.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1 || member.name.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1)
-            .map((user, i) => {
+            .map((member, i) => {
               return (
-              <ListItem key={i} button={true} value={user.agentId} className={classes.listItem} onClick={this.onRowClick(user)}>
-                <MakeAvatar member={user}/>
-                <ListItemText primary={'(' + user.handle + ')'} />
+              <ListItem key={i} button={true} value={member.agentId} className={classes.listItem} onClick={this.onRowClick(member)}>
+                <MakeAvatar member={member}/>
+                <ListItemText primary={'(' + member.handle + ')'} />
               </ListItem>
               )
             })
