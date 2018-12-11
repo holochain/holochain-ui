@@ -85,13 +85,13 @@ test.only('Can post a message with a subject and this is added to the channel', 
   const channel_addr = create_result.Ok
   t.deepEqual(channel_addr.length, 46)
 
-  const post_result = app.call('chat', 'main', 'post_message', {channel_address: channel_addr, message: testMessage, subjects: ['memes', 'test subject']})
+  const post_result = app.call('chat', 'main', 'post_message', {channel_address: channel_addr, message: testMessage, subjects: ['test subject']})
   console.log(post_result)
   t.notEqual(post_result.Ok, undefined, 'post should return success')
 
   const get_subjects_result = app.call('chat', 'main', 'get_subjects', {channel_address: channel_addr})
   console.log(get_subjects_result)
-  t.deepEqual(get_subjects_result.Ok[0].entry.name, 'memes' || 'test subject')
+  t.deepEqual(get_subjects_result.Ok[0].entry.name, 'test subject')
   t.deepEqual(get_subjects_result.Ok[0].entry.channel_address.length, 46)
   t.deepEqual(get_subjects_result.Ok[0].address.length, 46)
 
