@@ -42,11 +42,12 @@ const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
-    display: 'flex'
+    display: 'flex',
+    height: '100%',
+    width: '100%'
   },
   appBar: {
     backgroundColor: '#3A277A',
@@ -103,9 +104,25 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
   },
   content: {
-    flexGrow: 1,
+    display: 'flex',
+    height: '100%',
+    width: '100%',
     padding: 0,
     marginTop: 58
+  },
+  chat: {
+    display: 'flex',
+    height: '100%',
+    width: '100%',
+    backgroundColor: '#424242'
+  },
+  channels: {
+    height: '100%',
+    width: '100%'
+  },
+  messages: {
+    height: '100%',
+    width: '100%'
   }
 });
 
@@ -235,12 +252,12 @@ class MiniDrawer extends React.Component {
               </div>
             } />
             <Route path={['/holo-chat/channel/:channel', '/holo-chat/subject/:subject', '/holo-chat' ]} title='Holochain' render={props =>
-              <Grid container={true} spacing={0}>
-                <Grid item={true} xs={3}>
+              <Grid container={true} spacing={0} className={classes.chat}>
+                <Grid item={true} xs={3} className={classes.channels}>
                   <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} />
                   <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} />
                 </Grid>
-                <Grid item={true} xs={7}>
+                <Grid item={true} xs={7} className={classes.messages}>
                   <MessagesContainer {...props} />
                 </Grid>
                 <Grid item={true} xs={2}>

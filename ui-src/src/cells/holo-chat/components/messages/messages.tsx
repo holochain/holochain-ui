@@ -15,7 +15,7 @@ const updateInterval = 1000
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
-    width: '95%',
+    width: '100%',
     boxShadow: 'none'
   },
   listItemMessage: {
@@ -29,7 +29,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     marginTop: theme.spacing.unit
   },
   send: {
-    width: '60%',
+    width: '100%',
     position: 'fixed',
     bottom: 0,
     boxShadow: 'none',
@@ -150,7 +150,7 @@ class Messages extends React.Component<Props & RouterProps, State> {
           </List>
         </Paper>
         <Paper className={classes.send}>
-          <Grid container={true} spacing={0}>
+          <Grid container={true} xs={7} spacing={0}>
             <Grid item={true} xs={11}>
               <TextField
                   id='subject'
