@@ -18,7 +18,8 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     backgroundColor: theme.palette.background.paper
   },
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.primary.main
   },
   leftIcon: {
     marginRight: 0,
@@ -99,7 +100,7 @@ class NewChannel extends React.Component<Props, State> {
       <Dialog fullWidth={true} open={this.props.open} aria-labelledby='simple-dialog-title'>
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <Button id='CloseDialog' onClick={this.props.onHandleClose} color='inherit' aria-label='Close'>
+            <Button id='CloseDialog' onClick={this.props.onHandleClose} className={classes.button} color='inherit' aria-label='Close'>
               <CloseIcon className={classes.leftIcon}/>
             </Button>
             <Typography variant='h6' color='inherit' className={classes.title}>

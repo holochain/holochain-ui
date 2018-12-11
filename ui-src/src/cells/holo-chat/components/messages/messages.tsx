@@ -3,8 +3,7 @@ import withRoot from '../../../../withRoot'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import { List, ListItem } from '@material-ui/core'
 import MessageView from './messageView'
-import { Message as MessageType } from '../../types/view/message'
-import { MessageSpec } from '../../types/model/message'
+import { Message as MessageType, MessageSpec } from '../../types/model/message'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
@@ -12,7 +11,7 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Send from '@material-ui/icons/Send'
 
-const updateInterval = 10000
+const updateInterval = 1000
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
@@ -30,11 +29,11 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     marginTop: theme.spacing.unit
   },
   send: {
-    flexGrow: 1,
+    width: '60%',
     position: 'fixed',
     bottom: 0,
     boxShadow: 'none',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.paper,
     height: 140
   },
   chatHistory: {

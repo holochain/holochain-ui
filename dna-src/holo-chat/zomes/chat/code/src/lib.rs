@@ -7,7 +7,11 @@ extern crate serde_derive;
 #[macro_use]
 extern crate holochain_core_types_derive;
 
-use hdk::error::ZomeApiResult;
+use hdk::{
+    AGENT_ADDRESS,
+    error::ZomeApiResult,
+};
+
 use hdk::holochain_core_types::{
     hash::HashString,
     cas::content::Address,

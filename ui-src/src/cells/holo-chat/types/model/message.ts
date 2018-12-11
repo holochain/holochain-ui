@@ -12,3 +12,8 @@ export interface Message {
   payload: string,
   meta: string
 }
+
+export enum MessageType {
+	CHAT,
+	IDEA
+}

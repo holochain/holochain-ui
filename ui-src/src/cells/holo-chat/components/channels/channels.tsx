@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
+import withRoot from '../../../../withRoot'
+import { withRouter, Route, RouteComponentProps } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography'
 import Chip from '@material-ui/core/Chip'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -9,13 +11,11 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
-import withRoot from '../../../../withRoot'
-import { withRouter, Route, RouteComponentProps } from 'react-router-dom'
 import NewChannel from '../../containers/newChannelContainer'
 import { Subject as SubjectType } from '../../types/model/subject'
 import Badge from '@material-ui/core/Badge'
 
-const updateInterval = 10000
+const updateInterval = 1000
 
 import {
   GetMyChannels,
@@ -28,7 +28,8 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     backgroundColor: theme.palette.background.paper
   },
   addButton: {
-    float: 'right'
+    float: 'right',
+    backgroundColor: theme.palette.background.paper
   },
   title: {
     padding: theme.spacing.unit
