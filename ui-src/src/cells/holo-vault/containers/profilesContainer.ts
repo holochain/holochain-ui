@@ -15,7 +15,7 @@ const mapStateToProps = (state: any): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    getProfiles: () => dispatch(GetProfiles.create(undefined))
+    getProfiles: () => dispatch(GetProfiles.create({}))
   }
 }
 

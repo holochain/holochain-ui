@@ -1,6 +1,5 @@
 import { vaultReducer, initialState } from './reducer'
 import { getType } from 'typesafe-actions'
-import { AxiosResponse } from 'axios'
 
 import * as vaultActions from './actions'
 import { Persona } from './types/persona'
@@ -8,44 +7,30 @@ import { Persona } from './types/persona'
 describe('Vault Reducer', () => {
 
   it('adds retrieved personas to the state in response to GetPersonas.success', () => {
-    expect(vaultReducer(undefined, {
-      type: getType(vaultActions.GetPersonas.success),
-      payload: {
-        data: {
-          personas: [{ name: 'persona1', hash: '1' }, { name: 'Default', hash: '2' }]
-        }
-      } as AxiosResponse
-    })).toEqual({
+    const testPersonas = [
+        { address: '111', entry: { name: 'persona1', hash: '111', fields: [] } },
+        { address: '222', entry: { name: 'persona1', hash: '222', fields: [] } }]
+
+    expect(vaultReducer(undefined, vaultActions.GetPersonas.success(testPersonas))).toEqual({
       ...initialState,
-      personas: [{ name: 'persona1', hash: '1' }, { name: 'Default', hash: '2' }],
-      currentPersona: { name: 'Default', hash: '2' }
+      personas: testPersonas.map(elem => elem.entry),
+      currentPersona: testPersonas[0].entry
     })
   })
 
   it('adds retrieved profiles to the state in response to GetProfiles.success', () => {
-    expect(vaultReducer(undefined, {
-      type: getType(vaultActions.GetProfiles.success),
-      payload: {
-        data: {
-          profiles: [{ name: 'profile1', id: '1', fields: [] }, { name: 'profile1', id: '2', fields: [] }] // not real profile data
-        }
-      } as AxiosResponse
-    })).toEqual({
+
+    const testProfiles = [
+    { name: 'profile1', id: '1', fields: [], hash: '', expiry: 0, sourceDNA: '' },
+    { name: 'profile1', id: '1', fields: [], hash: '', expiry: 0, sourceDNA: '' }]
+
+    expect(vaultReducer(undefined, vaultActions.GetProfiles.success(testProfiles))).toEqual({
       ...initialState,
-      profiles: [{ name: 'profile1', id: '1', fields: [] }, { name: 'profile1', id: '2', fields: [] }]
+      profiles: testProfiles
     })
   })
 
   it('sets the currentPersona on action', () => {
-    expect(vaultReducer(undefined, {
-      type: 'NOTACTION',
-      payload: {
-        data: {}
-      } as AxiosResponse
-    })).toEqual(initialState)
-  })
-
-  it('does not mutate the state on unknown action', () => {
 
     const persona: Persona = {
       hash: 'HASH',
@@ -61,4 +46,12 @@ describe('Vault Reducer', () => {
       currentPersona: persona
     })
   })
+
+  it('does not mutate the state on unknown action', () => {
+    expect(vaultReducer(undefined, {
+      type: 'NOTACTION',
+      payload: { }
+    })).toEqual(initialState)
+  })
+
 })

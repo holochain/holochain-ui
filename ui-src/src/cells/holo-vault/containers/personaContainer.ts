@@ -35,11 +35,10 @@ const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps 
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    getPersonas: () => dispatch(GetPersonas.create(undefined)),
+    getPersonas: () => dispatch(GetPersonas.create({})),
     create: (personaSpec: PersonaSpec, personaFields: Array<PersonaField>) => {
       return dispatch(CreatePersona.create({ spec: personaSpec }))
-        .then((response: any) => {
-          const personaAddress: string = response.payload.data.address
+        .then((personaAddress: string) => {
           return Promise.all(
             personaFields.map((field: PersonaField) => {
               return dispatch(AddField.create({ persona_address: personaAddress, field }))

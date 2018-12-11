@@ -35,7 +35,7 @@ class Profiles extends React.Component<Props, {}> {
 
   componentDidMount () {
 
-    this.props.getProfiles(null)
+    this.props.getProfiles({})
     .catch(reason => { console.log(reason) })
   }
 
