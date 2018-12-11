@@ -17,5 +17,7 @@
   "bugs": {
     "url": "https://github.com/holochain/holochain-ui/issues"
   },
-  "homepage": "https://github.com/holochain/holochain-ui#readme"
+  "homepage": "https://github.com/holochain/holochain-ui#readme",
+  "dependencies": {
+  }
 }
