@@ -157,9 +157,8 @@ class Channels extends React.Component<Props & RouterProps, State> {
                         subjects.filter(function (subject: SubjectType) {
                           return subject.channel_address === channel.address
                         }).map((subject: SubjectType, subjectIndex: number) => (
-                          <Badge badgeContent={3} color='primary' classes={{ badge: classes.badge }}>
+                          <Badge key={subjectIndex} badgeContent={3} color='primary' classes={{ badge: classes.badge }}>
                             <Chip
-                              key={subjectIndex}
                               label={this.formatSubjectLabel(subject.name)}
                               className={classes.chip}
                               onClick={() => this.getMessages(subject.address)}
@@ -174,7 +173,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
             />
         </div>
       ))}
-      <NewChannel isPublic={this.props.isPublic} open={this.state.modalOpen} onSubmit={this.addNewChannel} onHandleClose={this.onHandleClose}/>
+      <NewChannel isPublic={isPublic} open={this.state.modalOpen} onSubmit={this.addNewChannel} onHandleClose={this.onHandleClose}/>
     </div>
     )
   }
