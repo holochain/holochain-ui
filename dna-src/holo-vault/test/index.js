@@ -1,7 +1,7 @@
 // This test file uses the tape testing framework. 
 // To learn more, go here: https://github.com/substack/tape
 const test = require('tape');
-const Container = require('@holochain/holochain-nodejs')
+const Container = require('@holochain/holochain-nodejs-bleeding')
 // instantiate an app from the DNA JSON bundle
 const app = Container.loadAndInstantiate("dist/bundle.json")
 
