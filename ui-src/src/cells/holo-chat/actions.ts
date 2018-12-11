@@ -14,7 +14,7 @@ import { ChannelSpec } from './types/model/channel'
 
 export const Init = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'init')
 
-export const CreateChannel = createHolochainAsyncAction<ChannelSpec, any>('holo-chat', 'chat', 'main', 'create_channel')
+export const CreateChannel = createHolochainAsyncAction<ChannelSpec, string>('holo-chat', 'chat', 'main', 'create_channel')
 
 export const AddMembers = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'add_members')
 
