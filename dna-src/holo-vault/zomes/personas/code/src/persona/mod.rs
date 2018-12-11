@@ -6,7 +6,6 @@ use hdk::{
 };
 
 use hdk::holochain_core_types::{
-    hash::HashString,
     dna::zome::entry_types::Sharing,
     cas::content::Address,
 };
@@ -44,7 +43,22 @@ pub fn persona_definition() -> ValidatingEntryType {
 
         validation: |_persona: PersonaSpec, _ctx: hdk::ValidationData| {
         	Ok(())
-        }
+        },
+
+        links: [
+            to!(
+                "personaField",
+                tag: "fields",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
+            )
+        ]
 	)
 }
 

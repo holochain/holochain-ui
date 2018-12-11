@@ -8,6 +8,7 @@ use crate::persona::{
 use hdk::holochain_core_types::{
     json::{RawString},
     hash::HashString,
+    cas::content::Address,
     entry::{entry_type::AppEntryType, AppEntryValue, Entry},
 };
 
@@ -21,14 +22,14 @@ use crate::utils::{
 =            public fn handlers            =
 ==========================================*/
 
-pub fn handle_create_persona(spec: PersonaSpec) -> ZomeApiResult<()> {
+pub fn handle_create_persona(spec: PersonaSpec) -> ZomeApiResult<Address> {
 
     let persona_entry = Entry::App(
         AppEntryType::from("persona"),
         AppEntryValue::from(spec),
     );
     let anchor_entry = Entry::App(
-        AppEntryType::from("anchor"),
+        AppEntryType::from("persona_anchor"),
         AppEntryValue::from(RawString::from("personas")),
     );
 
@@ -36,7 +37,8 @@ pub fn handle_create_persona(spec: PersonaSpec) -> ZomeApiResult<()> {
     let anchor_address = hdk::commit_entry(&anchor_entry)?;
 
     hdk::link_entries(&anchor_address, &persona_address, "personas")?;
-    Ok(())
+
+    Ok(persona_address)
 }
 
 
@@ -45,7 +47,7 @@ pub fn handle_create_persona(spec: PersonaSpec) -> ZomeApiResult<()> {
 pub fn handle_get_personas() -> ZomeApiResult<GetLinksLoadResult<Persona>> {
     let anchor_address = hdk::commit_entry(
         &Entry::App(
-            AppEntryType::from("anchor"),
+            AppEntryType::from("persona_anchor"),
             AppEntryValue::from(RawString::from("personas")),
         )
     )?;

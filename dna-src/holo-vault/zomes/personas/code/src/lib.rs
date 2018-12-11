@@ -14,6 +14,7 @@ use hdk::holochain_core_types::{
     hash::HashString,
     dna::zome::entry_types::Sharing,
     json::RawString,
+    cas::content::Address,
 };
 
 pub mod persona;
@@ -25,7 +26,7 @@ pub mod utils;
 		persona::persona_definition(),
         persona::field_definition(),
 		entry!(
-			name: "anchor",
+			name: "persona_anchor",
 	        description: "",
 	        sharing: Sharing::Public,
 	        native_type: RawString,
@@ -36,7 +37,22 @@ pub mod utils;
 
 	        validation: |_name: RawString, _ctx: hdk::ValidationData| {
 	        	Ok(())
-	        }
+	        },
+
+            links: [
+                to!(
+                    "persona",
+                    tag: "personas",
+
+                    validation_package: || {
+                        hdk::ValidationPackageDefinition::Entry
+                    },
+
+                    validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                        Ok(())
+                    }
+                )
+            ]
 		)
 	]
 
@@ -51,7 +67,7 @@ pub mod utils;
     	main (Public) {
     		create_persona: {
     			inputs: |spec: persona::PersonaSpec|,
-    			outputs: |result: ZomeApiResult<()>|,
+    			outputs: |result: ZomeApiResult<Address>|,
     			handler: persona::handlers::handle_create_persona
     		}
     		get_personas: {

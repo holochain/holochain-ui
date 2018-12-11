@@ -1,151 +1,118 @@
 
 use hdk::holochain_core_types::{
     hash::HashString,
-    entry::Entry,
-    entry::entry_type::EntryType,
-    json::JsonString,
+    json::{JsonString, RawString},
+    entry::{entry_type::AppEntryType, AppEntryValue, Entry},
+};
+
+use crate::utils::{
+	GetLinksLoadResult,
+	get_links_and_load_type,
+};
+
+use crate::profile::{
+	Profile,
+	ProfileSpec,
+	ProfileField,
+	MapFieldsResult,
 };
 
 use hdk::error::ZomeApiResult;
 use crate::profile;
 extern crate serde_json;
-use std::convert::TryFrom;
+
+/*=============================================
+=            Public zome functions            =
+=============================================*/
 
 
-pub fn handle_register_app(spec: profile::ProfileSpec) -> JsonString {
-    match (
-		hdk::commit_entry(&Entry::new(EntryType::App("profile".into()), spec)),
-		hdk::commit_entry(&Entry::new(EntryType::App("anchor".into()), json!("profiles")))
-	) {
-		(Ok(profile_address),Ok(anchor_address)) => {
-			match hdk::link_entries(&anchor_address, &profile_address, "") {
-				Ok(_) => json!({"success": true}).into(),
-				Err(hdk_error) => json!({"success": false}).into(),
+pub fn handle_register_app(spec: ProfileSpec) -> ZomeApiResult<()> {
+
+	let persona_entry = Entry::App(
+        AppEntryType::from("profile"),
+        AppEntryValue::from(spec),
+    );
+    let anchor_entry = Entry::App(
+        AppEntryType::from("profile_anchor"),
+        AppEntryValue::from(RawString::from("profiles")),
+    );
+
+	let profile_address = hdk::commit_entry(&persona_entry)?;
+	let anchor_address = hdk::commit_entry(&anchor_entry)?;
+
+	hdk::link_entries(&anchor_address, &profile_address, "profiles")?;
+
+	Ok(())
+}
+
+
+pub fn handle_get_profiles() -> ZomeApiResult<Vec<Profile>> {
+	let anchor_entry = Entry::App(
+        AppEntryType::from("profile_anchor"),
+        AppEntryValue::from(RawString::from("profiles")),
+    );
+	let anchor_address = hdk::commit_entry(&anchor_entry)?;
+
+	let result: GetLinksLoadResult<ProfileSpec> = get_links_and_load_type(&anchor_address, "profiles")?;
+
+	Ok(result.iter().map(|elem| {
+		let spec = elem.entry.clone();
+		let mapped_fields = get_mapped_profile_fields(&elem.address).unwrap_or(Vec::new());
+
+		let fields: Vec<profile::ProfileField> = spec.fields.iter().map(|field_spec| {
+
+			for matching_map in mapped_fields.iter().filter(|mapped_field| { mapped_field.entry.name == field_spec.name }) {
+				return matching_map.entry.clone() // return the first if there are multiple mappings for the same fieldSpec
 			}
-		},
-		_ => json!({"success": false}).into(),
+
+			profile::ProfileField::from_spec(field_spec.clone(), None)			
+
+		}).collect();
+
+		profile::Profile::from_spec(
+			spec, 
+			elem.address.to_owned(), 
+			fields,
+		)
+
+	}).collect())
+}
+
+
+pub fn handle_create_mapping(mapping: profile::ProfileMapping) -> ZomeApiResult<MapFieldsResult> {
+	let profiles: Vec<profile::Profile> = handle_get_profiles()?;
+	let mut mappings_created = 0;
+
+	for profile in profiles.iter().filter(|profile| profile.sourceDNA == mapping.retrieverDNA) {
+		for field in profile.fields.iter().filter(|field| field.name == mapping.profileFieldName) {
+			mappings_created += 1;
+
+			let new_field = field.new_with_mapping(Some(profile::FieldMapping {
+				personaAddress: mapping.personaAddress.to_owned(),
+				personaFieldName: mapping.personaFieldName.to_owned()
+			}));
+
+			let field_entry = Entry::App(
+		        AppEntryType::from("field_mapping"),
+		        AppEntryValue::from(new_field),
+		    );
+			let field_hash = hdk::commit_entry(&field_entry)?;
+			hdk::link_entries(&profile.hash, &field_hash, "field_mappings")?;
+		}
 	}
-}
-
-pub fn handle_get_profiles() -> JsonString { // array of profiles
-
-	match get_profiles() {
-		Ok(result) => {
-			json!({"profiles": result}).into()
-		},
-        Err(hdk_error) => hdk_error.into(),
-	}
-}
-
-pub fn handle_create_mapping(mapping: profile::ProfileMapping) -> JsonString {
-	let mut maps_created = 0u32;
-	let profiles: Vec<profile::Profile> = get_profiles().unwrap();
-
-	profiles.iter()
-		.filter(|profile| profile.sourceDNA == mapping.retrieverDNA)
-		.for_each(|profile| {
-			profile.fields.iter()
-				.filter(|field| field.name == mapping.profileFieldName)
-				.for_each(|field| {
-
-					let new_field = field.new_with_mapping(Some(profile::FieldMapping {
-						personaAddress: mapping.personaAddress.to_owned(),
-						personaFieldName: mapping.personaFieldName.to_owned()
-					}));
-
-					hdk::commit_entry(&Entry::new(EntryType::App("field_mapping".into()), json!(new_field)))
-						.and_then(|result| {
-							hdk::link_entries(&profile.hash, &result, "field_mappings")
-						})
-						.and_then(|_| {
-							maps_created += 1;
-							Ok(())
-						});
-
-				});
-		});
-
-	json!({"maps_created": maps_created}).into()
+	Ok(MapFieldsResult{mappings_created})
 }
 
 
 
-pub fn handle_retrieve(_retriever_dna: HashString, _profile_field: String) -> JsonString {
-	json!({}).into()
+pub fn handle_retrieve(_retriever_dna: HashString, _profile_field: String) -> ZomeApiResult<JsonString> {
+	Ok(JsonString::from("{}"))
 }
 
 
-fn get_profiles() -> ZomeApiResult<Vec<profile::Profile>> {
-	let anchor_address = hdk::commit_entry(&Entry::new(EntryType::App("anchor".into()), json!("profiles"))).expect("Could not commit anchor");
+/*=====  End of Public zome functions  ======*/
 
-	get_links_and_load(&anchor_address, "")
-		.map(|result| {
-			result.iter().map(|elem| {
-
-				let prof = profile::ProfileSpec::try_from(elem.entry.value().clone()).unwrap();
-				// merge spec fields and mapped fields to return a mapping where provided
-				let mapped_fields = get_mapped_profile_fields(&elem.address).unwrap();
-
-				let fields: Vec<profile::ProfileField> = prof.fields.iter().map(|field_spec| {
-					let matching_maps: Vec<profile::ProfileField> = mapped_fields.iter().filter(|mapped_field| {
-						mapped_field.name == field_spec.name
-					}).cloned().collect();
-					if matching_maps.len() > 0 {
-						matching_maps[0].clone() // return the first if there are multiple mappings for the same fieldSpec
-					} else {
-						profile::ProfileField::from_spec(field_spec.clone(), None)
-					}
-				}).collect();
-
-				profile::Profile::from_spec(
-					prof, 
-					elem.address.to_owned(), 
-					fields,
-				)
-
-			}).collect()
-		})
+fn get_mapped_profile_fields(profile_address: &HashString) -> ZomeApiResult<GetLinksLoadResult<ProfileField>> {
+	get_links_and_load_type(profile_address, "field_mappings")
 }
 
-fn get_mapped_profile_fields(profile_address: &HashString) -> ZomeApiResult<Vec<profile::ProfileField>> {
-	get_links_and_load(profile_address, "field_mappings")
-		.map(|results| {
-			results.iter().map(|get_links_result| {
-				profile::ProfileField::try_from(get_links_result.entry.value().clone()).unwrap()
-		}).collect()
-	})		
-}
-
-
-
-// #[derive(Serialize, Deserialize, Debug)]
-struct GetLinksLoadElement {
-	address: HashString,
-	entry: Entry
-}
-
-type GetLinksLoadResult = Vec<GetLinksLoadElement>;
-
-
-
-fn get_links_and_load<S: Into<String>>(
-    base: &HashString, 
-    tag: S
-) -> ZomeApiResult<GetLinksLoadResult>  {
-	hdk::get_links(base, tag)
-		.map(|result| {
-			result.addresses().iter()
-				.map(|address| {
-					hdk::get_entry(address.to_owned())
-						.map(|entry: Option<Entry>| {
-							GetLinksLoadElement{
-								address: address.to_owned(),
-								entry: entry.unwrap()
-							}
-						})
-						.ok()
-				})
-				.filter_map(|elem| elem)
-				.collect()
-		})
-}
