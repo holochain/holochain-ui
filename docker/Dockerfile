@@ -11,3 +11,5 @@ RUN rustup install nightly
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown --toolchain nightly
 RUN cd container && cargo install --force --path .
+
+RUN cd nodejs_container && npm install && npm run compile && mkdir -p bin-package && cp native/index.node bin-package && npm link
