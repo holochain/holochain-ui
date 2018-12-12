@@ -71,7 +71,7 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         myHash: action.payload
       }
     case getType(chatActions.GetAllMembers.success):
-      let users: Array<Identity> = action.payload.map((elem: {address: string, entry: any}) => {
+      let members: Array<Identity> = action.payload.map((elem: {address: string, entry: any}) => {
         elem.entry.profile = elem.entry.profile || { handle: 'no handle', email: 'no email', avatar: '' }
         return {
           agentId: elem.address,
