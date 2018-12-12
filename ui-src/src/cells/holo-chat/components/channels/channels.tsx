@@ -58,8 +58,7 @@ export interface OwnProps {
   classes?: any,
   isPublic: boolean,
   title: string,
-  isMobile: boolean,
-  getSubjects: (channelAddress: string) => void,
+  isMobile: boolean
 }
 
 export interface StateProps {

@@ -18,9 +18,9 @@ storiesOf('HoloChat/Channels', module)
   ))
   .add('List my Channels Desktop', withNotes(listChannels)(() => {
     specs(() => channelsTests)
-    return <Provider store={store}><Channels channels={constants.channels} title={'Public Channels'} isPublic={false} isMobile={false} subjects={constants.subjects} init={jest.fn(() => Promise.resolve('Init'))} /></Provider>
+    return <Provider store={store}><Channels channels={constants.channels} title={'Public Channels'} isPublic={false} isMobile={false} subjects={constants.subjects} init={jest.fn(() => Promise.resolve('Init'))} getMyChannels={jest.fn(() => Promise.resolve('getMyChannels'))} /></Provider>
   }))
   .add('List my Channels Mobile', withNotes(listChannels)(() => {
     specs(() => channelsTests)
-    return <Provider store={store}><Channels channels={constants.channels} title={'Public Channels'} isPublic={false} isMobile={true} subjects={constants.subjects} init={jest.fn(() => Promise.resolve('Init'))} /></Provider>
+    return <Provider store={store}><Channels channels={constants.channels} title={'Public Channels'} isPublic={false} isMobile={true} subjects={constants.subjects} init={jest.fn(() => Promise.resolve('Init'))} getMyChannels={jest.fn(() => Promise.resolve('getMyChannels'))} /></Provider>
   }))
