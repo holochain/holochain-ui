@@ -46,7 +46,8 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 })
 
 export interface OwnProps {
-  classes: any
+  classes: any,
+  isMobile: boolean
 }
 
 export interface StateProps {
@@ -149,7 +150,7 @@ class Messages extends React.Component<Props & RouterProps, State> {
   }
 
   render () {
-    const { classes, messages } = this.props
+    const { classes, messages, isMobile } = this.props
 
     return (
       <Paper className={classes.root}>
@@ -165,7 +166,7 @@ class Messages extends React.Component<Props & RouterProps, State> {
           </List>
         </Paper>
         <Paper className={classes.send}>
-          <Grid container={true} xs={7} spacing={0}>
+          <Grid container={true} xs={isMobile ? 12 : 7} spacing={0}>
             <Grid item={true} xs={11}>
               <TextField
                   id='subject'
