@@ -16,7 +16,11 @@ storiesOf('HoloChat/Channels', module)
 .addDecorator(story => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
-  .add('List my Channels', withNotes(listChannels)(() => {
+  .add('List my Channels Desktop', withNotes(listChannels)(() => {
     specs(() => channelsTests)
-    return <Provider store={store}><Channels channels={constants.channels} title={'Public Channels'} isPublic={false} subjects={constants.subjects} init={jest.fn(() => Promise.resolve('Init'))} /></Provider>
+    return <Provider store={store}><Channels channels={constants.channels} title={'Public Channels'} isPublic={false} isMobile={false} subjects={constants.subjects} init={jest.fn(() => Promise.resolve('Init'))} /></Provider>
+  }))
+  .add('List my Channels Mobile', withNotes(listChannels)(() => {
+    specs(() => channelsTests)
+    return <Provider store={store}><Channels channels={constants.channels} title={'Public Channels'} isPublic={false} isMobile={true} subjects={constants.subjects} init={jest.fn(() => Promise.resolve('Init'))} /></Provider>
   }))

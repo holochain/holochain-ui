@@ -35,6 +35,7 @@ export const channelsTests = describe('Listing your channels', () => {
     getSubjects: mockFn,
     title: 'Public Channels',
     isPublic: true,
+    isMobile: false,
     subjects: constants.subjects,
     setChannelAddress: mockFn,
     setSubjectAddress: mockFn

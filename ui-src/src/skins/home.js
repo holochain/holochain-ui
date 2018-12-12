@@ -218,8 +218,8 @@ class MiniDrawer extends React.Component {
               } />
               <Route path='/holo-chat' render={props =>
                 <div>
-                  <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} />
-                  <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} />
+                  <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} isMobile={true} />
+                  <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} isMobile={true} />
                 </div>
               } />
               <Route path='/errand' render={props =>
@@ -274,7 +274,7 @@ class MiniDrawer extends React.Component {
             <Route exact path='/home' title='Holochain' component={Desktop} />
             <Route exact path='/' title='Holochain' component={Desktop} />
             <Route path={['/holo-chat/channel/:channel', '/holo-chat/subject/:subject', '/holo-chat' ]} title='Holochain' render={props =>
-                <MessagesContainer {...props} />
+                <MessagesContainer {...props} isMobile={true} />
             } />
           </MediaQuery>
 

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import withRoot from '../../../../withRoot'
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom'
+import classNames from 'classnames'
 import Typography from '@material-ui/core/Typography'
 import Chip from '@material-ui/core/Chip'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -25,11 +26,19 @@ import {
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     width: '100%',
+    boxShadow: 'none'
+  },
+  desktop: {
     backgroundColor: theme.palette.background.paper
   },
+  mobile: {
+    backgroundColor: theme.palette.primary.main
+  },
+  panel: {
+    boxShadow: 'none'
+  },
   addButton: {
-    float: 'right',
-    backgroundColor: theme.palette.background.paper
+    float: 'right'
   },
   title: {
     padding: theme.spacing.unit
@@ -49,6 +58,7 @@ export interface OwnProps {
   classes?: any,
   isPublic: boolean,
   title: string,
+  isMobile: boolean,
   getSubjects: (channelAddress: string) => void,
 }
 
@@ -102,7 +112,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
     this.setState({ modalOpen: false })
     this.props.newChannel(channelSpec)
       .then((address: string) => {
-        // console.log(result.payload.address)
+        console.log(address)
         this.props.history.push(`/holo-chat/channel/${address}`)
       })
       .catch((err: Error) => {
@@ -132,13 +142,13 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   render (): JSX.Element {
-    const { classes, channels, title, subjects, isPublic } = this.props
+    const { classes, channels, title, subjects, isPublic, isMobile } = this.props
     return (
-    <div className={classes.root}>
-      <Button id='AddChannel' mini={true} onClick={this.handleNewChannelButtonClick} className={classes.addButton}>
+    <div className={classNames(classes.root, isMobile && classes.mobile, !isMobile && classes.desktop)}>
+      <Button id='AddChannel' mini={true} onClick={this.handleNewChannelButtonClick} className={classNames(classes.addButton, isMobile && classes.mobile, !isMobile && classes.desktop)}>
         <AddIcon/>
       </Button>
-      <Typography variant='h5' className={classes.title}>
+      <Typography variant={isMobile ? 'h6' : 'h5'} className={classNames(classes.title, isMobile && classes.mobile, !isMobile && classes.desktop)}>
         {title}
       </Typography>
         {channels.filter(function (channel: ChannelType) {
@@ -147,9 +157,9 @@ class Channels extends React.Component<Props & RouterProps, State> {
         <div key={index} className={classes.root}>
             <Route
               render={ () => (
-                <ExpansionPanel style={{ boxShadow: 'none' }}>
+                <ExpansionPanel className={classNames(classes.panel, isMobile && classes.mobile, !isMobile && classes.desktop)}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(channel.address)}>
-                    <Typography variant='h6'>{channel.name}</Typography>
+                    <Typography variant={isMobile ? 'subtitle2' : 'h6'}>{channel.name}</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <div>
