@@ -44,8 +44,8 @@ test('Can retrieve all the members that are added by init', t => {
   t.notEqual(init_result.Ok, undefined, 'init should return success')
 
   const getAllMembersResult = app.call('chat', 'main', 'get_all_members', {})
-  console.log(getAllMembersResult)
-  t.equal(getAllMembersResult.length, 6) // will fail if we change test data
+  console.log(getAllMembersResult.Ok)
+  t.equal(getAllMembersResult.Ok.length, 6) // will fail if we change test data
 
   t.end()
 })
@@ -54,7 +54,7 @@ test('Can post a message to the channel and retrieve', (t) => {
   const init_result = app.call('chat', 'main', 'init', {})
   console.log(init_result)
   t.notEqual(init_result.Ok, undefined, 'init should return success')
-  
+
   const create_result = app.call('chat', 'main', 'create_channel', testNewChannelParams)
   console.log(create_result)
   const channel_addr = create_result.Ok
@@ -79,21 +79,21 @@ test('Can post a message with a subject and this is added to the channel', t => 
   const init_result = app.call('chat', 'main', 'init', {})
   console.log(init_result)
   t.notEqual(init_result.Ok, undefined, 'init should return success')
-  
+
   const create_result = app.call('chat', 'main', 'create_channel', testNewChannelParams)
   console.log(create_result)
   const channel_addr = create_result.Ok
   t.deepEqual(channel_addr.length, 46)
 
-  const post_result = app.call('chat', 'main', 'post_message', {channel_address: channel_addr, message: testMessage, subjects: ['test subject']})
+  const post_result = app.call('chat', 'main', 'post_message', {channel_address: channel_addr, message: testMessage, subjects: ['subject 1', 'subject 2']})
   console.log(post_result)
   t.notEqual(post_result.Ok, undefined, 'post should return success')
 
   const get_subjects_result = app.call('chat', 'main', 'get_subjects', {channel_address: channel_addr})
   console.log(get_subjects_result)
-  t.deepEqual(get_subjects_result.length, 2)
-  t.deepEqual(get_subjects_result[0].entry.channel_address.length, 46)
-  t.deepEqual(get_subjects_result[0].address.length, 46)
+  t.deepEqual(get_subjects_result.Ok.length, 2)
+  t.deepEqual(get_subjects_result.Ok[0].entry.channel_address.length, 46)
+  t.deepEqual(get_subjects_result.Ok[0].address.length, 46)
 
   const get_subject_message_result = app.call('chat', 'main', 'get_messages', {address: get_subjects_result.Ok[0].address})
   console.log('Messages linked to the subject' + get_subjects_result.Ok[0].address)
