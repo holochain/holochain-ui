@@ -34,12 +34,14 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     padding: theme.spacing.unit
   },
   send: {
-    width: '100%',
+    width: '98%',
     position: 'fixed',
     bottom: 0,
     boxShadow: 'none',
     backgroundColor: theme.palette.background.paper,
-    height: 140
+    height: 140,
+    padding: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   },
   chatHistory: {
     height: '100%',
@@ -105,20 +107,12 @@ class Messages extends React.Component<Props & RouterProps, State> {
   }
 
   handleSendMessage = () => {
-    console.log({
-      channel_address: this.props.channelAddress,
-      subjects: [this.state.subject],
-      message: {
-        message_type: 'text',
-        payload: this.state.message,
-        meta: '{}'
-      }
-    })
     this.props.sendMessage({
       channel_address: this.props.channelAddress,
       subjects: [this.state.subject],
       message: {
         message_type: 'text',
+        timestamp: Math.floor((new Date()).getTime() / 1000),
         payload: this.state.message,
         meta: '{}'
       }
@@ -190,6 +184,8 @@ class Messages extends React.Component<Props & RouterProps, State> {
                   id='message'
                   label='Message'
                   className={classes.textField}
+                  multiline={true}
+                  rowsMax={isMobile ? 2 : 4}
                   value={this.state.message}
                   onChange={this.handleChangeMessage}
                   margin='normal'

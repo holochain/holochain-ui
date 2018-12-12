@@ -40,7 +40,7 @@ pub fn handle_create_channel(
 
     let channel_address = hdk::commit_entry(&entry)?;
     utils::link_entries_bidir(&get_my_member_id().hash(), &channel_address, "member_of", "has_member")?;
-    
+
     for member in initial_members {
         utils::link_entries_bidir(&member.hash(), &channel_address, "member_of", "has_member")?;
     }
@@ -76,11 +76,10 @@ pub fn handle_get_subjects(address: HashString) -> ZomeApiResult<utils::GetLinks
 
 
 pub fn handle_post_message(channel_address: HashString, message_spec: message::MessageSpec, subjects: Vec<String>) -> ZomeApiResult<()> {
-    
+
     let message = message::Message::from_spec(
-        &message_spec, 
-        &"test author".to_string(), 
-        &"test timestamp".to_string());
+        &message_spec,
+        &"test author".to_string());
 
     let message_entry = Entry::App(
         AppEntryType::from("message"),
@@ -103,6 +102,3 @@ pub fn handle_post_message(channel_address: HashString, message_spec: message::M
 
     Ok(())
 }
-
-
-

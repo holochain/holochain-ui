@@ -55,7 +55,7 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         address: result.address,
         ...result.entry
       }))
-      // console.log(messages)
+      messages.sort((one, two) => (one.timestamp > two.timestamp ? 1 : -1))
       return {
         ...state,
         messages: messages
