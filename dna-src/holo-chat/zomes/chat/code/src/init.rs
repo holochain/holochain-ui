@@ -13,14 +13,11 @@ use crate::test_data;
 use crate::member;
 
 pub fn handle_init() -> ZomeApiResult<()> {
-
 	let anchor_entry = Entry::App(
         AppEntryType::from("anchor"),
         AppEntryValue::from(RawString::from("member_directory")),
 	);
-
 	let anchor_address = hdk::commit_entry(&anchor_entry)?;
-
     let agent_member_entry = Entry::App(
         AppEntryType::from("member"),
         AppEntryValue::from(member::Member{id: AGENT_ADDRESS.to_string(), profile:None})

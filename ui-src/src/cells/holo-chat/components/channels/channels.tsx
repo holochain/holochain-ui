@@ -112,7 +112,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
     this.setState({ modalOpen: false })
     this.props.newChannel(channelSpec)
       .then((address: string) => {
-        // console.log(result.payload.address)
+        console.log(address)
         this.props.history.push(`/holo-chat/channel/${address}`)
       })
       .catch((err: Error) => {
