@@ -74,8 +74,8 @@ class Profile extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount () {
-    this.props.getPersonas(undefined)
-      .then(this.props.getProfiles)
+    this.props.getPersonas({})
+      .then(() => this.props.getProfiles({}))
       .catch((err) => console.log(err))
   }
 

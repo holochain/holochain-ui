@@ -182,35 +182,35 @@ dependencies = [
 
 [[package]]
 name = "hdk"
-version = "0.0.1"
-source = "git+https://github.com/holochain/holochain-rust?branch=develop#81ebae7e917010887041a3c045e659a03bc93b4b"
+version = "0.0.2"
+source = "git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f#15b1892e8544db241e188d2918688ecbc533a45f"
 dependencies = [
  "bitflags 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "holochain_core_types 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)",
- "holochain_core_types_derive 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)",
- "holochain_wasm_utils 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)",
+ "holochain_core_types 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)",
+ "holochain_core_types_derive 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)",
+ "holochain_wasm_utils 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)",
  "lazy_static 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde_derive 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_derive 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.33 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "holochain_core_types"
-version = "0.0.1"
-source = "git+https://github.com/holochain/holochain-rust?branch=develop#81ebae7e917010887041a3c045e659a03bc93b4b"
+version = "0.0.2"
+source = "git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f#15b1892e8544db241e188d2918688ecbc533a45f"
 dependencies = [
  "arrayref 0.3.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "base64 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "bitflags 1.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "futures-preview 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "holochain_core_types_derive 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)",
+ "holochain_core_types_derive 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)",
  "multihash 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "objekt 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "reed-solomon 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "rust-base58 0.0.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde_derive 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_derive 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.33 (registry+https://github.com/rust-lang/crates.io-index)",
  "snowflake 1.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "uuid 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -218,24 +218,24 @@ dependencies = [
 
 [[package]]
 name = "holochain_core_types_derive"
-version = "0.0.1"
-source = "git+https://github.com/holochain/holochain-rust?branch=develop#81ebae7e917010887041a3c045e659a03bc93b4b"
+version = "0.0.2"
+source = "git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f#15b1892e8544db241e188d2918688ecbc533a45f"
 dependencies = [
  "quote 0.6.10 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.33 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn 0.14.9 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "holochain_wasm_utils"
-version = "0.0.1"
-source = "git+https://github.com/holochain/holochain-rust?branch=develop#81ebae7e917010887041a3c045e659a03bc93b4b"
+version = "0.0.2"
+source = "git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f#15b1892e8544db241e188d2918688ecbc533a45f"
 dependencies = [
- "holochain_core_types 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)",
- "holochain_core_types_derive 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)",
- "serde 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde_derive 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)",
+ "holochain_core_types 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)",
+ "holochain_core_types_derive 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)",
+ "serde 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_derive 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.33 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -357,11 +357,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 name = "personas"
 version = "0.1.0"
 dependencies = [
- "hdk 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)",
- "holochain_core_types_derive 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)",
- "holochain_wasm_utils 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)",
- "serde 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde_derive 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)",
+ "hdk 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)",
+ "holochain_core_types_derive 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)",
+ "holochain_wasm_utils 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)",
+ "serde 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_derive 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.33 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -426,12 +426,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "serde"
-version = "1.0.80"
+version = "1.0.81"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "serde_derive"
-version = "1.0.80"
+version = "1.0.81"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "proc-macro2 0.4.24 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -447,7 +447,7 @@ dependencies = [
  "indexmap 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "itoa 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "ryu 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -565,10 +565,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum futures-stable-preview 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)" = "0a6ba960b8bbbc14a9a741cc8ad9c26aff44538ea14be021db905b43f33854da"
 "checksum futures-util-preview 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)" = "4b29aa737dba9e2e47a5dcd4d58ec7c7c2d5f78e8460f609f857bcf04163235e"
 "checksum generic-array 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)" = "ef25c5683767570c2bbd7deba372926a55eaae9982d7726ee2a1050239d45b9d"
-"checksum hdk 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)" = "<none>"
-"checksum holochain_core_types 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)" = "<none>"
-"checksum holochain_core_types_derive 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)" = "<none>"
-"checksum holochain_wasm_utils 0.0.1 (git+https://github.com/holochain/holochain-rust?branch=develop)" = "<none>"
+"checksum hdk 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)" = "<none>"
+"checksum holochain_core_types 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)" = "<none>"
+"checksum holochain_core_types_derive 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)" = "<none>"
+"checksum holochain_wasm_utils 0.0.2 (git+https://github.com/holochain/holochain-rust?rev=15b1892e8544db241e188d2918688ecbc533a45f)" = "<none>"
 "checksum indexmap 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)" = "7e81a7c05f79578dbc15793d8b619db9ba32b4577003ef3af1a91c416798c58d"
 "checksum iovec 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)" = "dbe6e417e7d0975db6512b90796e8ce223145ac4e33c377e4a42882a0e88bb08"
 "checksum itoa 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)" = "1306f3464951f30e30d12373d31c79fbd52d236e5e896fd92f96ec7babbbe60b"
@@ -592,8 +592,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum reed-solomon 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = "13de68c877a77f35885442ac72c8beb7c2f0b09380c43b734b9d63d1db69ee54"
 "checksum rust-base58 0.0.4 (registry+https://github.com/rust-lang/crates.io-index)" = "b313b91fcdc6719ad41fa2dad2b7e810b03833fae4bf911950e15529a5f04439"
 "checksum ryu 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)" = "eb9e9b8cde282a9fe6a42dd4681319bfb63f121b8a8ee9439c6f4107e58a46f7"
-"checksum serde 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)" = "15c141fc7027dd265a47c090bf864cf62b42c4d228bbcf4e51a0c9e2b0d3f7ef"
-"checksum serde_derive 1.0.80 (registry+https://github.com/rust-lang/crates.io-index)" = "225de307c6302bec3898c51ca302fc94a7a1697ef0845fcee6448f33c032249c"
+"checksum serde 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)" = "c91eb5b0190ae87b4e2e39cbba6e3bed3ac6186935fe265f0426156c4c49961b"
+"checksum serde_derive 1.0.81 (registry+https://github.com/rust-lang/crates.io-index)" = "477b13b646f5b5b56fc95bedfc3b550d12141ce84f466f6c44b9a17589923885"
 "checksum serde_json 1.0.33 (registry+https://github.com/rust-lang/crates.io-index)" = "c37ccd6be3ed1fdf419ee848f7c758eb31b054d7cd3ae3600e3bae0adf569811"
 "checksum sha1 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)" = "171698ce4ec7cbb93babeb3190021b4d72e96ccb98e33d277ae4ea959d6f2d9e"
 "checksum sha2 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)" = "9eb6be24e4c23a84d7184280d2722f7f2731fcdd4a9d886efbfe4413e4847ea0"

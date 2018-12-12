@@ -15,7 +15,7 @@ const mapStateToProps = (state: any): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    getPersonas: () => dispatch(GetPersonas.create(undefined)) // can be written as  () => { return dispatch(...) }
+    getPersonas: () => dispatch(GetPersonas.create({})) // can be written as  () => { return dispatch(...) }
   }
 }
 

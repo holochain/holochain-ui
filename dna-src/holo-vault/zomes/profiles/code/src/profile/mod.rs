@@ -6,10 +6,16 @@ use hdk::holochain_core_types::hash::HashString;
 use hdk::{
     self, 
     entry_definition::ValidatingEntryType,
-    holochain_core_types::dna::zome::entry_types::Sharing,
+};
+
+use hdk::holochain_core_types::{
+    dna::zome::entry_types::Sharing,
+    cas::content::Address,
 };
 
 use serde_json;
+
+pub mod handlers;
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct ProfileSpec {
@@ -68,6 +74,11 @@ pub struct ProfileField {
     pub mapping: Option<FieldMapping>
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+pub struct MapFieldsResult {
+    pub mappings_created: i32,
+}
+
 pub fn profile_definition() -> ValidatingEntryType {
     entry!(
         name: "profile",
@@ -81,7 +92,22 @@ pub fn profile_definition() -> ValidatingEntryType {
 
         validation: |_profile: ProfileSpec, _ctx: hdk::ValidationData| {
             Ok(())
-        }
+        },
+
+        links: [
+            to!(
+                "field_mapping",
+                tag: "field_mappings",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
+            )
+        ]
     )
 }
 

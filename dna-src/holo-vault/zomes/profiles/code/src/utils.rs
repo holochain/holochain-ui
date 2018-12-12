@@ -8,6 +8,7 @@ use hdk::{
     error::{ZomeApiResult, ZomeApiError},
 };
 
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct GetLinksLoadElement<T> {
 	pub address: HashString,
@@ -22,21 +23,22 @@ pub fn get_links_and_load<S: Into<String>>(
     base: &HashString,
     tag: S
 ) -> ZomeApiResult<GetLinksLoadResult<Entry>>  {
-	let get_links_result = hdk::get_links(base, tag)?;
-
-	Ok(get_links_result.addresses()
-	.iter()
-	.map(|address| {
-		hdk::get_entry(address.to_owned())
-		.map(|entry: Option<Entry>| {
-			GetLinksLoadElement{
-				address: address.to_owned(),
-				entry: entry.unwrap()
-			}
+	hdk::get_links(base, tag)
+		.map(|result| {
+			result.addresses().iter()
+				.map(|address| {
+					hdk::get_entry(address.to_owned())
+						.map(|entry: Option<Entry>| {
+							GetLinksLoadElement{
+								address: address.to_owned(),
+								entry: entry.unwrap()
+							}
+						})
+						.ok()
+				})
+				.filter_map(|elem| elem)
+				.collect()
 		})
-	})
-	.filter_map(Result::ok)
-	.collect())
 }
 
 pub fn get_links_and_load_type<
@@ -47,30 +49,15 @@ pub fn get_links_and_load_type<
     tag: S
 ) -> ZomeApiResult<GetLinksLoadResult<R>> {
 	let link_load_results = get_links_and_load(base, tag)?;
-
-	Ok(link_load_results
-	.iter()
-	.map(|get_links_result| {
-
-		match get_links_result.entry.clone() {
-			Entry::App(_, entry_value) => {
-				let entry = R::try_from(entry_value)
-				.map_err(|_| ZomeApiError::Internal(
-					"Could not convert get_links result to requested type".to_string())
-				)?;
-
-	            Ok(GetLinksLoadElement::<R>{
-	                entry: entry, 
-	                address: get_links_result.address.clone()
-	            })
-			},
-			_ => Err(ZomeApiError::Internal(
-				"get_links did not return an app entry".to_string())
-			)
-		}
-	})
-	.filter_map(Result::ok)
-	.collect())
+	link_load_results.iter().map(|get_links_result| {
+		if let Entry::App(_, entry_value) = get_links_result.entry.clone() {
+			let entry = R::try_from(entry_value).map_err(|_| ZomeApiError::Internal("fail".to_string()))?;
+            Ok(GetLinksLoadElement::<R>{
+                entry: entry, 
+                address: get_links_result.address.clone()
+            })
+        } else { Err(ZomeApiError::Internal("fail".to_string())) }
+	}).collect::<ZomeApiResult<GetLinksLoadResult<R>>>()
 }
 
 pub fn link_entries_bidir<S: Into<String>>(a: &HashString, b: &HashString, tag_a_b: &str, tag_b_a: S) -> ZomeApiResult<()> {

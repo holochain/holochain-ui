@@ -137,7 +137,7 @@ class Persona extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount () {
-    this.props.getPersonas(undefined)
+    this.props.getPersonas({})
       .catch((err) => console.log(err))
     this.setState({
       open: false,
