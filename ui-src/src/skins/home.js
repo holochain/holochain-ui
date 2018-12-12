@@ -30,7 +30,7 @@ import Mobile from './mobile'
 import MainNav from './navData';
 import HoloVaultNav from './holoVaultNavData';
 import StorybookSkin from './storybook'
-import HoloChatNav from './holoChatNavData'
+// import HoloChatNav from './holoChatNavData'
 import ErrandNav from './errandNavData'
 import HackTogetherSkin from './hackTogether'
 import HoloChessSkin from './holochess'
@@ -42,11 +42,12 @@ const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
-    display: 'flex'
+    display: 'flex',
+    height: '100%',
+    width: '100%'
   },
   appBar: {
     backgroundColor: '#3A277A',
@@ -103,9 +104,25 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
   },
   content: {
-    flexGrow: 1,
+    display: 'flex',
+    height: '100%',
+    width: '100%',
     padding: 0,
     marginTop: 58
+  },
+  chat: {
+    display: 'flex',
+    height: '100%',
+    width: '100%',
+    backgroundColor: '#424242'
+  },
+  channels: {
+    height: '100%',
+    width: '100%'
+  },
+  messages: {
+    height: '100%',
+    width: '100%'
   }
 });
 
@@ -169,9 +186,6 @@ class MiniDrawer extends React.Component {
               <Route path='/holo-vault' render={props =>
                 <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
               } />
-              <Route path='/holo-chat' render={props =>
-                <HoloChatNav handleDrawerClose={this.handleDrawerClose} />
-              } />
               <Route path='/errand' render={props =>
                 <ErrandNav handleDrawerClose={this.handleDrawerClose} />
               } />
@@ -203,7 +217,10 @@ class MiniDrawer extends React.Component {
                 <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
               } />
               <Route path='/holo-chat' render={props =>
-                <HoloChatNav handleDrawerClose={this.handleDrawerClose} />
+                <div>
+                  <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} />
+                  <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} />
+                </div>
               } />
               <Route path='/errand' render={props =>
                 <ErrandNav handleDrawerClose={this.handleDrawerClose} />
@@ -235,12 +252,12 @@ class MiniDrawer extends React.Component {
               </div>
             } />
             <Route path={['/holo-chat/channel/:channel', '/holo-chat/subject/:subject', '/holo-chat' ]} title='Holochain' render={props =>
-              <Grid container={true} spacing={0}>
-                <Grid item={true} xs={3}>
+              <Grid container={true} spacing={0} className={classes.chat}>
+                <Grid item={true} xs={3} className={classes.channels}>
                   <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} />
                   <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} />
                 </Grid>
-                <Grid item={true} xs={7}>
+                <Grid item={true} xs={7} className={classes.messages}>
                   <MessagesContainer {...props} />
                 </Grid>
                 <Grid item={true} xs={2}>
@@ -257,15 +274,7 @@ class MiniDrawer extends React.Component {
             <Route exact path='/home' title='Holochain' component={Desktop} />
             <Route exact path='/' title='Holochain' component={Desktop} />
             <Route path={['/holo-chat/channel/:channel', '/holo-chat/subject/:subject', '/holo-chat' ]} title='Holochain' render={props =>
-              <Grid container={true} spacing={0}>
-                <Grid item={true} xs={4}>
-                  <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} />
-                  <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} />
-                </Grid>
-                <Grid item={true} xs={8}>
-                  <MessagesContainer {...props} />
-                </Grid>
-              </Grid>
+                <MessagesContainer {...props} />
             } />
           </MediaQuery>
 

@@ -45,7 +45,7 @@ test('Can retrieve all the members that are added by init', t => {
 
   const getAllMembersResult = app.call('chat', 'main', 'get_all_members', {})
   console.log(getAllMembersResult)
-  t.equal(getAllMembersResult.Ok.length, 5) // will fail if we change test data
+  t.equal(getAllMembersResult.length, 6) // will fail if we change test data
 
   t.end()
 })
@@ -75,7 +75,7 @@ test('Can post a message to the channel and retrieve', (t) => {
 })
 
 
-test.only('Can post a message with a subject and this is added to the channel', t => {
+test('Can post a message with a subject and this is added to the channel', t => {
   const init_result = app.call('chat', 'main', 'init', {})
   console.log(init_result)
   t.notEqual(init_result.Ok, undefined, 'init should return success')
@@ -91,9 +91,9 @@ test.only('Can post a message with a subject and this is added to the channel', 
 
   const get_subjects_result = app.call('chat', 'main', 'get_subjects', {channel_address: channel_addr})
   console.log(get_subjects_result)
-  t.deepEqual(get_subjects_result.Ok[0].entry.name, 'test subject')
-  t.deepEqual(get_subjects_result.Ok[0].entry.channel_address.length, 46)
-  t.deepEqual(get_subjects_result.Ok[0].address.length, 46)
+  t.deepEqual(get_subjects_result.length, 2)
+  t.deepEqual(get_subjects_result[0].entry.channel_address.length, 46)
+  t.deepEqual(get_subjects_result[0].address.length, 46)
 
   const get_subject_message_result = app.call('chat', 'main', 'get_messages', {address: get_subjects_result.Ok[0].address})
   console.log('Messages linked to the subject' + get_subjects_result.Ok[0].address)
@@ -107,8 +107,7 @@ test('Can create a public channel with some members', (t) => {
   const init_result = app.call('chat', 'main', 'init', {})
   console.log(init_result)
   t.notEqual(init_result.Ok, undefined, 'init should return success')
-  
-  const create_result = app.call('chat', 'main', 'create_channel', {...testNewChannelParams, public: false, initial_members: [{id: "wollum"}, {id: "philipbeadle"}]})
+  const create_result = app.call('chat', 'main', 'create_channel', {...testNewChannelParams, public: false, initial_members: [{id: "jeanmrussell"}, {id: "artbrock"}]})
   console.log(create_result)
   t.deepEqual(create_result.Ok.length, 46)
   t.end()

@@ -17,20 +17,55 @@ We all struggle with the ability to schedule time to meet while being a fully di
 
 Provide feedback by submitting tickets to this repo.
 
-Check out our [Storybook](https://holochain.github.io/holochain-ui/index.html?selectedKind=HoloVault%2FPersona&selectedStory=New%20Persona&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Fnotes%2Fpanel) to test how the components of the app operate. By taking this approach we are sharing the ability for developers to apply these well documented concepts into other holochain apps.
+Check out our [Storybook](https://holochain.github.io/holochain-ui) to test how the components of the app operate. By taking this approach we are sharing the ability for developers to apply these well documented concepts into other holochain apps.
 
 Previous prototypes:
 [Initial prototype](https://marvelapp.com/31d2c27/)
 
-## How to use
 
-After install:
-- cd dna-src
- - npm install && npm run build
-- cd ..
+## How to use
+[Get Rust set up and install the command line tools and the Holochain container](!https://developer.holochain.org/start.html)
+
+- Clone this repository
+  - git clone git@github.com:holochain/holochain-ui.git
+- Check you can test the zomes:
+  - cd dna-src/holo-chat/test
+  - npm install
+  - cd ../..
+  - cd holo-vault/test
+  - npm install
+  - cd ../../..
+  - npm run hc:test-chat
+  - npm run hc:test-vault
+
+If the tests all pass you have setup correctly.
+
+- Build the zomes
+  - npm run hc:build-chat
+  - npm run hc:build-vault
+- Run the container and the web socket interface
+  - npm run hc:start
+
+You should get an output like
+```
+> holochain-ui@1.0.0 hc:start /Users/philipbeadle/holochain/hApps/holochain-ui
+> mkdir -p tmp-storage && holochain_container -c ./container-config.toml
+
+Using config path: ./container-config.toml
+Successfully loaded 1 instance configurations
+Starting all of them...
+Starting instance "holo-chat"...
+Starting interfaces...
+Done
+```
+
+Now lets run the UI.
 - cd ui-src
- - npm install
- - npm run build
+- npm install
+- npm run start
+
+You should now be able to navigate to http://localhost:3000/holo-chat/ and create a Public Channel.
+
 
 
 ## Built With

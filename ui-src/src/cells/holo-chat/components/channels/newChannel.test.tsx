@@ -29,7 +29,7 @@ export const agentListTest = describe('agentList component', () => {
   const mockFn = jest.fn()
   props = {
     open: true,
-    users: Agents.agents,
+    members: Agents.agents,
     onSubmit: mockFn,
     onHandleClose: mockFn,
     isPublic: true,

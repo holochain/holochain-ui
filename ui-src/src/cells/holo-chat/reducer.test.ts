@@ -67,7 +67,7 @@ describe('Chat Reducer', () => {
     expect(holochatReducer(undefined, chatActions.GetAllMembers.success(usersResponse)))
     .toEqual({
       ...initialState,
-      users: usersResponse.map(u => { return { hash: u.address, ...u.entry.profile } })
+      users: usersResponse.map(u => { return { agentId: u.address, ...u.entry.profile } })
     })
   })
 

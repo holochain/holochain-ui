@@ -11,11 +11,12 @@ import reply from './reply.md'
 import CreateStore from '../../../../store'
 import * as constants from '../../constants'
 import { Message as MessageType } from '../../types/model/message'
+import * as Agents from '../../data/contactsBase64'
 
 configure({ adapter: new Adapter() })
 let store = CreateStore()
 
-function StartComponent (props: any) {
+function StartComponent () {
   return (
       <h1>Start </h1>
   )
@@ -34,5 +35,5 @@ storiesOf('HoloChat/Messages', module)
   }))
 
 function getMessages (messages: Array<MessageType>) {
-  return (<Provider store={store}><Messages messages={messages} /></Provider>)
+  return (<Provider store={store}><Messages messages={messages} members={Agents.agents} /></Provider>)
 }

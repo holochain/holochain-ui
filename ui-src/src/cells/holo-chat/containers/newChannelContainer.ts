@@ -9,7 +9,7 @@ import { ChannelSpec } from '../types/model/channel'
 
 const mapStateToProps = (state: any) => {
   return {
-    users: state.holoChat.users
+    members: state.holoChat.members
   }
 }
 
