@@ -25,20 +25,20 @@ export const streamsTests = describe('Listing your streams', () => {
   beforeEach(() => {
     mountedStreamsList = undefined
   })
-  const mockFn = jest.fn()
+
   props = {
-    init: mockFn,
-    getAllMembers: mockFn,
-    getMyStreams: mockFn,
-    newStream: jest.fn(() => Promise.reject('newStream not implemented')),
+    init: jest.fn(() => Promise.reject('init')),
+    getAllMembers: jest.fn(() => Promise.reject('getAllMembers')),
+    getMyStreams: jest.fn(() => Promise.reject('getMyStreams')),
+    newStream: jest.fn(() => Promise.reject('newStream')),
+    getSubjects: jest.fn(() => Promise.reject('getSubjects')),
     streams: constants.streams,
-    getSubjects: mockFn,
     title: 'Public Streams',
     isPublic: true,
     isMobile: false,
     subjects: constants.subjects,
-    setStreamAddress: mockFn,
-    setSubjectAddress: mockFn
+    setStreamAddress: jest.fn(),
+    setSubjectAddress: jest.fn()
   }
 
   it('When there is a list of existing streams the stream view shows the list of existing streams', () => {
