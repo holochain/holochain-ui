@@ -17,7 +17,7 @@ use crate::profile::{
 	MapFieldsResult,
 };
 
-use hdk::error::ZomeApiResult;
+use hdk::error::{ZomeApiResult, ZomeApiError};
 use crate::profile;
 extern crate serde_json;
 
@@ -105,8 +105,21 @@ pub fn handle_create_mapping(mapping: profile::ProfileMapping) -> ZomeApiResult<
 
 
 
-pub fn handle_retrieve(_retriever_dna: HashString, _profile_field: String) -> ZomeApiResult<JsonString> {
-	Ok(JsonString::from("{}"))
+pub fn handle_retrieve(retriever_dna: HashString, profile_field: String) -> ZomeApiResult<JsonString> {
+
+	// need to remember to wrap string with the extra quote marks or they won't deserialize
+	// Ok(JsonString::from("\"A handle!\""))
+	// Err(ZomeApiError::Internal("Nothing in the vault".to_string()))
+
+	let profiles: Vec<profile::Profile> = handle_get_profiles()?;
+
+	for profile in profiles.iter().filter(|profile| profile.sourceDNA == retriever_dna) {
+		for field in get_mapped_profile_fields(&profile.hash).unwrap().iter().filter(|elem| elem.entry.name == profile_field) {
+			return Ok(JsonString::from("\"A handle!\""))
+		}
+	}
+	Err(ZomeApiError::Internal("Nothing in the vault".to_string()))
+
 }
 
 

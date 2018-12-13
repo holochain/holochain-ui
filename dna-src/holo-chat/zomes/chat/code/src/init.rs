@@ -1,10 +1,11 @@
+use core::convert::TryFrom;
 
 use hdk::holochain_core_types::json::JsonString;
 use hdk::holochain_core_types::error::HolochainError;
 use hdk::{
     AGENT_ADDRESS,
     DNA_HASH,
-    error::ZomeApiResult,
+    error::{ZomeApiResult, ZomeApiError},
 };
 
 use hdk::holochain_core_types::{
@@ -17,12 +18,12 @@ use crate::member;
 
 pub fn handle_init() -> ZomeApiResult<()> {
     // if the agent already contains a StoreProfile then we are done! Let them start the app
-    // if member::handlers::handle_get_profile(AGENT_ADDRESS.to_string().into()).is_ok() {
-    //     return Ok(())
-    // }
+    if member::handlers::handle_get_profile(AGENT_ADDRESS.to_string().into()).is_ok() {
+        return Ok(())
+    }
 
     // if that failed we need to set them up
-    // register_with_vault()?;
+    register_with_vault()?;
 
     // This will fail until the user has actually opened vault and completed the required fields
     // upon failing the UI should redirect to the vault form
@@ -94,23 +95,49 @@ fn register_with_vault() -> ZomeApiResult<()> {
     Ok(())
 }
 
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
+struct CallResult {
+    ok: bool,
+    error: Option<String>,
+    value: String
+}
+
+
 fn create_profile_from_vault() -> ZomeApiResult<()> {
+    let dna_hash = DNA_HASH.to_string();
 
-    let agent_profile_entry = Entry::App(
-        AppEntryType::from("chat_profile"),
-        AppEntryValue::from(member::StoreProfile{
-            handle: "Phil".into(), 
-            email: "philip.beadle@holo.host".into(), 
-            avatar: "".into(), 
-            timezone:"ADT".into()
-        })
-    );
+    let maybe_get_handle_result = hdk::call("profiles", "main", "retrieve", 
+        json!({"retriever_DNA": dna_hash, "profile_field": "handle"}).into())?;
+    let get_handle_result = CallResult::try_from(maybe_get_handle_result)?;
 
-    let agent_profile_address = hdk::commit_entry(&agent_profile_entry)?;
+    if !get_handle_result.ok {
+        return Err(ZomeApiError::Internal("Could not retrieve handle from vault".into()))
+    }
 
-    hdk::link_entries(&AGENT_ADDRESS, &agent_profile_address, "profile")?;
+    let response_json: serde_json::Value = serde_json::from_str(&get_handle_result.value).unwrap();
 
-    Ok(())
+    match response_json["Ok"].clone() {
+        serde_json::Value::String(handle) => {
+            let agent_profile_entry = Entry::App(
+                AppEntryType::from("chat_profile"),
+                AppEntryValue::from(member::StoreProfile{
+                    handle: handle.to_string(),
+                    email: "dummy@email".into(), 
+                    avatar: "".into(), 
+                    timezone:"GMT".into()
+                })
+            );
+
+            let agent_profile_address = hdk::commit_entry(&agent_profile_entry)?;
+
+            hdk::link_entries(&AGENT_ADDRESS, &agent_profile_address, "profile")?;
+            Ok(())
+        },
+        _ => Err(ZomeApiError::Internal("Could not retrieve handle from vault".into()))
+    }
+
+
+
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
