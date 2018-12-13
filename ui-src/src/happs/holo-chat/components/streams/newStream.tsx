@@ -6,6 +6,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import withRoot from '../../../../withRoot'
 import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
 import CloseIcon from '@material-ui/icons/Close'
 import { Identity } from '../../types/model/identity'
 import { StreamSpec, Member } from '../../types/model/stream'
@@ -34,6 +35,9 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   title: {
     flexGrow: 1
+  },
+  textField: {
+    marginLeft: theme.spacing.unit * 2
   }
 })
 
@@ -47,6 +51,7 @@ interface OwnProps {
 }
 
 export interface State {
+  title: string,
   selectedUsers: Array<Identity>,
   open: boolean
 }
@@ -62,6 +67,7 @@ class NewStream extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props)
     this.state = {
+      title: '',
       selectedUsers: [],
       open: true
     }
@@ -75,14 +81,23 @@ class NewStream extends React.Component<Props, State> {
     this.setState({ selectedUsers })
   }
 
+  handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ title: e.target.value })
+  }
+
   onCreateStreamButtonClick = () => {
-    const streamName = this.state.selectedUsers.reduce((str, user, i) => {
-      if (i < this.state.selectedUsers.length - 1) {
-        return str + user.handle + ', '
-      } else {
-        return str + user.handle
-      }
-    }, '')
+    let streamName = ''
+    if (this.state.title.length > 0) {
+      streamName = this.state.title
+    } else {
+      streamName = this.state.selectedUsers.reduce((str, user, i) => {
+        if (i < this.state.selectedUsers.length - 1) {
+          return str + user.handle + ', '
+        } else {
+          return str + user.handle
+        }
+      }, '')
+    }
 
     const streamSpec: StreamSpec = {
       initial_members: this.state.selectedUsers.map((user): Member => { return { id: user.agentId } }),
@@ -94,7 +109,7 @@ class NewStream extends React.Component<Props, State> {
   }
 
   render () {
-    const { classes, members } = this.props
+    const { classes, members, isPublic } = this.props
 
     return (
       <Dialog fullWidth={true} open={this.props.open} aria-labelledby='simple-dialog-title'>
@@ -114,6 +129,7 @@ class NewStream extends React.Component<Props, State> {
             </Button>
           </Toolbar>
         </AppBar>
+        {isPublic ? <TextField id='title' label='Title' className={classes.textField} value={this.state.title} onChange={this.handleChangeTitle} /> : null}
         <AgentList members={members} selectionChanged={this.onSelectionChanged}/>
       </Dialog>
     )

@@ -18,6 +18,7 @@ const testNewStreamParams = {
 
 const testMessage = {
   message_type: "text",
+  timestamp: 1,
   payload: "I am the message payload",
   meta: "{}",
 }

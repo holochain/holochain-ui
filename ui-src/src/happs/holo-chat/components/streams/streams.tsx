@@ -16,7 +16,7 @@ import NewStream from '../../containers/newStreamContainer'
 import { Subject as SubjectType } from '../../types/model/subject'
 import Badge from '@material-ui/core/Badge'
 
-const updateInterval = 1000
+const updateInterval = 10000
 
 import {
   GetMyStreams,
@@ -58,8 +58,7 @@ export interface OwnProps {
   classes?: any,
   isPublic: boolean,
   title: string,
-  isMobile: boolean,
-  getSubjects: (channelAddress: string) => void,
+  isMobile: boolean
 }
 
 export interface StateProps {
@@ -96,6 +95,9 @@ class Streams extends React.Component<Props & RouterProps, State> {
 
   componentDidMount () {
     this.props.init()
+    this.props.getMyStreams(undefined).catch((err: Error) => {
+      console.log(err)
+    })
     this.getStreamsInterval = setInterval(this.props.getMyStreams, updateInterval)
   }
 
@@ -114,6 +116,9 @@ class Streams extends React.Component<Props & RouterProps, State> {
       .then((address: string) => {
         console.log(address)
         this.props.history.push(`/holo-chat/stream/${address}`)
+        this.props.getMyStreams(undefined).catch((err: Error) => {
+          console.log(err)
+        })
       })
       .catch((err: Error) => {
         console.log(err)
@@ -141,6 +146,14 @@ class Streams extends React.Component<Props & RouterProps, State> {
     return `${subject.substr(0, 15)}...`
   }
 
+  formatStreamName = (name: string): string => {
+    if (name.length > 20) {
+      return `${name.substr(0, 20)}...`
+    } else {
+      return name
+    }
+  }
+
   render (): JSX.Element {
     const { classes, streams, title, subjects, isPublic, isMobile } = this.props
     return (
@@ -159,7 +172,7 @@ class Streams extends React.Component<Props & RouterProps, State> {
               render={ () => (
                 <ExpansionPanel className={classNames(classes.panel, isMobile && classes.mobile, !isMobile && classes.desktop)}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(stream.address)}>
-                    <Typography variant={isMobile ? 'subtitle2' : 'h6'}>{stream.name}</Typography>
+                    <Typography variant={isMobile ? 'subtitle2' : 'h6'}>{this.formatStreamName(stream.name)}</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <div>

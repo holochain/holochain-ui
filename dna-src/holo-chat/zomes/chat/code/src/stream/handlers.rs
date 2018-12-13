@@ -37,10 +37,8 @@ pub fn handle_create_stream(
             AppEntryValue::from(stream)
         )
     };
-
     let stream_address = hdk::commit_entry(&entry)?;
     utils::link_entries_bidir(&get_my_member_id().hash(), &stream_address, "member_of", "has_member")?;
-
     for member in initial_members {
         utils::link_entries_bidir(&member.hash(), &stream_address, "member_of", "has_member")?;
     }
@@ -59,12 +57,9 @@ pub fn handle_get_my_streams() -> ZomeApiResult<utils::GetLinksLoadResult<Stream
     utils::get_links_and_load_type(&get_my_member_id().hash(), "member_of")
 }
 
-
 pub fn handle_get_members(address: HashString) -> ZomeApiResult<utils::GetLinksLoadResult<member::Member>> {
     utils::get_links_and_load_type(&address, "has_member")
 }
-
-
 
 pub fn handle_get_messages(address: HashString) -> ZomeApiResult<utils::GetLinksLoadResult<message::Message>> {
     utils::get_links_and_load_type(&address, "message_in")
@@ -74,13 +69,11 @@ pub fn handle_get_subjects(address: HashString) -> ZomeApiResult<utils::GetLinks
     utils::get_links_and_load_type(&address, "stream_subject")
 }
 
-
 pub fn handle_post_message(stream_address: HashString, message_spec: message::MessageSpec, subjects: Vec<String>) -> ZomeApiResult<()> {
 
     let message = message::Message::from_spec(
         &message_spec,
-        &"test author".to_string(),
-        &"test timestamp".to_string());
+        &"test author".to_string());
 
     let message_entry = Entry::App(
         AppEntryType::from("message"),

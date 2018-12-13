@@ -1,6 +1,7 @@
 
 export interface MessageSpec {
   message_type: string,
+  timestamp: number,
   payload: string,
   meta: string
 }
