@@ -7,33 +7,21 @@ import { configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import Messages from './messages'
 import listMessages from './listMessages.md'
-import reply from './reply.md'
 import CreateStore from '../../../../store'
 import * as constants from '../../constants'
-import { Message as MessageType } from '../../types/model/message'
 import * as Agents from '../../data/contactsBase64'
 
 configure({ adapter: new Adapter() })
 let store = CreateStore()
 
-function StartComponent () {
-  return (
-      <h1>Start </h1>
-  )
-}
-
 storiesOf('HoloChat/Messages', module)
 .addDecorator(story => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
-  // .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add('Feed', withNotes(listMessages)(() => {
-    return getMessages(constants.messages)
+  .addDecorator(story => <Provider store={store}>{story()}</Provider>)
+  .add('Message Stream Desktop', withNotes(listMessages)(() => {
+    return <Messages messages={constants.messages} members={Agents.agents} isMobile={false} channelName={'Message Stream Desktop'} />
   }))
-  .add('Reply', withNotes(reply)(() => {
-    return <StartComponent />
+  .add('Message Stream Mobile', withNotes(listMessages)(() => {
+    return <Messages messages={constants.messages} members={Agents.agents} isMobile={true} channelName={'Message Stream Mobile'} />
   }))
-
-function getMessages (messages: Array<MessageType>) {
-  return (<Provider store={store}><Messages messages={messages} members={Agents.agents} /></Provider>)
-}

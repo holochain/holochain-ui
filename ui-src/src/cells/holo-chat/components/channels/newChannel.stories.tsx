@@ -16,7 +16,11 @@ storiesOf('HoloChat/Channels', module)
   ))
   .add('New Public Channel', withNotes(newChat)(() => {
     specs(() => newChatTests)
-    return <NewChannel members={Agents.agents} open={true} isPublic='true' getAllMembers={jest.fn(() => Promise.resolve('Get Members'))} />
+    return <NewChannel members={Agents.agents} open={true} isPublic={true} getAllMembers={jest.fn(() => Promise.resolve('Get Members'))} />
+  }))
+  .add('New Direct Message', withNotes(newChat)(() => {
+    specs(() => newChatTests)
+    return <NewChannel members={Agents.agents} open={true} isPublic={false} getAllMembers={jest.fn(() => Promise.resolve('Get Members'))} />
   }))
   .add('Filterable/Selectable list of members', withNotes(newChannel)(() => {
     specs(() => agentListTest)
