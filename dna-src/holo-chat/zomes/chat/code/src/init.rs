@@ -18,20 +18,21 @@ use profiles::profile::{
 };
 
 pub fn handle_init() -> ZomeApiResult<()> {
+    // if the agent already contains a StoreProfile then we are done! Let them start the app
+    if member::handlers::handle_get_profile(AGENT_ADDRESS.to_string().into()).is_ok() {
+        return Ok(())
+    }
 
-    // on app startup link the agent to the directory every time
-    // this will only make a difference on the first call
-	link_agent_to_directory()?;
-
-    // also register the app with vault.
-    // Right now this is calling between zomes but later 
-    // will call over the bridge. This just lets vault know that chat exists
+    // if that failed we need to set them up
     register_with_vault()?;
 
-    // 
-    link_profile_to_agent()?;
-
+    // This will fail until the user has actually opened vault and completed the required fields
+    // upon failing the UI should redirect to the vault form
+    create_profile_from_vault()?;
     
+    // if we got to here this means the profile was successfully created from vault so we
+    // link the agent to the directory and proceed!
+    link_agent_to_directory()?;
 	Ok(())
  }
 
@@ -95,10 +96,16 @@ fn register_with_vault() -> ZomeApiResult<()> {
     Ok(())
 }
 
-fn link_profile_to_agent() -> ZomeApiResult<()> {
+fn create_profile_from_vault() -> ZomeApiResult<()> {
+
     let agent_profile_entry = Entry::App(
         AppEntryType::from("chat_profile"),
-        AppEntryValue::from(member::StoreProfile{handle: "Phil".into(), email: "philip.beadle@holo.host".into(), avatar: "".into(), timezone:"ADT".into()})
+        AppEntryValue::from(member::StoreProfile{
+            handle: "Phil".into(), 
+            email: "philip.beadle@holo.host".into(), 
+            avatar: "".into(), 
+            timezone:"ADT".into()
+        })
     );
 
     let agent_profile_address = hdk::commit_entry(&agent_profile_entry)?;
