@@ -6,7 +6,8 @@ import { withNotes } from '@storybook/addon-notes'
 import { configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import Messages from './messages'
-import listMessages from './listMessages.md'
+import streamMessagesDesktop from './streamMessagesDesktop.md'
+import streamMessagesMobile from './streamMessagesMobile.md'
 import reply from './reply.md'
 import CreateStore from '../../../../store'
 import * as constants from '../../constants'
@@ -27,7 +28,10 @@ storiesOf('HoloChat/Messages', module)
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
   // .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add('Feed', withNotes(listMessages)(() => {
+  .add('Stream desktop', withNotes(streamMessagesDesktop)(() => {
+    return getMessages(constants.messages)
+  }))
+  .add('Stream mobile', withNotes(streamMessagesMobile)(() => {
     return getMessages(constants.messages)
   }))
   .add('Reply', withNotes(reply)(() => {
