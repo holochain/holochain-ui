@@ -7,7 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar'
 import withRoot from '../../../../withRoot'
 import Typography from '@material-ui/core/Typography'
 import CloseIcon from '@material-ui/icons/Close'
-import { Identity } from '../../types/model/identity'
 import { ChannelSpec, Member } from '../../types/model/channel'
 import AgentList from './agentList'
 import Send from '@material-ui/icons/Send'
@@ -40,14 +39,14 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 interface OwnProps {
   classes?: any,
   open: boolean,
-  members: Array<Identity>,
+  members: Array<Member>,
   onSubmit: (spec: ChannelSpec) => void,
   onHandleClose: () => void,
   isPublic: boolean
 }
 
 export interface State {
-  selectedUsers: Array<Identity>,
+  selectedUsers: Array<Member>,
   open: boolean
 }
 
@@ -71,7 +70,7 @@ class NewChannel extends React.Component<Props, State> {
     this.props.getAllMembers()
     .catch(reason => { console.log(reason) })
   }
-  onSelectionChanged = (selectedUsers: Array<Identity>) => {
+  onSelectionChanged = (selectedUsers: Array<Member>) => {
     this.setState({ selectedUsers })
   }
 
@@ -85,7 +84,7 @@ class NewChannel extends React.Component<Props, State> {
     }, '')
 
     const channelSpec: ChannelSpec = {
-      initial_members: this.state.selectedUsers.map((user): Member => { return { id: user.agentId } }),
+      initial_members: this.state.selectedUsers.map((member: Member) => member.agentId),
       name: channelName,
       description: '',
       public: this.props.isPublic

@@ -1,4 +1,6 @@
 
+use hdk::holochain_core_types::json::JsonString;
+use hdk::holochain_core_types::error::HolochainError;
 use hdk::{
     AGENT_ADDRESS,
     DNA_HASH,
@@ -8,23 +10,19 @@ use hdk::{
 use hdk::holochain_core_types::{
     entry::{entry_type::AppEntryType, AppEntryValue, Entry},
     json::RawString,
+    cas::content::Address,
 };
 
 use crate::member;
-use profiles::profile::{
-    ProfileSpec,
-    ProfileFieldSpec,
-    UsageType,
-};
 
 pub fn handle_init() -> ZomeApiResult<()> {
     // if the agent already contains a StoreProfile then we are done! Let them start the app
-    if member::handlers::handle_get_profile(AGENT_ADDRESS.to_string().into()).is_ok() {
-        return Ok(())
-    }
+    // if member::handlers::handle_get_profile(AGENT_ADDRESS.to_string().into()).is_ok() {
+    //     return Ok(())
+    // }
 
     // if that failed we need to set them up
-    register_with_vault()?;
+    // register_with_vault()?;
 
     // This will fail until the user has actually opened vault and completed the required fields
     // upon failing the UI should redirect to the vault form
@@ -113,4 +111,27 @@ fn create_profile_from_vault() -> ZomeApiResult<()> {
     hdk::link_entries(&AGENT_ADDRESS, &agent_profile_address, "profile")?;
 
     Ok(())
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+pub struct ProfileSpec {
+    pub name: String,
+    pub sourceDNA: Address,
+    pub fields: Vec<ProfileFieldSpec>
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+pub struct ProfileFieldSpec {
+    pub name: String,
+    pub displayName: String,
+    pub required: bool,
+    pub description: String,
+    pub usage: UsageType,
+    pub schema: String
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+pub enum UsageType {
+    STORE,
+    DISPLAY
 }

@@ -2,8 +2,8 @@ import * as React from 'react'
 import NewChannel, { State, Props } from './newChannel'
 import * as Enzyme from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
+import { Member } from '../../types/model/channel'
 import * as Agents from '../../data/contactsBase64'
-import { Identity } from '../../types/model/identity'
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -37,9 +37,9 @@ export const agentListTest = describe('agentList component', () => {
   }
 
   it('Selecting people in the list sets the selected users in the state', () => {
-    newChannel().find('input[id="filter-bar"]').simulate('change', { target: { value: 'a' } })
+    // newChannel().find('input[id="filter-bar"]').simulate('change', { target: { value: 'a' } })
     newChannel().find('ListItem').first().simulate('click')
-    let selectedPeople: Array<Identity> = (newChannel().find('NewChannel').instance().state as State).selectedUsers
+    let selectedPeople: Array<Member> = (newChannel().find('NewChannel').instance().state as State).selectedUsers
     expect(selectedPeople.length).toEqual(1)
   })
 

@@ -43,10 +43,10 @@ describe('Chat Reducer', () => {
   })
 
   it('Should update the state in response to GetMembers', () => {
-    expect(holochatReducer(undefined, chatActions.GetMembers.success([{ handle: 'a', avatar: '' }, { handle: 'b', avatar: '' }])))
+    expect(holochatReducer(undefined, chatActions.GetMembers.success([{ address: 'a', profile: {} }, { address: 'b', profile: {} }])))
     .toEqual({
       ...initialState,
-      activeChannelMembers: [{ handle: 'a', avatar: '' }, { handle: 'b', avatar: '' }]
+      activeChannelMembers: [{ address: 'a', profile: {} }, { address: 'b', profile: {} }]
     })
   })
 
@@ -60,13 +60,13 @@ describe('Chat Reducer', () => {
 
   it('Should update the state in response to GetAllMembers', () => {
     const usersResponse = [
-      { address: '111', entry: { id: '3', profile: { handle: 'philipbeadle', email: 'philip.beadle@holo.host', avatar: '' } } },
-      { address: '222', entry: { id: '2', profile: { handle: 'thedavidmeister', email: 'david.meister@holo.host', avatar: '' } } }
+      { address: '111', profile: { handle: 'philipbeadle', email: 'philip.beadle@holo.host', avatar: '' } },
+      { address: '222', profile: { handle: 'thedavidmeister', email: 'david.meister@holo.host', avatar: '' } }
     ]
     expect(holochatReducer(undefined, chatActions.GetAllMembers.success(usersResponse)))
     .toEqual({
       ...initialState,
-      members: usersResponse.map(u => { return { agentId: u.address, ...u.entry.profile } })
+      members: usersResponse.map(u => { return { agentId: u.address, ...u.profile } })
     })
   })
 

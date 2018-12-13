@@ -16,6 +16,7 @@ use crate::member::{
 };
 use crate::utils;
 use crate::message;
+use crate::member;
 
 pub fn handle_create_channel(
     name: String,
@@ -59,12 +60,18 @@ pub fn handle_get_my_channels() -> ZomeApiResult<utils::GetLinksLoadResult<Chann
 }
 
 
-pub fn handle_get_members(address: HashString) -> ZomeApiResult<Vec<Address>> {
-    hdk::get_links(&address, "has_member").map(|links| {
+pub fn handle_get_members(address: HashString) -> ZomeApiResult<Vec<member::Member>> {
+    let all_member_ids = hdk::get_links(&address, "has_member").map(|links| {
         links.addresses().iter().map(|addr| {
-            addr.clone()
+            let profile = member::handlers::handle_get_profile(addr.to_owned()).unwrap();
+            member::Member{
+                address: addr.clone(),
+                profile: profile
+            }
         }).collect()
-    })
+    })?;
+
+    Ok(all_member_ids)
 }
 
 

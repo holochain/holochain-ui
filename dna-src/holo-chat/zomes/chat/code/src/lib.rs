@@ -6,7 +6,6 @@ extern crate serde;
 extern crate serde_derive;
 #[macro_use]
 extern crate holochain_core_types_derive;
-extern crate profiles;
 use hdk::{
     error::ZomeApiResult,
 };
@@ -61,12 +60,12 @@ define_zome! {
 			}
             get_all_members: {
 				inputs: | |,
-				outputs: |result: ZomeApiResult<Vec<Address>>|,
+				outputs: |result: ZomeApiResult<Vec<member::Member>>|,
 				handler: member::handlers::handle_get_all_members
 			}
 			get_members: {
 				inputs: |channel_address: HashString|,
-				outputs: |result: ZomeApiResult<Vec<Address>>|,
+				outputs: |result: ZomeApiResult<Vec<member::Member>>|,
 				handler: channel::handlers::handle_get_members
 			}
 			add_members: {

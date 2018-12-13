@@ -10,3 +10,7 @@
   hdk = { git = "https://github.com/holochain/holochain-rust" , rev = "15b1892e8544db241e188d2918688ecbc533a45f" }
   holochain_wasm_utils = { git = "https://github.com/holochain/holochain-rust" , rev = "15b1892e8544db241e188d2918688ecbc533a45f" }
   holochain_core_types_derive = { git = "https://github.com/holochain/holochain-rust" , rev = "15b1892e8544db241e188d2918688ecbc533a45f" }
+
+[lib]
+  path = "src/lib.rs"
+  crate-type = ["cdylib"]

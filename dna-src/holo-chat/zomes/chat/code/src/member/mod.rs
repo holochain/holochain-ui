@@ -9,6 +9,12 @@ use hdk::holochain_core_types::{
 
 pub mod handlers;
 
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+pub struct Member {
+    pub address: Address,
+    pub profile: StoreProfile
+}
+
 // This is the full profile that can be requested for a member
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct Profile {

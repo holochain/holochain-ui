@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import withRoot from '../../../../withRoot'
 import { MakeAvatar } from '../misc/makeAvatar'
 
-import { Identity } from '../../types/model/identity'
+import { Member } from '../../types/model/channel'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
@@ -42,13 +42,13 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 
 export interface AgentListProps {
   classes?: any,
-  members: Array<Identity>,
-  selectionChanged?: (selectedUsers: Array<Identity>) => void
+  members: Array<Member>,
+  selectionChanged?: (selectedUsers: Array<Member>) => void
 }
 
 export interface AgentListState {
   filterString: string,
-  selectedUsers: Array<Identity>
+  selectedUsers: Array<Member>
 }
 
 class AgentList extends React.Component<AgentListProps, AgentListState> {
@@ -67,7 +67,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
     })
   }
 
-  onRowClick = (value: Identity) => () => {
+  onRowClick = (value: Member) => () => {
     const selected = this.state.selectedUsers
     const currentIndex = selected.indexOf(value)
     const newSelected = [...selected]
@@ -95,7 +95,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
         <div className={classes.filter}>
           <div>
             {
-              this.state.selectedUsers.map((person: Identity) => (
+              this.state.selectedUsers.map((person: Member) => (
                 <Chip
                   key={person.agentId}
                   avatar={<MakeAvatar member={person} />}
@@ -118,7 +118,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
         <List id='users' className={classes.list}>
           {
             members
-            .filter((member) => member.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1 || member.name.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1)
+            .filter((member) => member.handle.toLowerCase().search(this.state.filterString.toLowerCase()) !== -1)
             .map((member, i) => {
               return (
               <ListItem key={i} button={true} value={member.agentId} className={classes.listItem} onClick={this.onRowClick(member)}>

@@ -5,6 +5,18 @@ import { createHolochainAsyncAction } from '@holochain/hc-redux-middleware'
 import { ChannelSpec } from './types/model/channel'
 // import { Identity } from './types/model/identity'
 // import { Subject } from './types/model/subject'
+type Address = string
+type Vec<T> = Array<T>
+
+// interface GetLinksLoadResult<T> {
+//   address: string,
+//   entry: T
+// }
+
+interface Member {
+  address: string,
+  profile: any
+}
 
 /*===============================================
 =            Action Type Definitions            =
@@ -12,9 +24,9 @@ import { ChannelSpec } from './types/model/channel'
 
 /*----------  Holochain actions  ----------*/
 
-export const Init = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'init')
+export const Init = createHolochainAsyncAction<{}, null>('holo-chat', 'chat', 'main', 'init')
 
-export const CreateChannel = createHolochainAsyncAction<ChannelSpec, string>('holo-chat', 'chat', 'main', 'create_channel')
+export const CreateChannel = createHolochainAsyncAction<ChannelSpec, Address>('holo-chat', 'chat', 'main', 'create_channel')
 
 export const AddMembers = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'add_members')
 
@@ -22,9 +34,9 @@ export const GetMyChannels = createHolochainAsyncAction<any, Array<any>>('holo-c
 
 export const GetSubjects = createHolochainAsyncAction<any, Array<any>>('holo-chat', 'chat', 'main', 'get_subjects')
 
-export const GetAllMembers = createHolochainAsyncAction<any, Array<any>>('holo-chat', 'chat', 'main', 'get_all_members')
+export const GetAllMembers = createHolochainAsyncAction<{}, Vec<Member>>('holo-chat', 'chat', 'main', 'get_all_members')
 
-export const GetMembers = createHolochainAsyncAction<any, Array<any>>('holo-chat', 'chat', 'main', 'get_members')
+export const GetMembers = createHolochainAsyncAction<Address, Vec<Member>>('holo-chat', 'chat', 'main', 'get_members')
 
 export const PostMessage = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'post_message')
 

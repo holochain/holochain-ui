@@ -1,10 +1,13 @@
 
 export interface Member {
-  id: string
+  agentId: string,
+  handle: string,
+  email: string,
+  avatar: string
 }
 
 export interface ChannelSpec {
-  initial_members: Array<Member>,
+  initial_members: Array<string>,
   name: string,
   description: string,
   public: boolean
