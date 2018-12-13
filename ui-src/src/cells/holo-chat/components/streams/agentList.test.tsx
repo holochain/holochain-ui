@@ -50,7 +50,7 @@ export const agentListTest = describe('agentList component', () => {
     expect(filteredItems).toEqual(1)
   })
 
-  it('Click someone\'s name and their chip is added to the list people in the Channel and the filter is cleared.', () => {
+  it('Click someone\'s name and their chip is added to the list people in the Stream and the filter is cleared.', () => {
     props = {
       members: Agents.agents
     }

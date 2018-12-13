@@ -8,7 +8,7 @@ import withRoot from '../../../../withRoot'
 import Typography from '@material-ui/core/Typography'
 import CloseIcon from '@material-ui/icons/Close'
 import { Identity } from '../../types/model/identity'
-import { ChannelSpec, Member } from '../../types/model/channel'
+import { StreamSpec, Member } from '../../types/model/Stream'
 import AgentList from './agentList'
 import Send from '@material-ui/icons/Send'
 
@@ -41,7 +41,7 @@ interface OwnProps {
   classes?: any,
   open: boolean,
   members: Array<Identity>,
-  onSubmit: (spec: ChannelSpec) => void,
+  onSubmit: (spec: StreamSpec) => void,
   onHandleClose: () => void,
   isPublic: boolean
 }
@@ -57,7 +57,7 @@ export interface DispatchProps {
 
 export type Props = OwnProps & DispatchProps
 
-class NewChannel extends React.Component<Props, State> {
+class NewStream extends React.Component<Props, State> {
 
   constructor (props: Props) {
     super(props)
@@ -75,7 +75,7 @@ class NewChannel extends React.Component<Props, State> {
     this.setState({ selectedUsers })
   }
 
-  onCreateChannelButtonClick = () => {
+  onCreateStreamButtonClick = () => {
     const channelName = this.state.selectedUsers.reduce((str, user, i) => {
       if (i < this.state.selectedUsers.length - 1) {
         return str + user.handle + ', '
@@ -84,13 +84,13 @@ class NewChannel extends React.Component<Props, State> {
       }
     }, '')
 
-    const channelSpec: ChannelSpec = {
+    const channelSpec: StreamSpec = {
       initial_members: this.state.selectedUsers.map((user): Member => { return { id: user.agentId } }),
       name: channelName,
       description: '',
       public: this.props.isPublic
     }
-    this.props.onSubmit(channelSpec) // need to add a promise and push to the new channelAddress
+    this.props.onSubmit(StreamSpec) // need to add a promise and push to the new channelAddress
   }
 
   render () {
@@ -106,7 +106,7 @@ class NewChannel extends React.Component<Props, State> {
             <Typography variant='h6' color='inherit' className={classes.title}>
               Members
             </Typography>
-            <Button id='CreateChannel' mini={true} onClick={this.onCreateChannelButtonClick} color='inherit' className={classes.button}>
+            <Button id='CreateStream' mini={true} onClick={this.onCreateStreamButtonClick} color='inherit' className={classes.button}>
               <Typography variant='h6' color='inherit'>
                 Go
               </Typography>
@@ -119,4 +119,4 @@ class NewChannel extends React.Component<Props, State> {
     )
   }
 }
-export default withRoot(withStyles(styles)(NewChannel))
+export default withRoot(withStyles(styles)(NewStream))

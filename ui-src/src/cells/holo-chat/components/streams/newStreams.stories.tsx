@@ -5,20 +5,20 @@ import { MemoryRouter } from 'react-router'
 import { specs } from 'storybook-addon-specifications'
 import newChat from './newChat.md'
 import { newChatTests } from './newChat.test'
-import NewChannel from './newChannel'
+import NewStream from './newStream'
 import * as Agents from '../../data/contactsBase64'
-import newChannel from './newChannel.md'
+import newStream from './newStream.md'
 import { agentListTest } from './agentList.test'
 
-storiesOf('HoloChat/Channels', module)
+storiesOf('HoloChat/Streams', module)
   .addDecorator(story => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
-  .add('New Public Channel', withNotes(newChat)(() => {
+  .add('New Public Stream', withNotes(newChat)(() => {
     specs(() => newChatTests)
-    return <NewChannel members={Agents.agents} open={true} isPublic='true' getAllMembers={jest.fn(() => Promise.resolve('Get Members'))} />
+    return <NewStream members={Agents.agents} open={true} isPublic='true' getAllMembers={jest.fn(() => Promise.resolve('Get Members'))} />
   }))
-  .add('Filterable/Selectable list of members', withNotes(newChannel)(() => {
+  .add('Filterable/Selectable list of members', withNotes(newStream)(() => {
     specs(() => agentListTest)
-    return <NewChannel members={Agents.agents} open={true} getAllMembers={jest.fn(() => Promise.resolve('Get Members'))} />
+    return <NewStream members={Agents.agents} open={true} getAllMembers={jest.fn(() => Promise.resolve('Get Members'))} />
   }))

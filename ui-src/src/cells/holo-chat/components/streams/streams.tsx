@@ -11,16 +11,16 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
-import { Channel as ChannelType, ChannelSpec } from '../../types/model/channel'
-import NewChannel from '../../containers/newChannelContainer'
+import { Stream as StreamType, StreamSpec } from '../../types/model/stream'
+import NewStream from '../../containers/newStreamContainer'
 import { Subject as SubjectType } from '../../types/model/subject'
 import Badge from '@material-ui/core/Badge'
 
 const updateInterval = 1000
 
 import {
-  GetMyChannels,
-  CreateChannel
+  GetMyStreams,
+  CreateStream
 } from '../../actions'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -63,29 +63,29 @@ export interface OwnProps {
 }
 
 export interface StateProps {
-  channels: Array<ChannelType>,
+  channels: Array<StreamType>,
   subjects: Array<SubjectType>
 }
 
 export interface DispatchProps {
   init: () => void,
-  getMyChannels: typeof GetMyChannels.sig,
+  getMyStreams: typeof GetMyStreams.sig,
   getSubjects: (channelAddress: string) => void,
   getAllMembers: () => void,
-  newChannel: typeof CreateChannel.sig,
-  setChannelAddress: (channelAddress: String) => void,
+  newStream: typeof CreateStream.sig,
+  setStreamAddress: (streamAddress: String) => void,
   setSubjectAddress: (subjectAddress: String) => void
 }
 
-export interface RouterProps extends RouteComponentProps<{channel: string, subject?: string}> {}
+export interface RouterProps extends RouteComponentProps<{stream: string, subject?: string}> {}
 export type Props = OwnProps & StateProps & DispatchProps
 
 export interface State {
   modalOpen: boolean
 }
 
-class Channels extends React.Component<Props & RouterProps, State> {
-  getChannelsInterval: any
+class Streams extends React.Component<Props & RouterProps, State> {
+  getStreamsInterval: any
 
   constructor (props: Props & RouterProps) {
     super(props)
@@ -96,24 +96,24 @@ class Channels extends React.Component<Props & RouterProps, State> {
 
   componentDidMount () {
     this.props.init()
-    this.getChannelsInterval = setInterval(this.props.getMyChannels, updateInterval)
+    this.getStreamsInterval = setInterval(this.props.getMyStreams, updateInterval)
   }
 
   componentWillUnmount () {
-    clearInterval(this.getChannelsInterval)
+    clearInterval(this.getStreamsInterval)
   }
 
-  handleNewChannelButtonClick = () => {
+  handleNewStreamButtonClick = () => {
     this.props.getAllMembers()
     this.setState({ modalOpen: true })
   }
 
-  addNewChannel = (channelSpec: ChannelSpec) => {
+  addNewStream = (StreamSpec: ChannelSpec) => {
     this.setState({ modalOpen: false })
-    this.props.newChannel(channelSpec)
+    this.props.newStream(StreamSpec)
       .then((address: string) => {
         console.log(address)
-        this.props.history.push(`/holo-chat/channel/${address}`)
+        this.props.history.push(`/holo-chat/stream/${address}`)
       })
       .catch((err: Error) => {
         console.log(err)
@@ -124,11 +124,11 @@ class Channels extends React.Component<Props & RouterProps, State> {
     this.setState({ modalOpen: false })
   }
 
-  getSubjects = (channelAddress: string) => {
+  getSubjects = (StreamAddress: string) => {
     // console.log(`get subjects for ${channelAddress}`)
-    this.props.history.push(`/holo-chat/channel/${channelAddress}`)
-    this.props.setChannelAddress(channelAddress)
-    this.props.getSubjects(channelAddress)
+    this.props.history.push(`/holo-chat/Stream/${StreamAddress}`)
+    this.props.setStreamAddress(StreamAddress)
+    this.props.getSubjects(StreamAddress)
   }
 
   getMessages = (subjectAddress: string) => {
@@ -142,30 +142,30 @@ class Channels extends React.Component<Props & RouterProps, State> {
   }
 
   render (): JSX.Element {
-    const { classes, channels, title, subjects, isPublic, isMobile } = this.props
+    const { classes, streams, title, subjects, isPublic, isMobile } = this.props
     return (
     <div className={classNames(classes.root, isMobile && classes.mobile, !isMobile && classes.desktop)}>
-      <Button id='AddChannel' mini={true} onClick={this.handleNewChannelButtonClick} className={classNames(classes.addButton, isMobile && classes.mobile, !isMobile && classes.desktop)}>
+      <Button id='AddStream' mini={true} onClick={this.handleNewStreamButtonClick} className={classNames(classes.addButton, isMobile && classes.mobile, !isMobile && classes.desktop)}>
         <AddIcon/>
       </Button>
       <Typography variant={isMobile ? 'h6' : 'h5'} className={classNames(classes.title, isMobile && classes.mobile, !isMobile && classes.desktop)}>
         {title}
       </Typography>
-        {channels.filter(function (channel: ChannelType) {
-          return channel.public === isPublic
-        }).map((channel: ChannelType, index: number) => (
+        {Streams.filter(function (Stream: ChannelType) {
+          return Stream.public === isPublic
+        }).map((Stream: StreamType, index: number) => (
         <div key={index} className={classes.root}>
             <Route
               render={ () => (
                 <ExpansionPanel className={classNames(classes.panel, isMobile && classes.mobile, !isMobile && classes.desktop)}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(channel.address)}>
-                    <Typography variant={isMobile ? 'subtitle2' : 'h6'}>{channel.name}</Typography>
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(Stream.address)}>
+                    <Typography variant={isMobile ? 'subtitle2' : 'h6'}>{Stream.name}</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <div>
                       {
                         subjects.filter(function (subject: SubjectType) {
-                          return subject.channel_address === channel.address
+                          return subject.stream_address === stream.address
                         }).map((subject: SubjectType, subjectIndex: number) => (
                           <Badge key={subjectIndex} badgeContent={3} color='primary' classes={{ badge: classes.badge }}>
                             <Chip
@@ -183,11 +183,11 @@ class Channels extends React.Component<Props & RouterProps, State> {
             />
         </div>
       ))}
-      <NewChannel isPublic={isPublic} open={this.state.modalOpen} onSubmit={this.addNewChannel} onHandleClose={this.onHandleClose}/>
+      <NewChannel isPublic={isPublic} open={this.state.modalOpen} onSubmit={this.addNewStream} onHandleClose={this.onHandleClose}/>
     </div>
     )
   }
 }
 
 // typecase after withRouter exposes only non-router props to external use. This is because withRouter will add those props automatically
-export default withRoot(withStyles(styles)(withRouter(Channels)))
+export default withRoot(withStyles(styles)(withRouter(Streams)))
