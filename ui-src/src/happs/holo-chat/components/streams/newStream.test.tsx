@@ -66,7 +66,7 @@ export const agentListTest = describe('agentList component', () => {
 
   it('Clicking Close sets open to false', () => {
     newStream().find('button[id="CloseDialog"]').first().simulate('click')
-    let open: boolean = (newChannel().find('NewStream').instance().state as State).open
+    let open: boolean = (newStream().find('NewStream').instance().state as State).open
     expect(open).toBeTruthy()
   })
 })

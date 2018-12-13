@@ -31,45 +31,45 @@ beforeEach(() => {
 
 const asyncActionTestTable: Array<[string, any, any, any]> = [
   [
-    'create_channel',
-    chatActions.CreateChannel,
-    { channelHash: 'Qmchannelhash', members: ['123abc'] },
+    'create_stream',
+    chatActions.CreateStream,
+    { streamHash: 'Qmstreamhash', members: ['123abc'] },
     true
   ],
   [
     'add_members',
     chatActions.AddMembers,
-    { channelHash: 'Qmchannelhash', members: ['123abc'] },
+    { streamHash: 'Qmstreamhash', members: ['123abc'] },
     true
   ],
   [
-    'get_my_channels',
-    chatActions.GetMyChannels,
+    'get_my_streams',
+    chatActions.GetMyStreams,
     null,
-    [{ name: 'channel1', members: ['member1'] }]
+    [{ name: 'stream1', members: ['member1'] }]
   ],
   [
     'get_all_members',
     chatActions.GetAllMembers,
     null,
-    [{ name: 'channel1', members: ['member1'] }]
+    [{ name: 'stream1', members: ['member1'] }]
   ],
   [
     'get_members',
     chatActions.GetMembers,
-    { channelHash: 'xxx' },
+    { streamHash: 'xxx' },
     [{ handle: 'wollum', hash: 'Qmmyagenthash', avatar: '' }]
   ],
   [
     'post_message',
     chatActions.PostMessage,
-    { channelHash: 'Qmchanelhash', subjects: ['Testing subject'], message: { content: { text: 'message body' } } },
+    { streamHash: 'Qmchanelhash', subjects: ['Testing subject'], message: { content: { text: 'message body' } } },
     'Qmmessagehash'
   ],
   [
     'get_messages',
     chatActions.GetMessages,
-    { channelHash: 'Qmchanelhash' },
+    { streamHash: 'Qmchanelhash' },
     { content: { text: 'message body' } }
   ],
   [

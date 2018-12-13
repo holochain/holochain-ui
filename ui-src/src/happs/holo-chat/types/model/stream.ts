@@ -3,14 +3,14 @@ export interface Member {
   id: string
 }
 
-export interface ChannelSpec {
+export interface StreamSpec {
   initial_members: Array<Member>,
   name: string,
   description: string,
   public: boolean
 }
 
-export interface Channel {
+export interface Stream {
   address: string,
   public: boolean,
   name: string,

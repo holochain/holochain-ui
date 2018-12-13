@@ -17,10 +17,10 @@ storiesOf('HoloChat/Streams', module)
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
   .add('List my Streams Desktop', withNotes(listStreams)(() => {
-    specs(() => StreamsTests)
+    specs(() => streamsTests)
     return <Provider store={store}><Streams streams={constants.streams} title={'Public Streams'} isPublic={false} isMobile={false} subjects={constants.subjects} init={jest.fn(() => Promise.resolve('Init'))} /></Provider>
   }))
   .add('List my Streams Mobile', withNotes(listStreams)(() => {
-    specs(() => StreamsTests)
+    specs(() => streamsTests)
     return <Provider store={store}><Streams streams={constants.streams} title={'Public Streams'} isPublic={false} isMobile={true} subjects={constants.subjects} init={jest.fn(() => Promise.resolve('Init'))} /></Provider>
   }))

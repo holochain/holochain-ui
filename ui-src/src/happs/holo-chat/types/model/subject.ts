@@ -1,5 +1,5 @@
 export interface Subject {
-  channel_address: string,
+  stream_address: string,
   address: string,
   name: string,
   unread: number

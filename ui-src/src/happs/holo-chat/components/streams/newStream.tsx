@@ -8,7 +8,7 @@ import withRoot from '../../../../withRoot'
 import Typography from '@material-ui/core/Typography'
 import CloseIcon from '@material-ui/icons/Close'
 import { Identity } from '../../types/model/identity'
-import { StreamSpec, Member } from '../../types/model/Stream'
+import { StreamSpec, Member } from '../../types/model/stream'
 import AgentList from './agentList'
 import Send from '@material-ui/icons/Send'
 
@@ -76,7 +76,7 @@ class NewStream extends React.Component<Props, State> {
   }
 
   onCreateStreamButtonClick = () => {
-    const channelName = this.state.selectedUsers.reduce((str, user, i) => {
+    const streamName = this.state.selectedUsers.reduce((str, user, i) => {
       if (i < this.state.selectedUsers.length - 1) {
         return str + user.handle + ', '
       } else {
@@ -84,13 +84,13 @@ class NewStream extends React.Component<Props, State> {
       }
     }, '')
 
-    const channelSpec: StreamSpec = {
+    const streamSpec: StreamSpec = {
       initial_members: this.state.selectedUsers.map((user): Member => { return { id: user.agentId } }),
-      name: channelName,
+      name: streamName,
       description: '',
       public: this.props.isPublic
     }
-    this.props.onSubmit(StreamSpec) // need to add a promise and push to the new channelAddress
+    this.props.onSubmit(streamSpec) // need to add a promise and push to the new streamAddress
   }
 
   render () {

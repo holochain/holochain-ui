@@ -2,7 +2,7 @@ import { createAction } from 'typesafe-actions'
 import { createHolochainAsyncAction } from '@holochain/hc-redux-middleware'
 
 // import { Message, MessageSpec } from './types/model/message'
-import { ChannelSpec } from './types/model/channel'
+import { StreamSpec } from './types/model/stream'
 // import { Identity } from './types/model/identity'
 // import { Subject } from './types/model/subject'
 
@@ -14,11 +14,11 @@ import { ChannelSpec } from './types/model/channel'
 
 export const Init = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'init')
 
-export const CreateChannel = createHolochainAsyncAction<ChannelSpec, string>('holo-chat', 'chat', 'main', 'create_channel')
+export const CreateStream = createHolochainAsyncAction<StreamSpec, string>('holo-chat', 'chat', 'main', 'create_stream')
 
 export const AddMembers = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'add_members')
 
-export const GetMyChannels = createHolochainAsyncAction<any, Array<any>>('holo-chat', 'chat', 'main', 'get_my_channels')
+export const GetMyStreams = createHolochainAsyncAction<any, Array<any>>('holo-chat', 'chat', 'main', 'get_my_streams')
 
 export const GetSubjects = createHolochainAsyncAction<any, Array<any>>('holo-chat', 'chat', 'main', 'get_subjects')
 
@@ -38,8 +38,8 @@ export const GetProfile = createHolochainAsyncAction<any, string>('holo-chat', '
 
 /*----------  Non-holochain actions  ----------*/
 
-export const SetChannelAddress = createAction('holochat/setChannelAddress', resolve => {
-  return (channelAddress: String) => resolve(channelAddress)
+export const SetStreamAddress = createAction('holochat/setStreamAddress', resolve => {
+  return (streamAddress: String) => resolve(streamAddress)
 })
 
 export const SetSubjectAddress = createAction('holochat/setSubject', resolve => {

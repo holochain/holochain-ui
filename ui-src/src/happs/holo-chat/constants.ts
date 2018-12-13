@@ -1,5 +1,5 @@
 import { Message } from './types/model/message'
-import { Channel } from './types/model/channel'
+import { Stream } from './types/model/stream'
 import { Subject } from './types/model/subject'
 
 export const profileSpec1 = {
@@ -48,7 +48,7 @@ export const profileSpec1 = {
   ]
 }
 
-export const channels: Array<Channel> = [
+export const streams: Array<Stream> = [
   {
     'address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'name': 'dev hApps',
@@ -101,25 +101,25 @@ export const channels: Array<Channel> = [
 
 export const subjects: Array<Subject> = [
   {
-    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'stream_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8AoP',
     'name': 'Abundance of Presence',
     'unread': 3
   },
   {
-    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'stream_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Videos',
     'name': 'Videos',
     'unread': 2
   },
   {
-    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+    'stream_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Standup',
     'name': 'Standup',
     'unread': 1
   },
   {
-    'channel_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
+    'stream_address': 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Town',
     'address': 'Qm8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8Bitcoin',
     'name': 'Bitcoin',
     'unread': 1

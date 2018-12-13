@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import NewChannel from '../components/channels/newChannel'
+import NewStream from '../components/streams/newStream'
 import { Dispatch } from 'redux'
 import {
 	GetAllMembers,
-	CreateChannel
+	CreateStream
 } from '../actions'
-import { ChannelSpec } from '../types/model/channel'
+import { StreamSpec } from '../types/model/stream'
 
 const mapStateToProps = (state: any) => {
   return {
@@ -16,11 +16,11 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getAllMembers: () => dispatch(GetAllMembers.create({})),
-    createChannel: (channelSpec: ChannelSpec) => dispatch(CreateChannel.create(channelSpec))
+    createStream: (streamSpec: StreamSpec) => dispatch(CreateStream.create(streamSpec))
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NewChannel)
+)(NewStream)

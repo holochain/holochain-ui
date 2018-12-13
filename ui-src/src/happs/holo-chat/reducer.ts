@@ -1,6 +1,6 @@
 import { ActionType, getType } from 'typesafe-actions'
 import * as chatActions from './actions'
-import { Channel } from './types/model/channel'
+import { Stream } from './types/model/stream'
 import { Message } from './types/model/message'
 import { Identity } from './types/model/identity'
 import { Subject } from './types/model/subject'
@@ -10,22 +10,22 @@ import { Map } from 'immutable'
 export type ChatAction = ActionType<typeof chatActions>
 
 export interface HoloChatState {
-  readonly myChannels: Array<Channel>,
-  readonly channelSubjects: Map<String, Array<String>>,
+  readonly myStreams: Array<Stream>,
+  readonly streamSubjects: Map<String, Array<String>>,
   readonly messages: Array<Message>
-  readonly activeChannel: Channel | null,
-  readonly activeChannelMembers: Array<Identity>,
+  readonly activeStream: Stream | null,
+  readonly activeStreamMembers: Array<Identity>,
   readonly myHash: string | null,
   readonly members: Array<Identity>,
   readonly subjects: Array<Subject>
 }
 
 export const initialState: HoloChatState = {
-  myChannels: [],
-  channelSubjects: Map(),
+  myStreams: [],
+  streamSubjects: Map(),
   messages: [],
-  activeChannel: null,
-  activeChannelMembers: [],
+  activeStream: null,
+  activeStreamMembers: [],
   myHash: null,
   members: [],
   subjects: []
@@ -35,20 +35,20 @@ export function holochatReducer (state = initialState, action: ChatAction) {
   // console.log('Current state: ', state)
   // console.log('processing action: ', action)
   switch (action.type) {
-    case getType(chatActions.GetMyChannels.success):
-      let channels: Array<Channel> = action.payload.map((result: any) => ({
+    case getType(chatActions.GetMyStreams.success):
+      let streams: Array<Stream> = action.payload.map((result: any) => ({
         address: result.address,
         ...result.entry
       }))
-      channels.sort((one, two) => (one.name > two.name ? 1 : -1))
+      streams.sort((one, two) => (one.name > two.name ? 1 : -1))
       return {
         ...state,
-        myChannels: channels
+        myStreams: streams
       }
-    case getType(chatActions.CreateChannel.success):
+    case getType(chatActions.CreateStream.success):
       return {
         ...state,
-        channelAddress: action.payload
+        streamAddress: action.payload
       }
     case getType(chatActions.GetMessages.success):
       let messages: Array<Message> = action.payload.map((result: any) => ({
@@ -63,7 +63,7 @@ export function holochatReducer (state = initialState, action: ChatAction) {
     case getType(chatActions.GetMembers.success):
       return {
         ...state,
-        activeChannelMembers: action.payload
+        activeStreamMembers: action.payload
       }
     case getType(chatActions.GetProfile.success):
       return {
@@ -88,10 +88,10 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         ...result.entry
       }))
       if (subjects.length > 0) {
-        // Remove any exisitng subjects for the channel and push the new ones in
-        let channelAddress: string = subjects[0].channel_address
+        // Remove any exisitng subjects for the stream and push the new ones in
+        let streamAddress: string = subjects[0].stream_address
         let stateSubjects: Array<Subject> = state.subjects.filter(function (subject: Subject) {
-          return subject.channel_address !== channelAddress
+          return subject.stream_address !== streamAddress
         })
         return {
           ...state,
@@ -102,10 +102,10 @@ export function holochatReducer (state = initialState, action: ChatAction) {
           ...state
         }
       }
-    case getType(chatActions.SetChannelAddress):
+    case getType(chatActions.SetStreamAddress):
       return {
         ...state,
-        channelAddress: action.payload
+        streamAddress: action.payload
       }
     case getType(chatActions.SetSubjectAddress):
       return {

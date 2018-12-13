@@ -1,24 +1,24 @@
 
 import { connect } from 'react-redux'
-import Channels, { OwnProps, StateProps, DispatchProps } from '../components/channels/channels'
+import Streams, { OwnProps, StateProps, DispatchProps } from '../components/streams/streams'
 import { Dispatch } from 'redux'
 // import * as constants from '../constants'
 
 import {
   Init,
-	GetMyChannels,
+	GetMyStreams,
 	GetSubjects,
-	CreateChannel,
+	CreateStream,
   GetAllMembers,
-  SetChannelAddress,
+  SetStreamAddress,
   SetSubjectAddress
 } from '../actions'
 
-import { ChannelSpec } from '../types/model/channel'
+import { StreamSpec } from '../types/model/stream'
 
 const mapStateToProps = (state: any): StateProps => {
   return {
-    channels: state.holoChat.myChannels,
+    streams: state.holoChat.myStreams,
     subjects: state.holoChat.subjects
   }
 }
@@ -27,10 +27,10 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     init: () => dispatch(Init.create({})),
     getAllMembers: () => dispatch(GetAllMembers.create({})),
-  	getMyChannels: () => dispatch(GetMyChannels.create({})),
-    getSubjects: (channelAddress: string) => dispatch(GetSubjects.create({ channel_address: channelAddress })),
-  	newChannel: (channelSpec: ChannelSpec) => dispatch(CreateChannel.create(channelSpec)),
-    setChannelAddress: (channelAddress: String) => dispatch(SetChannelAddress(channelAddress)),
+  	getMyStreams: () => dispatch(GetMyStreams.create({})),
+    getSubjects: (streamAddress: string) => dispatch(GetSubjects.create({ stream_address: streamAddress })),
+  	newStream: (streamSpec: StreamSpec) => dispatch(CreateStream.create(streamSpec)),
+    setStreamAddress: (streamAddress: String) => dispatch(SetStreamAddress(streamAddress)),
     setSubjectAddress: (subjectAddress: String) => dispatch(SetSubjectAddress(subjectAddress))
   }
 }
@@ -38,4 +38,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
 export default connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps
-)(Channels)
+)(Streams)

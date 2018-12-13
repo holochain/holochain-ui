@@ -63,7 +63,7 @@ export interface OwnProps {
 }
 
 export interface StateProps {
-  channels: Array<StreamType>,
+  streams: Array<StreamType>,
   subjects: Array<SubjectType>
 }
 
@@ -108,9 +108,9 @@ class Streams extends React.Component<Props & RouterProps, State> {
     this.setState({ modalOpen: true })
   }
 
-  addNewStream = (StreamSpec: ChannelSpec) => {
+  addNewStream = (streamSpec: StreamSpec) => {
     this.setState({ modalOpen: false })
-    this.props.newStream(StreamSpec)
+    this.props.newStream(streamSpec)
       .then((address: string) => {
         console.log(address)
         this.props.history.push(`/holo-chat/stream/${address}`)
@@ -151,15 +151,15 @@ class Streams extends React.Component<Props & RouterProps, State> {
       <Typography variant={isMobile ? 'h6' : 'h5'} className={classNames(classes.title, isMobile && classes.mobile, !isMobile && classes.desktop)}>
         {title}
       </Typography>
-        {Streams.filter(function (Stream: ChannelType) {
-          return Stream.public === isPublic
-        }).map((Stream: StreamType, index: number) => (
+        {streams.filter(function (stream: StreamType) {
+          return stream.public === isPublic
+        }).map((stream: StreamType, index: number) => (
         <div key={index} className={classes.root}>
             <Route
               render={ () => (
                 <ExpansionPanel className={classNames(classes.panel, isMobile && classes.mobile, !isMobile && classes.desktop)}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(Stream.address)}>
-                    <Typography variant={isMobile ? 'subtitle2' : 'h6'}>{Stream.name}</Typography>
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(stream.address)}>
+                    <Typography variant={isMobile ? 'subtitle2' : 'h6'}>{stream.name}</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <div>
@@ -183,7 +183,7 @@ class Streams extends React.Component<Props & RouterProps, State> {
             />
         </div>
       ))}
-      <NewChannel isPublic={isPublic} open={this.state.modalOpen} onSubmit={this.addNewStream} onHandleClose={this.onHandleClose}/>
+      <NewStream isPublic={isPublic} open={this.state.modalOpen} onSubmit={this.addNewStream} onHandleClose={this.onHandleClose}/>
     </div>
     )
   }

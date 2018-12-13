@@ -38,10 +38,10 @@ export const streamsTests = describe('Listing your streams', () => {
     isMobile: false,
     subjects: constants.subjects,
     setStreamAddress: mockFn,
-    setStreamAddress: mockFn
+    setSubjectAddress: mockFn
   }
 
-  it('When there is a list of existing streams the stream view shows the list of existing srtreams', () => {
+  it('When there is a list of existing streams the stream view shows the list of existing streams', () => {
     const items = streamsList().find('ExpansionPanel')
     expect(items.length).toEqual(3)
   })

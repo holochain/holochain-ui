@@ -8,8 +8,6 @@ import * as Adapter from 'enzyme-adapter-react-16'
 import Messages from './messages'
 import streamMessagesDesktop from './streamMessagesDesktop.md'
 import streamMessagesMobile from './streamMessagesMobile.md'
-import reply Desktop from './replyDesktop.md'
-import reply Mobile from './replyMobile.md'
 import CreateStore from '../../../../store'
 import * as constants from '../../constants'
 import { Message as MessageType } from '../../types/model/message'
@@ -34,12 +32,6 @@ storiesOf('HoloChat/Messages', module)
   }))
   .add('Stream mobile', withNotes(streamMessagesMobile)(() => {
     return getMessages(constants.messages)
-  }))
-  .add('Reply desktop', withNotes(replyDesktop)(() => {
-    return <StartComponent />
-  }))
-  .add('Reply mobile', withNotes(replyMobile)(() => {
-    return <StartComponent />
   }))
 
 function getMessages (messages: Array<MessageType>) {

@@ -5,21 +5,21 @@ import { MessageType } from './types/message'
 
 describe('Chat Reducer', () => {
 
-  it('Should update the state in response to GetMyChannels', () => {
-    const testChannelsData: Array<{entry: any, address: String}> = [
+  it('Should update the state in response to GetMyStreams', () => {
+    const testStreamsData: Array<{entry: any, address: String}> = [
       {
         entry: {
           public: false,
-          name: 'channel',
+          name: 'stream',
           description: 'sup'
         },
         address: 'ABC'
       }
     ]
-    expect(holochatReducer(undefined, chatActions.GetMyChannels.success(testChannelsData)))
+    expect(holochatReducer(undefined, chatActions.GetMyStreams.success(testStreamsData)))
     .toEqual({
       ...initialState,
-      myChannels: testChannelsData.map(c => { return { ...c.entry, address: c.address } })
+      myStreams: testStreamsData.map(c => { return { ...c.entry, address: c.address } })
     })
   })
 
@@ -46,7 +46,7 @@ describe('Chat Reducer', () => {
     expect(holochatReducer(undefined, chatActions.GetMembers.success([{ handle: 'a', avatar: '' }, { handle: 'b', avatar: '' }])))
     .toEqual({
       ...initialState,
-      activeChannelMembers: [{ handle: 'a', avatar: '' }, { handle: 'b', avatar: '' }]
+      activeStreamMembers: [{ handle: 'a', avatar: '' }, { handle: 'b', avatar: '' }]
     })
   })
 
@@ -74,7 +74,7 @@ describe('Chat Reducer', () => {
     const subjectsTestData = [
       {
         entry: {
-          channel_address: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+          stream_address: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
           subject: 'Abundance of Presence',
           unread: 3
         },
@@ -82,7 +82,7 @@ describe('Chat Reducer', () => {
       },
       {
         entry: {
-          channel_address: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+          stream_address: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
           subject: 'Videos',
           unread: 2
         },
@@ -90,7 +90,7 @@ describe('Chat Reducer', () => {
       },
       {
         entry: {
-          channel_address: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
+          stream_address: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps',
           subject: 'Standup',
           unread: 1
         },
