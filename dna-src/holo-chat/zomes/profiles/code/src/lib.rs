@@ -76,7 +76,7 @@ define_zome! {
             }
             retrieve: {
                 inputs: |retriever_DNA: HashString, profile_field: String|,
-                outputs: |result: ZomeApiResult<JsonString>|,
+                outputs: |result: ZomeApiResult<RawString>|,
                 handler: profile::handlers::handle_retrieve
             }
     	}
