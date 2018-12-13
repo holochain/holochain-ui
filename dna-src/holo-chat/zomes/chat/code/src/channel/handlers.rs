@@ -59,12 +59,9 @@ pub fn handle_get_my_channels() -> ZomeApiResult<utils::GetLinksLoadResult<Chann
     utils::get_links_and_load_type(&get_my_member_id().hash(), "member_of")
 }
 
-
 pub fn handle_get_members(address: HashString) -> ZomeApiResult<utils::GetLinksLoadResult<member::Member>> {
     utils::get_links_and_load_type(&address, "has_member")
 }
-
-
 
 pub fn handle_get_messages(address: HashString) -> ZomeApiResult<utils::GetLinksLoadResult<message::Message>> {
     utils::get_links_and_load_type(&address, "message_in")
@@ -73,7 +70,6 @@ pub fn handle_get_messages(address: HashString) -> ZomeApiResult<utils::GetLinks
 pub fn handle_get_subjects(address: HashString) -> ZomeApiResult<utils::GetLinksLoadResult<Subject>> {
     utils::get_links_and_load_type(&address, "channel_subject")
 }
-
 
 pub fn handle_post_message(channel_address: HashString, message_spec: message::MessageSpec, subjects: Vec<String>) -> ZomeApiResult<()> {
 

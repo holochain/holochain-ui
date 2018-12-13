@@ -27,12 +27,12 @@ export const channelsTests = describe('Listing your channels', () => {
   })
   const mockFn = jest.fn()
   props = {
-    init: mockFn,
-    getAllMembers: mockFn,
-    getMyChannels: mockFn,
-    newChannel: jest.fn(() => Promise.reject('newChannel not implemented')),
-    channels: constants.channels,
+    init: jest.fn(() => Promise.reject('init')),
+    getAllMembers: jest.fn(() => Promise.reject('getAllMembers')),
+    getMyChannels: jest.fn(() => Promise.reject('getMyChannels')),
+    newChannel: jest.fn(() => Promise.reject('newChannel')),
     getSubjects: mockFn,
+    channels: constants.channels,
     title: 'Public Channels',
     isPublic: true,
     isMobile: false,
