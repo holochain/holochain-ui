@@ -7,6 +7,7 @@ import { Message as MessageType, MessageSpec } from '../../types/model/message'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import Send from '@material-ui/icons/Send'
@@ -28,6 +29,9 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   button: {
     marginTop: theme.spacing.unit
+  },
+  title: {
+    padding: theme.spacing.unit
   },
   send: {
     width: '100%',
@@ -53,7 +57,9 @@ export interface OwnProps {
 export interface StateProps {
   messages: Array<MessageType>,
   members: Array<Identity>,
+  channelName: string,
   channelAddress: string,
+  subjectName: string,
   subjectAddress: string
 }
 
@@ -150,10 +156,13 @@ class Messages extends React.Component<Props & RouterProps, State> {
   }
 
   render () {
-    const { classes, messages, isMobile } = this.props
+    const { classes, messages, isMobile, channelName, subjectName } = this.props
 
     return (
       <Paper className={classes.root}>
+        <Typography variant={isMobile ? 'h6' : 'h5'} className={classes.title}>
+          {channelName}{subjectName}
+        </Typography>
         <Paper className={classes.chatHistory}>
             <List>
             {

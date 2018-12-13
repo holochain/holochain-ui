@@ -16,7 +16,7 @@ import NewChannel from '../../containers/newChannelContainer'
 import { Subject as SubjectType } from '../../types/model/subject'
 import Badge from '@material-ui/core/Badge'
 
-const updateInterval = 1000
+const updateInterval = 10000
 
 import {
   GetMyChannels,
@@ -96,6 +96,9 @@ class Channels extends React.Component<Props & RouterProps, State> {
 
   componentDidMount () {
     this.props.init()
+    this.props.getMyChannels(undefined).catch((err: Error) => {
+      console.log(err)
+    })
     this.getChannelsInterval = setInterval(this.props.getMyChannels, updateInterval)
   }
 
@@ -114,6 +117,9 @@ class Channels extends React.Component<Props & RouterProps, State> {
       .then((address: string) => {
         console.log(address)
         this.props.history.push(`/holo-chat/channel/${address}`)
+        this.props.getMyChannels(undefined).catch((err: Error) => {
+          console.log(err)
+        })
       })
       .catch((err: Error) => {
         console.log(err)
@@ -141,6 +147,14 @@ class Channels extends React.Component<Props & RouterProps, State> {
     return `${subject.substr(0, 15)}...`
   }
 
+  formatChannelName = (name: string): string => {
+    if (name.length > 20) {
+      return `${name.substr(0, 20)}...`
+    } else {
+      return name
+    }
+  }
+
   render (): JSX.Element {
     const { classes, channels, title, subjects, isPublic, isMobile } = this.props
     return (
@@ -159,7 +173,7 @@ class Channels extends React.Component<Props & RouterProps, State> {
               render={ () => (
                 <ExpansionPanel className={classNames(classes.panel, isMobile && classes.mobile, !isMobile && classes.desktop)}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={() => this.getSubjects(channel.address)}>
-                    <Typography variant={isMobile ? 'subtitle2' : 'h6'}>{channel.name}</Typography>
+                    <Typography variant={isMobile ? 'subtitle2' : 'h6'}>{this.formatChannelName(channel.name)}</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <div>
