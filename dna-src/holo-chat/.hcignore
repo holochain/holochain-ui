@@ -2,3 +2,5 @@ dist
 test
 bundle.json
 README.md
+Cargo.lock
+Cargo.toml

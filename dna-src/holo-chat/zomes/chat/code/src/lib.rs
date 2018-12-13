@@ -6,7 +6,7 @@ extern crate serde;
 extern crate serde_derive;
 #[macro_use]
 extern crate holochain_core_types_derive;
-
+extern crate profiles;
 use hdk::{
     error::ZomeApiResult,
 };

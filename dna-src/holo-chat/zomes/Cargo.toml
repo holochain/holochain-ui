@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+	"chat/code",
+	"personas/code",
+	"profiles/code"
+]

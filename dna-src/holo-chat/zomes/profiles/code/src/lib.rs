@@ -16,7 +16,7 @@ use hdk::holochain_core_types::{
     json::JsonString,
 };
 
-mod profile;
+pub mod profile;
 mod utils;
 
 define_zome! {
