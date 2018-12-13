@@ -1,63 +1,13 @@
 
 use hdk::entry_definition::ValidatingEntryType;
 use hdk::holochain_core_types::{
-    entry::{entry_type::AppEntryType, AppEntryValue, Entry},
-    cas::content::Address,
     json::JsonString,
     error::HolochainError,
-    dna::zome::entry_types::Sharing
+    dna::zome::entry_types::Sharing,
+    cas::content::Address,
 };
 
 pub mod handlers;
-
-#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
-pub struct Member {
-    pub id: String,
-    pub profile : Option<StoreProfile>
-}
-
-impl Member {
-    pub fn hash(&self) -> Address {
-        hdk::entry_address(
-            &Entry::App(
-                AppEntryType::from("member"),
-                AppEntryValue::from(self.to_owned())
-            )
-        ).unwrap()
-    }
-}
-
-pub fn member_id_definition() -> ValidatingEntryType {
-    entry!(
-        name: "member",
-        description: "A members unique identifier in the DHT",
-        sharing: Sharing::Public,
-        native_type: Member,
-
-        validation_package: || {
-            hdk::ValidationPackageDefinition::Entry
-        },
-
-        validation: |_member_id: Member, _ctx: hdk::ValidationData| {
-            Ok(())
-        },
-
-        links: [
-            to!(
-                "chat_profile",
-                tag: "profile",
-
-                validation_package: || {
-                    hdk::ValidationPackageDefinition::Entry
-                },
-
-                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
-                    Ok(())
-                }
-            )
-        ]
-    )
-}
 
 // This is the full profile that can be requested for a member
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
@@ -93,6 +43,21 @@ pub fn profile_definition() -> ValidatingEntryType {
 
         validation: |_profile: StoreProfile, _ctx: hdk::ValidationData| {
             Ok(())
-        }
+        },
+
+        links: [
+            from!(
+                "%agent_id",
+                tag: "profile",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
+            )
+        ]
     )
 }

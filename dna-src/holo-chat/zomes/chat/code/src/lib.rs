@@ -8,7 +8,6 @@ extern crate serde_derive;
 extern crate holochain_core_types_derive;
 
 use hdk::{
-    AGENT_ADDRESS,
     error::ZomeApiResult,
 };
 
@@ -33,7 +32,6 @@ define_zome! {
     	channel::public_channel_definition(),
     	channel::direct_channel_definition(),
         channel::subject_anchor_definition(),
-		member::member_id_definition(),
         member::profile_definition(),
         anchor::anchor_definition()
 	]
@@ -52,7 +50,7 @@ define_zome! {
 				handler: init::handle_init
 			}
 			create_channel: {
-				inputs: |name: String, description: String, initial_members: Vec<member::Member>, public: bool|,
+				inputs: |name: String, description: String, initial_members: Vec<Address>, public: bool|,
 				outputs: |result: ZomeApiResult<Address>|,
 				handler: channel::handlers::handle_create_channel
 			}
@@ -63,16 +61,16 @@ define_zome! {
 			}
             get_all_members: {
 				inputs: | |,
-				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<member::Member>>|,
+				outputs: |result: ZomeApiResult<Vec<Address>>|,
 				handler: member::handlers::handle_get_all_members
 			}
 			get_members: {
 				inputs: |channel_address: HashString|,
-				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<member::Member>>|,
+				outputs: |result: ZomeApiResult<Vec<Address>>|,
 				handler: channel::handlers::handle_get_members
 			}
 			add_members: {
-				inputs: |channel_address: HashString, members: Vec<member::Member>|,
+				inputs: |channel_address: HashString, members: Vec<Address>|,
 				outputs: |result: ZomeApiResult<()>|,
 				handler: channel::handlers::handle_add_members
 			}
@@ -92,7 +90,7 @@ define_zome! {
                 handler: channel::handlers::handle_get_subjects
             }
 			get_profile: {
-				inputs: |member_id: member::Member|,
+				inputs: |member_id: Address|,
 				outputs: |result: ZomeApiResult<member::StoreProfile>|,
 				handler: member::handlers::handle_get_profile
 			}

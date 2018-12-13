@@ -48,7 +48,7 @@ pub fn public_channel_definition() -> ValidatingEntryType {
 
         links: [
             to!(
-                "member",
+                "%agent_id",
                 tag: "has_member",
 
                 validation_package: || {
@@ -60,7 +60,7 @@ pub fn public_channel_definition() -> ValidatingEntryType {
                 }
             ),
             from!(
-                "member",
+                "%agent_id",
                 tag: "member_of",
 
                 validation_package: || {
@@ -116,7 +116,7 @@ pub fn direct_channel_definition() -> ValidatingEntryType {
 
         links: [
             to!(
-                "member",
+                "%agent_id",
                 tag: "has_member",
 
                 validation_package: || {
@@ -128,7 +128,7 @@ pub fn direct_channel_definition() -> ValidatingEntryType {
                 }
             ),
             from!(
-                "member",
+                "%agent_id",
                 tag: "member_of",
 
                 validation_package: || {

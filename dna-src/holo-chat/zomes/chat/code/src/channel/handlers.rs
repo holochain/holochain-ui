@@ -15,13 +15,12 @@ use crate::member::{
     handlers::get_my_member_id
 };
 use crate::utils;
-use crate::member;
 use crate::message;
 
 pub fn handle_create_channel(
     name: String,
     description: String,
-    initial_members: Vec<member::Member>,
+    initial_members: Vec<Address>,
     public: bool,
 ) -> ZomeApiResult<Address> {
 
@@ -39,29 +38,33 @@ pub fn handle_create_channel(
     };
 
     let channel_address = hdk::commit_entry(&entry)?;
-    utils::link_entries_bidir(&get_my_member_id().hash(), &channel_address, "member_of", "has_member")?;
+    utils::link_entries_bidir(&get_my_member_id(), &channel_address, "member_of", "has_member")?;
     
     for member in initial_members {
-        utils::link_entries_bidir(&member.hash(), &channel_address, "member_of", "has_member")?;
+        utils::link_entries_bidir(&member, &channel_address, "member_of", "has_member")?;
     }
     Ok(channel_address)
 }
 
-pub fn handle_add_members(channel_address: HashString, members: Vec<member::Member>) -> ZomeApiResult<()> {
+pub fn handle_add_members(channel_address: HashString, members: Vec<Address>) -> ZomeApiResult<()> {
     for member in members {
-        utils::link_entries_bidir(&member.hash(), &channel_address, "member_of", "has_member")?;
+        utils::link_entries_bidir(&member, &channel_address, "member_of", "has_member")?;
     }
     Ok(())
 }
 
 
 pub fn handle_get_my_channels() -> ZomeApiResult<utils::GetLinksLoadResult<Channel>> {
-    utils::get_links_and_load_type(&get_my_member_id().hash(), "member_of")
+    utils::get_links_and_load_type(&get_my_member_id(), "member_of")
 }
 
 
-pub fn handle_get_members(address: HashString) -> ZomeApiResult<utils::GetLinksLoadResult<member::Member>> {
-    utils::get_links_and_load_type(&address, "has_member")
+pub fn handle_get_members(address: HashString) -> ZomeApiResult<Vec<Address>> {
+    hdk::get_links(&address, "has_member").map(|links| {
+        links.addresses().iter().map(|addr| {
+            addr.clone()
+        }).collect()
+    })
 }
 
 
