@@ -58,7 +58,7 @@ define_zome! {
 			}
 			get_my_streams: {
 				inputs: | |,
-				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<stream::Channel>>|,
+				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<stream::Stream>>|,
 				handler: stream::handlers::handle_get_my_streams
 			}
             get_all_members: {

@@ -46,6 +46,7 @@ export function holochatReducer (state = initialState, action: ChatAction) {
         myStreams: streams
       }
     case getType(chatActions.CreateStream.success):
+      console.log(action.payload)
       return {
         ...state,
         streamAddress: action.payload

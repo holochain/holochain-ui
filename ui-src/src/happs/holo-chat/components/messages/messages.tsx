@@ -59,15 +59,15 @@ export interface OwnProps {
 export interface StateProps {
   messages: Array<MessageType>,
   members: Array<Identity>,
-  channelName: string,
-  channelAddress: string,
+  streamName: string,
+  streamAddress: string,
   subjectName: string,
   subjectAddress: string
 }
 
 export interface DispatchProps {
   getMessages: (address: string) => void,
-  sendMessage: (payload: {channel_address: string, subjects: [string], message: MessageSpec}) => void
+  sendMessage: (payload: {stream_address: string, subjects: [string], message: MessageSpec}) => void
 }
 
 export interface State {
@@ -77,7 +77,7 @@ export interface State {
 
 export type Props = OwnProps & StateProps & DispatchProps
 
-export interface RouterProps extends RouteComponentProps<{channel: string, subject: string}> {}
+export interface RouterProps extends RouteComponentProps<{stream: string, subject: string}> {}
 
 class Messages extends React.Component<Props & RouterProps, State> {
   getMessageInterval: any
@@ -88,8 +88,8 @@ class Messages extends React.Component<Props & RouterProps, State> {
       if (this.props.subjectAddress) {
         this.props.getMessages(this.props.subjectAddress)
         console.log(this.props.messages)
-      } else if (this.props.channelAddress) {
-        this.props.getMessages(this.props.channelAddress)
+      } else if (this.props.streamAddress) {
+        this.props.getMessages(this.props.streamAddress)
       }
     }, updateInterval)
   }
@@ -108,7 +108,7 @@ class Messages extends React.Component<Props & RouterProps, State> {
 
   handleSendMessage = () => {
     this.props.sendMessage({
-      channel_address: this.props.channelAddress,
+      stream_address: this.props.streamAddress,
       subjects: [this.state.subject],
       message: {
         message_type: 'text',
@@ -150,12 +150,12 @@ class Messages extends React.Component<Props & RouterProps, State> {
   }
 
   render () {
-    const { classes, messages, isMobile, channelName, subjectName } = this.props
+    const { classes, messages, isMobile, streamName, subjectName } = this.props
 
     return (
       <Paper className={classes.root}>
         <Typography variant={isMobile ? 'h6' : 'h5'} className={classes.title}>
-          {channelName}{subjectName}
+          {streamName}{subjectName}
         </Typography>
         <Paper className={classes.chatHistory}>
             <List>

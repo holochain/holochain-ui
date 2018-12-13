@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import Messages, { Props, StateProps, RouterProps, DispatchProps } from '../components/messages/messages'
 import { Dispatch } from 'redux'
-import { Channel } from '../types/model/channel'
+import { Stream } from '../types/model/stream'
 import { Subject } from '../types/model/subject'
 import { MessageSpec } from '../types/model/message'
 import {
@@ -11,15 +11,18 @@ import {
 } from '../actions'
 
 const mapStateToProps = (state: any, props: Props & RouterProps): StateProps => {
-  const channelAddress = props.match.params.channel
+  const streamAddress = props.match.params.stream
+
+  console.log('streamAddress' + streamAddress)
+
   const subjectAddress = props.match.params.subject
-  let channelName = ''
+  let streamName = ''
   let subjectName = ''
-  const channelNames = state.holoChat.myChannels.filter(function (channel: Channel) {
-	  return channel.address === channelAddress
+  const streamNames = state.holoChat.myStreams.filter(function (stream: Stream) {
+	  return stream.address === streamAddress
   })
-  if (channelNames.length > 0) {
-    channelName = channelNames[0].name
+  if (streamNames.length > 0) {
+    streamName = streamNames[0].name
   }
   const subjectNames = state.holoChat.subjects.filter(function (subject: Subject) {
     return subject.address === subjectAddress
@@ -29,10 +32,10 @@ const mapStateToProps = (state: any, props: Props & RouterProps): StateProps => 
   }
 
   return {
-    messages: state.holoChat.messages, // modelMessagesToViewMessages(state.holoChat.currentMessages, state.holoChat.activeChannelMembers, state.holoChat.myHash),
+    messages: state.holoChat.messages, // modelMessagesToViewMessages(state.holoChat.currentMessages, state.holoChat.activeStreamMembers, state.holoChat.myHash),
     members: state.holoChat.members,
-    channelAddress: channelAddress,
-    channelName: channelName,
+    streamAddress: streamAddress,
+    streamName: streamName,
     subjectAddress: subjectAddress,
     subjectName: subjectName
   }
@@ -40,8 +43,8 @@ const mapStateToProps = (state: any, props: Props & RouterProps): StateProps => 
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    getMessages: (channelSubjectAddress: string) => dispatch(GetMessages.create({ address: channelSubjectAddress })),
-    sendMessage: (payload: {message: MessageSpec, channel_address: string, subjects: [string]}) => dispatch(PostMessage.create(payload))
+    getMessages: (streamSubjectAddress: string) => dispatch(GetMessages.create({ address: streamSubjectAddress })),
+    sendMessage: (payload: {message: MessageSpec, stream_address: string, subjects: [string]}) => dispatch(PostMessage.create(payload))
   }
 }
 

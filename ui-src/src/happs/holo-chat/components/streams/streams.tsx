@@ -129,11 +129,11 @@ class Streams extends React.Component<Props & RouterProps, State> {
     this.setState({ modalOpen: false })
   }
 
-  getSubjects = (StreamAddress: string) => {
+  getSubjects = (streamAddress: string) => {
     // console.log(`get subjects for ${channelAddress}`)
-    this.props.history.push(`/holo-chat/Stream/${StreamAddress}`)
-    this.props.setStreamAddress(StreamAddress)
-    this.props.getSubjects(StreamAddress)
+    this.props.history.push(`/holo-chat/stream/${streamAddress}`)
+    this.props.setStreamAddress(streamAddress)
+    this.props.getSubjects(streamAddress)
   }
 
   getMessages = (subjectAddress: string) => {
