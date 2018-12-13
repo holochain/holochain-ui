@@ -6,8 +6,8 @@ use hdk::holochain_core_types::{
     cas::content::Address,
 };
 
-use crate::channel::{
-    Channel,
+use crate::stream::{
+    Stream,
     Subject,
 };
 
@@ -18,44 +18,44 @@ use crate::utils;
 use crate::member;
 use crate::message;
 
-pub fn handle_create_channel(
+pub fn handle_create_stream(
     name: String,
     description: String,
     initial_members: Vec<member::Member>,
     public: bool,
 ) -> ZomeApiResult<Address> {
 
-    let channel = Channel{name, description, public};
+    let stream = Stream{name, description, public};
 
     let entry = match public {
         true => Entry::App(
-            AppEntryType::from("public_channel"),
-            AppEntryValue::from(channel)
+            AppEntryType::from("public_stream"),
+            AppEntryValue::from(stream)
         ),
         false => Entry::App(
-            AppEntryType::from("direct_channel"),
-            AppEntryValue::from(channel)
+            AppEntryType::from("direct_stream"),
+            AppEntryValue::from(stream)
         )
     };
 
-    let channel_address = hdk::commit_entry(&entry)?;
-    utils::link_entries_bidir(&get_my_member_id().hash(), &channel_address, "member_of", "has_member")?;
-    
+    let stream_address = hdk::commit_entry(&entry)?;
+    utils::link_entries_bidir(&get_my_member_id().hash(), &stream_address, "member_of", "has_member")?;
+
     for member in initial_members {
-        utils::link_entries_bidir(&member.hash(), &channel_address, "member_of", "has_member")?;
+        utils::link_entries_bidir(&member.hash(), &stream_address, "member_of", "has_member")?;
     }
-    Ok(channel_address)
+    Ok(stream_address)
 }
 
-pub fn handle_add_members(channel_address: HashString, members: Vec<member::Member>) -> ZomeApiResult<()> {
+pub fn handle_add_members(stream_address: HashString, members: Vec<member::Member>) -> ZomeApiResult<()> {
     for member in members {
-        utils::link_entries_bidir(&member.hash(), &channel_address, "member_of", "has_member")?;
+        utils::link_entries_bidir(&member.hash(), &stream_address, "member_of", "has_member")?;
     }
     Ok(())
 }
 
 
-pub fn handle_get_my_channels() -> ZomeApiResult<utils::GetLinksLoadResult<Channel>> {
+pub fn handle_get_my_streams() -> ZomeApiResult<utils::GetLinksLoadResult<Stream>> {
     utils::get_links_and_load_type(&get_my_member_id().hash(), "member_of")
 }
 
@@ -71,15 +71,15 @@ pub fn handle_get_messages(address: HashString) -> ZomeApiResult<utils::GetLinks
 }
 
 pub fn handle_get_subjects(address: HashString) -> ZomeApiResult<utils::GetLinksLoadResult<Subject>> {
-    utils::get_links_and_load_type(&address, "channel_subject")
+    utils::get_links_and_load_type(&address, "stream_subject")
 }
 
 
-pub fn handle_post_message(channel_address: HashString, message_spec: message::MessageSpec, subjects: Vec<String>) -> ZomeApiResult<()> {
-    
+pub fn handle_post_message(stream_address: HashString, message_spec: message::MessageSpec, subjects: Vec<String>) -> ZomeApiResult<()> {
+
     let message = message::Message::from_spec(
-        &message_spec, 
-        &"test author".to_string(), 
+        &message_spec,
+        &"test author".to_string(),
         &"test timestamp".to_string());
 
     let message_entry = Entry::App(
@@ -89,20 +89,17 @@ pub fn handle_post_message(channel_address: HashString, message_spec: message::M
 
     let message_addr = hdk::commit_entry(&message_entry)?;
 
-    hdk::link_entries(&channel_address, &message_addr, "message_in")?;
+    hdk::link_entries(&stream_address, &message_addr, "message_in")?;
 
     for subject in subjects {
         let subject_entry = Entry::App(
             AppEntryType::from("subject"),
-            AppEntryValue::from(Subject{name: subject.to_owned(), channel_address: channel_address.clone()})
+            AppEntryValue::from(Subject{name: subject.to_owned(), stream_address: stream_address.clone()})
         );
         let subject_address = hdk::commit_entry(&subject_entry)?;
         hdk::link_entries(&subject_address, &message_addr, "message_in")?;
-        hdk::link_entries(&channel_address, &subject_address, "channel_subject")?;
+        hdk::link_entries(&stream_address, &subject_address, "stream_subject")?;
     }
 
     Ok(())
 }
-
-
-

@@ -9,8 +9,8 @@ const app = Container.loadAndInstantiate("dist/bundle.json")
 // activate the new instance
 app.start()
 
-const testNewChannelParams = {
-  name: "test new channel",
+const testNewStreamParams = {
+  name: "test new stream",
   description: "for testing...",
   initial_members: [],
   public: true
@@ -22,16 +22,16 @@ const testMessage = {
   meta: "{}",
 }
 
-test('Can create a public channel with no other members and retrieve it', (t) => {
+test('Can create a public stream with no other members and retrieve it', (t) => {
   const init_result = app.call('chat', 'main', 'init', {})
   console.log(init_result)
   t.notEqual(init_result.Ok, undefined, 'init should return success')
 
-  const create_result = app.call('chat', 'main', 'create_channel', testNewChannelParams)
+  const create_result = app.call('chat', 'main', 'create_stream', testNewStreamParams)
   console.log(create_result)
   t.deepEqual(create_result.Ok.length, 46)
 
-  const get_result = app.call('chat', 'main', 'get_my_channels', {})
+  const get_result = app.call('chat', 'main', 'get_my_streams', {})
   console.log(get_result)
   t.deepEqual(get_result.Ok.length, 1)
 
@@ -50,49 +50,49 @@ test('Can retrieve all the members that are added by init', t => {
   t.end()
 })
 
-test('Can post a message to the channel and retrieve', (t) => {
+test('Can post a message to the stream and retrieve', (t) => {
   const init_result = app.call('chat', 'main', 'init', {})
   console.log(init_result)
   t.notEqual(init_result.Ok, undefined, 'init should return success')
 
-  const create_result = app.call('chat', 'main', 'create_channel', testNewChannelParams)
+  const create_result = app.call('chat', 'main', 'create_stream', testNewStreamParams)
   console.log(create_result)
-  const channel_addr = create_result.Ok
-  t.deepEqual(channel_addr.length, 46)
+  const stream_addr = create_result.Ok
+  t.deepEqual(stream_addr.length, 46)
 
-  const get_result = app.call('chat', 'main', 'get_my_channels', {})
+  const get_result = app.call('chat', 'main', 'get_my_streams', {})
   console.log(get_result)
   t.deepEqual(get_result.Ok.length, 1)
 
-  const post_result = app.call('chat', 'main', 'post_message', {channel_address: channel_addr, message: testMessage, subjects: []})
+  const post_result = app.call('chat', 'main', 'post_message', {stream_address: stream_addr, message: testMessage, subjects: []})
   console.log(post_result)
   t.notEqual(post_result.Ok, undefined, 'post should return Ok')
 
-  const get_message_result = app.call('chat', 'main', 'get_messages', {address: channel_addr})
+  const get_message_result = app.call('chat', 'main', 'get_messages', {address: stream_addr})
   console.log(get_message_result)
   t.deepEqual(get_message_result.Ok[0].entry.payload, testMessage.payload, 'expected to receive the message back')
   t.end()
 })
 
 
-test('Can post a message with a subject and this is added to the channel', t => {
+test('Can post a message with a subject and this is added to the stream', t => {
   const init_result = app.call('chat', 'main', 'init', {})
   console.log(init_result)
   t.notEqual(init_result.Ok, undefined, 'init should return success')
 
-  const create_result = app.call('chat', 'main', 'create_channel', testNewChannelParams)
+  const create_result = app.call('chat', 'main', 'create_stream', testNewStreamParams)
   console.log(create_result)
-  const channel_addr = create_result.Ok
-  t.deepEqual(channel_addr.length, 46)
+  const stream_addr = create_result.Ok
+  t.deepEqual(stream_addr.length, 46)
 
-  const post_result = app.call('chat', 'main', 'post_message', {channel_address: channel_addr, message: testMessage, subjects: ['subject 1', 'subject 2']})
+  const post_result = app.call('chat', 'main', 'post_message', {stream_address: stream_addr, message: testMessage, subjects: ['subject 1', 'subject 2']})
   console.log(post_result)
   t.notEqual(post_result.Ok, undefined, 'post should return success')
 
-  const get_subjects_result = app.call('chat', 'main', 'get_subjects', {channel_address: channel_addr})
+  const get_subjects_result = app.call('chat', 'main', 'get_subjects', {stream_address: stream_addr})
   console.log(get_subjects_result)
   t.deepEqual(get_subjects_result.Ok.length, 2)
-  t.deepEqual(get_subjects_result.Ok[0].entry.channel_address.length, 46)
+  t.deepEqual(get_subjects_result.Ok[0].entry.stream_address.length, 46)
   t.deepEqual(get_subjects_result.Ok[0].address.length, 46)
 
   const get_subject_message_result = app.call('chat', 'main', 'get_messages', {address: get_subjects_result.Ok[0].address})
@@ -103,11 +103,11 @@ test('Can post a message with a subject and this is added to the channel', t => 
   t.end()
 })
 
-test('Can create a public channel with some members', (t) => {
+test('Can create a public stream with some members', (t) => {
   const init_result = app.call('chat', 'main', 'init', {})
   console.log(init_result)
   t.notEqual(init_result.Ok, undefined, 'init should return success')
-  const create_result = app.call('chat', 'main', 'create_channel', {...testNewChannelParams, public: false, initial_members: [{id: "jeanmrussell"}, {id: "artbrock"}]})
+  const create_result = app.call('chat', 'main', 'create_stream', {...testNewStreamParams, public: false, initial_members: [{id: "jeanmrussell"}, {id: "artbrock"}]})
   console.log(create_result)
   t.deepEqual(create_result.Ok.length, 46)
   t.end()

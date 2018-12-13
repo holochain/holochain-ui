@@ -16,7 +16,7 @@ pub mod handlers;
 
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
-pub struct Channel {
+pub struct Stream {
     pub name: String,
     pub description: String,
     pub public: bool
@@ -25,24 +25,24 @@ pub struct Channel {
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct Subject {
     pub name: String,
-    pub channel_address: HashString,
+    pub stream_address: HashString,
 }
 
 
 
 
-pub fn public_channel_definition() -> ValidatingEntryType {
+pub fn public_stream_definition() -> ValidatingEntryType {
     entry!(
-        name: "public_channel",
-        description: "A channel of which anyone can become a member and post",
+        name: "public_stream",
+        description: "A stream of which anyone can become a member and post",
         sharing: Sharing::Public,
-        native_type: Channel,
+        native_type: Stream,
 
         validation_package: || {
             hdk::ValidationPackageDefinition::Entry
         },
 
-        validation: |_channel: Channel, _ctx: hdk::ValidationData| {
+        validation: |_stream: Stream, _ctx: hdk::ValidationData| {
             Ok(())
         },
 
@@ -73,7 +73,7 @@ pub fn public_channel_definition() -> ValidatingEntryType {
             ),
             to!(
                 "subject",
-                tag: "channel_subject",
+                tag: "stream_subject",
 
                 validation_package: || {
                     hdk::ValidationPackageDefinition::Entry
@@ -99,18 +99,18 @@ pub fn public_channel_definition() -> ValidatingEntryType {
     )
 }
 
-pub fn direct_channel_definition() -> ValidatingEntryType {
+pub fn direct_stream_definition() -> ValidatingEntryType {
     entry!(
-        name: "direct_channel",
-        description: "A channel to which new members can only be added at creation",
+        name: "direct_stream",
+        description: "A stream to which new members can only be added at creation",
         sharing: Sharing::Public,
-        native_type: Channel,
+        native_type: Stream,
 
         validation_package: || {
             hdk::ValidationPackageDefinition::Entry
         },
 
-        validation: |_channel: Channel, _ctx: hdk::ValidationData| {
+        validation: |_stream: Stream, _ctx: hdk::ValidationData| {
             Ok(())
         },
 
@@ -141,7 +141,7 @@ pub fn direct_channel_definition() -> ValidatingEntryType {
             ),
             to!(
                 "subject",
-                tag: "channel_subject",
+                tag: "stream_subject",
 
                 validation_package: || {
                     hdk::ValidationPackageDefinition::Entry
@@ -170,7 +170,7 @@ pub fn direct_channel_definition() -> ValidatingEntryType {
 pub fn subject_anchor_definition() -> ValidatingEntryType {
     entry!(
         name: "subject",
-        description: "A way messages within a channel are grouped",
+        description: "A way messages within a stream are grouped",
         sharing: Sharing::Public,
         native_type: Subject,
 
