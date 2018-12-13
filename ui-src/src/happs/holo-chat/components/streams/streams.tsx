@@ -20,7 +20,9 @@ const updateInterval = 10000
 
 import {
   GetMyStreams,
-  CreateStream
+  CreateStream,
+  Init,
+  GetAllMembers
 } from '../../actions'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -67,10 +69,10 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-  init: () => void,
+  init: typeof Init.sig,
   getMyStreams: typeof GetMyStreams.sig,
   getSubjects: (channelAddress: string) => void,
-  getAllMembers: () => void,
+  getAllMembers: typeof GetAllMembers.sig,
   newStream: typeof CreateStream.sig,
   setStreamAddress: (streamAddress: String) => void,
   setSubjectAddress: (subjectAddress: String) => void
@@ -94,7 +96,9 @@ class Streams extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount () {
-    this.props.init()
+    this.props.init({}).catch((err: Error) => {
+      console.log(err)
+    })
     this.props.getMyStreams('').catch((err: Error) => {
       console.log(err)
     })
@@ -106,7 +110,9 @@ class Streams extends React.Component<Props & RouterProps, State> {
   }
 
   handleNewStreamButtonClick = () => {
-    this.props.getAllMembers()
+    this.props.getAllMembers({}).catch((err: Error) => {
+      console.log(err)
+    })
     this.setState({ modalOpen: true })
   }
 
