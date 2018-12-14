@@ -107,23 +107,14 @@ pub fn handle_create_mapping(mapping: profile::ProfileMapping) -> ZomeApiResult<
 
 pub fn handle_retrieve(retriever_dna: HashString, profile_field: String) -> ZomeApiResult<RawString> {
 
-	// need to remember to wrap string with the extra quote marks or they won't deserialize
-	// Ok(JsonString::from("\"A handle!\""))
-	// Err(ZomeApiError::Internal("Nothing in the vault".to_string()))
+	let profiles: Vec<profile::Profile> = handle_get_profiles()?;
 
-
-	return Ok(RawString::from("A handle!"))
-
-
-	// let profiles: Vec<profile::Profile> = handle_get_profiles()?;
-
-	// for profile in profiles.iter().filter(|profile| profile.sourceDNA == retriever_dna) {
-	// 	for field in get_mapped_profile_fields(&profile.hash).unwrap().iter().filter(|elem| elem.entry.name == profile_field) {
-	// 		return Ok(JsonString::from("\"A handle!\""))
-	// 	}
-	// }
-	// Err(ZomeApiError::Internal("Nothing in the vault".to_string()))
-
+	for profile in profiles.iter().filter(|profile| profile.sourceDNA == retriever_dna) {
+		for field in get_mapped_profile_fields(&profile.hash).unwrap().iter().filter(|elem| elem.entry.name == profile_field) {
+			return Ok(RawString::from("A handle!"))
+		}
+	}
+	Err(ZomeApiError::Internal("Nothing in the vault".to_string()))
 }
 
 
