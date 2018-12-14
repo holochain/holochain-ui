@@ -5,8 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../withRoot';
 import Grid from '@material-ui/core/Grid'
-import presenceLargeGroup from '../cells/holo-chat/data/presence-large-group.json'
-import PresenceArcs from '../cells/holo-chat/components/presence/presenceArcs'
+import presenceLargeGroup from '../happs/holo-chat/data/presence-large-group.json'
+import PresenceArcs from '../happs/holo-chat/components/presence/presenceArcs'
 
 const styles = theme => ({
   appBar: {
