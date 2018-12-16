@@ -277,5 +277,35 @@ test('chat vault integration', t => {
 
   const getProfilesResult2 = app.call("profiles", "main", "get_profiles", {})
   t.equal(getProfilesResult2.Ok.length, 1, "Init should have created one profile")
+  const retrieverDNA = getProfilesResult2.Ok[0].sourceDNA
+
+
+  // create a persona to map chat to
+  const result = app.call("personas", "main", "create_persona", {spec: {name: "chat"}})
+  const personaAddress = result.Ok
+  const createPersonaResult = app.call("personas", "main", "add_field", {persona_address: personaAddress, field: {name: "handle", data: "test_handle"}})
+  t.notEqual(createPersonaResult.Ok, undefined)
+
+  // create a mapping between the chat profile and the chat persona
+    const map_result2 = app.call("profiles", "main", "create_mapping", 
+    {
+      mapping: {
+        retrieverDNA: retrieverDNA, 
+        profileFieldName: "handle", 
+        personaAddress: personaAddress,
+        personaFieldName: "handle"
+      }
+    })
+  console.log(map_result2)
+  // should map a single field
+  t.deepEqual(map_result2.Ok, { mappings_created: 1 }, "a single mapping should be created");
+
+
+  // calling init should now succeed!
+  const initResult2 = app.call("chat", "main", "init", {})
+  console.log(initResult2)
+  t.notEqual(initResult2.Ok, undefined, "Should return Ok as a profile exists!")
+
+  t.end()
 })
 
