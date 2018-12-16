@@ -2,7 +2,7 @@ import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 // import { reducer as formReducer } from 'redux-form'
 
 import { holochainMiddleware } from '@holochain/hc-redux-middleware'
-import { connect } from './utils/hc-web-client'
+import { connect } from '@holochain/hc-web-client'
 
 import holoVault from './cells/holo-vault/reducer'
 import holoChat from './cells/holo-chat/reducer'

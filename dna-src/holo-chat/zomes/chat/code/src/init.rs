@@ -52,46 +52,48 @@ fn link_agent_to_directory() -> ZomeApiResult<()> {
 fn register_with_vault() -> ZomeApiResult<()> {
 
 
-    let spec = ProfileSpec{
-        name: "holo-chat".into(),
-        sourceDNA: DNA_HASH.to_string().into(),
-        fields: vec!(
-            ProfileFieldSpec{
-                name: "handle".into(),
-                displayName: "Handle".into(),
-                description: "How other users will see you".into(),
-                schema: "".into(),
-                usage: UsageType::STORE,
-                required: true
-            },
-            ProfileFieldSpec{
-                name: "email".into(),
-                displayName: "Email".into(),
-                description: "A way to be contacted outside of holo-chat".into(),
-                schema: "".into(),
-                usage: UsageType::STORE,
-                required: false
-            },
-            ProfileFieldSpec{
-                name: "avatar".into(),
-                displayName: "Avatar".into(),
-                description: "Will be displayed next to your messages".into(),
-                schema: "".into(),
-                usage: UsageType::STORE,
-                required: false
-            },
-            ProfileFieldSpec{
-                name: "timezone".into(),
-                displayName: "Time Zone".into(),
-                description: "Your local timezone. Used by AOP for scheduling".into(),
-                schema: "".into(),
-                usage: UsageType::STORE,
-                required: false
-            }
-        )
+    let spec = RegisterCallStruct{
+        spec: ProfileSpec{
+            name: "holo-chat".into(),
+            sourceDNA: DNA_HASH.to_string().into(),
+            fields: vec!(
+                ProfileFieldSpec{
+                    name: "handle".into(),
+                    displayName: "Handle".into(),
+                    description: "How other users will see you".into(),
+                    schema: "".into(),
+                    usage: UsageType::STORE,
+                    required: true
+                },
+                ProfileFieldSpec{
+                    name: "email".into(),
+                    displayName: "Email".into(),
+                    description: "A way to be contacted outside of holo-chat".into(),
+                    schema: "".into(),
+                    usage: UsageType::STORE,
+                    required: false
+                },
+                ProfileFieldSpec{
+                    name: "avatar".into(),
+                    displayName: "Avatar".into(),
+                    description: "Will be displayed next to your messages".into(),
+                    schema: "".into(),
+                    usage: UsageType::STORE,
+                    required: false
+                },
+                ProfileFieldSpec{
+                    name: "timezone".into(),
+                    displayName: "Time Zone".into(),
+                    description: "Your local timezone. Used by AOP for scheduling".into(),
+                    schema: "".into(),
+                    usage: UsageType::STORE,
+                    required: false
+                }
+            )
+        }
     };
 
-    hdk::call("profiles", "main", "register_app", spec.into())?;
+    let register_result = hdk::call("profiles", "main", "register_app", spec.into())?;
     Ok(())
 }
 
@@ -161,4 +163,9 @@ pub struct ProfileFieldSpec {
 pub enum UsageType {
     STORE,
     DISPLAY
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+struct RegisterCallStruct {
+    spec: ProfileSpec
 }
