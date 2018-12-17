@@ -80,6 +80,11 @@ pub mod utils;
                 outputs: |result: ZomeApiResult<()>|,
                 handler: persona::handlers::handle_add_field
             }
+            get_field: {
+                inputs: |persona_address: HashString, field_name: String|,
+                outputs: |result: ZomeApiResult<RawString>|,
+                handler: persona::handlers::handle_get_field
+            }
     	}
     }
  }

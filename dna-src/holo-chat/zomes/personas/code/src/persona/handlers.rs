@@ -1,5 +1,5 @@
 
-use hdk::error::ZomeApiResult;
+use hdk::error::{ZomeApiResult, ZomeApiError};
 use crate::persona::{
     PersonaSpec,
     Persona,
@@ -78,6 +78,14 @@ pub fn handle_add_field(persona_address: HashString, field: PersonaField) -> Zom
     let field_address = hdk::commit_entry(&persona_field_entry)?;
     hdk::link_entries(&persona_address, &field_address, "fields")?;
     Ok(())
+}
+
+pub fn handle_get_field(persona_address: HashString, field_name: String) -> ZomeApiResult<RawString> {
+    let fields = get_fields(&persona_address)?;
+    match fields.iter().filter(|field| {field.name == field_name}).next() {
+        Some(field) => Ok(field.data.to_owned().into()),
+        None => Err(ZomeApiError::Internal("No matching field names".into()))
+    }
 }
 
 

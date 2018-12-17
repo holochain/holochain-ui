@@ -266,6 +266,8 @@ app.start()
 
 
 test('chat vault integration', t => {
+  const test_handle = "Test Handle !!"
+
   // should initially be no profiles
   const getProfilesResult1 = app.call("profiles", "main", "get_profiles", {})
   t.equal(getProfilesResult1.Ok.length, 0, "No profiles should exist yet")
@@ -283,7 +285,7 @@ test('chat vault integration', t => {
   // create a persona to map chat to
   const result = app.call("personas", "main", "create_persona", {spec: {name: "chat"}})
   const personaAddress = result.Ok
-  const createPersonaResult = app.call("personas", "main", "add_field", {persona_address: personaAddress, field: {name: "handle", data: "test_handle"}})
+  const createPersonaResult = app.call("personas", "main", "add_field", {persona_address: personaAddress, field: {name: "handle", data: test_handle}})
   t.notEqual(createPersonaResult.Ok, undefined)
 
   // create a mapping between the chat profile and the chat persona
@@ -306,6 +308,10 @@ test('chat vault integration', t => {
   console.log(initResult2)
   t.notEqual(initResult2.Ok, undefined, "Should return Ok as a profile exists!")
 
+  // should be able to retrieve this users profile
+  const getAllMembersResutlt = app.call("chat", "main", "get_all_members", {})
+  console.log(getAllMembersResutlt.Ok[0].profile)
+  t.notEqual(getAllMembersResutlt.Ok[0].profile, undefined)
   t.end()
 })
 

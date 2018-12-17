@@ -113,7 +113,7 @@ fn create_profile_from_vault() -> ZomeApiResult<()> {
     let get_handle_result = CallResult::try_from(maybe_get_handle_result)?;
 
     if !get_handle_result.ok {
-        return Err(ZomeApiError::Internal("Could not retrieve handle from vault".into()))
+        return Err(ZomeApiError::Internal("Could not call Vault".into()))
     }
 
     let response_json: serde_json::Value = serde_json::from_str(&get_handle_result.value).unwrap();
