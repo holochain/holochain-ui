@@ -87,7 +87,9 @@ class Messages extends React.Component<Props & RouterProps, State> {
     this.getMessageInterval = setInterval(() => {
       if (this.props.subjectAddress) {
         this.props.getMessages(this.props.subjectAddress)
-        console.log(this.props.messages)
+        this.setState({
+          subject: this.props.subjectName
+        })
       } else if (this.props.streamAddress) {
         this.props.getMessages(this.props.streamAddress)
       }
@@ -107,6 +109,16 @@ class Messages extends React.Component<Props & RouterProps, State> {
   }
 
   handleSendMessage = () => {
+    console.log({
+      stream_address: this.props.streamAddress,
+      subjects: [this.state.subject],
+      message: {
+        message_type: 'text',
+        timestamp: Math.floor((new Date()).getTime() / 1000),
+        payload: this.state.message,
+        meta: '{}'
+      }
+    })
     this.props.sendMessage({
       stream_address: this.props.streamAddress,
       subjects: [this.state.subject],

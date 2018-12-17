@@ -5,6 +5,14 @@ import { MessageType } from './types/message'
 
 describe('Chat Reducer', () => {
 
+  it('Should update the streamAddress in response to CreateStream', () => {
+    expect(holochatReducer(undefined, chatActions.CreateStream.success('streamAddress_hash')))
+    .toEqual({
+      ...initialState,
+      streamAddress: 'streamAddress_hash'
+    })
+  })
+
   it('Should update the state in response to GetMyStreams', () => {
     const testStreamsData: Array<{entry: any, address: String}> = [
       {
@@ -71,6 +79,17 @@ describe('Chat Reducer', () => {
   })
 
   it('Should update the state in response to GetSubjects', () => {
+    const initialSubjects = [
+      {
+        entry: {
+          stream_address: 'QmYodaHMeU8Su5H8G4ByZvumBvYcNrX8JrDKYQRKN8devhapps_nomatch',
+          subject: 'Abundance of Presence',
+          unread: 3
+        },
+        address: 'aop'
+      }
+    ]
+    console.log(holochatReducer(undefined, chatActions.GetSubjects.success(initialSubjects)))
     const subjectsTestData = [
       {
         entry: {
@@ -109,6 +128,22 @@ describe('Chat Reducer', () => {
     .toEqual({
       ...initialState,
       subjects: []
+    })
+  })
+
+  it('Should update streamAddress on SetStreamAddress', () => {
+    expect(holochatReducer(undefined, chatActions.SetStreamAddress('StreamAddress')))
+    .toEqual({
+      ...initialState,
+      streamAddress: 'StreamAddress'
+    })
+  })
+
+  it('Should update subjectAddress on SetSubjectAddress', () => {
+    expect(holochatReducer(undefined, chatActions.SetSubjectAddress('SubjectAddress')))
+    .toEqual({
+      ...initialState,
+      subjectAddress: 'SubjectAddress'
     })
   })
 
