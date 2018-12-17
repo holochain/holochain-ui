@@ -4,6 +4,7 @@ import withRoot from '../../../../withRoot'
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom'
 import classNames from 'classnames'
 import Typography from '@material-ui/core/Typography'
+import Dialog from '@material-ui/core/Dialog'
 import Chip from '@material-ui/core/Chip'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
@@ -16,11 +17,14 @@ import NewChannel from '../../containers/newChannelContainer'
 import { Subject as SubjectType } from '../../types/model/subject'
 import Badge from '@material-ui/core/Badge'
 
+import Profile from '../../../holo-vault/containers/profileContainer'
+
 const updateInterval = 1000
 
 import {
   GetMyChannels,
-  CreateChannel
+  CreateChannel,
+  Init
 } from '../../actions'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -68,7 +72,7 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-  init: () => void,
+  init: typeof Init.sig,
   getMyChannels: typeof GetMyChannels.sig,
   getSubjects: (channelAddress: string) => void,
   getAllMembers: () => void,
@@ -81,7 +85,8 @@ export interface RouterProps extends RouteComponentProps<{channel: string, subje
 export type Props = OwnProps & StateProps & DispatchProps
 
 export interface State {
-  modalOpen: boolean
+  modalOpen: boolean,
+  profileDialogOpen: boolean
 }
 
 class Channels extends React.Component<Props & RouterProps, State> {
@@ -90,12 +95,21 @@ class Channels extends React.Component<Props & RouterProps, State> {
   constructor (props: Props & RouterProps) {
     super(props)
     this.state = {
-      modalOpen: false
+      modalOpen: false,
+      profileDialogOpen: true
     }
   }
 
   componentDidMount () {
-    this.props.init()
+    this.props.init({})
+      .then((result: any) => {
+        console.log(result)
+        console.log('init success')
+      })
+      .catch((err: Error) => {
+        console.log(err)
+        console.log('init failed')
+      })
     this.getChannelsInterval = setInterval(this.props.getMyChannels, updateInterval)
   }
 
@@ -145,6 +159,14 @@ class Channels extends React.Component<Props & RouterProps, State> {
     const { classes, channels, title, subjects, isPublic, isMobile } = this.props
     return (
     <div className={classNames(classes.root, isMobile && classes.mobile, !isMobile && classes.desktop)}>
+
+      <Dialog
+        fullScreen={true}
+        open={this.state.profileDialogOpen}
+      >
+        <Profile />
+      </Dialog>
+
       <Button id='AddChannel' mini={true} onClick={this.handleNewChannelButtonClick} className={classNames(classes.addButton, isMobile && classes.mobile, !isMobile && classes.desktop)}>
         <AddIcon/>
       </Button>
