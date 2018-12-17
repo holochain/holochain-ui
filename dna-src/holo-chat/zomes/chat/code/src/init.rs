@@ -93,7 +93,10 @@ fn register_with_vault() -> ZomeApiResult<()> {
         }
     };
 
-    let register_result = hdk::call("profiles", "main", "register_app", spec.into())?;
+    hdk::call("profiles", "main", "register_app", spec.into())?;
+    // also create a default persona
+    let result = hdk::call("personas", "main", "create_persona", 
+        CreatePersonaCallStruct::new("default".into()).into())?;
     Ok(())
 }
 
@@ -168,4 +171,24 @@ pub enum UsageType {
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 struct RegisterCallStruct {
     spec: ProfileSpec
+}
+
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
+struct CreatePersonaCallStruct {
+    spec: PersonaSpec
+}
+
+impl CreatePersonaCallStruct {
+    pub fn new(name: String)-> CreatePersonaCallStruct {
+        CreatePersonaCallStruct {
+            spec: PersonaSpec {
+                name: name
+            }
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
+pub struct PersonaSpec {
+    pub name: String
 }
