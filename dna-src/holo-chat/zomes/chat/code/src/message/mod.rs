@@ -12,7 +12,7 @@ use hdk::holochain_core_types::{
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct Message {
-    pub timestamp: String,
+    pub timestamp: u32,
     pub author: String,
     pub message_type: String,
     pub payload: String,
@@ -20,13 +20,13 @@ pub struct Message {
 }
 
 impl Message {
-    pub fn from_spec(spec: &MessageSpec, author: &String, timestamp: &String) -> Message {
+    pub fn from_spec(spec: &MessageSpec, author: &String) -> Message {
         return Message{
             message_type: spec.message_type.clone(),
             payload: spec.payload.clone(),
             meta: spec.meta.clone(),
             author: author.to_owned(),
-            timestamp: timestamp.to_owned()
+            timestamp: spec.timestamp.clone()
         }
     }
 }
@@ -34,6 +34,7 @@ impl Message {
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct MessageSpec {
     pub message_type: String,
+    pub timestamp: u32,
     pub payload: String,
     pub meta: String
 }

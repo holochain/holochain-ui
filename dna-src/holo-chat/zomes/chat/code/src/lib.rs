@@ -19,7 +19,7 @@ use hdk::holochain_core_types::{
 
 mod anchor;
 mod message;
-mod channel;
+mod stream;
 mod member;
 mod init;
 mod utils;
@@ -30,9 +30,9 @@ define_zome! {
 
 	entries: [
 		message::message_definition(),
-    	channel::public_channel_definition(),
-    	channel::direct_channel_definition(),
-        channel::subject_anchor_definition(),
+    	stream::public_stream_definition(),
+    	stream::direct_stream_definition(),
+        stream::subject_anchor_definition(),
         member::profile_definition(),
         anchor::anchor_definition()
 	]
@@ -50,15 +50,15 @@ define_zome! {
 				outputs: |result: ZomeApiResult<()>|,
 				handler: init::handle_init
 			}
-			create_channel: {
+			create_stream: {
 				inputs: |name: String, description: String, initial_members: Vec<Address>, public: bool|,
 				outputs: |result: ZomeApiResult<Address>|,
-				handler: channel::handlers::handle_create_channel
+				handler: stream::handlers::handle_create_stream
 			}
-			get_my_channels: {
+			get_my_streams: {
 				inputs: | |,
-				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<channel::Channel>>|,
-				handler: channel::handlers::handle_get_my_channels
+				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<stream::Stream>>|,
+				handler: stream::handlers::handle_get_my_streams
 			}
             get_all_members: {
 				inputs: | |,
@@ -66,29 +66,29 @@ define_zome! {
 				handler: member::handlers::handle_get_all_members
 			}
 			get_members: {
-				inputs: |channel_address: HashString|,
+				inputs: |stream_address: HashString|,
 				outputs: |result: ZomeApiResult<Vec<member::Member>>|,
-				handler: channel::handlers::handle_get_members
+				handler: stream::handlers::handle_get_members
 			}
 			add_members: {
-				inputs: |channel_address: HashString, members: Vec<Address>|,
+				inputs: |stream_address: HashString, members: Vec<Address>|,
 				outputs: |result: ZomeApiResult<()>|,
-				handler: channel::handlers::handle_add_members
+				handler: stream::handlers::handle_add_members
 			}
 			post_message: {
-				inputs: |channel_address: HashString, message: message::MessageSpec, subjects: Vec<String>|,
+				inputs: |stream_address: HashString, message: message::MessageSpec, subjects: Vec<String>|,
 				outputs: |result: ZomeApiResult<()>|,
-				handler: channel::handlers::handle_post_message
+				handler: stream::handlers::handle_post_message
 			}
 			get_messages: {
 				inputs: |address: HashString|,
 				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<message::Message>>|,
-				handler: channel::handlers::handle_get_messages
+				handler: stream::handlers::handle_get_messages
 			}
             get_subjects: {
-                inputs: |channel_address: HashString|,
-                outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<channel::Subject>>|,
-                handler: channel::handlers::handle_get_subjects
+                inputs: |stream_address: HashString|,
+                outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<stream::Subject>>|,
+                handler: stream::handlers::handle_get_subjects
             }
 			get_profile: {
 				inputs: |member_id: Address|,

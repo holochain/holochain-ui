@@ -54,7 +54,6 @@ app.start()
 //   const getAllMembersResult = app.call('chat', 'main', 'get_all_members', {})
 //   console.log(getAllMembersResult.Ok)
 //   t.equal(getAllMembersResult.Ok.length, 1) // will fail if we change test data
-
 //   t.end()
 // })
 
@@ -312,6 +311,7 @@ test('chat vault integration', t => {
   const getAllMembersResutlt = app.call("chat", "main", "get_all_members", {})
   console.log(getAllMembersResutlt.Ok[0].profile)
   t.notEqual(getAllMembersResutlt.Ok[0].profile, undefined)
+
   t.end()
 })
 

@@ -16,17 +16,17 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Route } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import MenuIcon from '@material-ui/icons/Menu'
-import PersonasContainer from '../cells/holo-vault/containers/personasContainer'
-import PersonaContainer from '../cells/holo-vault/containers/personaContainer'
-import ProfileContainer from '../cells/holo-vault/containers/profileContainer'
-import ProfilesContainer from '../cells/holo-vault/containers/profilesContainer'
-import MessagesContainer from '../cells/holo-chat/containers/messagesContainer'
-import HappsContainer from '../cells/holo-vault/containers/happsContainer'
-import ChannelsContainer from '../cells/holo-chat/containers/channelsContainer'
-import ErrandContainer from '../cells/errand/containers/errandContainer'
-import ArcsOfPresenceContainer from '../cells/holo-chat/containers/arcsOfPresenceContainer'
+import PersonasContainer from '../hApps/holo-vault/containers/personasContainer'
+import PersonaContainer from '../hApps/holo-vault/containers/personaContainer'
+import ProfileContainer from '../hApps/holo-vault/containers/profileContainer'
+import ProfilesContainer from '../hApps/holo-vault/containers/profilesContainer'
+import MessagesContainer from '../hApps/holo-chat/containers/messagesContainer'
+import HappsContainer from '../hApps/holo-vault/containers/happsContainer'
+import StreamsContainer from '../hApps/holo-chat/containers/streamsContainer'
+import ErrandContainer from '../hApps/errand/containers/errandContainer'
+import ArcsOfPresenceContainer from '../hApps/holo-chat/containers/arcsOfPresenceContainer'
 import Desktop from './desktop'
-import Mobile from './mobile'
+// import Mobile from './mobile'
 import MainNav from './navData';
 import HoloVaultNav from './holoVaultNavData';
 import StorybookSkin from './storybook'
@@ -218,8 +218,8 @@ class MiniDrawer extends React.Component {
               } />
               <Route path='/holo-chat' render={props =>
                 <div>
-                  <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} isMobile={true} />
-                  <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} isMobile={true} />
+                  <StreamsContainer {...props} title={'Public Channels'} isPublic={true} isMobile={true} />
+                  <StreamsContainer {...props} title={'Direct Messages'} isPublic={false} isMobile={true} />
                 </div>
               } />
               <Route path='/errand' render={props =>
@@ -251,11 +251,11 @@ class MiniDrawer extends React.Component {
                 <Desktop {...props} />
               </div>
             } />
-            <Route path={['/holo-chat/channel/:channel', '/holo-chat/subject/:subject', '/holo-chat' ]} title='Holochain' render={props =>
+            <Route path={['/holo-chat/stream/:stream/subject/:subject', '/holo-chat/stream/:stream', '/holo-chat' ]} title='Holochain' render={props =>
               <Grid container={true} spacing={0} className={classes.chat}>
                 <Grid item={true} xs={3} className={classes.channels}>
-                  <ChannelsContainer {...props} title={'Public Channels'} isPublic={true} />
-                  <ChannelsContainer {...props} title={'Direct Messages'} isPublic={false} />
+                  <StreamsContainer {...props} title={'Public Channels'} isPublic={true} />
+                  <StreamsContainer {...props} title={'Direct Messages'} isPublic={false} />
                 </Grid>
                 <Grid item={true} xs={7} className={classes.messages}>
                   <MessagesContainer {...props} />
@@ -273,7 +273,7 @@ class MiniDrawer extends React.Component {
           <MediaQuery maxDeviceWidth={767}>
             <Route exact path='/home' title='Holochain' component={Desktop} />
             <Route exact path='/' title='Holochain' component={Desktop} />
-            <Route path={['/holo-chat/channel/:channel', '/holo-chat/subject/:subject', '/holo-chat' ]} title='Holochain' render={props =>
+            <Route path={['/holo-chat/stream/:stream/subject/:subject', '/holo-chat/stream/:stream', '/holo-chat' ]} title='Holochain' render={props =>
                 <MessagesContainer {...props} isMobile={true} />
             } />
           </MediaQuery>
