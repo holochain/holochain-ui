@@ -16,20 +16,20 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Route } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import MenuIcon from '@material-ui/icons/Menu'
-import PersonasContainer from '../happs/holo-vault/containers/personasContainer'
-import PersonaContainer from '../happs/holo-vault/containers/personaContainer'
-import ProfileContainer from '../happs/holo-vault/containers/profileContainer'
-import ProfilesContainer from '../happs/holo-vault/containers/profilesContainer'
-import MessagesContainer from '../happs/holo-chat/containers/messagesContainer'
-import HappsContainer from '../happs/holo-vault/containers/happsContainer'
-import StreamsContainer from '../happs/holo-chat/containers/streamsContainer'
-import ArcsOfPresenceContainer from '../happs/holo-chat/containers/arcsOfPresenceContainer'
+import PersonasContainer from '../hApps/holo-vault/containers/personasContainer'
+import PersonaContainer from '../hApps/holo-vault/containers/personaContainer'
+import ProfileContainer from '../hApps/holo-vault/containers/profileContainer'
+import ProfilesContainer from '../hApps/holo-vault/containers/profilesContainer'
+import MessagesContainer from '../hApps/holo-chat/containers/messagesContainer'
+import HappsContainer from '../hApps/holo-vault/containers/happsContainer'
+import StreamsContainer from '../hApps/holo-chat/containers/streamsContainer'
+import ArcsOfPresenceContainer from '../hApps/holo-chat/containers/arcsOfPresenceContainer'
 import Desktop from './desktop'
 // import Mobile from './mobile'
 import MainNav from './navData';
 import HoloVaultNav from './holoVaultNavData'
 import StorybookSkin from './storybook'
-import Chat from '../happs/holo-chat/components/chat'
+import DesktopChat from '../hApps/holo-chat/components/desktopChat'
 
 const drawerWidth = 240;
 
@@ -102,20 +102,6 @@ const styles = theme => ({
     width: '100%',
     padding: 0,
     marginTop: 58
-  },
-  chat: {
-    display: 'flex',
-    height: '100%',
-    width: '100%',
-    backgroundColor: '#424242'
-  },
-  channels: {
-    height: '100%',
-    width: '100%'
-  },
-  messages: {
-    height: '100%',
-    width: '100%'
   }
 });
 
@@ -223,9 +209,8 @@ class MiniDrawer extends React.Component {
               </div>
             } />
             <Route path={['/holo-chat/stream/:stream/subject/:subject', '/holo-chat/stream/:stream', '/holo-chat' ]} title='Holochain' render={props =>
-              <Chat {...props} classes={classes} />
+              <DesktopChat {...props} />
             } />
-
           </MediaQuery>
           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1024}>
             <Desktop />

@@ -34,7 +34,7 @@ class HoloVaultNav extends React.Component {
             </ListItemIcon>
             <ListItemText primary='Personas'/>
           </ListItem>
-          <ListItem key="profiles" button onClick={() => { history.push('/');
+          <ListItem key="profiles" button onClick={() => { history.push('/holo-vault/profiles');
             this.props.handleDrawerClose();
           }}>
             <ListItemIcon>

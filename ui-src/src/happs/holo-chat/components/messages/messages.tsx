@@ -52,7 +52,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 })
 
 export interface OwnProps {
-  classes: any,
+  classes?: any,
   isMobile: boolean
 }
 
