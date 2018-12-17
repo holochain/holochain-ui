@@ -73,11 +73,7 @@ export interface StateProps {
 
 export interface DispatchProps {
   init: typeof Init.sig,
-<<<<<<< HEAD:ui-src/src/cells/holo-chat/components/channels/channels.tsx
-  getMyChannels: typeof GetMyChannels.sig,
-=======
   getMyStreams: typeof GetMyStreams.sig,
->>>>>>> 31301f937a7a521001548d756711e45d6a8d5aa4:ui-src/src/happs/holo-chat/components/streams/streams.tsx
   getSubjects: (channelAddress: string) => void,
   getAllMembers: typeof GetAllMembers.sig,
   newStream: typeof CreateStream.sig,
@@ -105,7 +101,6 @@ class Streams extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount () {
-<<<<<<< HEAD:ui-src/src/cells/holo-chat/components/channels/channels.tsx
     this.props.init({})
       .then((result: any) => {
         console.log(result)
@@ -115,16 +110,7 @@ class Streams extends React.Component<Props & RouterProps, State> {
         console.log(err)
         console.log('init failed')
       })
-    this.getChannelsInterval = setInterval(this.props.getMyChannels, updateInterval)
-=======
-    this.props.init({}).catch((err: Error) => {
-      console.log(err)
-    })
-    this.props.getMyStreams('').catch((err: Error) => {
-      console.log(err)
-    })
     this.getStreamsInterval = setInterval(this.props.getMyStreams, updateInterval)
->>>>>>> 31301f937a7a521001548d756711e45d6a8d5aa4:ui-src/src/happs/holo-chat/components/streams/streams.tsx
   }
 
   componentWillUnmount () {
@@ -186,19 +172,13 @@ class Streams extends React.Component<Props & RouterProps, State> {
     const { classes, streams, title, subjects, isPublic, isMobile } = this.props
     return (
     <div className={classNames(classes.root, isMobile && classes.mobile, !isMobile && classes.desktop)}>
-<<<<<<< HEAD:ui-src/src/cells/holo-chat/components/channels/channels.tsx
-
       <Dialog
         fullScreen={true}
         open={this.state.profileDialogOpen}
       >
         <Profile />
       </Dialog>
-
-      <Button id='AddChannel' mini={true} onClick={this.handleNewChannelButtonClick} className={classNames(classes.addButton, isMobile && classes.mobile, !isMobile && classes.desktop)}>
-=======
       <Button id='AddStream' mini={true} onClick={this.handleNewStreamButtonClick} className={classNames(classes.addButton, isMobile && classes.mobile, !isMobile && classes.desktop)}>
->>>>>>> 31301f937a7a521001548d756711e45d6a8d5aa4:ui-src/src/happs/holo-chat/components/streams/streams.tsx
         <AddIcon/>
       </Button>
       <Typography variant={isMobile ? 'h6' : 'h5'} className={classNames(classes.title, isMobile && classes.mobile, !isMobile && classes.desktop)}>

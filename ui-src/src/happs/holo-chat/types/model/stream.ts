@@ -7,7 +7,7 @@ export interface Member {
 }
 
 export interface StreamSpec {
-  initial_members: Array<Member>,
+  initial_members: Array<String>,
   name: string,
   description: string,
   public: boolean

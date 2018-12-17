@@ -8,12 +8,7 @@ import withRoot from '../../../../withRoot'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import CloseIcon from '@material-ui/icons/Close'
-<<<<<<< HEAD:ui-src/src/cells/holo-chat/components/channels/newChannel.tsx
-import { ChannelSpec, Member } from '../../types/model/channel'
-=======
-import { Identity } from '../../types/model/identity'
 import { StreamSpec, Member } from '../../types/model/stream'
->>>>>>> 31301f937a7a521001548d756711e45d6a8d5aa4:ui-src/src/happs/holo-chat/components/streams/newStream.tsx
 import AgentList from './agentList'
 import Send from '@material-ui/icons/Send'
 
@@ -48,24 +43,15 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 interface OwnProps {
   classes?: any,
   open: boolean,
-<<<<<<< HEAD:ui-src/src/cells/holo-chat/components/channels/newChannel.tsx
   members: Array<Member>,
-  onSubmit: (spec: ChannelSpec) => void,
-=======
-  members: Array<Identity>,
   onSubmit: (spec: StreamSpec) => void,
->>>>>>> 31301f937a7a521001548d756711e45d6a8d5aa4:ui-src/src/happs/holo-chat/components/streams/newStream.tsx
   onHandleClose: () => void,
   isPublic: boolean
 }
 
 export interface State {
-<<<<<<< HEAD:ui-src/src/cells/holo-chat/components/channels/newChannel.tsx
   selectedUsers: Array<Member>,
-=======
   title: string,
-  selectedUsers: Array<Identity>,
->>>>>>> 31301f937a7a521001548d756711e45d6a8d5aa4:ui-src/src/happs/holo-chat/components/streams/newStream.tsx
   open: boolean
 }
 
@@ -112,15 +98,9 @@ class NewStream extends React.Component<Props, State> {
       }, '')
     }
 
-<<<<<<< HEAD:ui-src/src/cells/holo-chat/components/channels/newChannel.tsx
-    const channelSpec: ChannelSpec = {
-      initial_members: this.state.selectedUsers.map((member: Member) => member.agentId),
-      name: channelName,
-=======
     const streamSpec: StreamSpec = {
-      initial_members: this.state.selectedUsers.map((user): Member => { return { id: user.agentId } }),
+      initial_members: this.state.selectedUsers.map((member: Member) => member.agentId),
       name: streamName,
->>>>>>> 31301f937a7a521001548d756711e45d6a8d5aa4:ui-src/src/happs/holo-chat/components/streams/newStream.tsx
       description: '',
       public: this.props.isPublic
     }

@@ -16,27 +16,20 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Route } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import MenuIcon from '@material-ui/icons/Menu'
-import PersonasContainer from '../hApps/holo-vault/containers/personasContainer'
-import PersonaContainer from '../hApps/holo-vault/containers/personaContainer'
-import ProfileContainer from '../hApps/holo-vault/containers/profileContainer'
-import ProfilesContainer from '../hApps/holo-vault/containers/profilesContainer'
-import MessagesContainer from '../hApps/holo-chat/containers/messagesContainer'
-import HappsContainer from '../hApps/holo-vault/containers/happsContainer'
-import StreamsContainer from '../hApps/holo-chat/containers/streamsContainer'
-import ErrandContainer from '../hApps/errand/containers/errandContainer'
-import ArcsOfPresenceContainer from '../hApps/holo-chat/containers/arcsOfPresenceContainer'
+import PersonasContainer from '../happs/holo-vault/containers/personasContainer'
+import PersonaContainer from '../happs/holo-vault/containers/personaContainer'
+import ProfileContainer from '../happs/holo-vault/containers/profileContainer'
+import ProfilesContainer from '../happs/holo-vault/containers/profilesContainer'
+import MessagesContainer from '../happs/holo-chat/containers/messagesContainer'
+import HappsContainer from '../happs/holo-vault/containers/happsContainer'
+import StreamsContainer from '../happs/holo-chat/containers/streamsContainer'
+import ErrandContainer from '../happs/errand/containers/errandContainer'
+import ArcsOfPresenceContainer from '../happs/holo-chat/containers/arcsOfPresenceContainer'
 import Desktop from './desktop'
 // import Mobile from './mobile'
 import MainNav from './navData';
 import HoloVaultNav from './holoVaultNavData';
 import StorybookSkin from './storybook'
-// import HoloChatNav from './holoChatNavData'
-import ErrandNav from './errandNavData'
-import HackTogetherSkin from './hackTogether'
-import HoloChessSkin from './holochess'
-import MinersweeperSkin from './minersweeper'
-import FractalWikiSkin from './fractal-wiki'
-// import Hidden from '@material-ui/core/Hidden';
 
 const drawerWidth = 240;
 

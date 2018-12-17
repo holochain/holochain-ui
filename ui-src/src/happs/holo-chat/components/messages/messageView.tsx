@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
 // import IconButton from '@material-ui/core/IconButton'
 import IdeaContainer from '../../containers/ideaContainer'
 import { MakeAvatar } from '../misc/makeAvatar'
-import { Member } from '../../types/model/channel'
+import { Member } from '../../types/model/stream'
 import { Message as MessageType } from '../../types/model/message'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({

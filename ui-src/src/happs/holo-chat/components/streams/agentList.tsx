@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import withRoot from '../../../../withRoot'
 import { MakeAvatar } from '../misc/makeAvatar'
 
-import { Member } from '../../types/model/channel'
+import { Member } from '../../types/model/stream'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {

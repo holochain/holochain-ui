@@ -1,7 +1,7 @@
 
 import * as React from 'react'
 import Avatar from '@material-ui/core/Avatar'
-import { Member } from '../../types/model/channel'
+import { Member } from '../../types/model/stream'
 
 // used to check if the avatar string is valid base64 encoding.
 // Does not check if it decodes to a valid image
