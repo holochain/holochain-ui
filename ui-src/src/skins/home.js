@@ -27,8 +27,9 @@ import ArcsOfPresenceContainer from '../happs/holo-chat/containers/arcsOfPresenc
 import Desktop from './desktop'
 // import Mobile from './mobile'
 import MainNav from './navData';
-import HoloVaultNav from './holoVaultNavData';
+import HoloVaultNav from './holoVaultNavData'
 import StorybookSkin from './storybook'
+import Chat from '../happs/holo-chat/components/chat'
 
 const drawerWidth = 240;
 
@@ -201,20 +202,6 @@ class MiniDrawer extends React.Component {
                 } />
               </List>
             <Divider />
-            <List>
-              <Route path='/holo-vault' render={props =>
-                <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
-              } />
-              <Route path='/holo-chat' render={props =>
-                <div>
-                  <StreamsContainer {...props} title={'Public Channels'} isPublic={true} isMobile={true} />
-                  <StreamsContainer {...props} title={'Direct Messages'} isPublic={false} isMobile={true} />
-                </div>
-              } />
-              <Route path='/errand' render={props =>
-                <ErrandNav handleDrawerClose={this.handleDrawerClose} />
-              } />
-            </List>
           </Drawer>
         </MediaQuery>
         <main className={classes.content}>
@@ -236,18 +223,7 @@ class MiniDrawer extends React.Component {
               </div>
             } />
             <Route path={['/holo-chat/stream/:stream/subject/:subject', '/holo-chat/stream/:stream', '/holo-chat' ]} title='Holochain' render={props =>
-              <Grid container={true} spacing={0} className={classes.chat}>
-                <Grid item={true} xs={3} className={classes.channels}>
-                  <StreamsContainer {...props} title={'Public Channels'} isPublic={true} />
-                  <StreamsContainer {...props} title={'Direct Messages'} isPublic={false} />
-                </Grid>
-                <Grid item={true} xs={7} className={classes.messages}>
-                  <MessagesContainer {...props} />
-                </Grid>
-                <Grid item={true} xs={2}>
-                  <Paper></Paper>
-                </Grid>
-              </Grid>
+              <Chat {...props} classes={classes} />
             } />
 
           </MediaQuery>

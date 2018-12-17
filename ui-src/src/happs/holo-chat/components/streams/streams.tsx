@@ -4,7 +4,6 @@ import withRoot from '../../../../withRoot'
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom'
 import classNames from 'classnames'
 import Typography from '@material-ui/core/Typography'
-import Dialog from '@material-ui/core/Dialog'
 import Chip from '@material-ui/core/Chip'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
@@ -16,8 +15,6 @@ import { Stream as StreamType, StreamSpec } from '../../types/model/stream'
 import NewStream from '../../containers/newStreamContainer'
 import { Subject as SubjectType } from '../../types/model/subject'
 import Badge from '@material-ui/core/Badge'
-
-import Profile from '../../../holo-vault/containers/profileContainer'
 
 const updateInterval = 10000
 
@@ -85,8 +82,7 @@ export interface RouterProps extends RouteComponentProps<{stream: string, subjec
 export type Props = OwnProps & StateProps & DispatchProps
 
 export interface State {
-  modalOpen: boolean,
-  profileDialogOpen: boolean
+  modalOpen: boolean
 }
 
 class Streams extends React.Component<Props & RouterProps, State> {
@@ -95,8 +91,7 @@ class Streams extends React.Component<Props & RouterProps, State> {
   constructor (props: Props & RouterProps) {
     super(props)
     this.state = {
-      modalOpen: false,
-      profileDialogOpen: true
+      modalOpen: false
     }
   }
 
@@ -172,12 +167,6 @@ class Streams extends React.Component<Props & RouterProps, State> {
     const { classes, streams, title, subjects, isPublic, isMobile } = this.props
     return (
     <div className={classNames(classes.root, isMobile && classes.mobile, !isMobile && classes.desktop)}>
-      <Dialog
-        fullScreen={true}
-        open={this.state.profileDialogOpen}
-      >
-        <Profile />
-      </Dialog>
       <Button id='AddStream' mini={true} onClick={this.handleNewStreamButtonClick} className={classNames(classes.addButton, isMobile && classes.mobile, !isMobile && classes.desktop)}>
         <AddIcon/>
       </Button>
