@@ -136,15 +136,15 @@ class Streams extends React.Component<Props & RouterProps, State> {
   }
 
   getSubjects = (streamAddress: string) => {
-    // console.log(`get subjects for ${channelAddress}`)
+    console.log(`get subjects for ${streamAddress}`)
     this.props.history.push(`/holo-chat/stream/${streamAddress}`)
     this.props.setStreamAddress(streamAddress)
     this.props.getSubjects(streamAddress)
   }
 
-  getMessages = (subjectAddress: string) => {
+  getMessages = (streamAddress: string, subjectAddress: string) => {
     // console.log(`get messages for ${subjectAddress}`)
-    this.props.history.push(`/holo-chat/subject/${subjectAddress}`)
+    this.props.history.push(`/holo-chat/stream/${streamAddress}/subject/${subjectAddress}`)
     this.props.setSubjectAddress(subjectAddress)
   }
 
@@ -190,7 +190,7 @@ class Streams extends React.Component<Props & RouterProps, State> {
                             <Chip
                               label={this.formatSubjectLabel(subject.name)}
                               className={classes.chip}
-                              onClick={() => this.getMessages(subject.address)}
+                              onClick={() => this.getMessages(stream.address, subject.address)}
                             />
                           </Badge>
                           ))
