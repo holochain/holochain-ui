@@ -51,10 +51,14 @@ describe('Chat Reducer', () => {
   })
 
   it('Should update the state in response to GetMembers', () => {
-    expect(holochatReducer(undefined, chatActions.GetMembers.success([{ address: 'a', profile: {} }, { address: 'b', profile: {} }])))
+    const usersResponse = [
+      { address: '111', profile: { handle: 'philipbeadle', email: 'philip.beadle@holo.host', avatar: '' } },
+      { address: '222', profile: { handle: 'thedavidmeister', email: 'david.meister@holo.host', avatar: '' } }
+    ]
+    expect(holochatReducer(undefined, chatActions.GetMembers.success(usersResponse)))
     .toEqual({
       ...initialState,
-      activeStreamMembers: [{ handle: 'a', avatar: '' }, { handle: 'b', avatar: '' }]
+      activeStreamMembers: usersResponse.map(u => { return { agentId: u.address, ...u.profile } })
     })
   })
 
