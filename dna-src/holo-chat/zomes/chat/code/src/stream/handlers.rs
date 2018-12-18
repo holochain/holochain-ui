@@ -4,6 +4,7 @@ use hdk::holochain_core_types::{
     hash::HashString,
     entry::{entry_type::AppEntryType, AppEntryValue, Entry},
     cas::content::Address,
+    json::RawString,
 };
 
 use crate::stream::{
@@ -44,6 +45,17 @@ pub fn handle_create_stream(
     for member in initial_members {
         utils::link_entries_bidir(&member, &stream_address, "member_of", "has_member")?;
     }
+
+
+    if public == true {
+        let anchor_entry = Entry::App(
+            AppEntryType::from("anchor"),
+            AppEntryValue::from(RawString::from("public_streams")),
+        );
+        let anchor_address = hdk::commit_entry(&anchor_entry)?;
+        hdk::link_entries(&anchor_address, &stream_address, "public_stream")?;
+    }
+
     Ok(stream_address)
 }
 
@@ -108,4 +120,13 @@ pub fn handle_post_message(stream_address: HashString, message_spec: message::Me
     }
 
     Ok(())
+}
+
+pub fn handle_get_all_public_streams() -> ZomeApiResult<utils::GetLinksLoadResult<Stream>> {
+    let anchor_entry = Entry::App(
+        AppEntryType::from("anchor"),
+        AppEntryValue::from(RawString::from("public_streams")),
+    );
+    let anchor_address = hdk::entry_address(&anchor_entry)?;
+    utils::get_links_and_load_type(&anchor_address, "public_stream")
 }

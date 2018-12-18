@@ -60,6 +60,11 @@ define_zome! {
 				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<stream::Stream>>|,
 				handler: stream::handlers::handle_get_my_streams
 			}
+			get_all_public_streams: {
+				inputs: | |,
+				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<stream::Stream>>|,
+				handler: stream::handlers::handle_get_all_public_streams
+			}
             get_all_members: {
 				inputs: | |,
 				outputs: |result: ZomeApiResult<Vec<member::Member>>|,
