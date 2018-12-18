@@ -1,6 +1,6 @@
 
 import { connect } from 'react-redux'
-import Messages, { Props, StateProps, RouterProps, DispatchProps } from '../components/messages/messages'
+import Messages, { Props, StateProps, RouterProps, DispatchProps, OwnProps } from '../components/messages/messages'
 import { Dispatch } from 'redux'
 import { Stream } from '../types/model/stream'
 import { Subject } from '../types/model/subject'
@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   }
 }
 
-export default connect(
+export default connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps
 )(Messages)

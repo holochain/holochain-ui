@@ -148,7 +148,7 @@ function UsageIcon (props: any) {
 }
 
 function Mapping (props: any) {
-  if (props.field.mapping !== undefined) {
+  if (props.field.mapping) {
     let mapping = props.field.mapping
     let filteredPersonas = props.personas.filter(function (persona: PersonaType) {
       return mapping.personaAddress === persona.hash
@@ -195,7 +195,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
         allSuggestions.push({ persona: persona, field: field, label: field.data + ' (' + persona.name + ' - ' + field.name + ')' })
       ))
     ))
-    if (nextProps.field.mapping !== undefined) {
+    if (nextProps.field.mapping) {
       let mapping = nextProps.field.mapping
       if (nextProps.selectedPersona !== prevState.selectedPersona) {
         let filteredField = nextProps.selectedPersona.fields.filter(function (field) {
@@ -223,7 +223,7 @@ class AutoCompleteProfileField extends React.Component<Props, State> {
   }
 
   componentDidMount () {
-    if (this.props.field.mapping === undefined) {
+    if (!this.props.field.mapping) {
       let field = this.state.field
       let fieldName = this.props.field.name
       let filteredSuggestions = allSuggestions.filter(function (suggestion: SuggestionType) {

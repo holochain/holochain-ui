@@ -55,11 +55,15 @@ export function vaultReducer (state: VaultState = initialState, action: VaultAct
           return { ...profile, fields }
         })
       }
-
     case getType(vaultActions.SetCurrentPersona):
       return {
         ...state,
         currentPersona: action.payload
+      }
+    case getType(vaultActions.SetCurrentProfile):
+      return {
+        ...state,
+        currentProfile: action.payload
       }
     default:
       return state

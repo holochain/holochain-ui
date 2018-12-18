@@ -41,7 +41,8 @@ const styles: StyleRulesCallback = theme => ({
 export interface RouterProps extends RouteComponentProps<{hash: string}> {}
 
 export interface OwnProps {
-  classes?: any
+  classes?: any,
+  onSubmit?: () => void
 }
 
 export interface DispatchProps {
@@ -76,7 +77,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
   componentDidMount () {
     this.props.getPersonas({})
       .then(() => this.props.getProfiles({}))
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(JSON.stringify(err)))
   }
 
   static getDerivedStateFromProps (nextProps: Props & RouterProps, prevState: State) {
@@ -124,7 +125,11 @@ class Profile extends React.Component<Props & RouterProps, State> {
   handleSaveProfile = () => {
     this.props.save(this.state.profile, this.props.personas)
       .then(this.props.getProfiles)
-      .then(() => this.props.history.push('/holo-vault/profiles'))
+      .then(() => {
+        if (this.props.onSubmit) {
+          this.props.onSubmit()
+        }
+      })
       .catch(err => console.log(err))
   }
 
