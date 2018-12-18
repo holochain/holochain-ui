@@ -29,7 +29,7 @@ import Desktop from './desktop'
 import MainNav from './navData';
 import HoloVaultNav from './holoVaultNavData'
 import StorybookSkin from './storybook'
-import Chat from '../happs/holo-chat/components/chat'
+import DesktopChat from '../happs/holo-chat/components/desktopChat'
 
 const drawerWidth = 240;
 
@@ -102,20 +102,6 @@ const styles = theme => ({
     width: '100%',
     padding: 0,
     marginTop: 58
-  },
-  chat: {
-    display: 'flex',
-    height: '100%',
-    width: '100%',
-    backgroundColor: '#424242'
-  },
-  channels: {
-    height: '100%',
-    width: '100%'
-  },
-  messages: {
-    height: '100%',
-    width: '100%'
   }
 });
 
@@ -225,9 +211,8 @@ class MiniDrawer extends React.Component {
               </div>
             } />
             <Route path={['/holo-chat/stream/:stream/subject/:subject', '/holo-chat/stream/:stream', '/holo-chat' ]} title='Holochain' render={props =>
-              <Chat {...props} classes={classes} />
+              <DesktopChat {...props} />
             } />
-
           </MediaQuery>
           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1024}>
             <Desktop />
