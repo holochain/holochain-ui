@@ -96,15 +96,6 @@ class Streams extends React.Component<Props & RouterProps, State> {
   }
 
   componentDidMount () {
-    this.props.init({})
-      .then((result: any) => {
-        console.log(result)
-        console.log('init success')
-      })
-      .catch((err: Error) => {
-        console.log(err)
-        console.log('init failed')
-      })
     this.getStreamsInterval = setInterval(this.props.getMyStreams, updateInterval)
   }
 

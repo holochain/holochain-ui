@@ -38,7 +38,7 @@ pub fn persona_definition() -> ValidatingEntryType {
         native_type: PersonaSpec,
 
         validation_package: || {
-            hdk::ValidationPackageDefinition::ChainFull
+            hdk::ValidationPackageDefinition::Entry
         },
 
         validation: |_persona: PersonaSpec, _ctx: hdk::ValidationData| {
@@ -70,7 +70,7 @@ pub fn field_definition() -> ValidatingEntryType {
         native_type: PersonaField,
 
         validation_package: || {
-            hdk::ValidationPackageDefinition::ChainFull
+            hdk::ValidationPackageDefinition::Entry
         },
 
         validation: |_persona: PersonaField, _ctx: hdk::ValidationData| {
