@@ -4,7 +4,10 @@ import { Dispatch } from 'redux'
 import {
   Grid,
   Paper,
-  Dialog
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText
 } from '@material-ui/core'
 
 import StreamsContainer from '../containers/streamsContainer'
@@ -90,10 +93,17 @@ class Chat extends React.Component<Props, State> {
     return (
       <div>
         <Dialog
-            fullScreen={true}
+            fullScreen={false}
             open={this.state.profileDialogOpen}
         >
-          <ProfileContainer onSubmit={this.checkProfile}/>
+          <DialogTitle id='form-dialog-title'>Register with Holo-Vault</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                <p>Looks like this is your first time using holo-chat! Before you can get started you need to link you vault profile to one of your Personas.</p>
+                <p>If you don't have a persona don't worry! Just complete the form below and vault will create one for you. This data will be visible to other users of Holo-Chat</p>
+              </DialogContentText>
+              <ProfileContainer onSubmit={this.checkProfile}/>
+            </DialogContent>
         </Dialog>
 
         <Grid container={true} spacing={0} className={classes.chat}>

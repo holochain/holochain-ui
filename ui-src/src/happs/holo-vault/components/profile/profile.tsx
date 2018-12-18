@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { StyleRulesCallback, TextField, MenuItem, Typography } from '@material-ui/core/'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -11,7 +10,13 @@ import Save from '@material-ui/icons/Save'
 import Button from '@material-ui/core/Button'
 import { GetProfiles, GetPersonas } from '../../actions'
 import FieldMapper from './fieldMapper'
-// import Warning from '@material-ui/icons/Warning'
+
+import {
+  StyleRulesCallback,
+  TextField,
+  MenuItem,
+  Grid
+} from '@material-ui/core/'
 
 const styles: StyleRulesCallback = theme => ({
   container: {
@@ -144,18 +149,15 @@ class Profile extends React.Component<Props & RouterProps, State> {
   render () {
     if (!this.props.selectedPersona || !this.props.profile) {
       return (
-        <div>
+        <Grid container={true} justify='center'>
           <CircularProgress/>
-        </div>
+        </Grid>
       )
     }
 
     const { profile, classes } = this.props
     return (
       <div>
-        <Typography variant='h2' gutterBottom={true}>
-        {profile.name} is requesting access to the following:
-        </Typography>
         <Paper className={classes.selectContainer}>
           <TextField name='PersonasSelect' className={classes.select} select={true} value={this.props.selectedPersona.hash} onChange={this.handleChangeSelectedPersona} label='Selected Persona'>
           {this.props.personas.map((persona) => {
