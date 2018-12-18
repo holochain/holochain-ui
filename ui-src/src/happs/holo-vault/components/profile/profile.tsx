@@ -148,7 +148,7 @@ class Profile extends React.Component<Props & RouterProps, State> {
     const { profile, classes } = this.props
     return (
       <div>
-        <Typography variant='h2' gutterBottom={true}>
+        <Typography variant='h4' gutterBottom={true}>
         {profile.name} is requesting access to the following:
         </Typography>
         <Paper className={classes.selectContainer}>

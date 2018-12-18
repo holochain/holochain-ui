@@ -188,6 +188,17 @@ class MiniDrawer extends React.Component {
                 } />
               </List>
             <Divider />
+            <List>
+              <Route path='/holo-vault' render={props =>
+                <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
+              } />
+              <Route path='/holo-chat' render={props =>
+                <div>
+                  <StreamsContainer {...props} title={'Public Channels'} isPublic={true} isMobile={true} />
+                  <StreamsContainer {...props} title={'Direct Messages'} isPublic={false} isMobile={true} />
+                </div>
+              } />
+            </List>
           </Drawer>
         </MediaQuery>
         <main className={classes.content}>
