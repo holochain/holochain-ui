@@ -2,11 +2,11 @@ import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 // import { reducer as formReducer } from 'redux-form'
 
 import { holochainMiddleware } from '@holochain/hc-redux-middleware'
-import { connect } from './utils/hc-web-client'
+import { connect } from '@holochain/hc-web-client'
 
-import holoVault from './hApps/holo-vault/reducer'
-import holoChat from './hApps/holo-chat/reducer'
-import errand from './hApps/errand/reducer'
+import holoVault from './happs/holo-vault/reducer'
+import holoChat from './happs/holo-chat/reducer'
+import errand from './happs/errand/reducer'
 
 let rootReducer = combineReducers({ holoVault: holoVault, holoChat: holoChat, errand: errand })
 

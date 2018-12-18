@@ -24,7 +24,7 @@ pub fn anchor_definition() -> ValidatingEntryType {
 
         links: [
             to!(
-                "member",
+                "%agent_id",
                 tag: "member_tag",
 
                 validation_package: || {

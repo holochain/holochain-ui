@@ -8,7 +8,6 @@ import withRoot from '../../../../withRoot'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import CloseIcon from '@material-ui/icons/Close'
-import { Identity } from '../../types/model/identity'
 import { StreamSpec, Member } from '../../types/model/stream'
 import AgentList from './agentList'
 import Send from '@material-ui/icons/Send'
@@ -44,15 +43,15 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
 interface OwnProps {
   classes?: any,
   open: boolean,
-  members: Array<Identity>,
+  members: Array<Member>,
   onSubmit: (spec: StreamSpec) => void,
   onHandleClose: () => void,
   isPublic: boolean
 }
 
 export interface State {
+  selectedUsers: Array<Member>,
   title: string,
-  selectedUsers: Array<Identity>,
   open: boolean
 }
 
@@ -77,7 +76,7 @@ class NewStream extends React.Component<Props, State> {
     this.props.getAllMembers()
     .catch(reason => { console.log(reason) })
   }
-  onSelectionChanged = (selectedUsers: Array<Identity>) => {
+  onSelectionChanged = (selectedUsers: Array<Member>) => {
     this.setState({ selectedUsers })
   }
 
@@ -100,7 +99,7 @@ class NewStream extends React.Component<Props, State> {
     }
 
     const streamSpec: StreamSpec = {
-      initial_members: this.state.selectedUsers.map((user): Member => { return { id: user.agentId } }),
+      initial_members: this.state.selectedUsers.map((member: Member) => member.agentId),
       name: streamName,
       description: '',
       public: this.props.isPublic

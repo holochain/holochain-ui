@@ -91,7 +91,7 @@ class Happs extends React.Component<HappsProps, {}> {
                   <ListItem id={group.name} divider={true}>
                     <List>
                       <ListItem >
-                        <Typography variant='h2' align='left' color='textSecondary' paragraph={true}>
+                        <Typography variant='h3' align='left' color='textSecondary' paragraph={true}>
                           {group.name}
                         </Typography>
                       </ListItem>
@@ -106,7 +106,7 @@ class Happs extends React.Component<HappsProps, {}> {
                                   title={app.name}
                                 />
                                 <CardContent>
-                                  <Typography gutterBottom={true} variant='h1' component='h2'>
+                                  <Typography gutterBottom={true} variant='h2'>
                                     {app.name}
                                   </Typography>
                                   <Typography>
@@ -155,14 +155,6 @@ class Happs extends React.Component<HappsProps, {}> {
           </MediaQuery>
         </div>
       </main>
-      <footer className={classes.footer}>
-        <Typography variant='h2' align='center' gutterBottom={true}>
-          Holo
-        </Typography>
-        <Typography variant='h3' align='center' color='textSecondary' component='p'>
-          Where the Crowd is the Cloud
-        </Typography>
-      </footer>
     </React.Fragment>
     )
   }

@@ -3,7 +3,7 @@ import NewStream, { State, Props } from './newStream'
 import * as Enzyme from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16'
 import * as Agents from '../../data/contactsBase64'
-import { Identity } from '../../types/model/identity'
+import { Member } from '../../types/model/stream'
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -39,7 +39,7 @@ export const agentListTest = describe('agentList component', () => {
   it('Selecting people in the list sets the selected users in the state', () => {
     newStream().find('input[id="filter-bar"]').simulate('change', { target: { value: 'a' } })
     newStream().find('ListItem').first().simulate('click')
-    let selectedPeople: Array<Identity> = (newStream().find('NewStream').instance().state as State).selectedUsers
+    let selectedPeople: Array<Member> = (newStream().find('NewStream').instance().state as State).selectedUsers
     expect(selectedPeople.length).toEqual(1)
   })
 

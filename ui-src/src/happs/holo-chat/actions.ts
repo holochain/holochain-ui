@@ -5,6 +5,18 @@ import { createHolochainAsyncAction } from '@holochain/hc-redux-middleware'
 import { StreamSpec } from './types/model/stream'
 // import { Identity } from './types/model/identity'
 // import { Subject } from './types/model/subject'
+type Address = string
+type Vec<T> = Array<T>
+
+// interface GetLinksLoadResult<T> {
+//   address: string,
+//   entry: T
+// }
+
+interface Member {
+  address: string,
+  profile: any
+}
 
 /*===============================================
 =            Action Type Definitions            =
@@ -12,7 +24,7 @@ import { StreamSpec } from './types/model/stream'
 
 /*----------  Holochain actions  ----------*/
 
-export const Init = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'init')
+export const Init = createHolochainAsyncAction<{}, null>('holo-chat', 'chat', 'main', 'init')
 
 export const CreateStream = createHolochainAsyncAction<StreamSpec, string>('holo-chat', 'chat', 'main', 'create_stream')
 
@@ -22,9 +34,9 @@ export const GetMyStreams = createHolochainAsyncAction<any, Array<any>>('holo-ch
 
 export const GetSubjects = createHolochainAsyncAction<any, Array<any>>('holo-chat', 'chat', 'main', 'get_subjects')
 
-export const GetAllMembers = createHolochainAsyncAction<any, Array<any>>('holo-chat', 'chat', 'main', 'get_all_members')
+export const GetAllMembers = createHolochainAsyncAction<{}, Vec<Member>>('holo-chat', 'chat', 'main', 'get_all_members')
 
-export const GetMembers = createHolochainAsyncAction<any, Array<any>>('holo-chat', 'chat', 'main', 'get_members')
+export const GetMembers = createHolochainAsyncAction<Address, Vec<Member>>('holo-chat', 'chat', 'main', 'get_members')
 
 export const PostMessage = createHolochainAsyncAction<any, any>('holo-chat', 'chat', 'main', 'post_message')
 

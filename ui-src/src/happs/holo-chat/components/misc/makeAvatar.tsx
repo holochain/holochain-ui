@@ -1,13 +1,13 @@
 
 import * as React from 'react'
 import Avatar from '@material-ui/core/Avatar'
-import { Identity } from '../../types/model/identity'
+import { Member } from '../../types/model/stream'
 
 // used to check if the avatar string is valid base64 encoding.
 // Does not check if it decodes to a valid image
 // const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
 
-export const MakeAvatar = (props: {member: Identity}) => {
+export const MakeAvatar = (props: {member: Member}) => {
   const { member } = props
   if (member.avatar && member.avatar.length > 0) {
     return (<Avatar src={member.avatar}/>)

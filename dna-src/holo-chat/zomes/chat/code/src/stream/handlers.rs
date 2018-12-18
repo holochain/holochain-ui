@@ -15,13 +15,13 @@ use crate::member::{
     handlers::get_my_member_id
 };
 use crate::utils;
-use crate::member;
 use crate::message;
+use crate::member;
 
 pub fn handle_create_stream(
     name: String,
     description: String,
-    initial_members: Vec<member::Member>,
+    initial_members: Vec<Address>,
     public: bool,
 ) -> ZomeApiResult<Address> {
 
@@ -37,28 +37,41 @@ pub fn handle_create_stream(
             AppEntryValue::from(stream)
         )
     };
+
     let stream_address = hdk::commit_entry(&entry)?;
-    utils::link_entries_bidir(&get_my_member_id().hash(), &stream_address, "member_of", "has_member")?;
+    utils::link_entries_bidir(&get_my_member_id(), &stream_address, "member_of", "has_member")?;
+    
     for member in initial_members {
-        utils::link_entries_bidir(&member.hash(), &stream_address, "member_of", "has_member")?;
+        utils::link_entries_bidir(&member, &stream_address, "member_of", "has_member")?;
     }
     Ok(stream_address)
 }
 
-pub fn handle_add_members(stream_address: HashString, members: Vec<member::Member>) -> ZomeApiResult<()> {
+pub fn handle_add_members(stream_address: HashString, members: Vec<Address>) -> ZomeApiResult<()> {
     for member in members {
-        utils::link_entries_bidir(&member.hash(), &stream_address, "member_of", "has_member")?;
+        utils::link_entries_bidir(&member, &stream_address, "member_of", "has_member")?;
     }
     Ok(())
 }
 
 
 pub fn handle_get_my_streams() -> ZomeApiResult<utils::GetLinksLoadResult<Stream>> {
-    utils::get_links_and_load_type(&get_my_member_id().hash(), "member_of")
+    utils::get_links_and_load_type(&get_my_member_id(), "member_of")
 }
 
-pub fn handle_get_members(address: HashString) -> ZomeApiResult<utils::GetLinksLoadResult<member::Member>> {
-    utils::get_links_and_load_type(&address, "has_member")
+
+pub fn handle_get_members(address: HashString) -> ZomeApiResult<Vec<member::Member>> {
+    let all_member_ids = hdk::get_links(&address, "has_member").map(|links| {
+        links.addresses().iter().map(|addr| {
+            let profile = member::handlers::handle_get_profile(addr.to_owned()).unwrap();
+            member::Member{
+                address: addr.clone(),
+                profile: profile
+            }
+        }).collect()
+    })?;
+
+    Ok(all_member_ids)
 }
 
 pub fn handle_get_messages(address: HashString) -> ZomeApiResult<utils::GetLinksLoadResult<message::Message>> {

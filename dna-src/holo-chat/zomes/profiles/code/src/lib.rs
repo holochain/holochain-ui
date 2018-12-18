@@ -16,7 +16,7 @@ use hdk::holochain_core_types::{
     json::JsonString,
 };
 
-mod profile;
+pub mod profile;
 mod utils;
 
 define_zome! {
@@ -31,7 +31,7 @@ define_zome! {
             native_type: RawString,
 
             validation_package: || {
-                hdk::ValidationPackageDefinition::ChainFull
+                hdk::ValidationPackageDefinition::Entry
             },
 
             validation: |_name: RawString, _ctx: hdk::ValidationData| {
@@ -76,7 +76,7 @@ define_zome! {
             }
             retrieve: {
                 inputs: |retriever_DNA: HashString, profile_field: String|,
-                outputs: |result: ZomeApiResult<JsonString>|,
+                outputs: |result: ZomeApiResult<RawString>|,
                 handler: profile::handlers::handle_retrieve
             }
     	}

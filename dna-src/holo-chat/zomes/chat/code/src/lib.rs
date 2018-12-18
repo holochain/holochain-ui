@@ -5,10 +5,10 @@ extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 #[macro_use]
+extern crate serde_json;
+#[macro_use]
 extern crate holochain_core_types_derive;
-
 use hdk::{
-    AGENT_ADDRESS,
     error::ZomeApiResult,
 };
 
@@ -33,7 +33,6 @@ define_zome! {
     	stream::public_stream_definition(),
     	stream::direct_stream_definition(),
         stream::subject_anchor_definition(),
-		member::member_id_definition(),
         member::profile_definition(),
         anchor::anchor_definition()
 	]
@@ -52,7 +51,7 @@ define_zome! {
 				handler: init::handle_init
 			}
 			create_stream: {
-				inputs: |name: String, description: String, initial_members: Vec<member::Member>, public: bool|,
+				inputs: |name: String, description: String, initial_members: Vec<Address>, public: bool|,
 				outputs: |result: ZomeApiResult<Address>|,
 				handler: stream::handlers::handle_create_stream
 			}
@@ -63,16 +62,16 @@ define_zome! {
 			}
             get_all_members: {
 				inputs: | |,
-				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<member::Member>>|,
+				outputs: |result: ZomeApiResult<Vec<member::Member>>|,
 				handler: member::handlers::handle_get_all_members
 			}
 			get_members: {
 				inputs: |stream_address: HashString|,
-				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<member::Member>>|,
+				outputs: |result: ZomeApiResult<Vec<member::Member>>|,
 				handler: stream::handlers::handle_get_members
 			}
 			add_members: {
-				inputs: |stream_address: HashString, members: Vec<member::Member>|,
+				inputs: |stream_address: HashString, members: Vec<Address>|,
 				outputs: |result: ZomeApiResult<()>|,
 				handler: stream::handlers::handle_add_members
 			}
@@ -92,7 +91,7 @@ define_zome! {
                 handler: stream::handlers::handle_get_subjects
             }
 			get_profile: {
-				inputs: |member_id: member::Member|,
+				inputs: |member_id: Address|,
 				outputs: |result: ZomeApiResult<member::StoreProfile>|,
 				handler: member::handlers::handle_get_profile
 			}

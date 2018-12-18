@@ -16,27 +16,20 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Route } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import MenuIcon from '@material-ui/icons/Menu'
-import PersonasContainer from '../hApps/holo-vault/containers/personasContainer'
-import PersonaContainer from '../hApps/holo-vault/containers/personaContainer'
-import ProfileContainer from '../hApps/holo-vault/containers/profileContainer'
-import ProfilesContainer from '../hApps/holo-vault/containers/profilesContainer'
-import MessagesContainer from '../hApps/holo-chat/containers/messagesContainer'
-import HappsContainer from '../hApps/holo-vault/containers/happsContainer'
-import StreamsContainer from '../hApps/holo-chat/containers/streamsContainer'
-import ErrandContainer from '../hApps/errand/containers/errandContainer'
-import ArcsOfPresenceContainer from '../hApps/holo-chat/containers/arcsOfPresenceContainer'
+import PersonasContainer from '../happs/holo-vault/containers/personasContainer'
+import PersonaContainer from '../happs/holo-vault/containers/personaContainer'
+import ProfileContainer from '../happs/holo-vault/containers/profileContainer'
+import ProfilesContainer from '../happs/holo-vault/containers/profilesContainer'
+import MessagesContainer from '../happs/holo-chat/containers/messagesContainer'
+import HappsContainer from '../happs/holo-vault/containers/happsContainer'
+import StreamsContainer from '../happs/holo-chat/containers/streamsContainer'
+import ArcsOfPresenceContainer from '../happs/holo-chat/containers/arcsOfPresenceContainer'
 import Desktop from './desktop'
 // import Mobile from './mobile'
 import MainNav from './navData';
-import HoloVaultNav from './holoVaultNavData';
+import HoloVaultNav from './holoVaultNavData'
 import StorybookSkin from './storybook'
-// import HoloChatNav from './holoChatNavData'
-import ErrandNav from './errandNavData'
-import HackTogetherSkin from './hackTogether'
-import HoloChessSkin from './holochess'
-import MinersweeperSkin from './minersweeper'
-import FractalWikiSkin from './fractal-wiki'
-// import Hidden from '@material-ui/core/Hidden';
+import DesktopChat from '../happs/holo-chat/components/desktopChat'
 
 const drawerWidth = 240;
 
@@ -109,20 +102,6 @@ const styles = theme => ({
     width: '100%',
     padding: 0,
     marginTop: 58
-  },
-  chat: {
-    display: 'flex',
-    height: '100%',
-    width: '100%',
-    backgroundColor: '#424242'
-  },
-  channels: {
-    height: '100%',
-    width: '100%'
-  },
-  messages: {
-    height: '100%',
-    width: '100%'
   }
 });
 
@@ -186,9 +165,6 @@ class MiniDrawer extends React.Component {
               <Route path='/holo-vault' render={props =>
                 <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
               } />
-              <Route path='/errand' render={props =>
-                <ErrandNav handleDrawerClose={this.handleDrawerClose} />
-              } />
             </List>
           </Drawer>
         </MediaQuery>
@@ -212,33 +188,16 @@ class MiniDrawer extends React.Component {
                 } />
               </List>
             <Divider />
-            <List>
-              <Route path='/holo-vault' render={props =>
-                <HoloVaultNav handleDrawerClose={this.handleDrawerClose} />
-              } />
-              <Route path='/holo-chat' render={props =>
-                <div>
-                  <StreamsContainer {...props} title={'Public Channels'} isPublic={true} isMobile={true} />
-                  <StreamsContainer {...props} title={'Direct Messages'} isPublic={false} isMobile={true} />
-                </div>
-              } />
-              <Route path='/errand' render={props =>
-                <ErrandNav handleDrawerClose={this.handleDrawerClose} />
-              } />
-            </List>
           </Drawer>
         </MediaQuery>
         <main className={classes.content}>
           <Route path='/storybook' title='Storybook' component={StorybookSkin} />
-          <Route path='/hacktogether' title='Hack Together' component={HackTogetherSkin} />
-          <Route path='/holo-chess' title='Holo Chess' component={HoloChessSkin} />
-          <Route path='/errand' title='Errand' component={ErrandContainer} />
-          <Route path='/minersweeper' title='Miner Sweeper' component={MinersweeperSkin} />
-          <Route path='/fractal-wiki' title='Fractal Wiki' component={FractalWikiSkin} />
           <Route path='/holo-vault/personas' title='Personas' component={PersonasContainer} />
           <Route path='/holo-vault/persona/:name' component={PersonaContainer} />
           <Route path='/holo-vault/profiles' component={ProfilesContainer} />
-          <Route path='/holo-vault/profile/:hash' component={ProfileContainer} />
+          <Route path='/holo-vault/profile/:hash' render={ props => 
+            <ProfileContainer {...props} onSubmit={() => this.props.history.push('/holo-vault/profiles')} /> 
+          } />
           <Route path='/holo-vault/happs' component={HappsContainer} />
           <MediaQuery minDeviceWidth={1025}>
             <Route exact path='/home' title='Holochain' render={props =>
@@ -252,20 +211,8 @@ class MiniDrawer extends React.Component {
               </div>
             } />
             <Route path={['/holo-chat/stream/:stream/subject/:subject', '/holo-chat/stream/:stream', '/holo-chat' ]} title='Holochain' render={props =>
-              <Grid container={true} spacing={0} className={classes.chat}>
-                <Grid item={true} xs={3} className={classes.channels}>
-                  <StreamsContainer {...props} title={'Public Channels'} isPublic={true} />
-                  <StreamsContainer {...props} title={'Direct Messages'} isPublic={false} />
-                </Grid>
-                <Grid item={true} xs={7} className={classes.messages}>
-                  <MessagesContainer {...props} />
-                </Grid>
-                <Grid item={true} xs={2}>
-                  <Paper></Paper>
-                </Grid>
-              </Grid>
+              <DesktopChat {...props} />
             } />
-
           </MediaQuery>
           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1024}>
             <Desktop />
@@ -283,6 +230,8 @@ class MiniDrawer extends React.Component {
     );
   }
 }
+
+//={props => <ProfileContainer onSubmit={() => this.props.history.push('/holo-vault/personas')}/>}
 
 MiniDrawer.propTypes = {
   classes: PropTypes.object.isRequired,

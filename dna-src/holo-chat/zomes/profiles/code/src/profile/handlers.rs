@@ -1,6 +1,8 @@
+use core::convert::TryFrom;
 
 use hdk::holochain_core_types::{
     hash::HashString,
+	error::HolochainError,
     json::{JsonString, RawString},
     entry::{entry_type::AppEntryType, AppEntryValue, Entry},
 };
@@ -17,7 +19,7 @@ use crate::profile::{
 	MapFieldsResult,
 };
 
-use hdk::error::ZomeApiResult;
+use hdk::error::{ZomeApiResult, ZomeApiError};
 use crate::profile;
 extern crate serde_json;
 
@@ -27,6 +29,8 @@ extern crate serde_json;
 
 
 pub fn handle_register_app(spec: ProfileSpec) -> ZomeApiResult<()> {
+
+	hdk::debug(spec.clone())?;
 
 	let persona_entry = Entry::App(
         AppEntryType::from("profile"),
@@ -104,9 +108,58 @@ pub fn handle_create_mapping(mapping: profile::ProfileMapping) -> ZomeApiResult<
 }
 
 
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+struct GetFieldCallStruct {
+	persona_address: HashString,
+	field_name: String
+}
 
-pub fn handle_retrieve(_retriever_dna: HashString, _profile_field: String) -> ZomeApiResult<JsonString> {
-	Ok(JsonString::from("{}"))
+#[derive(Serialize, Deserialize, Debug, DefaultJson)]
+struct CallResult {
+    ok: bool,
+    error: Option<String>,
+    value: String
+}
+
+pub fn handle_retrieve(retriever_dna: HashString, profile_field: String) -> ZomeApiResult<RawString> {
+
+	let profiles: Vec<profile::Profile> = handle_get_profiles()?;
+
+	for profile in profiles.iter().filter(|profile| profile.sourceDNA == retriever_dna) {
+		for field in get_mapped_profile_fields(&profile.hash).unwrap().iter().filter(|elem| elem.entry.name == profile_field) {
+
+			match &field.entry.mapping {
+				Some(mapping) => {
+					let maybe_get_field_result = hdk::call("personas", "main", "get_field", GetFieldCallStruct{
+						persona_address: mapping.personaAddress.clone(),
+						field_name: mapping.personaFieldName.clone()
+					}.into())?;
+
+
+					let get_field_result = CallResult::try_from(maybe_get_field_result)?;
+
+				    if !get_field_result.ok {
+				        return Err(ZomeApiError::Internal("Could not call Vault".into()))
+				    }
+
+				    let response_json: serde_json::Value = serde_json::from_str(&get_field_result.value).unwrap();
+
+				    match response_json["Ok"].clone() {
+				        serde_json::Value::String(value) => {
+				        	return Ok(RawString::from(value))
+				        },
+				        _ => return Err(ZomeApiError::Internal("Field value could not be retrieved".to_string()))
+				    }
+				},
+				None => {
+					return Err(ZomeApiError::Internal("Field not mapped".to_string()))
+				}
+			}
+
+
+		}
+	}
+	Err(ZomeApiError::Internal("Nothing in the vault".to_string()))
 }
 
 

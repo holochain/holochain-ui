@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
 // import IconButton from '@material-ui/core/IconButton'
 import IdeaContainer from '../../containers/ideaContainer'
 import { MakeAvatar } from '../misc/makeAvatar'
-import { Identity } from '../../types/model/identity'
+import { Member } from '../../types/model/stream'
 import { Message as MessageType } from '../../types/model/message'
 
 const styles: StyleRulesCallback = (theme: Theme) => ({
@@ -128,7 +128,7 @@ function MessageComponent (props: any) {
 interface OwnProps {
   classes: any,
   message: MessageType & {avatar: string},
-  member: Identity
+  member: Member
 }
 
 interface State {
@@ -158,14 +158,6 @@ class MessageView extends React.Component<OwnProps, State> {
     this.setState({ isHovered: false })
   }
 
-  getName (member: Identity): string {
-    if (member.name) {
-      return member.name
-    } else {
-      return member.handle
-    }
-  }
-
   render () {
     const { classes, member } = this.props
 
@@ -173,7 +165,7 @@ class MessageView extends React.Component<OwnProps, State> {
       <List>
         <ListItem key={'1'} dense={true} >
         <ListItemAvatar><MakeAvatar member={member} /></ListItemAvatar>
-          <ListItemText className={classes.messageAuthor} primary={this.getName(member)} />
+          <ListItemText className={classes.messageAuthor} primary={member.handle} />
         </ListItem>
         <ListItem dense={true} className={classes.message}>
           <MessageComponent message={this.props.message} classes={classes} />

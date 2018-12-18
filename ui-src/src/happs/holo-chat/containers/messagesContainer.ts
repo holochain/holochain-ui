@@ -1,6 +1,6 @@
 
 import { connect } from 'react-redux'
-import Messages, { Props, StateProps, RouterProps, DispatchProps } from '../components/messages/messages'
+import Messages, { OwnProps, StateProps, RouterProps, DispatchProps } from '../components/messages/messages'
 import { Dispatch } from 'redux'
 import { Stream } from '../types/model/stream'
 import { Subject } from '../types/model/subject'
@@ -10,7 +10,7 @@ import {
 	PostMessage
 } from '../actions'
 
-const mapStateToProps = (state: any, props: Props & RouterProps): StateProps => {
+const mapStateToProps = (state: any, props: OwnProps & RouterProps): StateProps => {
   const streamAddress = props.match.params.stream
   const subjectAddress = props.match.params.subject
   console.log(streamAddress + 'streamAddress')
@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   }
 }
 
-export default connect(
+export default connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps
 )(Messages)

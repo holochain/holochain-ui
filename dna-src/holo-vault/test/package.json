@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@holochain/holochain-nodejs-bleeding": "latest",
-    "json3": "*",
-    "tape": "^4.9.1"
-  }
-}

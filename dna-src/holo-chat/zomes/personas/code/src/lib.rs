@@ -32,7 +32,7 @@ pub mod utils;
 	        native_type: RawString,
 
 	        validation_package: || {
-	            hdk::ValidationPackageDefinition::ChainFull
+	            hdk::ValidationPackageDefinition::Entry
 	        },
 
 	        validation: |_name: RawString, _ctx: hdk::ValidationData| {
@@ -79,6 +79,11 @@ pub mod utils;
                 inputs: |persona_address: HashString, field: persona::PersonaField|,
                 outputs: |result: ZomeApiResult<()>|,
                 handler: persona::handlers::handle_add_field
+            }
+            get_field: {
+                inputs: |persona_address: HashString, field_name: String|,
+                outputs: |result: ZomeApiResult<RawString>|,
+                handler: persona::handlers::handle_get_field
             }
     	}
     }

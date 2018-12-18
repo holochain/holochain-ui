@@ -18,10 +18,17 @@ const mapStateToProps = (state: any, ownProps: Props & RouterProps): StateProps 
   // use the route to filter profiles to get the selected profile
   // will return undefined if non-existent
 
-  const hash = ownProps.match.params.hash
-  let profile: ProfileType = state.holoVault.profile.profiles.filter((profile: ProfileType) => {
-    return profile.sourceDNA === hash
-  })[0]
+  let profile: ProfileType
+
+  // get the current profile from the url if possible
+  if (ownProps.match) {
+    const hash = ownProps.match.params.hash
+    profile = state.holoVault.profile.profiles.filter((profile: ProfileType) => {
+      return profile.sourceDNA === hash
+    })[0]
+  } else { // otherwise use the current profile from the state
+    profile = state.holoVault.profile.currentProfile
+  }
 
   return {
     personas: state.holoVault.profile.personas,
