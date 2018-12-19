@@ -181,7 +181,7 @@ class Messages extends React.Component<Props & RouterProps, State> {
     return (
       <Paper className={classes.root}>
         <Typography variant={isMobile ? 'h6' : 'h5'} className={classes.title}>
-          {streamName}{subjectName}
+          {streamName + ' ' + subjectName}
         </Typography>
         <Paper className={classes.chatHistory}>
             <List>

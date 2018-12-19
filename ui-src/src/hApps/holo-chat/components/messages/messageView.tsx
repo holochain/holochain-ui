@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 // import ThumbDown from '@material-ui/icons/ThumbDown'
 // import IconButton from '@material-ui/core/IconButton'
 // import IdeaContainer from '../../containers/ideaContainer'
-import { MakeAvatar } from '../misc/makeAvatar'
+import MakeAvatar from '../misc/makeAvatar'
 import { Member } from '../../types/model/stream'
 import { Message as MessageType } from '../../types/model/message'
 
@@ -159,16 +159,16 @@ class MessageView extends React.Component<OwnProps, State> {
   }
 
   render () {
-    const { classes, member } = this.props
+    const { classes, member, message } = this.props
 
     return (
       <List>
         <ListItem key={'1'} dense={true} >
         <ListItemAvatar><MakeAvatar member={member} /></ListItemAvatar>
-          <ListItemText className={classes.messageAuthor} primary={member.handle} />
+          <ListItemText className={classes.messageAuthor} primary={member.handle} secondary={new Date(message.timestamp).toLocaleTimeString('en-US')} />
         </ListItem>
         <ListItem dense={true} className={classes.message}>
-          <MessageComponent message={this.props.message} classes={classes} />
+          <MessageComponent message={message} classes={classes} />
         </ListItem>
       </List>
     )
