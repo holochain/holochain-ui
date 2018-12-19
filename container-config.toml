@@ -1,13 +1,13 @@
-# [[agents]]
-# id = "test_agent1"
-# name = "HoloTester1"
-# public_address = "sandwich--------------------------------------------------------------------------AAAEqzh28L"
-# key_file = "holo_tester.key"
-
 [[agents]]
 id = "test_agent1"
+name = "HoloTester1"
+public_address = "sandwich--------------------------------------------------------------------------AAAEqzh28L"
+key_file = "holo_tester.key"
+
+[[agents]]
+id = "test_agent2"
 name = "HoloTester2"
-public_address = "c-bob-------------------------------------------------------------------------------AMQt"
+public_address = "bagel-----------------------------------------------------------------------------AAADAq0mCu"
 key_file = "holo_tester.key"
 
 
@@ -29,6 +29,18 @@ file = "app_spec.log"
 type = "file"
 path = "tmp-storage"
 
+[[instances]]
+id = "holo-chat-1"
+dna = "chat_dna"
+agent = "test_agent2"
+[instances.logger]
+type = "simple"
+file = "app_spec.log"
+[instances.storage]
+type = "file"
+path = "tmp-storage"
+
+
 [[interfaces]]
 id = "websocket_interface"
 [interfaces.driver]
@@ -36,3 +48,11 @@ type = "websocket"
 port = 3400
 [[interfaces.instances]]
 id = "holo-chat-0"
+
+[[interfaces]]
+id = "websocket_interface"
+[interfaces.driver]
+type = "websocket"
+port = 3401
+[[interfaces.instances]]
+id = "holo-chat-1"

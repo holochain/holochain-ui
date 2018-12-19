@@ -1,4 +1,4 @@
-use hdk::AGENT_INITIAL_HASH;
+use hdk::AGENT_ADDRESS;
 use hdk::error::{ZomeApiResult, ZomeApiError};
 use crate::persona::{
     PersonaSpec,
@@ -30,7 +30,7 @@ pub fn handle_create_persona(spec: PersonaSpec) -> ZomeApiResult<Address> {
     );
     let anchor_entry = Entry::App(
         AppEntryType::from("persona_anchor"),
-        AppEntryValue::from(RawString::from(AGENT_INITIAL_HASH.to_string())),
+        AppEntryValue::from(RawString::from(AGENT_ADDRESS.to_string())),
     );
 
     let persona_address = hdk::commit_entry(&persona_entry)?;
@@ -48,7 +48,7 @@ pub fn handle_get_personas() -> ZomeApiResult<GetLinksLoadResult<Persona>> {
     let anchor_address = hdk::commit_entry(
         &Entry::App(
             AppEntryType::from("persona_anchor"),
-            AppEntryValue::from(RawString::from(AGENT_INITIAL_HASH.to_string())),
+            AppEntryValue::from(RawString::from(AGENT_ADDRESS.to_string())),
         )
     )?;
 

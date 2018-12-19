@@ -4,8 +4,6 @@ use hdk::holochain_core_types::json::JsonString;
 use hdk::holochain_core_types::error::HolochainError;
 use hdk::{
     AGENT_ADDRESS,
-    AGENT_ID_STR,
-    AGENT_INITIAL_HASH,
     DNA_HASH,
     error::{ZomeApiResult, ZomeApiError},
 };
@@ -21,11 +19,9 @@ use crate::member;
 pub fn handle_init() -> ZomeApiResult<()> {
 
     hdk::debug(AGENT_ADDRESS.to_string())?;
-    hdk::debug(AGENT_ID_STR.to_string())?;
-    hdk::debug(AGENT_INITIAL_HASH.to_string())?;
 
     // if the agent already contains a StoreProfile then we are done! Let them start the app
-    if member::handlers::handle_get_profile(AGENT_INITIAL_HASH.to_string().into()).is_ok() {
+    if member::handlers::handle_get_profile(AGENT_ADDRESS.to_string().into()).is_ok() {
         return Ok(())
     }
 
@@ -51,7 +47,7 @@ fn link_agent_to_directory() -> ZomeApiResult<()> {
     let anchor_address = hdk::commit_entry(&anchor_entry)?;
 
     
-    hdk::link_entries(&anchor_address, &AGENT_INITIAL_HASH, "member_tag")?;
+    hdk::link_entries(&anchor_address, &AGENT_ADDRESS, "member_tag")?;
 
     Ok(())
 }
@@ -134,7 +130,7 @@ fn create_profile_from_vault() -> ZomeApiResult<()> {
 
             let agent_profile_address = hdk::commit_entry(&agent_profile_entry)?;
 
-            hdk::link_entries(&AGENT_INITIAL_HASH, &agent_profile_address, "profile")?;
+            hdk::link_entries(&AGENT_ADDRESS, &agent_profile_address, "profile")?;
             Ok(())
         },
         _ => Err(ZomeApiError::Internal("Could not retrieve handle from vault".into()))

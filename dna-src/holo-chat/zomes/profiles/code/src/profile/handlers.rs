@@ -1,5 +1,5 @@
 use core::convert::TryFrom;
-use hdk::AGENT_INITIAL_HASH;
+use hdk::AGENT_ADDRESS;
 
 use hdk::holochain_core_types::{
     hash::HashString,
@@ -37,7 +37,7 @@ pub fn handle_register_app(spec: ProfileSpec) -> ZomeApiResult<()> {
     );
     let anchor_entry = Entry::App(
         AppEntryType::from("profile_anchor"),
-        AppEntryValue::from(RawString::from(AGENT_INITIAL_HASH.to_string())),
+        AppEntryValue::from(RawString::from(AGENT_ADDRESS.to_string())),
     );
 
 	let profile_address = hdk::commit_entry(&persona_entry)?;
@@ -52,7 +52,7 @@ pub fn handle_register_app(spec: ProfileSpec) -> ZomeApiResult<()> {
 pub fn handle_get_profiles() -> ZomeApiResult<Vec<Profile>> {
 	let anchor_entry = Entry::App(
         AppEntryType::from("profile_anchor"),
-        AppEntryValue::from(RawString::from(AGENT_INITIAL_HASH.to_string())),
+        AppEntryValue::from(RawString::from(AGENT_ADDRESS.to_string())),
     );
 	let anchor_address = hdk::commit_entry(&anchor_entry)?;
 
