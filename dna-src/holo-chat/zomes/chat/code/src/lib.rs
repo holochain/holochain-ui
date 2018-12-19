@@ -60,6 +60,11 @@ define_zome! {
 				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<stream::Stream>>|,
 				handler: stream::handlers::handle_get_my_streams
 			}
+			get_all_public_streams: {
+				inputs: | |,
+				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<stream::Stream>>|,
+				handler: stream::handlers::handle_get_all_public_streams
+			}
             get_all_members: {
 				inputs: | |,
 				outputs: |result: ZomeApiResult<Vec<member::Member>>|,
@@ -74,6 +79,11 @@ define_zome! {
 				inputs: |stream_address: HashString, members: Vec<Address>|,
 				outputs: |result: ZomeApiResult<()>|,
 				handler: stream::handlers::handle_add_members
+			}
+			join_stream: {
+				inputs: |stream_address: HashString|,
+				outputs: |result: ZomeApiResult<()>|,
+				handler: stream::handlers::handle_join_stream
 			}
 			post_message: {
 				inputs: |stream_address: HashString, message: message::MessageSpec, subjects: Vec<String>|,

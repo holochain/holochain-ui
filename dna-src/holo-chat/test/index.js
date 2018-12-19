@@ -12,18 +12,18 @@ app.start()
 /*----------  Chat  ----------*/
 
 
-// const testNewChannelParams = {
-//   name: "test new channel",
-//   description: "for testing...",
-//   initial_members: [],
-//   public: true
-// }
+const testNewChannelParams = {
+  name: "test new channel",
+  description: "for testing...",
+  initial_members: [],
+  public: true
+}
 
-// const testMessage = {
-//   message_type: "text",
-//   payload: "I am the message payload",
-//   meta: "{}",
-// }
+const testMessage = {
+  message_type: "text",
+  payload: "I am the message payload",
+  meta: "{}",
+}
 
 // test('Can create a public channel with no other members and retrieve it', (t) => {
 //   const init_result = app.call('chat', 'main', 'init', {})
@@ -308,10 +308,26 @@ test('chat vault integration', t => {
   t.notEqual(initResult2.Ok, undefined, "Should return Ok as a profile exists!")
 
   // should be able to retrieve this users profile
-  const getAllMembersResutlt = app.call("chat", "main", "get_all_members", {})
-  console.log(getAllMembersResutlt.Ok[0].profile)
-  t.notEqual(getAllMembersResutlt.Ok[0].profile, undefined)
+  const getAllMembersResult = app.call("chat", "main", "get_all_members", {})
+  console.log(getAllMembersResult)
+  t.notEqual(getAllMembersResult.Ok[0].profile, undefined)
+
+
+  // get all members
+
+
+  const getAllStreamsResult = app.call("chat", "main", "get_all_public_streams", {})
+  console.log(getAllStreamsResult)
+  t.deepEqual(getAllStreamsResult.Ok.length, 0, 'no streams have been created yet')
+
+
+  const createResult = app.call('chat', 'main', 'create_stream', testNewChannelParams)
+  console.log(createResult)
+  t.deepEqual(createResult.Ok.length, 46)
+
+  const getAllStreamsResult2 = app.call("chat", "main", "get_all_public_streams", {})
+  console.log(getAllStreamsResult2)
+  t.deepEqual(getAllStreamsResult2.Ok.length, 1, 'a single public stream should be created')
 
   t.end()
 })
-
