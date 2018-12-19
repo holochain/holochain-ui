@@ -102,7 +102,7 @@ pub fn handle_post_message(stream_address: HashString, message_spec: message::Me
 
     let message = message::Message::from_spec(
         &message_spec,
-        &"test author".to_string());
+        &member::handlers::get_my_member_id().to_string());
 
     let message_entry = Entry::App(
         AppEntryType::from("message"),
