@@ -1,6 +1,13 @@
+# [[agents]]
+# id = "test_agent1"
+# name = "HoloTester1"
+# public_address = "sandwich--------------------------------------------------------------------------AAAEqzh28L"
+# key_file = "holo_tester.key"
+
 [[agents]]
-id = "test_agent"
-name = "HoloTester"
+id = "test_agent1"
+name = "HoloTester2"
+public_address = "c-bob-------------------------------------------------------------------------------AMQt"
 key_file = "holo_tester.key"
 
 
@@ -8,13 +15,13 @@ key_file = "holo_tester.key"
 [[dnas]]
 id = "chat_dna"
 file = "dna/holo-chat.hcpkg"
-hash = "QmN0tARea1#ashChat"
+hash = "Qm328wyq38924y"
 
 
 [[instances]]
-id = "holo-chat"
+id = "holo-chat-0"
 dna = "chat_dna"
-agent = "test_agent"
+agent = "test_agent1"
 [instances.logger]
 type = "simple"
 file = "app_spec.log"
@@ -28,4 +35,4 @@ id = "websocket_interface"
 type = "websocket"
 port = 3400
 [[interfaces.instances]]
-id = "holo-chat"
+id = "holo-chat-0"

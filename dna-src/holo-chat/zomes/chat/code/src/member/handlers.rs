@@ -1,6 +1,6 @@
 
 use hdk::{
-    AGENT_ADDRESS,
+    AGENT_INITIAL_HASH,
     holochain_core_types::{
         entry::{entry_type::AppEntryType, AppEntryValue, Entry},
         json::{RawString},
@@ -25,7 +25,7 @@ pub fn handle_get_profile(member_id: Address) -> ZomeApiResult<StoreProfile> {
 }
 
 pub fn get_my_member_id() -> Address {
-    Address::from(AGENT_ADDRESS.to_string())
+    Address::from(AGENT_INITIAL_HASH.to_string())
 }
 
 pub fn handle_get_all_members() -> ZomeApiResult<Vec<Member>> {

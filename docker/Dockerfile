@@ -1,6 +1,6 @@
 FROM holochain/holochain-rust:latest
 
-RUN git clone https://github.com/holochain/holochain-rust && cd holochain-rust && git checkout 15b1892e8544db241e188d2918688ecbc533a45f
+RUN git clone https://github.com/holochain/holochain-rust && cd holochain-rust && git checkout 93620518d549a6fe99cc49f9bed36d99b909925d
 
 WORKDIR /holochain/holochain-rust
 ENV PATH /root/.cargo/bin:$PATH

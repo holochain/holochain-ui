@@ -7,7 +7,7 @@ use hdk::{
 
 use hdk::holochain_core_types::{
     hash::HashString,
-    dna::zome::entry_types::Sharing,
+    dna::entry_types::Sharing,
     cas::content::Address,
 };
 
