@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@holochain/hc-redux-middleware": "^1.0.7",
+    "@holochain/hc-redux-middleware": "^1.0.8",
+    "@holochain/hc-web-client": "0.0.1",
     "@types/autosuggest-highlight": "^3.1.0",
     "@types/immutable": "^3.8.7",
     "@types/json-schema": "^7.0.1",

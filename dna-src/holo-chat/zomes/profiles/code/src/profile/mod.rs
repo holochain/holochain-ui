@@ -87,7 +87,7 @@ pub fn profile_definition() -> ValidatingEntryType {
         native_type: ProfileSpec,
 
         validation_package: || {
-            hdk::ValidationPackageDefinition::ChainFull
+            hdk::ValidationPackageDefinition::Entry
         },
 
         validation: |_profile: ProfileSpec, _ctx: hdk::ValidationData| {
@@ -119,7 +119,7 @@ pub fn field_mapping_definition() -> ValidatingEntryType {
         native_type: ProfileField,
 
         validation_package: || {
-            hdk::ValidationPackageDefinition::ChainFull
+            hdk::ValidationPackageDefinition::Entry
         },
 
         validation: |_profile_field: ProfileField, _ctx: hdk::ValidationData| {

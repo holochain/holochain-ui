@@ -1,4 +1,3 @@
-
 import { connect } from 'react-redux'
 import Persona, { Props, StateProps, DispatchProps, RouterProps } from '../components/persona/persona'
 import { Dispatch } from 'redux'

@@ -74,14 +74,6 @@ fn register_with_vault() -> ZomeApiResult<()> {
                     required: false
                 },
                 ProfileFieldSpec{
-                    name: "avatar".into(),
-                    displayName: "Avatar".into(),
-                    description: "Will be displayed next to your messages".into(),
-                    schema: "".into(),
-                    usage: UsageType::STORE,
-                    required: false
-                },
-                ProfileFieldSpec{
                     name: "timezone".into(),
                     displayName: "Time Zone".into(),
                     description: "Your local timezone. Used by AOP for scheduling".into(),
@@ -95,7 +87,7 @@ fn register_with_vault() -> ZomeApiResult<()> {
 
     hdk::call("profiles", "main", "register_app", spec.into())?;
     // also create a default persona
-    let result = hdk::call("personas", "main", "create_persona", 
+    hdk::call("personas", "main", "create_persona", 
         CreatePersonaCallStruct::new("default".into()).into())?;
     Ok(())
 }

@@ -26,3 +26,7 @@ export const CreateMapping = createHolochainAsyncAction<{mapping: ProfileMapping
 export const SetCurrentPersona = createAction('holo-vault/SET_CURRENT_PERSONA', resolve => {
   return (persona: Persona) => resolve(persona)
 })
+
+export const SetCurrentProfile = createAction('holo-vault/SET_CURRENT_PROFILE', resolve => {
+  return (profile: Profile) => resolve(profile)
+})

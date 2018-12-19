@@ -30,6 +30,8 @@ extern crate serde_json;
 
 pub fn handle_register_app(spec: ProfileSpec) -> ZomeApiResult<()> {
 
+	hdk::debug(spec.clone())?;
+
 	let persona_entry = Entry::App(
         AppEntryType::from("profile"),
         AppEntryValue::from(spec),

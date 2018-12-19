@@ -31,7 +31,7 @@ define_zome! {
             native_type: RawString,
 
             validation_package: || {
-                hdk::ValidationPackageDefinition::ChainFull
+                hdk::ValidationPackageDefinition::Entry
             },
 
             validation: |_name: RawString, _ctx: hdk::ValidationData| {
