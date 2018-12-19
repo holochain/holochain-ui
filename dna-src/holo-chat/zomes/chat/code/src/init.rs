@@ -4,6 +4,7 @@ use hdk::holochain_core_types::json::JsonString;
 use hdk::holochain_core_types::error::HolochainError;
 use hdk::{
     AGENT_ADDRESS,
+    AGENT_ID_STR,
     DNA_HASH,
     error::{ZomeApiResult, ZomeApiError},
 };
@@ -91,7 +92,7 @@ fn register_with_vault() -> ZomeApiResult<()> {
     hdk::call("profiles", "main", "register_app", spec.into())?;
     // also create a default persona
     hdk::call("personas", "main", "create_persona", 
-        CreatePersonaCallStruct::new("default".into()).into())?;
+        CreatePersonaCallStruct::new(AGENT_ID_STR.to_string().into()).into())?;
     Ok(())
 }
 
