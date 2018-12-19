@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
-import Button from '@material-ui/core/Button'
+import Fab from '@material-ui/core/Fab'
 import Send from '@material-ui/icons/Send'
 import { Identity } from '../../types/model/identity'
 
@@ -48,6 +48,20 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     overflow: 'auto',
     marginBottom: 120,
     boxShadow: 'none'
+  },
+  chat: {
+    display: 'flex',
+    height: '100%',
+    width: '100%',
+    backgroundColor: theme.palette.background.paper
+  },
+  channels: {
+    height: '100%',
+    width: '100%'
+  },
+  messages: {
+    height: '100%',
+    width: '100%'
   }
 })
 
@@ -181,8 +195,8 @@ class Messages extends React.Component<Props & RouterProps, State> {
           </List>
         </Paper>
         <Paper className={classes.send}>
-          <Grid container={true} xs={isMobile ? 12 : 7} spacing={0}>
-            <Grid item={true} xs={11}>
+          <Grid container={true} spacing={0}>
+            <Grid item={true} xs={isMobile ? 11 : 6}>
               <TextField
                   id='subject'
                   label='Subject'
@@ -205,9 +219,9 @@ class Messages extends React.Component<Props & RouterProps, State> {
               />
             </Grid>
             <Grid item={true} xs={1}>
-              <Button variant='fab' mini={true} className={classes.button} onClick={this.handleSendMessage}>
+              <Fab className={classes.button} onClick={this.handleSendMessage}>
                 <Send />
-              </Button>
+              </Fab>
             </Grid>
           </Grid>
         </Paper>

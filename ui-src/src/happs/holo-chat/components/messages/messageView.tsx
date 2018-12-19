@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography'
 // import ThumbUp from '@material-ui/icons/ThumbUp'
 // import ThumbDown from '@material-ui/icons/ThumbDown'
 // import IconButton from '@material-ui/core/IconButton'
-import IdeaContainer from '../../containers/ideaContainer'
+// import IdeaContainer from '../../containers/ideaContainer'
 import { MakeAvatar } from '../misc/makeAvatar'
 import { Member } from '../../types/model/stream'
 import { Message as MessageType } from '../../types/model/message'
@@ -118,7 +118,7 @@ function MessageComponent (props: any) {
     case 1:
       return (
         <div className={props.classes.message}>
-          <IdeaContainer idea={props.message.content} />
+          <Typography component='p'>Idea</Typography>
         </div>)
     default:
       return <div className={props.classes.message}><Typography component='p'>No message type found</Typography></div>
