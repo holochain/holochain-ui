@@ -66,6 +66,10 @@ pub fn handle_add_members(stream_address: HashString, members: Vec<Address>) -> 
     Ok(())
 }
 
+pub fn handle_join_stream(stream_address: HashString) -> ZomeApiResult<()> {
+    utils::link_entries_bidir(&member::handlers::get_my_member_id(), &stream_address, "member_of", "has_member")?;
+    Ok(())
+}
 
 pub fn handle_get_my_streams() -> ZomeApiResult<utils::GetLinksLoadResult<Stream>> {
     utils::get_links_and_load_type(&get_my_member_id(), "member_of")
