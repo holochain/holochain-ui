@@ -80,6 +80,11 @@ define_zome! {
 				outputs: |result: ZomeApiResult<()>|,
 				handler: stream::handlers::handle_add_members
 			}
+			join_stream: {
+				inputs: |stream_address: HashString|,
+				outputs: |result: ZomeApiResult<()>|,
+				handler: stream::handlers::handle_join_stream
+			}
 			post_message: {
 				inputs: |stream_address: HashString, message: message::MessageSpec, subjects: Vec<String>|,
 				outputs: |result: ZomeApiResult<()>|,

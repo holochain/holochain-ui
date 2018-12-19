@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { withStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles'
 import withRoot from '../../../withRoot'
+import Typography from '@material-ui/core/Typography'
 
 import {
   Grid,
@@ -35,7 +36,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     display: 'flex',
     height: '100%',
     width: '100%',
-    backgroundColor: '#424242'
+    backgroundColor: theme.palette.background.paper
   },
   channels: {
     height: '100%',
@@ -72,7 +73,7 @@ class DesktopChat extends React.Component<Props, State> {
   constructor (props: any) {
     super(props)
     this.state = {
-      profileDialogOpen: true
+      profileDialogOpen: false
     }
     this.checkProfile()
   }
@@ -111,7 +112,7 @@ class DesktopChat extends React.Component<Props, State> {
   render (): JSX.Element {
     const { classes } = this.props
     return (
-      <div>
+      <div className={classes.chat}>
         <Dialog
             fullScreen={false}
             open={this.state.profileDialogOpen}
@@ -119,8 +120,12 @@ class DesktopChat extends React.Component<Props, State> {
           <DialogTitle id='form-dialog-title'>Register with Holo-Vault</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                <p>Looks like this is your first time using holo-chat! Before you can get started you need to link you vault profile to one of your Personas.</p>
-                <p>If you don't have a persona don't worry! Just complete the form below and vault will create one for you. This data will be visible to other users of Holo-Chat</p>
+                <Typography variant='body1'>
+                  Looks like this is your first time using holo-chat! Before you can get started you need to link you vault profile to one of your Personas.
+                </Typography>
+                <Typography variant='body1'>
+                  If you don't have a persona don't worry! Just complete the form below and vault will create one for you. This data will be visible to other users of Holo-Cha
+                </Typography>
               </DialogContentText>
               <ProfileContainer onSubmit={this.checkProfile}/>
             </DialogContent>
@@ -144,7 +149,7 @@ class DesktopChat extends React.Component<Props, State> {
 
 }
 
-const mapStateToProps = (state: any, ownProps: Props): StateProps => {
+const mapStateToProps = () => {
   return {
   }
 }

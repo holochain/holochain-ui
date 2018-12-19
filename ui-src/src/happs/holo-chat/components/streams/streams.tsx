@@ -28,7 +28,8 @@ import {
 const styles: StyleRulesCallback = (theme: Theme) => ({
   root: {
     width: '100%',
-    boxShadow: 'none'
+    boxShadow: 'none',
+    clear: 'both'
   },
   desktop: {
     backgroundColor: theme.palette.background.paper
