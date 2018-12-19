@@ -52,6 +52,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
+    padding: '50',
     backgroundSize: 'contain'
   },
   footer: {
@@ -88,7 +89,7 @@ class Happs extends React.Component<HappsProps, {}> {
             <List id='hApps' component='nav'>
               {
                 happs.installedHapps.map((group, index) => (
-                  <ListItem id={group.name} divider={true}>
+                  <ListItem id={group.name} divider={true} key={index}>
                     <List>
                       <ListItem >
                         <Typography variant='h3' align='left' color='textSecondary' paragraph={true}>
@@ -106,7 +107,7 @@ class Happs extends React.Component<HappsProps, {}> {
                                   title={app.name}
                                 />
                                 <CardContent>
-                                  <Typography gutterBottom={true} variant='h2'>
+                                  <Typography gutterBottom={true} variant='h4'>
                                     {app.name}
                                   </Typography>
                                   <Typography>
@@ -132,7 +133,7 @@ class Happs extends React.Component<HappsProps, {}> {
             <List id='hApps' component='nav'>
               {
                 happs.installedHapps.map((group, index) => (
-                  <ListItem id={group.name} divider={true}>
+                  <ListItem id={group.name} divider={true} key={index}>
                     <List>
                       <ListItem >
                         <Typography variant='h2' align='center' color='textSecondary' paragraph={true}>
