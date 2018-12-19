@@ -34,6 +34,18 @@ pub fn anchor_definition() -> ValidatingEntryType {
                 validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
                     Ok(())
                 }
+            ),
+            to!(
+                "public_stream",
+                tag: "public_stream",
+
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_base: Address, _target: Address, _ctx: hdk::ValidationData| {
+                    Ok(())
+                }
             )
         ]
     )
