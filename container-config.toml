@@ -26,7 +26,7 @@ hash = "Qm328wyq38924y"
 
 
 [[instances]]
-id = "holo-chat-0"
+id = "holo-chat"
 dna = "chat_dna"
 agent = "test_agent1"
 [instances.logger]
@@ -36,27 +36,6 @@ file = "app_spec.log"
 type = "file"
 path = "tmp-storage"
 
-[[instances]]
-id = "holo-chat-1"
-dna = "chat_dna"
-agent = "test_agent2"
-[instances.logger]
-type = "simple"
-file = "app_spec.log"
-[instances.storage]
-type = "file"
-path = "tmp-storage"
-
-[[instances]]
-id = "holo-chat-2"
-dna = "chat_dna"
-agent = "test_agent3"
-[instances.logger]
-type = "simple"
-file = "app_spec.log"
-[instances.storage]
-type = "file"
-path = "tmp-storage"
 
 
 [[interfaces]]
@@ -65,20 +44,4 @@ id = "websocket_interface"
 type = "websocket"
 port = 3400
 [[interfaces.instances]]
-id = "holo-chat-0"
-
-[[interfaces]]
-id = "websocket_interface"
-[interfaces.driver]
-type = "websocket"
-port = 3401
-[[interfaces.instances]]
-id = "holo-chat-1"
-
-[[interfaces]]
-id = "websocket_interface"
-[interfaces.driver]
-type = "websocket"
-port = 3402
-[[interfaces.instances]]
-id = "holo-chat-2"
+id = "holo-chat"

@@ -18,38 +18,35 @@ interface Member {
   profile: any
 }
 
-// @ts-ignore
-let port = window.prompt('Which instance to connect to?','0')
-
 /*===============================================
 =            Action Type Definitions            =
 ===============================================*/
 
 /*----------  Holochain actions  ----------*/
 
-export const Init = createHolochainAsyncAction<{}, null>(`holo-chat-${port}`, 'chat', 'main', 'init')
+export const Init = createHolochainAsyncAction<{}, null>(`holo-chat`, 'chat', 'main', 'init')
 
-export const CreateStream = createHolochainAsyncAction<StreamSpec, string>(`holo-chat-${port}`, 'chat', 'main', 'create_stream')
+export const CreateStream = createHolochainAsyncAction<StreamSpec, string>(`holo-chat`, 'chat', 'main', 'create_stream')
 
-export const AddMembers = createHolochainAsyncAction<any, any>(`holo-chat-${port}`, 'chat', 'main', 'add_members')
+export const AddMembers = createHolochainAsyncAction<any, any>(`holo-chat`, 'chat', 'main', 'add_members')
 
-export const GetMyStreams = createHolochainAsyncAction<any, Array<any>>(`holo-chat-${port}`, 'chat', 'main', 'get_my_streams')
+export const GetMyStreams = createHolochainAsyncAction<any, Array<any>>(`holo-chat`, 'chat', 'main', 'get_my_streams')
 
-export const GetSubjects = createHolochainAsyncAction<any, Array<any>>(`holo-chat-${port}`, 'chat', 'main', 'get_subjects')
+export const GetSubjects = createHolochainAsyncAction<any, Array<any>>(`holo-chat`, 'chat', 'main', 'get_subjects')
 
-export const GetAllMembers = createHolochainAsyncAction<{}, Vec<Member>>(`holo-chat-${port}`, 'chat', 'main', 'get_all_members')
+export const GetAllMembers = createHolochainAsyncAction<{}, Vec<Member>>(`holo-chat`, 'chat', 'main', 'get_all_members')
 
-export const GetMembers = createHolochainAsyncAction<Address, Vec<Member>>(`holo-chat-${port}`, 'chat', 'main', 'get_members')
+export const GetMembers = createHolochainAsyncAction<Address, Vec<Member>>(`holo-chat`, 'chat', 'main', 'get_members')
 
-export const PostMessage = createHolochainAsyncAction<any, any>(`holo-chat-${port}`, 'chat', 'main', 'post_message')
+export const PostMessage = createHolochainAsyncAction<any, any>(`holo-chat`, 'chat', 'main', 'post_message')
 
-export const GetMessages = createHolochainAsyncAction<any, Array<any>>(`holo-chat-${port}`, 'chat', 'main', 'get_messages')
+export const GetMessages = createHolochainAsyncAction<any, Array<any>>(`holo-chat`, 'chat', 'main', 'get_messages')
 
-export const GetProfile = createHolochainAsyncAction<any, string>(`holo-chat-${port}`, 'chat', 'main', 'get_profile')
+export const GetProfile = createHolochainAsyncAction<any, string>(`holo-chat`, 'chat', 'main', 'get_profile')
 
-// export const GetIdentity = createHolochainAsyncAction<string, Identity>(`holo-chat-${port}`, 'users', 'main', 'getIdentity')
+// export const GetIdentity = createHolochainAsyncAction<string, Identity>(`holo-chat`, 'users', 'main', 'getIdentity')
 
-// export const SetIdentity = createHolochainAsyncAction<IdentitySpec, boolean>(`holo-chat-${port}`, 'users', 'main', 'setIdentity')
+// export const SetIdentity = createHolochainAsyncAction<IdentitySpec, boolean>(`holo-chat`, 'users', 'main', 'setIdentity')
 
 /*----------  Non-holochain actions  ----------*/
 
