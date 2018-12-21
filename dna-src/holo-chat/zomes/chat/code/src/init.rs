@@ -126,7 +126,7 @@ fn create_temp_profile() -> ZomeApiResult<()> {
 fn create_profile_from_vault() -> ZomeApiResult<()> {
     let dna_hash = DNA_HASH.to_string();
 
-    let maybe_get_handle_result = hdk::call("profiles", "main", "retrieve", 
+    let maybe_get_handle_result = hdk::call(hdk::THIS_INSTANCE, "profiles", "main", "fake token", "retrieve", 
         json!({"retriever_DNA": dna_hash, "profile_field": "handle"}).into())?;
     let get_handle_result = CallResult::try_from(maybe_get_handle_result)?;
 
