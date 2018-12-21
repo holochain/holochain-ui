@@ -109,7 +109,7 @@ fn create_temp_profile() -> ZomeApiResult<()> {
     let agent_profile_entry = Entry::App(
         AppEntryType::from("chat_profile"),
         AppEntryValue::from(member::StoreProfile{
-            handle: "test_handle".to_string(),
+            handle: AGENT_ID_STR.to_string(),
             email: "dummy@email".into(), 
             avatar: "".into(), 
             timezone:"GMT".into()
