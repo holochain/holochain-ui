@@ -1,3 +1,8 @@
+[network]
+n3h_path = "/home/willem/repos/n3h"
+n3h_persistence_path = "/tmp"
+bootstrap_nodes = [ ]
+
 [[agents]]
 id = "test_agent1"
 name = "HoloTester1"
