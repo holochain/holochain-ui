@@ -1,26 +1,29 @@
-[[agents]]
-id = "test_agent"
-name = "HoloTester"
-key_file = "holo_tester.key"
 
+[[agents]]
+id = "test_agent1"
+name = "HoloTester1"
+public_address = "sandwich--------------------------------------------------------------------------AAAEqzh28L"
+key_file = "holo_tester.key"
 
 
 [[dnas]]
 id = "chat_dna"
 file = "dna/holo-chat.hcpkg"
-hash = "QmN0tARea1#ashChat"
+hash = "Qm328wyq38924y"
 
 
 [[instances]]
 id = "holo-chat"
 dna = "chat_dna"
-agent = "test_agent"
+agent = "test_agent1"
 [instances.logger]
 type = "simple"
 file = "app_spec.log"
 [instances.storage]
 type = "file"
 path = "tmp-storage"
+
+
 
 [[interfaces]]
 id = "websocket_interface"
