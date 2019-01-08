@@ -35,7 +35,7 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
     display: 'flex',
     height: '100%',
     width: '100%',
-    backgroundColor: '#424242'
+    backgroundColor: theme.palette.secondary.dark
   },
   channels: {
     height: '100%',
