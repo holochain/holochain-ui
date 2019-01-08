@@ -12,7 +12,7 @@ use crate::utils::GetLinksLoadResult;
 use hdk::error::ZomeApiResult;
 use hdk::holochain_core_types::{
     hash::HashString,
-    dna::zome::entry_types::Sharing,
+    dna::entry_types::Sharing,
     json::RawString,
     cas::content::Address,
 };

@@ -11,11 +11,11 @@ import {
 } from '../actions'
 
 const mapStateToProps = (state: any, props: OwnProps & RouterProps): StateProps => {
-  const streamAddress = props.match.params.stream
-  const subjectAddress = props.match.params.subject
-  console.log(streamAddress + 'streamAddress')
-  console.log(subjectAddress + 'subjectAddress')
-  console.log(JSON.stringify(props))
+  // const streamAddress = props.match.params.stream
+  const streamAddress = state.holoChat.streamAddress
+  // const subjectAddress = props.match.params.subject
+  const subjectAddress = state.holoChat.subjectAddress
+
   let streamName = ''
   let subjectName = ''
   const streamNames = state.holoChat.myStreams.filter(function (stream: Stream) {
@@ -30,7 +30,6 @@ const mapStateToProps = (state: any, props: OwnProps & RouterProps): StateProps 
   if (subjectNames.length > 0) {
     subjectName = subjectNames[0].name
   }
-  console.log('subjectName ' + subjectName)
   return {
     messages: state.holoChat.messages, // modelMessagesToViewMessages(state.holoChat.currentMessages, state.holoChat.activeStreamMembers, state.holoChat.myHash),
     members: state.holoChat.members,

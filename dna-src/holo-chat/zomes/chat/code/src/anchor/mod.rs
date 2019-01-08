@@ -1,7 +1,7 @@
 use hdk::entry_definition::ValidatingEntryType;
 
 use hdk::holochain_core_types::{
-    dna::zome::entry_types::Sharing,
+    dna::entry_types::Sharing,
     cas::content::Address,
     json::RawString,
 };

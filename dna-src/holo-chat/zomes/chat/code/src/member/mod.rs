@@ -3,7 +3,7 @@ use hdk::entry_definition::ValidatingEntryType;
 use hdk::holochain_core_types::{
     json::JsonString,
     error::HolochainError,
-    dna::zome::entry_types::Sharing,
+    dna::entry_types::Sharing,
     cas::content::Address,
 };
 

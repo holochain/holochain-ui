@@ -7,7 +7,7 @@ import Input from '@material-ui/core/Input'
 import Chip from '@material-ui/core/Chip'
 import ListItemText from '@material-ui/core/ListItemText'
 import withRoot from '../../../../withRoot'
-import { MakeAvatar } from '../misc/makeAvatar'
+import MakeAvatar from '../misc/makeAvatar'
 
 import { Member } from '../../types/model/stream'
 
@@ -123,7 +123,7 @@ class AgentList extends React.Component<AgentListProps, AgentListState> {
               return (
               <ListItem key={i} button={true} value={member.agentId} className={classes.listItem} onClick={this.onRowClick(member)}>
                 <MakeAvatar member={member}/>
-                <ListItemText primary={'(' + member.handle + ')'} />
+                <ListItemText primary={member.handle} />
               </ListItem>
               )
             })

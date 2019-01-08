@@ -1,4 +1,5 @@
 use core::convert::TryFrom;
+use hdk::AGENT_ADDRESS;
 
 use hdk::holochain_core_types::{
     hash::HashString,
@@ -30,15 +31,13 @@ extern crate serde_json;
 
 pub fn handle_register_app(spec: ProfileSpec) -> ZomeApiResult<()> {
 
-	hdk::debug(spec.clone())?;
-
 	let persona_entry = Entry::App(
         AppEntryType::from("profile"),
         AppEntryValue::from(spec),
     );
     let anchor_entry = Entry::App(
         AppEntryType::from("profile_anchor"),
-        AppEntryValue::from(RawString::from("profiles")),
+        AppEntryValue::from(RawString::from(AGENT_ADDRESS.to_string())),
     );
 
 	let profile_address = hdk::commit_entry(&persona_entry)?;
@@ -53,7 +52,7 @@ pub fn handle_register_app(spec: ProfileSpec) -> ZomeApiResult<()> {
 pub fn handle_get_profiles() -> ZomeApiResult<Vec<Profile>> {
 	let anchor_entry = Entry::App(
         AppEntryType::from("profile_anchor"),
-        AppEntryValue::from(RawString::from("profiles")),
+        AppEntryValue::from(RawString::from(AGENT_ADDRESS.to_string())),
     );
 	let anchor_address = hdk::commit_entry(&anchor_entry)?;
 
@@ -130,7 +129,7 @@ pub fn handle_retrieve(retriever_dna: HashString, profile_field: String) -> Zome
 
 			match &field.entry.mapping {
 				Some(mapping) => {
-					let maybe_get_field_result = hdk::call("personas", "main", "get_field", GetFieldCallStruct{
+					let maybe_get_field_result = hdk::call(hdk::THIS_INSTANCE, "personas", "main", "get_field", "fake token", GetFieldCallStruct{
 						persona_address: mapping.personaAddress.clone(),
 						field_name: mapping.personaFieldName.clone()
 					}.into())?;

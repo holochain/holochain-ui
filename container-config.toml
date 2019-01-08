@@ -1,9 +1,24 @@
 
+
 [[agents]]
 id = "test_agent1"
 name = "HoloTester1"
 public_address = "sandwich--------------------------------------------------------------------------AAAEqzh28L"
 key_file = "holo_tester.key"
+
+[[agents]]
+id = "test_agent2"
+name = "HoloTester2"
+public_address = "bagel-----------------------------------------------------------------------------AAADAq0mCu"
+key_file = "holo_tester.key"
+
+[[agents]]
+id = "test_agent3"
+name = "HoloTester3"
+public_address = "croissant-------------------------------------------------------------------------AAAEuHzxV4"
+key_file = "holo_tester.key"
+
+
 
 
 [[dnas]]
@@ -15,7 +30,7 @@ hash = "Qm328wyq38924y"
 [[instances]]
 id = "holo-chat"
 dna = "chat_dna"
-agent = "test_agent1"
+agent = "test_agent2"
 [instances.logger]
 type = "simple"
 file = "app_spec.log"
