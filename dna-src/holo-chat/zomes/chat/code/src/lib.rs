@@ -30,18 +30,14 @@ define_zome! {
 
 	entries: [
 		message::message_definition(),
-    	stream::public_stream_definition(),
-    	stream::direct_stream_definition(),
-        stream::subject_anchor_definition(),
-        member::profile_definition(),
-        anchor::anchor_definition()
+	    	stream::public_stream_definition(),
+    		stream::direct_stream_definition(),
+	        stream::subject_anchor_definition(),
+	        member::profile_definition(),
+        	anchor::anchor_definition()
 	]
 
-    genesis: || {
-        {
-    		Ok(())
-        }
-    }
+        genesis: || { Ok(()) }
 
 	functions: {
 		main (Public) {
@@ -65,7 +61,7 @@ define_zome! {
 				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<stream::Stream>>|,
 				handler: stream::handlers::handle_get_all_public_streams
 			}
-            get_all_members: {
+            		get_all_members: {
 				inputs: | |,
 				outputs: |result: ZomeApiResult<Vec<member::Member>>|,
 				handler: member::handlers::handle_get_all_members
@@ -95,11 +91,11 @@ define_zome! {
 				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<message::Message>>|,
 				handler: stream::handlers::handle_get_messages
 			}
-            get_subjects: {
-                inputs: |stream_address: HashString|,
-                outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<stream::Subject>>|,
-                handler: stream::handlers::handle_get_subjects
-            }
+			get_subjects: {
+				inputs: |stream_address: HashString|,
+				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<stream::Subject>>|,
+				handler: stream::handlers::handle_get_subjects
+			}
 			get_profile: {
 				inputs: |member_id: Address|,
 				outputs: |result: ZomeApiResult<member::StoreProfile>|,
